@@ -1,0 +1,133 @@
+.fieldset {
+  display: flex;
+  gap: 15px;
+  border: 0;
+  margin: 0;
+  padding: 20px;
+}
+
+.legend {
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.group {
+  display: flex;
+  gap: 20px;
+}
+
+.horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.vertical {
+  flex-direction: column;
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: start;
+
+  & .title {
+    color: #2c2c2c;
+    font-family: Roboto;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px; /* 133.333% */
+  }
+
+  & .subtitle {
+    color: #2c2c2c;
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 125% */
+  }
+}
+
+.optionDisabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.optionSelected {
+  outline: 2px solid #2c2c2c;
+}
+
+.radio {
+  all: unset;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  cursor: pointer;
+}
+
+.radio:hover {
+  border-color: #6b7280; /* neutral-500 */
+}
+
+.radio:focus-visible {
+  outline: 2px solid #111827; /* focus ring */
+  outline-offset: 2px;
+  border-color: #111827;
+}
+
+.radio[data-state="checked"] {
+  border-color: #111827;
+}
+
+.label {
+  cursor: pointer;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  user-select: none;
+}
+
+.labelText {
+  font-size: 14px;
+  color: #111827;
+}
+
+.desc {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.error {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #b91c1c; /* red-700 */
+}
+
+.groupError .radio {
+  border-color: #ef4444; /* red-500 */
+}
+
+.radioItem {
+  display: flex;
+  padding: 32px 48px;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  border-radius: 20px;
+
+  &:hover {
+    background: #f3f4f6;
+  }
+  &.active {
+    border: 1px solid #2c2c2c;
+  }
+}

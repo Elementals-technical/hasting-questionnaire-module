@@ -21,7 +21,6 @@ const Home: React.FC<HomeExampleProps> = () => {
                     </p>
                 </section>
             </div>
-            <footer className={s.footer}>&copy;&nbsp;{new Date().getFullYear()}, Phenomenon.studio</footer>
         </main>
     );
 };

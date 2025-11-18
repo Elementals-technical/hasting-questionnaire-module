@@ -1,0 +1,19 @@
+import { useMultiStepFormContext } from './MultiStepFormContext';
+import { MultiStepForm } from './types';
+
+type MultiStepFormStepWrapperProps = React.PropsWithChildren<{
+    /**
+     * The id of the step
+     */
+    id: keyof MultiStepForm;
+}>;
+
+export const MultiStepFormStep: React.FC<MultiStepFormStepWrapperProps> = ({ children, id }) => {
+    const { currentStep } = useMultiStepFormContext() as any;
+
+    if (currentStep.id !== id) {
+        return null;
+    }
+
+    return children;
+};

@@ -1,0 +1,52 @@
+.wrap {
+  display: flex;
+  gap: 140px;
+  justify-content: center;
+  padding: 0 220px;
+}
+
+.plannings {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.item {
+  cursor: pointer;
+  padding: 12px 20px;
+  width: 360px;
+  border-radius: 10px;
+  &.active {
+    border-radius: 20px;
+    outline: 1px solid #2c2c2c;
+  }
+
+  &:hover {
+    background: #f3f4f6;
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    user-select: none;
+    opacity: 0.5;
+  }
+}
+
+.label {
+  color: #2c2c2c;
+  font-family: Roboto;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px; /* 133.333% */
+}
+
+.description {
+  color: #2c2c2c;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 125% */
+}

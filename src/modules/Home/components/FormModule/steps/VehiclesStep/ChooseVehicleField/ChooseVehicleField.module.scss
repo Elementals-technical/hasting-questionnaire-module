@@ -1,0 +1,23 @@
+.wrap {
+  display: flex;
+  gap: 140px;
+  justify-content: center;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.fieldsWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.icon {
+  margin-bottom: 64px;
+}
