@@ -1,0 +1,22 @@
+.wrap {
+    display: flex;
+    justify-content: space-between;
+}
+
+.title {
+    color: #ac5331;
+    font-family: 'Proxima Nova';
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 52px; /* 130% */
+}
+
+.subtitle {
+    color: #282828;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 32px; /* 160% */
+}

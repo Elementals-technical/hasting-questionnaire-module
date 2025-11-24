@@ -1,6 +1,8 @@
 /// <reference  types="@svg-use/vite/client"  />
 import { fileURLToPath } from 'node:url';
+import path from 'path';
 import svgUse from '@svg-use/vite';
+import tailwindcss from '@tailwindcss/vite';
 import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
 import react from '@vitejs/plugin-react';
 import { visualizer } from 'rollup-plugin-visualizer';
@@ -12,6 +14,7 @@ export default defineConfig(() => {
     return {
         plugins: [
             react(),
+            tailwindcss(),
             TanStackRouterVite(),
             svgUse(),
             eslint({ exclude: ['/virtual:/', 'node_modules/**'] }),
@@ -35,7 +38,7 @@ export default defineConfig(() => {
                 },
                 {
                     find: '@',
-                    replacement: '/src',
+                    replacement: path.resolve(__dirname, './src'),
                 },
             ],
         },
