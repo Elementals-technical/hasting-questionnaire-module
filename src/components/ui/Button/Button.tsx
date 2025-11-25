@@ -1,6 +1,5 @@
-import * as React from 'react';
-import { cn } from '@/lib/utils';
 import { Slot } from '@radix-ui/react-slot';
+import clsx from 'clsx';
 
 const Button = ({
     className,
@@ -11,7 +10,7 @@ const Button = ({
 }) => {
     const Comp = asChild ? Slot : 'button';
 
-    return <Comp data-slot="button" className={cn({ className })} {...props} />;
+    return <Comp data-slot="button" className={clsx('cursor-pointer', className)} {...props} />;
 };
 
 export { Button };

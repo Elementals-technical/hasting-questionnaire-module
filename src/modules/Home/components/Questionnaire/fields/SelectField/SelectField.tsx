@@ -35,7 +35,7 @@ export const SelectField = <TFieldValues extends FieldValues>({
         <Controller
             name={name}
             control={control}
-            //   defaultValue={defaultValue}
+            defaultValue={defaultValue}
             render={({ field, fieldState }) => {
                 const error = fieldState.error?.message;
                 const id = `sl-${name.replace(/\./g, '-')}`;

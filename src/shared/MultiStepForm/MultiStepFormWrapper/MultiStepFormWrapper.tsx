@@ -19,7 +19,7 @@ export const MultiStepFormWrapper: React.FC<React.PropsWithChildren> = ({ childr
             transition={{
                 x: { type: 'spring', stiffness: 650, damping: 32, mass: 0.45 },
                 scale: { type: 'spring', stiffness: 520, damping: 30, mass: 0.45 },
-                opacity: { duration: 0.12, ease: 'easeOut' },
+                opacity: { duration: 0, ease: 'easeOut' },
             }}
         >
             {children}

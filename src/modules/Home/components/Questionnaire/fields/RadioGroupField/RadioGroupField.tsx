@@ -28,6 +28,7 @@ export const RadioGroupField = <TFieldValues extends FieldValues>({
     options,
     orientation = 'vertical',
     className,
+    required,
 }: Props<TFieldValues>) => {
     return (
         <Controller
@@ -42,6 +43,7 @@ export const RadioGroupField = <TFieldValues extends FieldValues>({
                         {label && (
                             <legend className={s.legend}>
                                 {label}
+                                {required && `*`}
                                 {/** Место для * */}
                             </legend>
                         )}
@@ -52,6 +54,7 @@ export const RadioGroupField = <TFieldValues extends FieldValues>({
                             value={field.value ?? ''}
                             onValueChange={field.onChange}
                             onBlur={field.onBlur}
+                            required={required}
                             className={clsx(
                                 s.group,
                                 orientation === 'horizontal' ? s.horizontal : s.vertical,
@@ -72,6 +75,7 @@ export const RadioGroupField = <TFieldValues extends FieldValues>({
                                             className={s.radio}
                                             value={opt.value}
                                             disabled={opt.disabled}
+                                            required={required}
                                         >
                                             <div
                                                 className={clsx(

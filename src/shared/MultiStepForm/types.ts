@@ -9,18 +9,18 @@ import {
 
 export type AnimationDirection = 'next' | 'prev';
 
-export type RoomStyleStepSchema = z.infer<typeof roomStyleStepSchema>;
-export type BathroomsStepSchema = z.infer<typeof bathroomsStepSchema>;
-export type BathroomsFocusStepSchema = z.infer<typeof bathroomsFocusStepSchema>;
-export type NameStepSchema = z.infer<typeof nameStepSchema>;
-export type EmailStepSchema = z.infer<typeof emailStepSchema>;
+export type RoomStyleStepData = z.infer<typeof roomStyleStepSchema>;
+export type BathroomsStepData = z.infer<typeof bathroomsStepSchema>;
+export type BathroomsFocusStepData = z.infer<typeof bathroomsFocusStepSchema>;
+export type NameStepData = z.infer<typeof nameStepSchema>;
+export type EmailStepData = z.infer<typeof emailStepSchema>;
 
 export type MultiStepForm = {
-    roomStyle: RoomStyleStepSchema;
-    bathrooms: BathroomsStepSchema;
-    bathroomFocus: BathroomsFocusStepSchema;
-    name: NameStepSchema;
-    email: EmailStepSchema;
+    roomStyle: RoomStyleStepData;
+    bathrooms: BathroomsStepData;
+    bathroomFocus: BathroomsFocusStepData;
+    name: NameStepData;
+    email: EmailStepData;
     // stage:
     // aboutProject
     // products:
