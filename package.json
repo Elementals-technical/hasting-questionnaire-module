@@ -5,7 +5,6 @@
     "type": "module",
     "engines": {
         "node": ">=22.0.0",
-        "yarn": "please-use-npm",
         "npm": ">=10.9.0"
     },
     "scripts": {
