@@ -1,6 +1,6 @@
 import { useMultiStepFormContext, useMultiStepFormStepForm } from '@/shared';
 import { Button } from '@/components/ui';
-import { BathroomsPicker } from './components/SelectBathroom/SelectBathroom';
+import { BathroomsPicker } from './components/BathroomPicker/BathroomPicker';
 import s from './BathroomsForm.module.scss';
 
 export const BathroomsForm = () => {

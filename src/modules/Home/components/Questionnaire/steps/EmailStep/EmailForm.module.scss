@@ -5,13 +5,13 @@
 .body {
     display: flex;
     justify-content: space-between;
-    gap: 40px;
     .content {
         align-self: center;
     }
 }
 
 .title {
+    width: 335px;
     color: #ac5331;
     font-family: 'Proxima Nova';
     font-size: 40px;
@@ -29,6 +29,44 @@
     line-height: 32px; /* 160% */
 }
 
+.inputWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 210px;
+}
+
+.input {
+    color: #9ca3af;
+    font-family: 'Proxima Nova';
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 40px; /* 125% */
+
+    &:focus {
+        outline: none;
+        border-color: none;
+    }
+
+    &::placeholder {
+        color: #9ca3af;
+    }
+
+    &Error {
+        border-color: #ef4444;
+    }
+}
+
+.errorMessage {
+    color: #ef4444;
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+
 .footer {
     position: fixed;
     background: rgba(241, 235, 230, 0.8);
@@ -39,23 +77,6 @@
     justify-content: space-between;
     align-self: flex-end;
     padding: 20px 80px;
-
-    .totalRooms {
-        margin-right: 0;
-        color: #ac5331;
-        font-family: Poppins;
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 20px; /* 142.857% */
-    }
-
-    .rightSectionBtns {
-        display: flex;
-        align-items: center;
-        gap: 32px;
-    }
-
     .btnBack,
     .btnNext {
         border-radius: 100px;
@@ -72,10 +93,5 @@
         font-style: normal;
         font-weight: 700;
         line-height: 20px; /* 142.857% */
-    }
-
-    .btnNext {
-        background: #ac5331;
-        color: #fff;
     }
 }

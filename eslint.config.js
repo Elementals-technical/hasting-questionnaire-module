@@ -63,7 +63,7 @@ export default tseslint.config({
         ],
         '@typescript-eslint/no-empty-function': 'off',
         '@typescript-eslint/no-non-null-assertion': 'off',
-        'arrow-body-style': ['error', 'always'],
+        'arrow-body-style': 'off',
         'no-nested-ternary': ['error'],
         eqeqeq: ['error', 'always'],
         'no-alert': ['error'],

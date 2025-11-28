@@ -1,9 +1,9 @@
 import clsx from 'clsx';
 import type { HomeExampleProps } from './types';
 import { Questionnaire } from './components/Questionnaire/Questionnaire';
-import s from './style.module.css';
+import s from './style.module.scss';
 
-const Home: React.FC<HomeExampleProps> = () => {
+const QuestionnaireRoute: React.FC<HomeExampleProps> = () => {
     return (
         <main className={clsx(s.wrap, 'full-height')}>
             <Questionnaire />
@@ -11,4 +11,4 @@ const Home: React.FC<HomeExampleProps> = () => {
     );
 };
 
-export default Home;
+export default QuestionnaireRoute;

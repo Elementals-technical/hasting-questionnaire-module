@@ -16,25 +16,39 @@ import { Route as rootRoute } from './routes/__root'
 
 // Create Virtual Routes
 
-const IndexLazyImport = createFileRoute('/')()
+const StartLazyImport = createFileRoute('/start')()
+const QuestionnaireLazyImport = createFileRoute('/questionnaire')()
 
 // Create/Update Routes
 
-const IndexLazyRoute = IndexLazyImport.update({
-  id: '/',
-  path: '/',
+const StartLazyRoute = StartLazyImport.update({
+  id: '/start',
+  path: '/start',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+} as any).lazy(() => import('./routes/start.lazy').then((d) => d.Route))
+
+const QuestionnaireLazyRoute = QuestionnaireLazyImport.update({
+  id: '/questionnaire',
+  path: '/questionnaire',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/questionnaire.lazy').then((d) => d.Route))
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexLazyImport
+    '/questionnaire': {
+      id: '/questionnaire'
+      path: '/questionnaire'
+      fullPath: '/questionnaire'
+      preLoaderRoute: typeof QuestionnaireLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/start': {
+      id: '/start'
+      path: '/start'
+      fullPath: '/start'
+      preLoaderRoute: typeof StartLazyImport
       parentRoute: typeof rootRoute
     }
   }
@@ -43,33 +57,38 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexLazyRoute
+  '/questionnaire': typeof QuestionnaireLazyRoute
+  '/start': typeof StartLazyRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexLazyRoute
+  '/questionnaire': typeof QuestionnaireLazyRoute
+  '/start': typeof StartLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof IndexLazyRoute
+  '/questionnaire': typeof QuestionnaireLazyRoute
+  '/start': typeof StartLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/questionnaire' | '/start'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/questionnaire' | '/start'
+  id: '__root__' | '/questionnaire' | '/start'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexLazyRoute: typeof IndexLazyRoute
+  QuestionnaireLazyRoute: typeof QuestionnaireLazyRoute
+  StartLazyRoute: typeof StartLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexLazyRoute: IndexLazyRoute,
+  QuestionnaireLazyRoute: QuestionnaireLazyRoute,
+  StartLazyRoute: StartLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -82,11 +101,15 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/questionnaire",
+        "/start"
       ]
     },
-    "/": {
-      "filePath": "index.lazy.tsx"
+    "/questionnaire": {
+      "filePath": "questionnaire.lazy.tsx"
+    },
+    "/start": {
+      "filePath": "start.lazy.tsx"
     }
   }
 }

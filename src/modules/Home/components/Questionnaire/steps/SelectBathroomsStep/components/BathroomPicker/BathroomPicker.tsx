@@ -5,7 +5,7 @@ import MasterBathIcon from '@/assets/icons/products/MasterBathIcon';
 import { BathroomsStepData } from '@/shared/MultiStepForm/types';
 import { Controller } from 'react-hook-form';
 import { BATHROOM_TYPES } from '../../constants';
-import s from './SelectBathroom.module.scss';
+import s from './BathroomPicker.module.scss';
 
 const bathroomOptions: BathroomOption[] = BATHROOM_TYPES.map((i) => {
     return {
@@ -33,7 +33,7 @@ export const BathroomsPicker: React.FC<BathroomsPickerPropsT> = ({ form }) => {
                 name="rooms"
                 control={control}
                 render={({ field }) => {
-                    const handleToggle = (optionId: (typeof BATHROOM_TYPES)[number]) => {
+                    const handleToggle = (optionId: string) => {
                         const existingIndex = field.value.findIndex((room) => {
                             return room.id === optionId;
                         });
@@ -49,14 +49,14 @@ export const BathroomsPicker: React.FC<BathroomsPickerPropsT> = ({ form }) => {
                         }
                     };
 
-                    const handleIncrement = (optionId: (typeof BATHROOM_TYPES)[number]) => {
+                    const handleIncrement = (optionId: string) => {
                         const updatedRooms = field.value.map((room) => {
                             return room.id === optionId ? { ...room, count: room.count + 1 } : room;
                         });
                         field.onChange(updatedRooms);
                     };
 
-                    const handleDecrement = (optionId: (typeof BATHROOM_TYPES)[number]) => {
+                    const handleDecrement = (optionId: string) => {
                         const updatedRooms = field.value.map((room) => {
                             return room.id === optionId && room.count > 1 ? { ...room, count: room.count - 1 } : room;
                         });

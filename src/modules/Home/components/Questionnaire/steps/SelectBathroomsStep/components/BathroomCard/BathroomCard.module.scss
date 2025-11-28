@@ -43,6 +43,11 @@
     align-items: center;
     gap: 1rem;
     margin-top: 1rem;
+    visibility: visible;
+
+    &Hidden {
+        visibility: hidden;
+    }
 }
 
 .counterButton {
@@ -74,29 +79,4 @@
     color: #111827;
     width: 2rem;
     text-align: center;
-}
-
-.footer {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 1rem;
-    max-width: 75rem;
-    margin: 3rem auto 0;
-}
-
-.submitButton {
-    background-color: #92400e;
-    color: #ffffff;
-    font-weight: 600;
-    padding: 1rem 3rem;
-    border-radius: 9999px;
-    font-size: 1.125rem;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-
-    &:hover {
-        background-color: #78350f;
-    }
 }

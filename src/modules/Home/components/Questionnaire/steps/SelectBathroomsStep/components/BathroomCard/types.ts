@@ -1,16 +1,14 @@
-import { BATHROOM_TYPES } from '../../constants';
-
 export type BathroomCardProps = {
     option: BathroomOption;
-    count: number;
+    count?: number;
     isSelected: boolean;
     onToggle: () => void;
-    onIncrement: () => void;
-    onDecrement: () => void;
+    onIncrement?: () => void;
+    onDecrement?: () => void;
 };
 
 export type BathroomOption = {
-    id: (typeof BATHROOM_TYPES)[number];
+    id: string;
     label: string;
     icon: React.ReactNode;
 };

@@ -11,7 +11,9 @@ import {
     bathroomsStepSchema,
     emailStepSchema,
     nameStepSchema,
+    projectGoalsStepSchema,
     roomStyleStepSchema,
+    stageStepSchema,
 } from './schemas';
 
 type MultiStepFormContextType = {
@@ -57,6 +59,7 @@ export const MULTI_STEP_FORM_STEPS = {
         id: 'bathroomFocus',
         label: 'Bathroom Focus',
         title: 'Great! Which room should we focus on?',
+        description: 'Select one room to get started',
         schema: bathroomsFocusStepSchema,
         enabled: true,
     },
@@ -73,6 +76,21 @@ export const MULTI_STEP_FORM_STEPS = {
         title: `Let's keep rollin!`,
         description: `Enter you email and let's get styling`,
         schema: emailStepSchema,
+        enabled: true,
+    },
+    stage: {
+        id: 'stage',
+        label: 'Stage',
+        title: `What best describes the current stage of your project?`,
+        schema: stageStepSchema,
+        enabled: true,
+    },
+    aboutProject: {
+        id: 'aboutProject',
+        label: 'About Project',
+        title: 'Let’s get to know your project a bit',
+        description: 'Give us the lowdown',
+        schema: projectGoalsStepSchema,
         enabled: true,
     },
 } as const satisfies Record<keyof MultiStepForm, MultiStepFormStep>;
@@ -92,6 +110,8 @@ const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
     },
     name: { name: '' },
     email: { email: '' },
+    stage: { stage: '' },
+    aboutProject: { projectType: '', goals: [], challenges: [] },
 };
 
 const MultiStepFormContext = React.createContext<MultiStepFormContextType>({} as MultiStepFormContextType);

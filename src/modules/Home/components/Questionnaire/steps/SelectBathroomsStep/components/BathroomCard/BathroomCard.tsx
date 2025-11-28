@@ -20,16 +20,18 @@ const BathroomCard: React.FC<BathroomCardProps> = ({
                 <div className={s.cardIcon}>{option.icon}</div>
                 <span className={s.cardLabel}>{option.label}</span>
             </Button>
-            <div className={s.counter}>
-                <Button className={s.counterButton} onClick={onDecrement} disabled={count <= 1}>
-                    <MinIcon />
-                </Button>
-                <span className={s.counterValue}>{count}</span>
+            {count && (
+                <div className={clsx(s.counter, { [s.counterHidden]: !isSelected })}>
+                    <Button className={s.counterButton} onClick={onDecrement} disabled={count <= 1}>
+                        <MinIcon />
+                    </Button>
+                    <span className={s.counterValue}>{count}</span>
 
-                <Button className={s.counterButton} onClick={onIncrement}>
-                    <PlusIcon />
-                </Button>
-            </div>
+                    <Button className={s.counterButton} onClick={onIncrement}>
+                        <PlusIcon />
+                    </Button>
+                </div>
+            )}
         </div>
     );
 };
