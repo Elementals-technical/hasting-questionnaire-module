@@ -1,14 +1,14 @@
 import React from 'react';
+import BathroomCard from '../../../../../../../../shared/BathroomCard/BathroomCard';
+import { CardOption } from '../../../../../../../../shared/BathroomCard/types';
 import { BathroomFocusPickerPropsT } from './types';
 import MasterBathIcon from '@/assets/icons/products/MasterBathIcon';
 import { BathroomsFocusStepData } from '@/shared/MultiStepForm/types';
 import { Controller } from 'react-hook-form';
 import { BATHROOM_SELECTABLE_IDS } from '../../constants';
-import BathroomCard from '../../../SelectBathroomsStep/components/BathroomCard/BathroomCard';
-import { BathroomOption } from '../../../SelectBathroomsStep/components/BathroomCard/types';
 import s from './BathroomFocusPicker.module.scss';
 
-const bathroomFocusOptions: BathroomOption[] = BATHROOM_SELECTABLE_IDS.map((i) => {
+const bathroomFocusOptions: CardOption[] = BATHROOM_SELECTABLE_IDS.map((i) => {
     return {
         id: i,
         label: i,

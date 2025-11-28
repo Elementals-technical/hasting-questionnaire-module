@@ -1,5 +1,5 @@
 export type BathroomCardProps = {
-    option: BathroomOption;
+    option: CardOption;
     count?: number;
     isSelected: boolean;
     onToggle: () => void;
@@ -7,7 +7,7 @@ export type BathroomCardProps = {
     onDecrement?: () => void;
 };
 
-export type BathroomOption = {
+export type CardOption = {
     id: string;
     label: string;
     icon: React.ReactNode;

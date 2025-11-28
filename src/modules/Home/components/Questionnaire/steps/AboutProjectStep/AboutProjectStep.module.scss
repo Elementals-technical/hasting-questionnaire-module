@@ -166,3 +166,28 @@
         line-height: 20px; /* 142.857% */
     }
 }
+
+.greetingOverlay {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.greetingText {
+    color: #ac5331;
+    font-family: 'Proxima Nova';
+    font-size: 54px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 64px; /* 118.519% */
+}

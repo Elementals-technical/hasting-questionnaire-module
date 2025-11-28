@@ -26,7 +26,6 @@ const BathroomCard: React.FC<BathroomCardProps> = ({
                         <MinIcon />
                     </Button>
                     <span className={s.counterValue}>{count}</span>
-
                     <Button className={s.counterButton} onClick={onIncrement}>
                         <PlusIcon />
                     </Button>

@@ -2,6 +2,7 @@ import { AboutProjectForm } from './steps/AboutProjectStep/AboutProjectStep';
 import { BathroomFocusForm } from './steps/BathroomFocusStep/BathroomFocusForm';
 import { EmailForm } from './steps/EmailStep/EmailForm';
 import { NameForm } from './steps/NameStep/NameForm';
+import { ProductsForm } from './steps/ProductsStep/ProductsForm';
 import { RoomStyleForm } from './steps/RoomStyleStep/RoomStyleForm';
 import { BathroomsForm } from './steps/SelectBathroomsStep/BathroomsForm';
 import { StageForm } from './steps/StageStep/StageStep';
@@ -35,6 +36,9 @@ export const Questionnaire: React.FC = () => {
                     </MultiStepFormStep>
                     <MultiStepFormStep id="aboutProject">
                         <AboutProjectForm />
+                    </MultiStepFormStep>
+                    <MultiStepFormStep id="products">
+                        <ProductsForm />
                     </MultiStepFormStep>
                 </MultiStepFormWrapper>
             </div>

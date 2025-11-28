@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useMultiStepFormContext, useMultiStepFormStepForm } from '@/shared/MultiStepForm/MultiStepFormContext';
 import { Controller } from 'react-hook-form';
 import { challengesOptions, goalsOptions, projectTypeOptions } from './constants';
@@ -5,6 +6,7 @@ import { Button } from '@/components/ui';
 import s from './AboutProjectStep.module.scss';
 
 export const AboutProjectForm = () => {
+    const [showOverlay, setShowOverlay] = useState(false);
     const { currentStep, goToPreviousStep, goToNextStep, setFormStepData } = useMultiStepFormContext();
 
     const { form } = useMultiStepFormStepForm('aboutProject');
@@ -15,8 +17,21 @@ export const AboutProjectForm = () => {
 
     const submitHandler = form.handleSubmit((data) => {
         setFormStepData('aboutProject', data);
-        goToNextStep();
+        setShowOverlay(true);
+
+        setTimeout(() => {
+            setShowOverlay(false);
+            goToNextStep();
+        }, 2500);
     });
+
+    if (showOverlay) {
+        return (
+            <div className={s.greetingOverlay}>
+                <div className={s.greetingText}>Almost there! Let's talk solutions</div>
+            </div>
+        );
+    }
 
     return (
         <div className={s.wrap}>

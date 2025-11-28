@@ -1,7 +1,7 @@
+import { WorkflowStep } from '@/shared/WorkflowSteps/WorkflowStep';
 import { useNavigate } from '@tanstack/react-router';
 import { STEPS_ITEMS } from './components/constants';
 import { Button } from '@/components/ui';
-import { WorkflowStep } from './components/WorkflowSteps/WorkflowStep';
 import s from './style.module.scss';
 
 export const StartRoute = () => {

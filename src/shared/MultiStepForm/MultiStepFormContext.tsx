@@ -11,6 +11,7 @@ import {
     bathroomsStepSchema,
     emailStepSchema,
     nameStepSchema,
+    productsStepSchema,
     projectGoalsStepSchema,
     roomStyleStepSchema,
     stageStepSchema,
@@ -93,6 +94,14 @@ export const MULTI_STEP_FORM_STEPS = {
         schema: projectGoalsStepSchema,
         enabled: true,
     },
+    products: {
+        id: 'products',
+        label: 'Products',
+        title: 'Which solutions are you in need of?',
+        description: 'Select as many as you need',
+        schema: productsStepSchema,
+        enabled: true,
+    },
 } as const satisfies Record<keyof MultiStepForm, MultiStepFormStep>;
 const MULTI_STEP_FORM_STEPS_ARRAY = Object.values(MULTI_STEP_FORM_STEPS).filter((step) => {
     return step.enabled;
@@ -112,6 +121,7 @@ const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
     email: { email: '' },
     stage: { stage: '' },
     aboutProject: { projectType: '', goals: [], challenges: [] },
+    products: { products: [] },
 };
 
 const MultiStepFormContext = React.createContext<MultiStepFormContextType>({} as MultiStepFormContextType);

@@ -1,13 +1,13 @@
-import BathroomCard from '../../../../../../../../shared/BathroomCard/BathroomCard';
-import { CardOption } from '../../../../../../../../shared/BathroomCard/types';
-import { BathroomsPickerPropsT } from './types';
+import { ProductsPickerPropsT } from './types';
 import MasterBathIcon from '@/assets/icons/products/MasterBathIcon';
-import { BathroomsStepData } from '@/shared/MultiStepForm/types';
+import BathroomCard from '@/shared/BathroomCard/BathroomCard';
+import { CardOption } from '@/shared/BathroomCard/types';
+import { ProductStepData } from '@/shared/MultiStepForm/types';
 import { Controller } from 'react-hook-form';
-import { BATHROOM_TYPES } from '../../constants';
-import s from './BathroomPicker.module.scss';
+import { PRODUCTS_TYPES } from '../../constants';
+import s from './ProductsPicker.module.scss';
 
-const bathroomOptions: CardOption[] = BATHROOM_TYPES.map((i) => {
+const productsOptions: CardOption[] = PRODUCTS_TYPES.map((i) => {
     return {
         id: i,
         label: i,
@@ -15,14 +15,14 @@ const bathroomOptions: CardOption[] = BATHROOM_TYPES.map((i) => {
     };
 });
 
-export const BathroomsPicker: React.FC<BathroomsPickerPropsT> = ({ form }) => {
+export const ProductsPicker: React.FC<ProductsPickerPropsT> = ({ form }) => {
     const {
         control,
         handleSubmit,
         formState: { errors },
     } = form;
 
-    const onSubmit = (data: BathroomsStepData) => {
+    const onSubmit = (data: ProductStepData) => {
         console.log('Form data:', data);
         // Handle form submission
     };
@@ -30,7 +30,7 @@ export const BathroomsPicker: React.FC<BathroomsPickerPropsT> = ({ form }) => {
     return (
         <form className={s.wrap} onSubmit={handleSubmit(onSubmit)}>
             <Controller
-                name="rooms"
+                name="products"
                 control={control}
                 render={({ field }) => {
                     const handleToggle = (optionId: string) => {
@@ -65,7 +65,7 @@ export const BathroomsPicker: React.FC<BathroomsPickerPropsT> = ({ form }) => {
 
                     return (
                         <div className={s.grid}>
-                            {bathroomOptions.map((option) => {
+                            {productsOptions.map((option) => {
                                 const room = field.value.find((r) => {
                                     return r.id === option.id;
                                 });
@@ -94,7 +94,7 @@ export const BathroomsPicker: React.FC<BathroomsPickerPropsT> = ({ form }) => {
                     );
                 }}
             />
-            {errors.rooms && <p className={s.error}>{errors.rooms.message}</p>}
+            {errors.products && <p className={s.error}>{errors.products.message}</p>}
         </form>
     );
 };

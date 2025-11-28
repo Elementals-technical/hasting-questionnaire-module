@@ -5,6 +5,7 @@ import {
     PROJECT_TYPE_OPTIONS_IDS,
 } from '@/modules/Home/components/Questionnaire/steps/AboutProjectStep/constants';
 import { BATHROOM_SELECTABLE_IDS } from '@/modules/Home/components/Questionnaire/steps/BathroomFocusStep/constants';
+import { PRODUCTS_TYPES } from '@/modules/Home/components/Questionnaire/steps/ProductsStep/constants';
 import { BATHROOM_TYPES } from '@/modules/Home/components/Questionnaire/steps/SelectBathroomsStep/constants';
 import { STAGE_OPTIONS_IDS } from '@/modules/Home/components/Questionnaire/steps/StageStep/constants';
 
@@ -52,4 +53,15 @@ export const projectGoalsStepSchema = z.object({
     challenges: z
         .array(z.enum(CHALLENGES_OPTIONS_IDS as [string, ...string[]]))
         .min(1, 'Please select at least one challenge'),
+});
+
+export const productsStepSchema = z.object({
+    products: z
+        .array(
+            z.object({
+                id: z.enum(PRODUCTS_TYPES),
+                count: z.number().int().min(1, 'Count must be at least 1'),
+            })
+        )
+        .min(1, 'Please select at least one product'),
 });

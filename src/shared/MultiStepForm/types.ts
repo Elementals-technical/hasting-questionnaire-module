@@ -4,6 +4,7 @@ import {
     bathroomsStepSchema,
     emailStepSchema,
     nameStepSchema,
+    productsStepSchema,
     projectGoalsStepSchema,
     roomStyleStepSchema,
     stageStepSchema,
@@ -18,6 +19,7 @@ export type NameStepData = z.infer<typeof nameStepSchema>;
 export type EmailStepData = z.infer<typeof emailStepSchema>;
 export type StageStepData = z.infer<typeof stageStepSchema>;
 export type ProjectGoalsStepData = z.infer<typeof projectGoalsStepSchema>;
+export type ProductStepData = z.infer<typeof productsStepSchema>;
 
 export type MultiStepForm = {
     roomStyle: RoomStyleStepData;
@@ -27,7 +29,7 @@ export type MultiStepForm = {
     email: EmailStepData;
     stage: StageStepData;
     aboutProject: ProjectGoalsStepData;
-    // products:
+    products: ProductStepData;
     // productsFocus:
     // productsVanities
 };
