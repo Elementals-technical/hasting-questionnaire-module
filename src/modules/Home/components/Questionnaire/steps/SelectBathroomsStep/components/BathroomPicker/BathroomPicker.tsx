@@ -1,19 +1,9 @@
 import BathroomCard from '../../../../../../../../shared/BathroomCard/BathroomCard';
-import { CardOption } from '../../../../../../../../shared/BathroomCard/types';
 import { BathroomsPickerPropsT } from './types';
-import MasterBathIcon from '@/assets/icons/products/MasterBathIcon';
 import { BathroomsStepData } from '@/shared/MultiStepForm/types';
 import { Controller } from 'react-hook-form';
-import { BATHROOM_TYPES } from '../../constants';
+import { bathroomOptions } from './constants';
 import s from './BathroomPicker.module.scss';
-
-const bathroomOptions: CardOption[] = BATHROOM_TYPES.map((i) => {
-    return {
-        id: i,
-        label: i,
-        icon: <MasterBathIcon />,
-    };
-});
 
 export const BathroomsPicker: React.FC<BathroomsPickerPropsT> = ({ form }) => {
     const {

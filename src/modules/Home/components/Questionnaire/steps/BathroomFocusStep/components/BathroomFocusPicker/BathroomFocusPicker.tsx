@@ -1,20 +1,11 @@
 import React from 'react';
 import BathroomCard from '../../../../../../../../shared/BathroomCard/BathroomCard';
-import { CardOption } from '../../../../../../../../shared/BathroomCard/types';
 import { BathroomFocusPickerPropsT } from './types';
-import MasterBathIcon from '@/assets/icons/products/MasterBathIcon';
+import { useMultiStepFormStepForm } from '@/shared';
 import { BathroomsFocusStepData } from '@/shared/MultiStepForm/types';
 import { Controller } from 'react-hook-form';
-import { BATHROOM_SELECTABLE_IDS } from '../../constants';
+import { bathroomOptions } from '../../../SelectBathroomsStep/components/BathroomPicker/constants';
 import s from './BathroomFocusPicker.module.scss';
-
-const bathroomFocusOptions: CardOption[] = BATHROOM_SELECTABLE_IDS.map((i) => {
-    return {
-        id: i,
-        label: i,
-        icon: <MasterBathIcon />,
-    };
-});
 
 const BathroomFocusPicker: React.FC<BathroomFocusPickerPropsT> = ({ form }) => {
     const {
@@ -22,6 +13,10 @@ const BathroomFocusPicker: React.FC<BathroomFocusPickerPropsT> = ({ form }) => {
         handleSubmit,
         formState: { errors },
     } = form;
+
+    const { rooms } = useMultiStepFormStepForm('bathrooms').form.getValues();
+
+    const focusOptions = bathroomOptions.filter((option) => rooms.some((selected) => selected.id === option.id));
 
     const onSubmit = (data: BathroomsFocusStepData) => {
         console.log('Form data:', data);
@@ -51,7 +46,7 @@ const BathroomFocusPicker: React.FC<BathroomFocusPickerPropsT> = ({ form }) => {
 
                     return (
                         <div className={s.list}>
-                            {bathroomFocusOptions.map((option) => {
+                            {focusOptions.map((option) => {
                                 const room = field.value.find((r) => {
                                     return r === option.id;
                                 });

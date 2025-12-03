@@ -18,6 +18,8 @@
     font-style: normal;
     font-weight: 600;
     line-height: 52px; /* 130% */
+    width: 500px;
+    margin-bottom: 16px;
 }
 
 .subtitle {
@@ -58,6 +60,7 @@
 
     .btnBack,
     .btnNext {
+        text-transform: uppercase;
         border-radius: 100px;
         border: 2px solid #ac5331;
         display: flex;

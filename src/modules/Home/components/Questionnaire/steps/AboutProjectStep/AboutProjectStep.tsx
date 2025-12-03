@@ -154,7 +154,7 @@ export const AboutProjectForm = () => {
             </div>
             <div className={s.footer}>
                 <Button className={s.btnBack} onClick={goToPreviousStep}>
-                    Cancel
+                    Back
                 </Button>
                 <Button className={s.btnNext} onClick={submitHandler}>
                     Next

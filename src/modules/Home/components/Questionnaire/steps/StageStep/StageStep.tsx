@@ -67,7 +67,7 @@ export const StageForm = () => {
             </div>
             <div className={s.footer}>
                 <Button className={s.btnBack} onClick={goToPreviousStep}>
-                    Cancel
+                    BACK
                 </Button>
                 <Button className={s.btnNext} onClick={submitHandler}>
                     Next

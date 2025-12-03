@@ -34,7 +34,7 @@ export const BathroomsForm = () => {
             </div>
             <div className={s.footer}>
                 <Button className={s.btnBack} onClick={goToPreviousStep}>
-                    Cancel
+                    BACK
                 </Button>
 
                 <div className={s.rightSectionBtns}>

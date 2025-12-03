@@ -30,7 +30,7 @@ export const RoomStyleForm = () => {
             </div>
             <div className={s.footer}>
                 <Button className={s.btnBack} onClick={handleClick}>
-                    Cancel
+                    BACK
                 </Button>
                 <Button className={s.btnNext} onClick={submitHandler}>
                     Next

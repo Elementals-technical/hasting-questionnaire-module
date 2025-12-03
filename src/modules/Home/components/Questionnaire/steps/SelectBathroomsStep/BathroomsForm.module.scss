@@ -8,11 +8,15 @@
     gap: 40px;
     .content {
         align-self: center;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
     }
 }
 
 .title {
     color: #ac5331;
+    max-width: 400px;
     font-family: 'Proxima Nova';
     font-size: 40px;
     font-style: normal;
@@ -58,6 +62,7 @@
 
     .btnBack,
     .btnNext {
+        text-transform: uppercase;
         border-radius: 100px;
         border: 2px solid #ac5331;
         display: flex;
