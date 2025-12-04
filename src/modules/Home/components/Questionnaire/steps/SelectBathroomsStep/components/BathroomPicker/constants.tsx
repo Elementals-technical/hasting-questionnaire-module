@@ -5,7 +5,7 @@ import GuestBathIcon from '@/assets/icons/products/GuestBathIcon';
 import MasterBathIcon from '@/assets/icons/products/MasterBathIcon';
 import PowderRoomIcon from '@/assets/icons/products/PowderRoom';
 import SmallBathIcon from '@/assets/icons/products/SmallBathIcon';
-import SpaBathIcon from '@/assets/icons/products/spaBathIcon';
+import SpaBathRoomIcon from '@/assets/icons/products/SpaBathIcon';
 import { CardOption } from '@/shared/BathroomCard/types';
 
 export const bathroomOptions: CardOption[] = [
@@ -47,6 +47,6 @@ export const bathroomOptions: CardOption[] = [
     {
         id: 'spaBath',
         label: 'Spa Bath',
-        icon: <SpaBathIcon />,
+        icon: <SpaBathRoomIcon />,
     },
 ];

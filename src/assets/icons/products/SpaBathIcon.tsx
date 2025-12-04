@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SpaBathIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
+const SpaBathRoomIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
             <g clip-path="url(#clip0_1316_3780)">
@@ -26,4 +26,4 @@ const SpaBathIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
     );
 };
 
-export default SpaBathIcon;
+export default SpaBathRoomIcon;
