@@ -26,7 +26,7 @@ export const RoomStyleForm = () => {
                     <div className={s.title}>{currentStep.title}</div>
                     <div className={s.subtitle}>{currentStep.description}</div>
                 </div>
-                <div className={s.content}>IMAGE SELECTOR MODULE IN DEV</div>
+                <div className={s.content}>{/* <ImagePicker images={[]} form={form} /> */}</div>
             </div>
             <div className={s.footer}>
                 <Button className={s.btnBack} onClick={handleClick}>
