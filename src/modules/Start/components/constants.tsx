@@ -22,3 +22,5 @@ export const STEPS_ITEMS = [
         icon: <HeartCircleIcon />,
     },
 ];
+
+export const keyWords = ['ideas', 'solutions', 'designs', 'insights'];

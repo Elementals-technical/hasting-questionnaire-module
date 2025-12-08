@@ -1,9 +1,10 @@
 import { FC, useEffect, useState } from 'react';
 import { QuoteRotatorPropsT } from './types';
+import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import styles from './QuoteRotator.module.scss';
 
-export const QuoteRotator: FC<QuoteRotatorPropsT> = ({ quotes }) => {
+export const QuoteRotator: FC<QuoteRotatorPropsT> = ({ className, quotes }) => {
     const [index, setIndex] = useState(0);
 
     useEffect(() => {
@@ -15,7 +16,7 @@ export const QuoteRotator: FC<QuoteRotatorPropsT> = ({ quotes }) => {
     }, []);
 
     return (
-        <div className={styles.wrapper}>
+        <div className={clsx(styles.wrapper, className)}>
             <AnimatePresence mode="wait">
                 <motion.div
                     key={index}

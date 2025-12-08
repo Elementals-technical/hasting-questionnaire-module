@@ -21,7 +21,6 @@ export const StartRoute = () => {
                     return <WorkflowStep title={`${idx + 1}. ${i.title}`} description={i.description} icon={i.icon} />;
                 })}
             </div>
-
             <Button className={s.cta} onClick={handleClick}>
                 LET’S GET STARTED
             </Button>

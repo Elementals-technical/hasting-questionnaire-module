@@ -1,0 +1,146 @@
+.wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    flex: 1 0 0;
+    width: 100%;
+    max-width: 600px;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.label {
+    color: #3d4246;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.sliderWrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+
+.minValue,
+.maxValue {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #3d4246;
+    min-width: 45px;
+    flex-shrink: 0;
+}
+
+.minValue {
+    text-align: right;
+}
+
+.maxValue {
+    text-align: left;
+}
+
+.Root {
+    position: relative;
+    display: flex;
+    align-items: center;
+    user-select: none;
+    touch-action: none;
+    flex: 1;
+    height: 40px;
+}
+
+.Track {
+    border-radius: 100px;
+    border: 1px solid #000;
+    background: #fff;
+    position: relative;
+    flex-grow: 1;
+    height: 6px;
+}
+
+.Range {
+    border-radius: 50px;
+    background: transparent;
+    position: absolute;
+    height: 100%;
+}
+
+.Thumb {
+    cursor: pointer;
+    display: block;
+    position: relative;
+
+    border-radius: 100px;
+    border: 1px solid #282828;
+    background: #fff;
+
+    width: 20px;
+    height: 20px;
+    box-shadow: 0px 0px 4px 0px rgba(62, 62, 63, 0.2) inset;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: #e6e6e6;
+        width: 28px;
+        height: 28px;
+    }
+
+    &:focus {
+        outline: none;
+        width: 28px;
+        height: 28px;
+    }
+
+    &:active {
+        cursor: grabbing;
+    }
+}
+
+.valueDisplay {
+    position: absolute;
+    top: -45px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    border-radius: 100px;
+    border: 1px solid #282828;
+
+    background: #282828;
+
+    color: white;
+    padding: 6px 12px;
+    color: #fff;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 125% */
+    text-transform: capitalize;
+    white-space: nowrap;
+    pointer-events: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+
+    // // Стрілка вниз
+    // &::after {
+    //     content: '';
+    //     position: absolute;
+    //     bottom: -4px;
+    //     left: 50%;
+    //     transform: translateX(-50%);
+    //     width: 0;
+    //     height: 0;
+    //     border-left: 5px solid transparent;
+    //     border-right: 5px solid transparent;
+    //     border-top: 5px solid #3d4246;
+    // }
+}
