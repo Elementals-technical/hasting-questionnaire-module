@@ -4,11 +4,19 @@ import BathroomCard from '@/shared/BathroomCard/BathroomCard';
 import { useMultiStepFormContext, useMultiStepFormStepForm } from '@/shared/MultiStepForm/MultiStepFormContext';
 import { QuoteRotator } from '@/shared/QuoteRotator/QuoteRotator';
 import Slider from '@/shared/Slider/Slider';
+import TagSelector from '@/shared/TagSelector/TagSelector';
 import { useNavigate } from '@tanstack/react-router';
 import clsx from 'clsx';
 import { Controller } from 'react-hook-form';
 import { quotes } from '../ProductsStep/constants';
-import { mountingTypesOptions, VANITIES_DEPTH_TYPES } from './constants';
+import {
+    colorTypesOptions,
+    conceptStyleOptions,
+    lookTypesOptions,
+    mountingTypesOptions,
+    sinkTypesOptions,
+    VANITIES_DEPTH_TYPES,
+} from './constants';
 import { Button } from '@/components/ui';
 import s from './VanitiesStep.module.scss';
 
@@ -23,14 +31,19 @@ export const VanitiesForm = () => {
         formState: { errors },
     } = form;
 
-    const submitHandler = form.handleSubmit((data) => {
-        setFormStepData('vanities', data);
-        setShowOverlay(true);
+    const submitHandler = form.handleSubmit(
+        (data) => {
+            setFormStepData('vanities', data);
+            setShowOverlay(true);
 
-        setTimeout(() => {
-            navigate({ to: '/result' });
-        }, 5500);
-    });
+            setTimeout(() => {
+                navigate({ to: '/result' });
+            }, 5500);
+        },
+        (errors) => {
+            console.log('❌ VALIDATION ERRORS:', errors);
+        }
+    );
 
     if (showOverlay) {
         return (
@@ -47,11 +60,11 @@ export const VanitiesForm = () => {
     return (
         <div className={s.wrap}>
             <div className={s.body}>
-                <div className={s.content}>
+                <div className={s.left}>
                     <div className={s.title}>{currentStep.title}</div>
                     <div className={s.subtitle}>{currentStep.description}</div>
                 </div>
-                <div className={clsx(s.content, s.form)}>
+                <div className={clsx(s.right, s.form)}>
                     {/* Size Section */}
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Size</h2>
@@ -75,7 +88,7 @@ export const VanitiesForm = () => {
                             render={({ field }) => (
                                 <div className={s.fieldWwrap}>
                                     <span className={s.fieldLabel}>Depth</span>
-                                    <div className={s.optionsContainer}>
+                                    <div className={clsx(s.optionsContainer, 'justify-start')}>
                                         {VANITIES_DEPTH_TYPES.map((option) => {
                                             const isSelected = field.value === option;
 
@@ -145,27 +158,24 @@ export const VanitiesForm = () => {
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Concept | Style</h2>
                         <Controller
-                            name="mountingType"
+                            name="conceptStyle"
                             control={form.control}
                             render={({ field }) => {
-                                const handleToggle = (goalId: string) => {
-                                    const currentGoals = field.value || [];
-                                    const isSelected = currentGoals.includes(goalId);
+                                const handleToggle = (targetValue: string) => {
+                                    const currentValue = field.value;
+                                    const isSelected = currentValue === targetValue;
 
                                     if (isSelected) {
-                                        field.onChange(currentGoals.filter((id) => id !== goalId));
+                                        field.onChange('');
                                     } else {
-                                        field.onChange([...currentGoals, goalId]);
+                                        field.onChange(targetValue);
                                     }
                                 };
 
                                 return (
                                     <div className={s.optionsContainer}>
-                                        {mountingTypesOptions.map((option) => {
-                                            const room = field.value.find((r) => {
-                                                return r === option.id;
-                                            });
-                                            const isSelected = !!room;
+                                        {conceptStyleOptions.map((option) => {
+                                            const isSelected = field.value === option.id;
 
                                             return (
                                                 <BathroomCard
@@ -182,7 +192,89 @@ export const VanitiesForm = () => {
                                 );
                             }}
                         />
-                        {errors.mountingType && <p className={s.errorMessage}>{errors.mountingType.message}</p>}
+                        {errors.conceptStyle && <p className={s.errorMessage}>{errors.conceptStyle.message}</p>}
+                    </div>
+
+                    {/* Sink type style section */}
+                    <div className={s.section}>
+                        <h2 className={s.sectionTitle}>Sink type</h2>
+                        <Controller
+                            name="sinkType"
+                            control={form.control}
+                            render={({ field }) => {
+                                const handleToggle = (targetValue: string) => {
+                                    const currentValue = field.value;
+                                    const isSelected = currentValue === targetValue;
+
+                                    if (isSelected) {
+                                        field.onChange('');
+                                    } else {
+                                        field.onChange(targetValue);
+                                    }
+                                };
+
+                                return (
+                                    <div className={s.optionsContainer}>
+                                        {sinkTypesOptions.map((option) => {
+                                            const isSelected = field.value === option.id;
+
+                                            return (
+                                                <BathroomCard
+                                                    key={option.id}
+                                                    option={option}
+                                                    isSelected={isSelected}
+                                                    onToggle={() => {
+                                                        return handleToggle(option.id);
+                                                    }}
+                                                />
+                                            );
+                                        })}
+                                    </div>
+                                );
+                            }}
+                        />
+                        {errors.sinkType && <p className={s.errorMessage}>{errors.sinkType.message}</p>}
+                    </div>
+
+                    {/* Color type style section */}
+                    <div className={s.section}>
+                        <h2 className={s.sectionTitle}>Color</h2>
+                        <Controller
+                            name="color"
+                            control={form.control}
+                            render={({ field }) => {
+                                return (
+                                    <div className={clsx(s.optionsContainer, 'justify-start')}>
+                                        <TagSelector
+                                            options={colorTypesOptions}
+                                            selected={field.value}
+                                            onSelect={(value) => field.onChange(value)}
+                                        />
+                                    </div>
+                                );
+                            }}
+                        />
+                        {errors.color && <p className={s.errorMessage}>{errors.color.message}</p>}
+                    </div>
+                    {/* Look type style section */}
+                    <div className={s.section}>
+                        <h2 className={s.sectionTitle}>Color</h2>
+                        <Controller
+                            name="look"
+                            control={form.control}
+                            render={({ field }) => {
+                                return (
+                                    <div className={clsx(s.optionsContainer, 'justify-start')}>
+                                        <TagSelector
+                                            options={lookTypesOptions}
+                                            selected={field.value}
+                                            onSelect={(value) => field.onChange(value)}
+                                        />
+                                    </div>
+                                );
+                            }}
+                        />
+                        {errors.look && <p className={s.errorMessage}>{errors.look.message}</p>}
                     </div>
                 </div>
             </div>

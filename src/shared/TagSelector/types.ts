@@ -2,7 +2,6 @@
 export interface TagOption {
     id: string;
     label: string;
-    value: string;
 }
 
 export interface TagSelectorProps {

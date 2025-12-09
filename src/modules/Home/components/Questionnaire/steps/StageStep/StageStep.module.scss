@@ -64,6 +64,10 @@
 
         .infoIcon {
             color: #fff;
+            &Selected {
+                color: #fff;
+                fill: #fff;
+            }
         }
 
         &:hover {

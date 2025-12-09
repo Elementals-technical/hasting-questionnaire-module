@@ -2,6 +2,7 @@ import { useState } from 'react';
 import CloseIcon from '@/assets/icons/common/CloseIcon';
 import InfoIcon from '@/assets/icons/common/InfoIcon';
 import { useMultiStepFormContext, useMultiStepFormStepForm } from '@/shared/MultiStepForm/MultiStepFormContext';
+import { Popoup } from '@/shared/Popover/Popover';
 import clsx from 'clsx';
 import { Controller } from 'react-hook-form';
 import { stageOptions } from './constants';
@@ -45,21 +46,47 @@ export const StageForm = () => {
                                             className={clsx(s.optionButton, { [s.optionButtonSelected]: isSelected })}
                                         >
                                             <span className={s.optionLabel}>{option.label}</span>
+
                                             {option?.hasTooltip && (
+                                                <Popoup
+                                                    trigger={
+                                                        <InfoIcon
+                                                            className={clsx(s.infoIcon, {
+                                                                [s.infoIconSelected]: isSelected,
+                                                            })}
+                                                            onClick={() => handleShowTooltip(option.tooltipText)}
+                                                        />
+                                                    }
+                                                    content={
+                                                        <div className={s.tooltipText}>
+                                                            <span>{tooltip}</span>
+                                                            <CloseIcon onClick={() => handleShowTooltip('')} />
+                                                        </div>
+                                                    }
+                                                    open={!!tooltip}
+                                                    onOpenChange={(open) =>
+                                                        handleShowTooltip(open ? option.tooltipText : '')
+                                                    }
+                                                    side="bottom"
+                                                    showArrow={false}
+                                                    showCloseButton={false}
+                                                />
+                                            )}
+                                            {/* {option?.hasTooltip && (
                                                 <InfoIcon
                                                     className={s.infoIcon}
                                                     onClick={() => handleShowTooltip(option.tooltipText)}
                                                 />
-                                            )}
+                                            )} */}
                                         </Button>
                                     );
                                 })}
                                 {fieldState.error && <p className={s.errorMessage}>{fieldState.error.message}</p>}
-                                {tooltip && (
+                                {/* {tooltip && (
                                     <div className={s.tooltipText}>
                                         <span>{tooltip}</span> <CloseIcon onClick={() => setTooltip('')} />
                                     </div>
-                                )}
+                                )} */}
                             </div>
                         )}
                     />

@@ -1,0 +1,88 @@
+/* Popover.Content */
+.Content {
+    position: relative;
+    right: 50px;
+    border-radius: 20px;
+    background-color: transparent;
+    box-shadow:
+        hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
+        hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+    animation-duration: 400ms;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+}
+
+/* Popover.Arrow */
+.Arrow {
+    fill: white;
+}
+
+/* Popover.Close button */
+.Close {
+    font-family: inherit;
+    border-radius: 100%;
+    height: 25px;
+    width: 25px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: hsl(0 0% 40%); /* Сірий колір */
+}
+
+.Close:hover {
+    background-color: hsl(0 0% 95%);
+}
+
+/* Стилі для тригера (MixerHorizontalIcon button) */
+.IconButton {
+    font-family: inherit;
+    border-radius: 100%;
+    height: 35px;
+    width: 35px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    background-color: white;
+    border: 1px solid hsl(0 0% 80%);
+    cursor: pointer;
+}
+
+.IconButton:hover {
+    background-color: hsl(0 0% 90%);
+}
+
+/* Стилі форми */
+.Fieldset {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.Label {
+    font-size: 13px;
+    color: black;
+    width: 75px;
+}
+
+.Input {
+    all: unset;
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    border-radius: 4px;
+    padding: 0 10px;
+    font-size: 13px;
+    line-height: 1;
+    color: black;
+    box-shadow: 0 0 0 1px hsl(0 0% 80%);
+    height: 25px;
+}

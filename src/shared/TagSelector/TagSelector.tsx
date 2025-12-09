@@ -29,7 +29,7 @@ const TagSelector: FC<TagSelectorProps> = ({
         onSelect(selected.filter((v) => v !== value));
     };
 
-    const availableOptions = options.filter((opt) => !selected.includes(opt.value));
+    const availableOptions = options.filter((opt) => !selected.includes(opt.id));
 
     return (
         <div className={clsx(s.container, className)}>
@@ -38,7 +38,7 @@ const TagSelector: FC<TagSelectorProps> = ({
             <div className={s.tagsWrapper}>
                 {/* Selected Tags */}
                 {selected.map((value) => {
-                    const option = options.find((opt) => opt.value === value);
+                    const option = options.find((opt) => opt.id === value);
                     if (!option) return null;
 
                     return (
@@ -99,7 +99,7 @@ const TagSelector: FC<TagSelectorProps> = ({
                                                 key={option.id}
                                                 className={s.option}
                                                 onClick={() => {
-                                                    handleToggle(option.value);
+                                                    handleToggle(option.id);
                                                     setOpen(false);
                                                 }}
                                                 type="button"

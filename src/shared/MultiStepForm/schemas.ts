@@ -87,7 +87,196 @@ export const vanitiesStepSchema = z.object({
         .array(z.enum(MOUNTING_TYPE_TYPES as [string, ...string[]]))
         .min(1, 'Please select valid mounting type'),
     conceptStyle: z.nativeEnum(CONCEPT_STYLE_TYPES, {
-        message: 'Please select a mounting type',
+        message: 'Please select a style type',
+    }),
+    sinkType: z.nativeEnum(SINK_TYPE_TYPES, {
+        message: 'Please select a sink type',
+    }),
+    color: z
+        .array(z.nativeEnum(COLOR_TYPES))
+        .min(1, 'Please select at least one color')
+        .max(Object.keys(COLOR_TYPES).length),
+    look: z
+        .array(z.nativeEnum(LOOK_TYPES))
+        .min(1, 'Please select at least one color')
+        .max(Object.keys(LOOK_TYPES).length),
+});
+
+export const storageStepSchema = z.object({
+    width: z
+        .number()
+        .min(24, { message: 'Value must be 24 or greater' })
+        .max(114.2, { message: 'Value must be 114.2 or less' }),
+    depth: z.enum(VANITIES_DEPTH_TYPES, {
+        message: 'Please select a depth',
+    }),
+    mountingType: z
+        .array(z.enum(MOUNTING_TYPE_TYPES as [string, ...string[]]))
+        .min(1, 'Please select valid mounting type'),
+    conceptStyle: z.nativeEnum(CONCEPT_STYLE_TYPES, {
+        message: 'Please select a style type',
+    }),
+    sinkType: z.nativeEnum(SINK_TYPE_TYPES, {
+        message: 'Please select a sink type',
+    }),
+    color: z
+        .array(z.nativeEnum(COLOR_TYPES))
+        .min(1, 'Please select at least one color')
+        .max(Object.keys(COLOR_TYPES).length),
+    look: z
+        .array(z.nativeEnum(LOOK_TYPES))
+        .min(1, 'Please select at least one color')
+        .max(Object.keys(LOOK_TYPES).length),
+});
+
+export const countertopsStepSchema = z.object({
+    width: z
+        .number()
+        .min(24, { message: 'Value must be 24 or greater' })
+        .max(114.2, { message: 'Value must be 114.2 or less' }),
+    depth: z.enum(VANITIES_DEPTH_TYPES, {
+        message: 'Please select a depth',
+    }),
+    mountingType: z
+        .array(z.enum(MOUNTING_TYPE_TYPES as [string, ...string[]]))
+        .min(1, 'Please select valid mounting type'),
+    conceptStyle: z.nativeEnum(CONCEPT_STYLE_TYPES, {
+        message: 'Please select a style type',
+    }),
+    sinkType: z.nativeEnum(SINK_TYPE_TYPES, {
+        message: 'Please select a sink type',
+    }),
+    color: z
+        .array(z.nativeEnum(COLOR_TYPES))
+        .min(1, 'Please select at least one color')
+        .max(Object.keys(COLOR_TYPES).length),
+    look: z
+        .array(z.nativeEnum(LOOK_TYPES))
+        .min(1, 'Please select at least one color')
+        .max(Object.keys(LOOK_TYPES).length),
+});
+
+export const mirrorsStepSchema = z.object({
+    width: z
+        .number()
+        .min(24, { message: 'Value must be 24 or greater' })
+        .max(114.2, { message: 'Value must be 114.2 or less' }),
+    depth: z.enum(VANITIES_DEPTH_TYPES, {
+        message: 'Please select a depth',
+    }),
+    mountingType: z
+        .array(z.enum(MOUNTING_TYPE_TYPES as [string, ...string[]]))
+        .min(1, 'Please select valid mounting type'),
+    conceptStyle: z.nativeEnum(CONCEPT_STYLE_TYPES, {
+        message: 'Please select a style type',
+    }),
+    sinkType: z.nativeEnum(SINK_TYPE_TYPES, {
+        message: 'Please select a sink type',
+    }),
+    color: z
+        .array(z.nativeEnum(COLOR_TYPES))
+        .min(1, 'Please select at least one color')
+        .max(Object.keys(COLOR_TYPES).length),
+    look: z
+        .array(z.nativeEnum(LOOK_TYPES))
+        .min(1, 'Please select at least one color')
+        .max(Object.keys(LOOK_TYPES).length),
+});
+
+export const pedestalAndConsolesStepSchema = z.object({
+    width: z
+        .number()
+        .min(24, { message: 'Value must be 24 or greater' })
+        .max(114.2, { message: 'Value must be 114.2 or less' }),
+    depth: z.enum(VANITIES_DEPTH_TYPES, {
+        message: 'Please select a depth',
+    }),
+    mountingType: z
+        .array(z.enum(MOUNTING_TYPE_TYPES as [string, ...string[]]))
+        .min(1, 'Please select valid mounting type'),
+    conceptStyle: z.nativeEnum(CONCEPT_STYLE_TYPES, {
+        message: 'Please select a style type',
+    }),
+    sinkType: z.nativeEnum(SINK_TYPE_TYPES, {
+        message: 'Please select a sink type',
+    }),
+    color: z
+        .array(z.nativeEnum(COLOR_TYPES))
+        .min(1, 'Please select at least one color')
+        .max(Object.keys(COLOR_TYPES).length),
+    look: z
+        .array(z.nativeEnum(LOOK_TYPES))
+        .min(1, 'Please select at least one color')
+        .max(Object.keys(LOOK_TYPES).length),
+});
+
+export const basinStepSchema = z.object({
+    width: z
+        .number()
+        .min(24, { message: 'Value must be 24 or greater' })
+        .max(114.2, { message: 'Value must be 114.2 or less' }),
+    depth: z.enum(VANITIES_DEPTH_TYPES, {
+        message: 'Please select a depth',
+    }),
+    mountingType: z
+        .array(z.enum(MOUNTING_TYPE_TYPES as [string, ...string[]]))
+        .min(1, 'Please select valid mounting type'),
+    conceptStyle: z.nativeEnum(CONCEPT_STYLE_TYPES, {
+        message: 'Please select a style type',
+    }),
+    sinkType: z.nativeEnum(SINK_TYPE_TYPES, {
+        message: 'Please select a sink type',
+    }),
+    color: z
+        .array(z.nativeEnum(COLOR_TYPES))
+        .min(1, 'Please select at least one color')
+        .max(Object.keys(COLOR_TYPES).length),
+    look: z
+        .array(z.nativeEnum(LOOK_TYPES))
+        .min(1, 'Please select at least one color')
+        .max(Object.keys(LOOK_TYPES).length),
+});
+
+export const tubsStepSchema = z.object({
+    width: z
+        .number()
+        .min(24, { message: 'Value must be 24 or greater' })
+        .max(114.2, { message: 'Value must be 114.2 or less' }),
+    depth: z.enum(VANITIES_DEPTH_TYPES, {
+        message: 'Please select a depth',
+    }),
+    mountingType: z
+        .array(z.enum(MOUNTING_TYPE_TYPES as [string, ...string[]]))
+        .min(1, 'Please select valid mounting type'),
+    conceptStyle: z.nativeEnum(CONCEPT_STYLE_TYPES, {
+        message: 'Please select a style type',
+    }),
+    sinkType: z.nativeEnum(SINK_TYPE_TYPES, {
+        message: 'Please select a sink type',
+    }),
+    color: z
+        .array(z.nativeEnum(COLOR_TYPES))
+        .min(1, 'Please select at least one color')
+        .max(Object.keys(COLOR_TYPES).length),
+    look: z
+        .array(z.nativeEnum(LOOK_TYPES))
+        .min(1, 'Please select at least one color')
+        .max(Object.keys(LOOK_TYPES).length),
+});
+
+export const toiletsStepSchema = z.object({
+    width: z
+        .number()
+        .min(24, { message: 'Value must be 24 or greater' })
+        .max(114.2, { message: 'Value must be 114.2 or less' }),
+    depth: z.enum(VANITIES_DEPTH_TYPES, {
+        message: 'Please select a depth',
+    }),
+    mountingType: z
+        .array(z.enum(MOUNTING_TYPE_TYPES as [string, ...string[]]))
+        .min(1, 'Please select valid mounting type'),
+    conceptStyle: z.nativeEnum(CONCEPT_STYLE_TYPES, {
+        message: 'Please select a style type',
     }),
     sinkType: z.nativeEnum(SINK_TYPE_TYPES, {
         message: 'Please select a sink type',
