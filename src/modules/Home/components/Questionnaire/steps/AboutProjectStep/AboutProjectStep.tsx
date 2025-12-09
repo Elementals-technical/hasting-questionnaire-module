@@ -36,11 +36,11 @@ export const AboutProjectForm = () => {
     return (
         <div className={s.wrap}>
             <div className={s.body}>
-                <div className={s.content}>
+                <div className={s.left}>
                     <div className={s.title}>{currentStep.title}</div>
                     <div className={s.subtitle}>{currentStep.description}</div>
                 </div>
-                <div className={s.content}>
+                <div className={s.right}>
                     {/* Project Type Section */}
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Project type</h2>
