@@ -15,12 +15,14 @@
 }
 
 .label {
-    color: #3d4246;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 14px;
+    color: #282828;
+    font-family: Poppins;
+    font-size: 20px;
     font-style: normal;
-    font-weight: 600;
-    line-height: 1.4;
+    font-weight: 400;
+    line-height: 24px; /* 120% */
+    text-transform: capitalize;
+    margin-bottom: 45px;
 }
 
 .sliderWrapper {
@@ -28,16 +30,24 @@
     align-items: center;
     gap: 16px;
     width: 100%;
+    position: relative;
+}
+
+.valueWrapper {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
 }
 
 .minValue,
 .maxValue {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 12px;
+    color: #282828;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
     font-weight: 500;
-    color: #3d4246;
-    min-width: 45px;
-    flex-shrink: 0;
+    line-height: 20px; /* 125% */
+    text-transform: capitalize;
 }
 
 .minValue {
@@ -55,7 +65,6 @@
     user-select: none;
     touch-action: none;
     flex: 1;
-    height: 40px;
 }
 
 .Track {

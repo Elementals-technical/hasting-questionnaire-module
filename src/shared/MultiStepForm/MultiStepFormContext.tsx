@@ -7,14 +7,20 @@ import { DefaultValues, Path, PathValue, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useSafeContext } from '@/hooks/useSafeContext';
 import {
+    CONCEPT_STYLE_TYPES,
+    SINK_TYPE_TYPES,
+} from '@/modules/Home/components/Questionnaire/steps/VanitiesStep/constants';
+import {
     bathroomsFocusStepSchema,
     bathroomsStepSchema,
     emailStepSchema,
     nameStepSchema,
+    productsFocusStepSchema,
     productsStepSchema,
     projectGoalsStepSchema,
     roomStyleStepSchema,
     stageStepSchema,
+    vanitiesStepSchema,
 } from './schemas';
 
 type MultiStepFormContextType = {
@@ -102,6 +108,22 @@ export const MULTI_STEP_FORM_STEPS = {
         schema: productsStepSchema,
         enabled: true,
     },
+    productsFocus: {
+        id: 'productsFocus',
+        label: 'Products Focus',
+        title: 'Great! Which solution should we focus on first?',
+        description: 'Select a product to start',
+        schema: productsFocusStepSchema,
+        enabled: true,
+    },
+    vanities: {
+        id: 'vanities',
+        label: 'Vanities',
+        title: 'Let’s get to know your vanity musts',
+        description: 'Don’t feel compelled to answer everything. Thats why we’re here!',
+        schema: vanitiesStepSchema,
+        enabled: true,
+    },
 } as const satisfies Record<keyof MultiStepForm, MultiStepFormStep>;
 const MULTI_STEP_FORM_STEPS_ARRAY = Object.values(MULTI_STEP_FORM_STEPS).filter((step) => {
     return step.enabled;
@@ -122,6 +144,16 @@ const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
     stage: { stage: '' },
     aboutProject: { projectType: '', goals: [], challenges: [] },
     products: { products: [] },
+    productsFocus: { product: [] },
+    vanities: {
+        width: 0,
+        depth: '14-15"',
+        color: [],
+        mountingType: [],
+        sinkType: SINK_TYPE_TYPES._INTEGRATED,
+        conceptStyle: CONCEPT_STYLE_TYPES._CURVED_VANITY,
+        look: [],
+    },
 };
 
 const MultiStepFormContext = React.createContext<MultiStepFormContextType>({} as MultiStepFormContextType);

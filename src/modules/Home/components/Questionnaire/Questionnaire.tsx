@@ -2,10 +2,12 @@ import { AboutProjectForm } from './steps/AboutProjectStep/AboutProjectStep';
 import { BathroomFocusForm } from './steps/BathroomFocusStep/BathroomFocusForm';
 import { EmailForm } from './steps/EmailStep/EmailForm';
 import { NameForm } from './steps/NameStep/NameForm';
+import { ProductsFocusForm } from './steps/ProductsFocusStep/ProductsFocusForm';
 import { ProductsForm } from './steps/ProductsStep/ProductsForm';
 import { RoomStyleForm } from './steps/RoomStyleStep/RoomStyleForm';
 import { BathroomsForm } from './steps/SelectBathroomsStep/BathroomsForm';
 import { StageForm } from './steps/StageStep/StageStep';
+import { VanitiesForm } from './steps/VanitiesStep/VanitiesStep';
 import { MultiStepFormProvider } from '@/shared/MultiStepForm/MultiStepFormContext';
 import { MultiStepFormStep } from '@/shared/MultiStepForm/MultiStepFormStep';
 import { MultiStepFormWrapper } from '@/shared/MultiStepForm/MultiStepFormWrapper/MultiStepFormWrapper';
@@ -39,6 +41,12 @@ export const Questionnaire: React.FC = () => {
                     </MultiStepFormStep>
                     <MultiStepFormStep id="products">
                         <ProductsForm />
+                    </MultiStepFormStep>
+                    <MultiStepFormStep id="productsFocus">
+                        <ProductsFocusForm />
+                    </MultiStepFormStep>
+                    <MultiStepFormStep id="vanities">
+                        <VanitiesForm />
                     </MultiStepFormStep>
                 </MultiStepFormWrapper>
             </div>

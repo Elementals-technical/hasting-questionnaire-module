@@ -20,9 +20,10 @@
     --ring-shadow: 0 0 0 var(--ring-width) var(--ring-color);
 
     /* Scroll Bar */
-    --scrollbar-size: 6px;
-    --scrollbar-track-color: hsla(0deg, 0%, 87.5%, 1);
-    --scrollbar-thumb-color: hsla(0deg, 0%, 68.6%, 1);
+    --scrollbar-size: 4px;
+    --scrollbar-track-color: transparent;
+    --scrollbar-thumb-color: #ac5331;
+    --scrollbar-border-radius: 100px;
     --scrollbar-thumb-color-hover: hsla(210deg, 11.2%, 51%, 1);
 
     /* Companies colors */
@@ -138,6 +139,7 @@ body {
     *::-webkit-scrollbar {
         width: var(--scrollbar-size);
         height: var(--scrollbar-size);
+        border-radius: var(--scrollbar-border-radius);
     }
 
     *::-webkit-scrollbar-thumb:hover {

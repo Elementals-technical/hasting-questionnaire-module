@@ -1,0 +1,23 @@
+.wrap {
+}
+
+.image {
+    position: relative;
+    &Selected {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        display: flex;
+        width: 30px;
+        height: 30px;
+        padding: 5px;
+        justify-content: center;
+        align-items: center;
+        aspect-ratio: 1/1;
+
+        color: #fff;
+
+        border-radius: 100px;
+        background: #ac5331;
+    }
+}

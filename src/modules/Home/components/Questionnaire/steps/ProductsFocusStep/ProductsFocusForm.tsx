@@ -1,30 +1,22 @@
 import { useMultiStepFormContext, useMultiStepFormStepForm } from '@/shared';
 import { Button } from '@/components/ui';
-import { ProductsPicker } from './components/BathroomPicker/ProductsPicker';
-import s from './ProductsForm.module.scss';
+import ProductsFocusPicker from './components/BathroomFocusPicker/ProductsFocusPicker';
+import s from './ProductsFocusForm.module.scss';
 
-export const ProductsForm = () => {
+export const ProductsFocusForm = () => {
     const { currentStep, setFormStepData, goToNextStep, goToPreviousStep } = useMultiStepFormContext();
 
-    const { form } = useMultiStepFormStepForm('products');
+    const { form } = useMultiStepFormStepForm('productsFocus');
 
     const submitHandler = form.handleSubmit(
         (data) => {
-            setFormStepData('products', (data = { ...data }));
+            setFormStepData('productsFocus', (data = { ...data }));
             goToNextStep();
         },
         (errors) => {
             console.log('❌ VALIDATION ERRORS:', errors);
         }
     );
-
-    const { watch } = form;
-
-    const products = watch('products');
-
-    const totalProducts = products.reduce((sum, room) => {
-        return sum + room.count;
-    }, 0);
 
     return (
         <div className={s.wrap}>
@@ -34,20 +26,16 @@ export const ProductsForm = () => {
                     <div className={s.subtitle}>{currentStep.description}</div>
                 </div>
                 <div className={s.content}>
-                    <ProductsPicker form={form} />
+                    <ProductsFocusPicker form={form} />
                 </div>
             </div>
             <div className={s.footer}>
                 <Button className={s.btnBack} onClick={goToPreviousStep}>
-                    BACK
+                    Back
                 </Button>
-
-                <div className={s.rightSectionBtns}>
-                    <span className={s.totalRooms}>Total products : {totalProducts}</span>
-                    <Button className={s.btnNext} onClick={submitHandler}>
-                        Next
-                    </Button>
-                </div>
+                <Button className={s.btnNext} onClick={submitHandler}>
+                    Next
+                </Button>
             </div>
         </div>
     );

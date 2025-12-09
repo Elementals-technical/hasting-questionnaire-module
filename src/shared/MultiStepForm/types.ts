@@ -4,10 +4,12 @@ import {
     bathroomsStepSchema,
     emailStepSchema,
     nameStepSchema,
+    productsFocusStepSchema,
     productsStepSchema,
     projectGoalsStepSchema,
     roomStyleStepSchema,
     stageStepSchema,
+    vanitiesStepSchema,
 } from './schemas';
 
 export type AnimationDirection = 'next' | 'prev';
@@ -19,7 +21,9 @@ export type NameStepData = z.infer<typeof nameStepSchema>;
 export type EmailStepData = z.infer<typeof emailStepSchema>;
 export type StageStepData = z.infer<typeof stageStepSchema>;
 export type ProjectGoalsStepData = z.infer<typeof projectGoalsStepSchema>;
-export type ProductStepData = z.infer<typeof productsStepSchema>;
+export type ProductsStepData = z.infer<typeof productsStepSchema>;
+export type ProductsFocusStepData = z.infer<typeof productsFocusStepSchema>;
+export type VanitiesStepData = z.infer<typeof vanitiesStepSchema>;
 
 export type MultiStepForm = {
     roomStyle: RoomStyleStepData;
@@ -29,9 +33,10 @@ export type MultiStepForm = {
     email: EmailStepData;
     stage: StageStepData;
     aboutProject: ProjectGoalsStepData;
-    products: ProductStepData;
-    // productsFocus:
-    // productsVanities
+    products: ProductsStepData;
+    productsFocus: ProductsFocusStepData;
+    //НИЖЧЕ ФОРМИ ЯКІ ЗАЛЕЖАТЬ ВІД ТОГО, ЩО БУЛО ОБРАНО НА productsFocus кроці
+    vanities: VanitiesStepData;
 };
 
 export type MultiStepFormStep = {

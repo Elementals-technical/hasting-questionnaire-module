@@ -22,13 +22,6 @@ const Slider: FC<SliderPropsT> = ({
             </div>
 
             <div className={s.sliderWrapper}>
-                {showMinMax && (
-                    <span className={s.minValue}>
-                        {min}
-                        {unit}
-                    </span>
-                )}
-
                 <S.Root
                     onValueChange={([value]) => onValueChange(value)}
                     value={[attributeValue]}
@@ -49,6 +42,14 @@ const Slider: FC<SliderPropsT> = ({
                         </div>
                     </S.Thumb>
                 </S.Root>
+            </div>
+            <div className={s.valueWrapper}>
+                {showMinMax && (
+                    <span className={s.minValue}>
+                        {min}
+                        {unit}
+                    </span>
+                )}
 
                 {showMinMax && (
                     <span className={s.maxValue}>

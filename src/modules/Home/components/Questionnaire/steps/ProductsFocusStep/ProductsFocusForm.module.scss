@@ -5,8 +5,9 @@
 .body {
     display: flex;
     justify-content: space-between;
+    gap: 40px;
     .content {
-        width: 100%;
+        align-self: center;
     }
 }
 
@@ -17,6 +18,8 @@
     font-style: normal;
     font-weight: 600;
     line-height: 52px; /* 130% */
+    width: 500px;
+    margin-bottom: 16px;
 }
 
 .subtitle {
@@ -38,6 +41,23 @@
     justify-content: space-between;
     align-self: flex-end;
     padding: 20px 80px;
+
+    .totalRooms {
+        margin-right: 0;
+        color: #ac5331;
+        font-family: Poppins;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 20px; /* 142.857% */
+    }
+
+    .rightSectionBtns {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+    }
+
     .btnBack,
     .btnNext {
         text-transform: uppercase;
@@ -55,5 +75,10 @@
         font-style: normal;
         font-weight: 700;
         line-height: 20px; /* 142.857% */
+    }
+
+    .btnNext {
+        background: #ac5331;
+        color: #fff;
     }
 }

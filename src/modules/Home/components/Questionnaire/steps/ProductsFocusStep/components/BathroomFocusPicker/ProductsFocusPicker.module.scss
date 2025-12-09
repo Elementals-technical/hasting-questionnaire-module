@@ -1,0 +1,17 @@
+.wrap {
+    display: flex;
+}
+.list {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.error {
+    bottom: -20px;
+    left: 0;
+    position: absolute;
+    color: #dc2626;
+    text-align: center;
+    margin-top: 1rem;
+}

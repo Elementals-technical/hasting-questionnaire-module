@@ -1,19 +1,9 @@
 import { ProductsPickerPropsT } from './types';
-import MasterBathIcon from '@/assets/icons/products/MasterBathIcon';
 import BathroomCard from '@/shared/BathroomCard/BathroomCard';
-import { CardOption } from '@/shared/BathroomCard/types';
-import { ProductStepData } from '@/shared/MultiStepForm/types';
+import { ProductsStepData } from '@/shared/MultiStepForm/types';
 import { Controller } from 'react-hook-form';
-import { PRODUCTS_TYPES } from '../../constants';
+import { productsOptions } from './constants';
 import s from './ProductsPicker.module.scss';
-
-const productsOptions: CardOption[] = PRODUCTS_TYPES.map((i) => {
-    return {
-        id: i,
-        label: i,
-        icon: <MasterBathIcon />,
-    };
-});
 
 export const ProductsPicker: React.FC<ProductsPickerPropsT> = ({ form }) => {
     const {
@@ -22,7 +12,7 @@ export const ProductsPicker: React.FC<ProductsPickerPropsT> = ({ form }) => {
         formState: { errors },
     } = form;
 
-    const onSubmit = (data: ProductStepData) => {
+    const onSubmit = (data: ProductsStepData) => {
         console.log('Form data:', data);
         // Handle form submission
     };
