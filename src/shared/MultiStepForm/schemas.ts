@@ -38,7 +38,7 @@ export const bathroomsFocusStepSchema = z.object({
 export const nameStepSchema = z.object({
     name: z
         .string()
-        .min(3, { message: 'Name should containt at least 3 characters' })
+        .min(2, { message: 'Name should containt at least 2 characters' })
         .max(32, { message: 'Name is too long' }),
 });
 
