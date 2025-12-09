@@ -1,0 +1,89 @@
+// Брейкпоінти
+$breakpoint-xs: 480px;
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+$breakpoint-xxl: 1536px;
+
+// Міксини для media queries
+@mixin xs {
+    @media (max-width: #{$breakpoint-xs}) {
+        @content;
+    }
+}
+
+@mixin sm {
+    @media (max-width: #{$breakpoint-sm}) {
+        @content;
+    }
+}
+
+@mixin md {
+    @media (max-width: #{$breakpoint-md}) {
+        @content;
+    }
+}
+
+@mixin lg {
+    @media (max-width: #{$breakpoint-lg}) {
+        @content;
+    }
+}
+
+@mixin xl {
+    @media (max-width: #{$breakpoint-xl}) {
+        @content;
+    }
+}
+
+@mixin xxl {
+    @media (max-width: #{$breakpoint-xxl}) {
+        @content;
+    }
+}
+
+// Min-width міксини (mobile-first)
+@mixin sm-up {
+    @media (min-width: #{$breakpoint-sm}) {
+        @content;
+    }
+}
+
+@mixin md-up {
+    @media (min-width: #{$breakpoint-md}) {
+        @content;
+    }
+}
+
+@mixin lg-up {
+    @media (min-width: #{$breakpoint-lg}) {
+        @content;
+    }
+}
+
+@mixin xl-up {
+    @media (min-width: #{$breakpoint-xl}) {
+        @content;
+    }
+}
+
+// Міксин для кастомного брейкпоінту
+@mixin breakpoint($size) {
+    @media (max-width: $size) {
+        @content;
+    }
+}
+
+@mixin breakpoint-up($size) {
+    @media (min-width: $size) {
+        @content;
+    }
+}
+
+// Between міксини
+@mixin between($min, $max) {
+    @media (min-width: $min) and (max-width: $max) {
+        @content;
+    }
+}

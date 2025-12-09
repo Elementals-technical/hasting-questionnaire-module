@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useMultiStepFormContext, useMultiStepFormStepForm } from '@/shared/MultiStepForm/MultiStepFormContext';
 import { useGetProducts } from '@/tanstackQuery/queries/products';
 import { useNavigate } from '@tanstack/react-router';
@@ -6,7 +7,8 @@ import { ImagePicker } from './components/ImagePicker/ImagePicker';
 import s from './RoomStyleForm.module.scss';
 
 export const RoomStyleForm = () => {
-    const { data, isLoading, error } = useGetProducts({ page: 1, limit: 20 });
+    const productParams = useMemo(() => ({ page: 1, limit: 20 }), []);
+    const { data, isLoading, error } = useGetProducts(productParams);
 
     const { currentStep, goToNextStep, setFormStepData } = useMultiStepFormContext();
 
@@ -29,11 +31,11 @@ export const RoomStyleForm = () => {
     return (
         <div className={s.wrap}>
             <div className={s.body}>
-                <div className={s.content}>
+                <div className={s.left}>
                     <div className={s.title}>{currentStep.title}</div>
                     <div className={s.subtitle}>{currentStep.description}</div>
                 </div>
-                <div className={s.content}>
+                <div className={s.right}>
                     <ImagePicker images={data?.rows || []} form={form} />
                 </div>
             </div>
