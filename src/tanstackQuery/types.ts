@@ -30,8 +30,33 @@ export interface Product {
     categories: Category[];
 }
 
+export interface ProductsSuggest {
+    id: number;
+
+    collection: string;
+
+    name: string;
+
+    assetId: string;
+
+    img: string;
+
+    hash: string;
+
+    available: boolean;
+
+    createdAt: string;
+
+    updatedAt: string;
+}
+
 export interface ProductsResponse {
     rows: Product[];
+    count: number;
+}
+
+export interface ProductsSuggestResponse {
+    rows: ProductsSuggest[];
     count: number;
 }
 

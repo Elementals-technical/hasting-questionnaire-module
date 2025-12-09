@@ -1,8 +1,11 @@
 import { WorkflowStep } from '@/shared/WorkflowSteps/WorkflowStep';
+import { useGetProductsSuggest } from '@/tanstackQuery/queries/products_suggest';
 import { STEPS_ITEMS } from './constants';
 import s from './style.module.scss';
 
 export const ResultRoute = () => {
+    const { data } = useGetProductsSuggest({ page: 1, limit: 100 });
+
     return (
         <>
             <div className={s.wrap}>
@@ -26,6 +29,20 @@ export const ResultRoute = () => {
                 <span className={s.title}>
                     Explore recommended products while your designer <span>gets to it </span> .
                 </span>
+                <div className={s.products}>
+                    {data?.rows.map((i) => {
+                        return (
+                            <div className={s.item}>
+                                <img
+                                    className={s.image}
+                                    src={import.meta.env.VITE_THREEKIT_FAST_COMPOSITOR + i.img}
+                                    alt=""
+                                />
+                                <span className={s.title}>{i.name}</span>
+                            </div>
+                        );
+                    })}
+                </div>
             </div>
         </>
     );
