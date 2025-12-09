@@ -7,7 +7,7 @@ import { ImagePicker } from './components/ImagePicker/ImagePicker';
 import s from './RoomStyleForm.module.scss';
 
 export const RoomStyleForm = () => {
-    const productParams = useMemo(() => ({ page: 2, limit: 20 }), []);
+    const productParams = useMemo(() => ({ page: 1, limit: 100 }), []);
     const { data, isLoading, error } = useGetProducts(productParams);
 
     const { currentStep, goToNextStep, setFormStepData } = useMultiStepFormContext();

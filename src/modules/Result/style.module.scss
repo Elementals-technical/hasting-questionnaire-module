@@ -56,3 +56,29 @@
     width: 290px;
     text-align: center;
 }
+
+.suggest {
+    background: #fff;
+    display: flex;
+    padding: 50px 80px;
+    align-items: center;
+    align-self: stretch;
+
+    .title {
+        width: 690px;
+        color: #ac5331;
+        font-family: 'Proxima Nova';
+        font-size: 40px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 52px; /* 130% */
+        span {
+            color: #ac5331;
+            font-family: 'Proxima Nova';
+            font-size: 40px;
+            font-style: italic;
+            font-weight: 500;
+            line-height: 52px;
+        }
+    }
+}

@@ -4,18 +4,30 @@ import s from './style.module.scss';
 
 export const ResultRoute = () => {
     return (
-        <div className={s.wrap}>
-            <h1 className={s.title}>Thank you for completing the questionnaire!</h1>
-            <p className={s.subtitle}>Your designer is excited to get started!</p>
-            <h3 className={s.label}>What’s next</h3>
-            <div className={s.steps}>
-                {STEPS_ITEMS.map((i) => {
-                    return (
-                        <WorkflowStep className={s.step} title={i.title} description={i.description} icon={i.icon} />
-                    );
-                })}
+        <>
+            <div className={s.wrap}>
+                <h1 className={s.title}>Thank you for completing the questionnaire!</h1>
+                <p className={s.subtitle}>Your designer is excited to get started!</p>
+                <h3 className={s.label}>What’s next</h3>
+                <div className={s.steps}>
+                    {STEPS_ITEMS.map((i) => {
+                        return (
+                            <WorkflowStep
+                                className={s.step}
+                                title={i.title}
+                                description={i.description}
+                                icon={i.icon}
+                            />
+                        );
+                    })}
+                </div>
             </div>
-        </div>
+            <div className={s.suggest}>
+                <span className={s.title}>
+                    Explore recommended products while your designer <span>gets to it </span> .
+                </span>
+            </div>
+        </>
     );
 };
 
