@@ -100,7 +100,50 @@ export const VanitiesForm = () => {
                     </div>
                     {/* Mount type section */}
                     <div className={s.section}>
-                        <h2 className={s.sectionTitle}>Size</h2>
+                        <h2 className={s.sectionTitle}>Mounting type</h2>
+                        <Controller
+                            name="mountingType"
+                            control={form.control}
+                            render={({ field }) => {
+                                const handleToggle = (goalId: string) => {
+                                    const currentGoals = field.value || [];
+                                    const isSelected = currentGoals.includes(goalId);
+
+                                    if (isSelected) {
+                                        field.onChange(currentGoals.filter((id) => id !== goalId));
+                                    } else {
+                                        field.onChange([...currentGoals, goalId]);
+                                    }
+                                };
+
+                                return (
+                                    <div className={s.optionsContainer}>
+                                        {mountingTypesOptions.map((option) => {
+                                            const room = field.value.find((r) => {
+                                                return r === option.id;
+                                            });
+                                            const isSelected = !!room;
+
+                                            return (
+                                                <BathroomCard
+                                                    key={option.id}
+                                                    option={option}
+                                                    isSelected={isSelected}
+                                                    onToggle={() => {
+                                                        return handleToggle(option.id);
+                                                    }}
+                                                />
+                                            );
+                                        })}
+                                    </div>
+                                );
+                            }}
+                        />
+                        {errors.mountingType && <p className={s.errorMessage}>{errors.mountingType.message}</p>}
+                    </div>
+                    {/* Concept style section */}
+                    <div className={s.section}>
+                        <h2 className={s.sectionTitle}>Concept | Style</h2>
                         <Controller
                             name="mountingType"
                             control={form.control}

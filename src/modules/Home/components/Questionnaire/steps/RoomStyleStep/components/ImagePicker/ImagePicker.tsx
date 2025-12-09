@@ -83,8 +83,8 @@ export const ImagePicker: React.FC<ImagesPickerProps> = ({ images, form }) => {
                                     <ImageListItem className={s.image} key={item.id}>
                                         <img
                                             onClick={() => handleToggle(item.image)}
-                                            srcSet={`${item.image}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                                            src={`${item.image}?w=248&fit=crop&auto=format`}
+                                            srcSet={`${item.previewImage}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                            src={`${item.previewImage}?w=248&fit=crop&auto=format`}
                                             alt={item.name}
                                             loading="lazy"
                                         />
