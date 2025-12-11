@@ -40,42 +40,6 @@ export const ImagePicker: React.FC<ImagesPickerProps> = ({ images, form }) => {
                     };
 
                     return (
-                        // <div className={s.gallery}>
-                        //     {images.map((imageUrl, index) => {
-                        //         const isSelected = field.value?.includes(imageUrl) || false;
-
-                        //         return (
-                        //             <div
-                        //                 key={`${imageUrl}-${index}`}
-                        //                 className={s.imageWrapper}
-                        //                 onClick={() => handleToggle(imageUrl)}
-                        //             >
-                        //                 <img src={imageUrl} alt={`Gallery image ${index + 1}`} className={s.image} />
-                        //                 <div className={`${s.checkbox} ${isSelected ? s.checkboxSelected : ''}`}>
-                        //                     {isSelected && (
-                        //                         <svg
-                        //                             width="24"
-                        //                             height="24"
-                        //                             viewBox="0 0 24 24"
-                        //                             fill="none"
-                        //                             className={s.checkIcon}
-                        //                         >
-                        //                             <path
-                        //                                 d="M5 13L9 17L19 7"
-                        //                                 stroke="white"
-                        //                                 strokeWidth="2.5"
-                        //                                 strokeLinecap="round"
-                        //                                 strokeLinejoin="round"
-                        //                             />
-                        //                         </svg>
-                        //                     )}
-                        //                 </div>
-                        //                 {isSelected && <div className={s.overlay} />}
-                        //             </div>
-                        //         );
-                        //     })}
-                        // </div>
-
                         <ImageList variant="masonry" cols={2} gap={16}>
                             {images.map((item) => {
                                 const isSelected = field.value.includes(item.image);

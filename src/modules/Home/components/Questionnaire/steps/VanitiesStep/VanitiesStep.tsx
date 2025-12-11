@@ -8,6 +8,7 @@ import TagSelector from '@/shared/TagSelector/TagSelector';
 import { useNavigate } from '@tanstack/react-router';
 import clsx from 'clsx';
 import { Controller } from 'react-hook-form';
+import { useCreateHubspotContact } from '@/hooks/useCreateHubspotContact';
 import { quotes } from '../ProductsStep/constants';
 import {
     colorTypesOptions,
@@ -22,7 +23,11 @@ import s from './VanitiesStep.module.scss';
 
 export const VanitiesForm = () => {
     const [showOverlay, setShowOverlay] = useState(false);
-    const { currentStep, goToPreviousStep, setFormStepData } = useMultiStepFormContext();
+    const { currentStep, goToPreviousStep, setFormStepData, formData } = useMultiStepFormContext();
+    const contactMutation = useCreateHubspotContact();
+
+    const { name } = useMultiStepFormStepForm('name').form.getValues();
+    const { email } = useMultiStepFormStepForm('email').form.getValues();
 
     const navigate = useNavigate();
     const { form } = useMultiStepFormStepForm('vanities');
@@ -35,6 +40,13 @@ export const VanitiesForm = () => {
         (data) => {
             setFormStepData('vanities', data);
             setShowOverlay(true);
+            const contactData = {
+                firstname: name + 'ELEMENTALS_TEST',
+                email: email,
+                questionnaire_app: JSON.stringify(formData),
+            };
+
+            contactMutation.mutate(contactData);
 
             setTimeout(() => {
                 navigate({ to: '/result' });
