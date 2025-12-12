@@ -43,7 +43,7 @@ export const ImagePicker: React.FC<ImagesPickerProps> = ({ images, form }) => {
                     return (
                         <ImageList variant="masonry" cols={2} gap={16}>
                             {images.map((item) => {
-                                const isSelected = field.value.includes(item.image);
+                                const isSelected = field.value.includes(item.previewImage);
                                 return (
                                     <ImageListItem className={s.image} key={item.id}>
                                         <img
