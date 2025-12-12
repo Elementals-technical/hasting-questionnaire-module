@@ -1,7 +1,8 @@
 import { ProductsPickerPropsT } from './types';
-import BathroomCard from '@/shared/BathroomCard/BathroomCard';
-import { ProductsStepData } from '@/shared/MultiStepForm/types';
 import { Controller } from 'react-hook-form';
+import BathroomCard from '@/modules/Home/components/shared/BathroomCard/BathroomCard';
+import ErrorMessage from '@/modules/Home/components/shared/ErrorMessage/ErrorMessage';
+import { ProductsStepData } from '@/modules/Home/components/shared/MultiStepForm/types';
 import { productsOptions } from './constants';
 import s from './ProductsPicker.module.scss';
 
@@ -84,7 +85,7 @@ export const ProductsPicker: React.FC<ProductsPickerPropsT> = ({ form }) => {
                     );
                 }}
             />
-            {errors.products && <p className={s.error}>{errors.products.message}</p>}
+            {errors.products && <ErrorMessage>{errors.products.message}</ErrorMessage>}
         </form>
     );
 };

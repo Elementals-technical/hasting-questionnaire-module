@@ -1,14 +1,18 @@
 import { useState } from 'react';
+import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
+import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
 import { GreetingsIcon } from '@/assets/icons/steps/GreetingsIcon';
-import { useMultiStepFormContext, useMultiStepFormStepForm } from '@/shared/MultiStepForm/MultiStepFormContext';
 import clsx from 'clsx';
 import { Controller } from 'react-hook-form';
-import { Button } from '@/components/ui';
+import {
+    useMultiStepFormContext,
+    useMultiStepFormStepForm,
+} from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
 import s from './NameForm.module.scss';
 
 export const NameForm = () => {
     const [showGreeting, setShowGreeting] = useState(false);
-    const { currentStep, goToPreviousStep, goToNextStep, setFormStepData } = useMultiStepFormContext();
+    const { currentStep, goToNextStep, setFormStepData } = useMultiStepFormContext();
 
     const { form } = useMultiStepFormStepForm('name');
 
@@ -53,21 +57,14 @@ export const NameForm = () => {
                                         onChange={field.onChange}
                                         onBlur={field.onBlur}
                                     />
-                                    {error && <span className={s.errorMessage}>{error.message}</span>}
+                                    {error && <ErrorMessage>{error.message}</ErrorMessage>}
                                 </div>
                             );
                         }}
                     />
                 </div>
             </div>
-            <div className={s.footer}>
-                <Button className={s.btnBack} onClick={goToPreviousStep}>
-                    BACK
-                </Button>
-                <Button className={s.btnNext} onClick={submitHandler}>
-                    Next
-                </Button>
-            </div>
+            <MultiStepFormFooter onNext={submitHandler} />
         </div>
     );
 };

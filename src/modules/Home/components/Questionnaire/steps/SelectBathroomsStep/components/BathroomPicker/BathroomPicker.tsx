@@ -1,7 +1,8 @@
-import BathroomCard from '../../../../../../../../shared/BathroomCard/BathroomCard';
+import BathroomCard from '../../../../../shared/BathroomCard/BathroomCard';
 import { BathroomsPickerPropsT } from './types';
-import { BathroomsStepData } from '@/shared/MultiStepForm/types';
 import { Controller } from 'react-hook-form';
+import ErrorMessage from '@/modules/Home/components/shared/ErrorMessage/ErrorMessage';
+import { BathroomsStepData } from '@/modules/Home/components/shared/MultiStepForm/types';
 import { bathroomOptions } from './constants';
 import s from './BathroomPicker.module.scss';
 
@@ -84,7 +85,7 @@ export const BathroomsPicker: React.FC<BathroomsPickerPropsT> = ({ form }) => {
                     );
                 }}
             />
-            {errors.rooms && <p className={s.error}>{errors.rooms.message}</p>}
+            {errors.rooms && <ErrorMessage>{errors.rooms.message}</ErrorMessage>}
         </form>
     );
 };

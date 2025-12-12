@@ -1,8 +1,11 @@
 import { useMemo } from 'react';
-import { useMultiStepFormContext, useMultiStepFormStepForm } from '@/shared/MultiStepForm/MultiStepFormContext';
+import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
 import { useGetProducts } from '@/tanstackQuery/queries/products';
 import { useNavigate } from '@tanstack/react-router';
-import { Button } from '@/components/ui';
+import {
+    useMultiStepFormContext,
+    useMultiStepFormStepForm,
+} from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
 import { ImagePicker } from './components/ImagePicker/ImagePicker';
 import s from './RoomStyleForm.module.scss';
 
@@ -16,7 +19,7 @@ export const RoomStyleForm = () => {
 
     const navigate = useNavigate();
 
-    const handleClick = () => {
+    const handleBack = () => {
         navigate({ to: '/start' });
     };
 
@@ -39,14 +42,7 @@ export const RoomStyleForm = () => {
                     <ImagePicker images={data?.rows || []} form={form} />
                 </div>
             </div>
-            <div className={s.footer}>
-                <Button className={s.btnBack} onClick={handleClick}>
-                    BACK
-                </Button>
-                <Button className={s.btnNext} onClick={submitHandler}>
-                    Next
-                </Button>
-            </div>
+            <MultiStepFormFooter onBack={handleBack} onNext={submitHandler} />
         </div>
     );
 };

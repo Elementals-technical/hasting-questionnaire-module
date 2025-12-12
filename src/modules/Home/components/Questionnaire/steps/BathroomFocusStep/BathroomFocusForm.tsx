@@ -1,10 +1,10 @@
-import { useMultiStepFormContext, useMultiStepFormStepForm } from '@/shared';
-import { Button } from '@/components/ui';
+import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
+import { useMultiStepFormContext, useMultiStepFormStepForm } from '@/modules/Home/components/shared';
 import BathroomFocusPicker from './components/BathroomFocusPicker/BathroomFocusPicker';
 import s from './BathroomFocusForm.module.scss';
 
 export const BathroomFocusForm = () => {
-    const { currentStep, setFormStepData, goToNextStep, goToPreviousStep } = useMultiStepFormContext();
+    const { currentStep, setFormStepData, goToNextStep } = useMultiStepFormContext();
 
     const { form } = useMultiStepFormStepForm('bathroomFocus');
 
@@ -24,14 +24,7 @@ export const BathroomFocusForm = () => {
                     <BathroomFocusPicker form={form} />
                 </div>
             </div>
-            <div className={s.footer}>
-                <Button className={s.btnBack} onClick={goToPreviousStep}>
-                    Back
-                </Button>
-                <Button className={s.btnNext} onClick={submitHandler}>
-                    Next
-                </Button>
-            </div>
+            <MultiStepFormFooter onNext={submitHandler} />
         </div>
     );
 };

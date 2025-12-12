@@ -6,7 +6,7 @@ import MasterBathIcon from '@/assets/icons/products/MasterBathIcon';
 import PowderRoomIcon from '@/assets/icons/products/PowderRoom';
 import SmallBathIcon from '@/assets/icons/products/SmallBathIcon';
 import SpaBathRoomIcon from '@/assets/icons/products/SpaBathIcon';
-import { CardOption } from '@/shared/BathroomCard/types';
+import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types';
 
 export const bathroomOptions: CardOption[] = [
     {

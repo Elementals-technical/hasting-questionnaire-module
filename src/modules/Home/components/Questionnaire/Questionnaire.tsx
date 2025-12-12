@@ -8,9 +8,9 @@ import { RoomStyleForm } from './steps/RoomStyleStep/RoomStyleForm';
 import { BathroomsForm } from './steps/SelectBathroomsStep/BathroomsForm';
 import { StageForm } from './steps/StageStep/StageStep';
 import { VanitiesForm } from './steps/VanitiesStep/VanitiesStep';
-import { MultiStepFormProvider } from '@/shared/MultiStepForm/MultiStepFormContext';
-import { MultiStepFormStep } from '@/shared/MultiStepForm/MultiStepFormStep';
-import { MultiStepFormWrapper } from '@/shared/MultiStepForm/MultiStepFormWrapper/MultiStepFormWrapper';
+import { MultiStepFormProvider } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
+import { MultiStepFormStep } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormStep';
+import { MultiStepFormWrapper } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormWrapper/MultiStepFormWrapper';
 import s from './Questionnaire.module.scss';
 
 export const Questionnaire: React.FC = () => {

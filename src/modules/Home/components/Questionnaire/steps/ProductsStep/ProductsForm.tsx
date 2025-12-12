@@ -1,10 +1,10 @@
-import { useMultiStepFormContext, useMultiStepFormStepForm } from '@/shared';
-import { Button } from '@/components/ui';
+import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
+import { useMultiStepFormContext, useMultiStepFormStepForm } from '@/modules/Home/components/shared';
 import { ProductsPicker } from './components/BathroomPicker/ProductsPicker';
 import s from './ProductsForm.module.scss';
 
 export const ProductsForm = () => {
-    const { currentStep, setFormStepData, goToNextStep, goToPreviousStep } = useMultiStepFormContext();
+    const { currentStep, setFormStepData, goToNextStep } = useMultiStepFormContext();
 
     const { form } = useMultiStepFormStepForm('products');
 
@@ -37,18 +37,10 @@ export const ProductsForm = () => {
                     <ProductsPicker form={form} />
                 </div>
             </div>
-            <div className={s.footer}>
-                <Button className={s.btnBack} onClick={goToPreviousStep}>
-                    BACK
-                </Button>
-
-                <div className={s.rightSectionBtns}>
-                    <span className={s.totalRooms}>Total products : {totalProducts}</span>
-                    <Button className={s.btnNext} onClick={submitHandler}>
-                        Next
-                    </Button>
-                </div>
-            </div>
+            <MultiStepFormFooter
+                componentBeforeNext={<span className={s.totalRooms}>Total products : {totalProducts}</span>}
+                onNext={submitHandler}
+            />
         </div>
     );
 };

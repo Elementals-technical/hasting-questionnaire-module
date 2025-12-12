@@ -1,5 +1,3 @@
-// src/api/hubspot.api.ts
-
 import {
     HubspotContactFormFields,
     HubspotCreateContactResponse,
@@ -8,7 +6,7 @@ import {
 } from './types';
 import axios from 'axios';
 
-const PROXY_URL = import.meta.env.VITE_RENDER_PROXY;
+const PROXY_URL = import.meta.env.VITE_DO_PROXY;
 
 /**
  * Створює новий контакт безпосередньо в HubSpot (використовуючи Private App Token).
@@ -25,7 +23,7 @@ export async function createHubspotContact(
         accessToken: TOKEN,
     };
 
-    const HUBSPOT_CONTACTS_ENDPOINT = '/api/hubspot/create-contact';
+    const HUBSPOT_CONTACTS_ENDPOINT = '/hubspot-proxy/api/hubspot/create-contact';
 
     const url = `${PROXY_URL}${HUBSPOT_CONTACTS_ENDPOINT}`;
 
@@ -53,7 +51,7 @@ export async function createHubspotContact(
 export async function refreshAccessToken(): Promise<HubspotTokenResponse> {
     const REFRESH_TOKEN = 'na1-a368-06a3-4d13-b3aa-01bc5640401c';
 
-    const REFRESH_ENDPOINT = `${PROXY_URL}/api/hubspot/refresh-token`;
+    const REFRESH_ENDPOINT = `${PROXY_URL}/hubspot-proxy/api/hubspot/refresh-token`;
 
     const body = {
         refreshToken: REFRESH_TOKEN,

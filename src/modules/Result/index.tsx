@@ -1,5 +1,5 @@
-import { WorkflowStep } from '@/shared/WorkflowSteps/WorkflowStep';
 import { useGetProductsSuggest } from '@/tanstackQuery/queries/products_suggest';
+import { WorkflowStep } from '@/modules/Home/components/shared/WorkflowSteps/WorkflowStep';
 import { STEPS_ITEMS } from './constants';
 import s from './style.module.scss';
 
@@ -38,7 +38,7 @@ export const ResultRoute = () => {
                                     src={import.meta.env.VITE_THREEKIT_FAST_COMPOSITOR + i.img}
                                     alt=""
                                 />
-                                <span className={s.title}>{i.name}</span>
+                                <span className={s.itemTitle}>{i.name}</span>
                             </div>
                         );
                     })}

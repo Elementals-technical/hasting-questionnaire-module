@@ -1,8 +1,13 @@
+@import '../../styles/breakpoints.scss';
+
 .wrap {
     display: flex;
     flex-direction: column;
     padding: 80px;
     height: 100vh;
+    @include md {
+        height: auto;
+    }
 }
 
 .title {
@@ -13,6 +18,16 @@
     font-weight: 600;
     line-height: 64px; /* 118.519% */
     margin-bottom: 32px;
+
+    @include md {
+        color: #ac5331;
+        text-align: center;
+        font-family: 'Proxima Nova';
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 40px; /* 125% */
+    }
 }
 
 .subtitle {
@@ -23,6 +38,18 @@
     font-style: normal;
     font-weight: 400;
     line-height: 36px; /* 150% */
+    margin-bottom: auto;
+
+    @include md {
+        color: #282828;
+        text-align: center;
+        font-family: Poppins;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 24px; /* 150% */
+        margin-bottom: 40px;
+    }
 
     span {
         color: #ac5331;
@@ -31,14 +58,25 @@
         font-style: normal;
         font-weight: 500;
         line-height: 32px; /* 114.286% */
+        @include md {
+            color: #ac5331;
+            font-family: 'Proxima Nova';
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 24px; /* 150% */
+        }
     }
-    margin-bottom: auto;
 }
 
 .steps {
     display: flex;
     gap: 40px;
     margin-bottom: auto;
+    @include md {
+        flex-direction: column;
+        gap: 20px;
+    }
 }
 
 .cta {
@@ -57,4 +95,14 @@
     font-style: normal;
     font-weight: 700;
     line-height: 20px; /* 142.857% */
+
+    @include md {
+        margin-top: 32px;
+        color: #fff;
+        font-family: Poppins;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 16px; /* 133.333% */
+    }
 }

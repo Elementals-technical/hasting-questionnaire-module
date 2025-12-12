@@ -1,5 +1,5 @@
-import { WorkflowStep } from '@/shared/WorkflowSteps/WorkflowStep';
 import { useNavigate } from '@tanstack/react-router';
+import { WorkflowStep } from '@/modules/Home/components/shared/WorkflowSteps/WorkflowStep';
 import { STEPS_ITEMS } from './components/constants';
 import { Button } from '@/components/ui';
 import s from './style.module.scss';

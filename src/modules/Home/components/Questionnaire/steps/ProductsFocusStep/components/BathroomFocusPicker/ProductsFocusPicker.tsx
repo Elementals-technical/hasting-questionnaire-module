@@ -1,9 +1,10 @@
 import React from 'react';
-import BathroomCard from '../../../../../../../../shared/BathroomCard/BathroomCard';
+import BathroomCard from '../../../../../shared/BathroomCard/BathroomCard';
 import { ProductsFocusPickerPropsT } from './types';
-import { useMultiStepFormStepForm } from '@/shared';
-import { ProductsFocusStepData } from '@/shared/MultiStepForm/types';
 import { Controller } from 'react-hook-form';
+import { useMultiStepFormStepForm } from '@/modules/Home/components/shared';
+import ErrorMessage from '@/modules/Home/components/shared/ErrorMessage/ErrorMessage';
+import { ProductsFocusStepData } from '@/modules/Home/components/shared/MultiStepForm/types';
 import { productsOptions } from '../../../ProductsStep/components/BathroomPicker/constants';
 import s from './ProductsFocusPicker.module.scss';
 
@@ -67,7 +68,7 @@ const ProductsFocusPicker: React.FC<ProductsFocusPickerPropsT> = ({ form }) => {
                     );
                 }}
             />
-            {errors.product && <p className={s.error}>{errors.product.message}</p>}
+            {errors.product && <ErrorMessage>{errors.product.message}</ErrorMessage>}
         </form>
     );
 };

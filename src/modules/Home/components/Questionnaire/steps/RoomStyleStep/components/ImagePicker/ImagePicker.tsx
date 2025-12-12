@@ -1,8 +1,9 @@
-import { RoomStyleStepData } from '@/shared/MultiStepForm/types';
 import { Product } from '@/tanstackQuery/types';
 import { ImageList, ImageListItem } from '@mui/material';
 import { CheckIcon } from 'lucide-react';
 import { Controller, UseFormReturn } from 'react-hook-form';
+import ErrorMessage from '@/modules/Home/components/shared/ErrorMessage/ErrorMessage';
+import { RoomStyleStepData } from '@/modules/Home/components/shared/MultiStepForm/types';
 import s from './ImagePicker.module.scss';
 
 interface ImagesPickerProps {
@@ -60,7 +61,7 @@ export const ImagePicker: React.FC<ImagesPickerProps> = ({ images, form }) => {
                     );
                 }}
             />
-            {errors.rooms && <p className={s.error}>{errors.rooms.message}</p>}
+            {errors.rooms && <ErrorMessage>{errors.rooms.message}</ErrorMessage>}
         </form>
     );
 };

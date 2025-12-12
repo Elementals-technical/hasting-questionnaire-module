@@ -9,8 +9,8 @@ import SingleVanityIcon from '@/assets/icons/vanities/SingleVanityIcon';
 import SlimProfileIcon from '@/assets/icons/vanities/SlimProfileIcon';
 import TandemVanitiesIcon from '@/assets/icons/vanities/TandemVanitiesIcon';
 import TwoDrawerIcon from '@/assets/icons/vanities/TwoDrawerIcon';
-import { CardOption } from '@/shared/BathroomCard/types';
-import { TagOption } from '@/shared/TagSelector/types';
+import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types';
+import { TagOption } from '@/modules/Home/components/shared/TagSelector/types';
 
 export const VANITIES_DEPTH_TYPES = ['14-15"', '18-19"', '19-21"'] as const;
 export const MOUNTING_TYPE_TYPES = ['wall', 'floor'];

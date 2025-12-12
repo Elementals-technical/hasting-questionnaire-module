@@ -5,8 +5,8 @@ import PedestalsAndConsolesIcon from '@/assets/icons/products/PedestalsAndConsol
 import StorageIcon from '@/assets/icons/products/StorageIcon';
 import TubsIcon from '@/assets/icons/products/TubsIcon';
 import VanitiesIcon from '@/assets/icons/products/VanitiesIcon';
-import { CardOption } from '@/shared/BathroomCard/types';
 import { ToiletIcon } from 'lucide-react';
+import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types';
 
 export const productsOptions: CardOption[] = [
     {

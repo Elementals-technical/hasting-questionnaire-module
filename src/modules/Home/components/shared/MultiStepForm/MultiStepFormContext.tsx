@@ -32,6 +32,7 @@ type MultiStepFormContextType = {
     animationDirection: AnimationDirection;
     isLoading: boolean;
     isLastStep: boolean;
+    isFirstStep: boolean;
     goToNextStep: () => void;
     goToStep: (_stepIndex: number) => void;
     goToPreviousStep: () => void;
@@ -183,6 +184,7 @@ export const MultiStepFormProvider: React.FC<React.PropsWithChildren> = ({ child
 
     const currentStep = MULTI_STEP_FORM_STEPS_ARRAY[currentStepIndex];
     const isLastStep = currentStep.id === MULTI_STEP_FORM_STEPS_ARRAY[MULTI_STEP_FORM_STEPS_ARRAY.length - 1].id;
+    const isFirstStep = currentStep.id === MULTI_STEP_FORM_STEPS_ARRAY[0].id;
     const canGoBack = currentStepIndex > 0;
 
     const parsedFormData = React.useMemo(() => {
@@ -251,6 +253,7 @@ export const MultiStepFormProvider: React.FC<React.PropsWithChildren> = ({ child
             animationDirection,
             isLoading,
             isLastStep,
+            isFirstStep,
             goToNextStep,
             goToStep,
             goToPreviousStep,
@@ -264,6 +267,7 @@ export const MultiStepFormProvider: React.FC<React.PropsWithChildren> = ({ child
         animationDirection,
         isLoading,
         isLastStep,
+        isFirstStep,
         goToNextStep,
         goToStep,
         goToPreviousStep,

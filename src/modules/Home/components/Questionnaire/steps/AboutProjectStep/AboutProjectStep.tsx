@@ -1,13 +1,17 @@
 import { useState } from 'react';
-import { useMultiStepFormContext, useMultiStepFormStepForm } from '@/shared/MultiStepForm/MultiStepFormContext';
+import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
+import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
 import { Controller } from 'react-hook-form';
+import {
+    useMultiStepFormContext,
+    useMultiStepFormStepForm,
+} from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
 import { challengesOptions, goalsOptions, projectTypeOptions } from './constants';
-import { Button } from '@/components/ui';
 import s from './AboutProjectStep.module.scss';
 
 export const AboutProjectForm = () => {
     const [showOverlay, setShowOverlay] = useState(false);
-    const { currentStep, goToPreviousStep, goToNextStep, setFormStepData } = useMultiStepFormContext();
+    const { currentStep, goToNextStep, setFormStepData } = useMultiStepFormContext();
 
     const { form } = useMultiStepFormStepForm('aboutProject');
 
@@ -66,7 +70,7 @@ export const AboutProjectForm = () => {
                                 </div>
                             )}
                         />
-                        {errors.projectType && <p className={s.errorMessage}>{errors.projectType.message}</p>}
+                        {errors.projectType && <ErrorMessage>{errors.projectType.message}</ErrorMessage>}
                     </div>
 
                     {/* Goals Section */}
@@ -107,7 +111,7 @@ export const AboutProjectForm = () => {
                                 );
                             }}
                         />
-                        {errors.goals && <p className={s.errorMessage}>{errors.goals.message}</p>}
+                        {errors.goals && <ErrorMessage>{errors.goals.message}</ErrorMessage>}
                     </div>
 
                     {/* Challenges Section */}
@@ -148,18 +152,11 @@ export const AboutProjectForm = () => {
                                 );
                             }}
                         />
-                        {errors.challenges && <p className={s.errorMessage}>{errors.challenges.message}</p>}
+                        {errors.challenges && <ErrorMessage>{errors.challenges.message}</ErrorMessage>}
                     </div>
                 </div>
             </div>
-            <div className={s.footer}>
-                <Button className={s.btnBack} onClick={goToPreviousStep}>
-                    Back
-                </Button>
-                <Button className={s.btnNext} onClick={submitHandler}>
-                    Next
-                </Button>
-            </div>
+            <MultiStepFormFooter onNext={submitHandler} />
         </div>
     );
 };

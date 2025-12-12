@@ -1,14 +1,19 @@
 import { useState } from 'react';
+import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
+import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
 import SmileIcon from '@/assets/icons/common/SmileIcon';
-import BathroomCard from '@/shared/BathroomCard/BathroomCard';
-import { useMultiStepFormContext, useMultiStepFormStepForm } from '@/shared/MultiStepForm/MultiStepFormContext';
-import { QuoteRotator } from '@/shared/QuoteRotator/QuoteRotator';
-import Slider from '@/shared/Slider/Slider';
-import TagSelector from '@/shared/TagSelector/TagSelector';
 import { useNavigate } from '@tanstack/react-router';
 import clsx from 'clsx';
 import { Controller } from 'react-hook-form';
 import { useCreateHubspotContact } from '@/hooks/useCreateHubspotContact';
+import BathroomCard from '@/modules/Home/components/shared/BathroomCard/BathroomCard';
+import {
+    useMultiStepFormContext,
+    useMultiStepFormStepForm,
+} from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
+import { QuoteRotator } from '@/modules/Home/components/shared/QuoteRotator/QuoteRotator';
+import Slider from '@/modules/Home/components/shared/Slider/Slider';
+import TagSelector from '@/modules/Home/components/shared/TagSelector/TagSelector';
 import { quotes } from '../ProductsStep/constants';
 import {
     colorTypesOptions,
@@ -18,12 +23,11 @@ import {
     sinkTypesOptions,
     VANITIES_DEPTH_TYPES,
 } from './constants';
-import { Button } from '@/components/ui';
 import s from './VanitiesStep.module.scss';
 
 export const VanitiesForm = () => {
     const [showOverlay, setShowOverlay] = useState(false);
-    const { currentStep, goToPreviousStep, setFormStepData, formData } = useMultiStepFormContext();
+    const { currentStep, setFormStepData, formData } = useMultiStepFormContext();
     const contactMutation = useCreateHubspotContact();
 
     const { name } = useMultiStepFormStepForm('name').form.getValues();
@@ -41,7 +45,7 @@ export const VanitiesForm = () => {
             setFormStepData('vanities', data);
             setShowOverlay(true);
             const contactData = {
-                firstname: name + 'ELEMENTALS_TEST',
+                firstname: name + '_ELEMENTALS_TEST',
                 email: email,
                 questionnaire_app: JSON.stringify(formData),
             };
@@ -121,7 +125,7 @@ export const VanitiesForm = () => {
                                 </div>
                             )}
                         />
-                        {errors.width && <p className={s.errorMessage}>{errors.width.message}</p>}
+                        {errors.width && <ErrorMessage>{errors.width.message}</ErrorMessage>}
                     </div>
                     {/* Mount type section */}
                     <div className={s.section}>
@@ -164,7 +168,7 @@ export const VanitiesForm = () => {
                                 );
                             }}
                         />
-                        {errors.mountingType && <p className={s.errorMessage}>{errors.mountingType.message}</p>}
+                        {errors.mountingType && <ErrorMessage>{errors.mountingType.message}</ErrorMessage>}
                     </div>
                     {/* Concept style section */}
                     <div className={s.section}>
@@ -204,7 +208,7 @@ export const VanitiesForm = () => {
                                 );
                             }}
                         />
-                        {errors.conceptStyle && <p className={s.errorMessage}>{errors.conceptStyle.message}</p>}
+                        {errors.conceptStyle && <ErrorMessage>{errors.conceptStyle.message}</ErrorMessage>}
                     </div>
 
                     {/* Sink type style section */}
@@ -245,7 +249,7 @@ export const VanitiesForm = () => {
                                 );
                             }}
                         />
-                        {errors.sinkType && <p className={s.errorMessage}>{errors.sinkType.message}</p>}
+                        {errors.sinkType && <ErrorMessage>{errors.sinkType.message}</ErrorMessage>}
                     </div>
 
                     {/* Color type style section */}
@@ -266,11 +270,11 @@ export const VanitiesForm = () => {
                                 );
                             }}
                         />
-                        {errors.color && <p className={s.errorMessage}>{errors.color.message}</p>}
+                        {errors.color && <ErrorMessage>{errors.color.message}</ErrorMessage>}
                     </div>
                     {/* Look type style section */}
                     <div className={s.section}>
-                        <h2 className={s.sectionTitle}>Color</h2>
+                        <h2 className={s.sectionTitle}>Look</h2>
                         <Controller
                             name="look"
                             control={form.control}
@@ -286,18 +290,11 @@ export const VanitiesForm = () => {
                                 );
                             }}
                         />
-                        {errors.look && <p className={s.errorMessage}>{errors.look.message}</p>}
+                        {errors.look && <ErrorMessage>{errors.look.message}</ErrorMessage>}
                     </div>
                 </div>
             </div>
-            <div className={s.footer}>
-                <Button className={s.btnBack} onClick={goToPreviousStep}>
-                    Back
-                </Button>
-                <Button className={s.btnNext} onClick={submitHandler}>
-                    Next
-                </Button>
-            </div>
+            <MultiStepFormFooter onNext={submitHandler} />
         </div>
     );
 };
