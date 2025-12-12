@@ -7,7 +7,6 @@ import { MultiStepForm } from '../Home/components/shared/MultiStepForm/types';
 import AestheticsDesigner from './components/AestheticsDesigner/AestheticsDesigner';
 import BonusSuggestions from './components/BonusSuggestions/BonusSuggestions';
 import s from './style.module.scss';
-import { Product } from '@/tanstackQuery/types';
 
 export const ResultRoute = () => {
     const { data } = useGetProductsSuggest({ page: 1, limit: 100 });
