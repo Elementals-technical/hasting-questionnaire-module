@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { AnimationDirection, MultiStepForm, MultiStepFormStep } from './types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useCounter, useLocalStorageValue, useToggle, useUnmountEffect } from '@react-hookz/web';
+import { useCounter, useLocalStorageValue, useToggle } from '@react-hookz/web';
 import { flushSync } from 'react-dom';
 import { DefaultValues, Path, PathValue, useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -130,7 +130,7 @@ const MULTI_STEP_FORM_STEPS_ARRAY = Object.values(MULTI_STEP_FORM_STEPS).filter(
     return step.enabled;
 });
 
-const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
+export const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
     roomStyle: {
         rooms: [],
     },
@@ -238,6 +238,7 @@ export const MultiStepFormProvider: React.FC<React.PropsWithChildren> = ({ child
         [setFormData]
     );
 
+    // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
     const cleanUp = React.useCallback(() => {
         resetCurrentStepIndex();
         setFormData(JSON.stringify(MULTI_STEP_FORM_INITIAL_STATE));
@@ -295,13 +296,13 @@ export const MultiStepFormProvider: React.FC<React.PropsWithChildren> = ({ child
         }
     }, [formData, isInitialStepSet, parsedFormData, setCurrentStepIndex, toggleIsInitialStepSet, toggleIsLoading]);
 
-    useEffect(() => {
-        cleanUp();
-    }, []);
+    // useEffect(() => {
+    //     cleanUp();
+    // }, []);
 
-    useUnmountEffect(() => {
-        cleanUp();
-    });
+    // useUnmountEffect(() => {
+    //     cleanUp();
+    // });
 
     return <MultiStepFormContext.Provider value={memoizedValue}>{children}</MultiStepFormContext.Provider>;
 };

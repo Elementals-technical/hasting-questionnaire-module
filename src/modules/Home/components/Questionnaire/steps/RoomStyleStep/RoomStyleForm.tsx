@@ -24,7 +24,7 @@ export const RoomStyleForm = () => {
     };
 
     const submitHandler = form.handleSubmit((data) => {
-        setFormStepData('roomStyle', (data = { ...data }));
+        setFormStepData('roomStyle', data);
         goToNextStep();
     });
 

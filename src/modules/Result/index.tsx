@@ -1,10 +1,20 @@
 import { useGetProductsSuggest } from '@/tanstackQuery/queries/products_suggest';
+import { useLocalStorageValue } from '@react-hookz/web';
 import { WorkflowStep } from '@/modules/Home/components/shared/WorkflowSteps/WorkflowStep';
 import { STEPS_ITEMS } from './constants';
+import { LS_MULTI_STEP_FORM_KEY, MULTI_STEP_FORM_INITIAL_STATE } from '../Home/components/shared';
+import { MultiStepForm } from '../Home/components/shared/MultiStepForm/types';
+import AestheticsDesigner from './components/AestheticsDesigner/AestheticsDesigner';
+import BonusSuggestions from './components/BonusSuggestions/BonusSuggestions';
 import s from './style.module.scss';
+import { Product } from '@/tanstackQuery/types';
 
 export const ResultRoute = () => {
     const { data } = useGetProductsSuggest({ page: 1, limit: 100 });
+
+    const { value } = useLocalStorageValue<string>(LS_MULTI_STEP_FORM_KEY);
+
+    const formData = value ? (JSON.parse(value) as MultiStepForm) : (MULTI_STEP_FORM_INITIAL_STATE as MultiStepForm);
 
     return (
         <>
@@ -25,6 +35,8 @@ export const ResultRoute = () => {
                     })}
                 </div>
             </div>
+            <AestheticsDesigner name={formData.name.name} images={formData.roomStyle.rooms.slice(0, 2)} />
+            <BonusSuggestions images={formData.roomStyle.rooms} />
             <div className={s.suggest}>
                 <span className={s.title}>
                     Explore recommended products while your designer <span>gets to it </span> .

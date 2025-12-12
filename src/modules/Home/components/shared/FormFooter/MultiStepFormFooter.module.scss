@@ -1,3 +1,5 @@
+@import '../../../../../styles/breakpoints.scss';
+
 .footer {
     position: fixed;
     background: rgba(241, 235, 230, 0.8);
@@ -9,10 +11,17 @@
     align-self: flex-end;
     padding: 20px 80px;
 
+    @include md {
+        padding: 20px;
+    }
+
     .nextWrap {
         display: flex;
         align-items: center;
         gap: 32px;
+        @include md {
+            gap: 16px;
+        }
     }
 
     .btnBack,

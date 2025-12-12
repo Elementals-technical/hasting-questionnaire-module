@@ -47,7 +47,7 @@ export const ImagePicker: React.FC<ImagesPickerProps> = ({ images, form }) => {
                                 return (
                                     <ImageListItem className={s.image} key={item.id}>
                                         <img
-                                            onClick={() => handleToggle(item.image)}
+                                            onClick={() => handleToggle(item.previewImage)}
                                             srcSet={item.previewImage}
                                             src={item.previewImage}
                                             alt={item.name}

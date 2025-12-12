@@ -1,0 +1,143 @@
+// SubstylesSlider.module.scss
+.container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    position: relative;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+
+    @media (max-width: 768px) {
+        padding: 40px 20px;
+        min-height: 500px;
+    }
+}
+
+.mainTitle {
+    color: #ac5331;
+    font-family: 'Proxima Nova';
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 52px; /* 130% */
+}
+
+.sliderContent {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-start;
+}
+
+.slide {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.slideTitle {
+    color: #282828;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 32px; /* 160% */
+
+    @media (max-width: 768px) {
+        font-size: 24px;
+        margin-bottom: 16px;
+    }
+}
+
+.slideDescription {
+    color: #282828;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+
+    @media (max-width: 768px) {
+        font-size: 16px;
+    }
+}
+
+.dots {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 40px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #d9d9d9;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+
+    &:hover {
+        background-color: #ac5331;
+        opacity: 0.7;
+    }
+}
+
+.dotActive {
+    background-color: #ac5331;
+    width: 14px;
+    height: 14px;
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid #ac5331;
+    background-color: transparent;
+    color: #ac5331;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+
+    &:hover {
+        background-color: #ac5331;
+        color: white;
+    }
+
+    @media (max-width: 768px) {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+}
+
+.arrowLeft {
+    left: 20px;
+
+    @media (max-width: 768px) {
+        left: 10px;
+    }
+}
+
+.arrowRight {
+    right: 20px;
+
+    @media (max-width: 768px) {
+        right: 10px;
+    }
+}
