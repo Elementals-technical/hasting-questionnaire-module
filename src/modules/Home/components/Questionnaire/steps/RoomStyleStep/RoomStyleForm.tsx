@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
 import { useGetProducts } from '@/tanstackQuery/queries/products';
 import { useNavigate } from '@tanstack/react-router';
@@ -13,7 +13,7 @@ export const RoomStyleForm = () => {
     const productParams = useMemo(() => ({ page: 1, limit: 100 }), []);
     const { data, isLoading, error } = useGetProducts(productParams);
 
-    const { currentStep, goToNextStep, setFormStepData } = useMultiStepFormContext();
+    const { currentStep, goToNextStep, setFormStepData, cleanUp } = useMultiStepFormContext();
 
     const { form } = useMultiStepFormStepForm('roomStyle');
 
@@ -27,6 +27,10 @@ export const RoomStyleForm = () => {
         setFormStepData('roomStyle', data);
         goToNextStep();
     });
+
+    useEffect(() => {
+        cleanUp();
+    }, []);
 
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;

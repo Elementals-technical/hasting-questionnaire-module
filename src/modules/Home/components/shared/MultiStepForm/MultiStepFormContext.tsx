@@ -42,6 +42,7 @@ type MultiStepFormContextType = {
         // eslint-disable-next-line no-unused-vars
         data: MultiStepForm[TField]
     ) => void;
+    cleanUp: () => void;
 };
 
 export const LS_MULTI_STEP_FORM_KEY = 'HASTINGS_multi-step-form';
@@ -243,8 +244,6 @@ export const MultiStepFormProvider: React.FC<React.PropsWithChildren> = ({ child
         setFormData(JSON.stringify(MULTI_STEP_FORM_INITIAL_STATE));
     }, [resetCurrentStepIndex, setFormData]);
 
-    console.log(cleanUp);
-
     const memoizedValue = React.useMemo(() => {
         return {
             formData: parsedFormData,
@@ -260,6 +259,7 @@ export const MultiStepFormProvider: React.FC<React.PropsWithChildren> = ({ child
             goToStep,
             goToPreviousStep,
             setFormStepData,
+            cleanUp,
         };
     }, [
         parsedFormData,
@@ -274,6 +274,7 @@ export const MultiStepFormProvider: React.FC<React.PropsWithChildren> = ({ child
         goToStep,
         goToPreviousStep,
         setFormStepData,
+        cleanUp,
     ]);
 
     React.useEffect(() => {
