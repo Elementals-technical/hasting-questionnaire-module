@@ -238,11 +238,12 @@ export const MultiStepFormProvider: React.FC<React.PropsWithChildren> = ({ child
         [setFormData]
     );
 
-    // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
     const cleanUp = React.useCallback(() => {
         resetCurrentStepIndex();
         setFormData(JSON.stringify(MULTI_STEP_FORM_INITIAL_STATE));
     }, [resetCurrentStepIndex, setFormData]);
+
+    console.log(cleanUp);
 
     const memoizedValue = React.useMemo(() => {
         return {
