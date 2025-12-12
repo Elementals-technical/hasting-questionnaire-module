@@ -29,25 +29,32 @@ export const ImagePicker: React.FC<ImagesPickerProps> = ({ images, form }) => {
                 name="rooms"
                 control={control}
                 render={({ field }) => {
-                    const handleToggle = (imageUrl: string) => {
+                    const handleToggle = (image: { img: string; aesthetics: string[] }) => {
                         const currentSelected = field.value || [];
-                        const isSelected = currentSelected.includes(imageUrl);
+                        const isSelected = field.value.some((i) => i.img === image.img);
 
                         if (isSelected) {
-                            field.onChange(currentSelected.filter((url: string) => url !== imageUrl));
+                            field.onChange(currentSelected.filter((item) => item.img !== image.img));
                         } else {
-                            field.onChange([...currentSelected, imageUrl]);
+                            field.onChange([...currentSelected, image]);
                         }
                     };
 
                     return (
                         <ImageList variant="masonry" cols={2} gap={16}>
                             {images.map((item) => {
-                                const isSelected = field.value.includes(item.previewImage);
+                                const isSelected = field.value.some((i) => i.img === item.previewImage);
+                                const currentItem = {
+                                    img: item.previewImage,
+                                    aesthetics: item.categories
+                                        .find((i) => i.name === 'Aesthetic')
+                                        ?.tags.map((i) => i.name) as string[],
+                                };
+
                                 return (
                                     <ImageListItem className={s.image} key={item.id}>
                                         <img
-                                            onClick={() => handleToggle(item.previewImage)}
+                                            onClick={() => handleToggle(currentItem)}
                                             srcSet={item.previewImage}
                                             src={item.previewImage}
                                             alt={item.name}

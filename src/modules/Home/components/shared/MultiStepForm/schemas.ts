@@ -17,7 +17,14 @@ import {
 } from '@/modules/Home/components/Questionnaire/steps/VanitiesStep/constants';
 
 export const roomStyleStepSchema = z.object({
-    rooms: z.array(z.string()).min(1, 'Choose at least one image'),
+    rooms: z
+        .array(
+            z.object({
+                img: z.string(),
+                aesthetics: z.array(z.string()),
+            })
+        )
+        .min(2, 'Choose at least two images'),
 });
 
 export const bathroomsStepSchema = z.object({

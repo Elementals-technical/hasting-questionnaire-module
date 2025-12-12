@@ -34,8 +34,11 @@ export const ResultRoute = () => {
                     })}
                 </div>
             </div>
-            <AestheticsDesigner name={formData.name.name} images={formData.roomStyle.rooms.slice(0, 2)} />
-            <BonusSuggestions images={formData.roomStyle.rooms} />
+            <AestheticsDesigner
+                name={formData.name.name}
+                images={formData.roomStyle.rooms.map((i) => i.img).slice(0, 2)}
+            />
+            <BonusSuggestions images={formData.roomStyle} />
             <div className={s.suggest}>
                 <span className={s.title}>
                     Explore recommended products while your designer <span>gets to it </span> .
