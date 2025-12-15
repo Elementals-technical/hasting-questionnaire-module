@@ -15,11 +15,19 @@ export const ResultRoute = () => {
 
     const formData = value ? (JSON.parse(value) as MultiStepForm) : (MULTI_STEP_FORM_INITIAL_STATE as MultiStepForm);
 
+    console.log('IMAGE', formData.roomStyle.rooms[0]);
     return (
         <>
-            <div className={s.wrap}>
+            <div
+                className={s.header}
+                style={{
+                    background: `linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),url(${formData.roomStyle.rooms[0].img})`,
+                }}
+            >
                 <h1 className={s.title}>Thank you for completing the questionnaire!</h1>
                 <p className={s.subtitle}>Your designer is excited to get started!</p>
+            </div>
+            <div className={s.wrap}>
                 <h3 className={s.label}>What’s next</h3>
                 <div className={s.steps}>
                     {STEPS_ITEMS.map((i) => {
