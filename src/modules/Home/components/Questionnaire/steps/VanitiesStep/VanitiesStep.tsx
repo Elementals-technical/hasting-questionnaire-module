@@ -1,7 +1,7 @@
 import { useState } from 'react';
+import CalculatingOverlay from '../../../shared/CalculatingOverlay/CalculatingOverlay';
 import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
 import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
-import SmileIcon from '@/assets/icons/common/SmileIcon';
 import { useNavigate } from '@tanstack/react-router';
 import clsx from 'clsx';
 import { Controller } from 'react-hook-form';
@@ -12,11 +12,9 @@ import {
     useMultiStepFormContext,
     useMultiStepFormStepForm,
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
-import { QuoteRotator } from '@/modules/Home/components/shared/QuoteRotator/QuoteRotator';
 import Slider from '@/modules/Home/components/shared/Slider/Slider';
 import TagSelector from '@/modules/Home/components/shared/TagSelector/TagSelector';
 import { colorTypesOptions, lookTypesOptions } from '../constants';
-import { quotes } from '../ProductsStep/constants';
 import { conceptStyleOptions, mountingTypesOptions, sinkTypesOptions, VANITIES_DEPTH_TYPES } from './constants';
 import s from './VanitiesStep.module.scss';
 
@@ -58,16 +56,8 @@ export const VanitiesForm = () => {
         }
     );
 
-    if (showOverlay) {
-        return (
-            <div className={s.overlay}>
-                <div className={s.overlayTitle}>Calculating your results</div>
-                <div className={s.loader} />
-                <div className={s.overlaySubtitle}>Did you know?</div>
-                <QuoteRotator quotes={quotes} />
-                <SmileIcon />
-            </div>
-        );
+    if (!showOverlay) {
+        return <CalculatingOverlay />;
     }
 
     return (
