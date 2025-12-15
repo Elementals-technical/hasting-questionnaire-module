@@ -12,7 +12,6 @@ import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types'
 import { TagOption } from '@/modules/Home/components/shared/TagSelector/types';
 
 export const STORAGE_DEPTH_TYPES = ['5-9.9"', '10-15.9" ', '16-20.9"'] as const;
-export const MOUNTING_TYPE_TYPES = ['wall', 'floor'];
 
 export enum STORAGE_ARRANGEMENT_TYPES {
     _SINGLE_UNIT = 'single-unit',
@@ -20,7 +19,7 @@ export enum STORAGE_ARRANGEMENT_TYPES {
     _NOT_SURE = 'not-sure',
 }
 
-export enum CONCEPT_STYLE_TYPES {
+export enum CONCEPT_STYLE_STORAGE_TYPES {
     _CLOSED_STORAGE_COLUMN = 'closed-storage-column',
     _OPEN_STORAGE_COLUMN = 'open-storage-column',
     _FLOATING_SHELVING = 'floating-shelving',
@@ -74,10 +73,10 @@ export enum LOOK_TYPES {
     _METALLIC_LOOK = 'metallic',
 }
 
-export const mountingTypesOptions: CardOption[] = [
+export const storageArrangementOptions: CardOption[] = [
     {
-        id: 'wall',
-        label: 'Wall',
+        id: STORAGE_ARRANGEMENT_TYPES._SINGLE_UNIT,
+        label: 'Single Unit',
         icon: <VanitiesIcon />,
     },
     {
@@ -89,89 +88,89 @@ export const mountingTypesOptions: CardOption[] = [
 
 export const conceptStyleOptions: CardOption[] = [
     {
-        id: CONCEPT_STYLE_TYPES._CLOSED_STORAGE_COLUMN,
+        id: CONCEPT_STYLE_STORAGE_TYPES._CLOSED_STORAGE_COLUMN,
         label: 'Closed Storage Column',
         icon: <SingleVanityIcon />,
     },
     {
-        id: CONCEPT_STYLE_TYPES._OPEN_STORAGE_COLUMN,
+        id: CONCEPT_STYLE_STORAGE_TYPES._OPEN_STORAGE_COLUMN,
         label: 'Open Storage Column',
         icon: <DoubleVanityIcon />,
     },
     {
-        id: CONCEPT_STYLE_TYPES._FLOATING_SHELVING,
+        id: CONCEPT_STYLE_STORAGE_TYPES._FLOATING_SHELVING,
         label: 'Floating Shelving',
         icon: <OneDrawerInnerIcon />,
     },
     {
-        id: CONCEPT_STYLE_TYPES._SEMI_CANCELED_STORAGE,
+        id: CONCEPT_STYLE_STORAGE_TYPES._SEMI_CANCELED_STORAGE,
         label: 'Semi-Concealed Storage',
         icon: <TwoDrawerIcon />,
     },
     {
-        id: CONCEPT_STYLE_TYPES._CUBBY_STORAGE,
+        id: CONCEPT_STYLE_STORAGE_TYPES._CUBBY_STORAGE,
         label: 'Cubby Storage',
         icon: <OpenShelvingIcon />,
     },
     {
-        id: CONCEPT_STYLE_TYPES._LADDER_STORAGE,
+        id: CONCEPT_STYLE_STORAGE_TYPES._LADDER_STORAGE,
         label: 'Ladder Storage',
         icon: <MultiLevelIcon />,
     },
     {
-        id: CONCEPT_STYLE_TYPES._HORIZONTAL_STORAGE,
+        id: CONCEPT_STYLE_STORAGE_TYPES._HORIZONTAL_STORAGE,
         label: 'Horizontal Storage',
         icon: <SlimProfileIcon />,
     },
     {
-        id: CONCEPT_STYLE_TYPES._NOOK_STORAGE,
+        id: CONCEPT_STYLE_STORAGE_TYPES._NOOK_STORAGE,
         label: 'Nook Storage',
         icon: <CurvedVanityIcon />,
     },
 
     {
-        id: CONCEPT_STYLE_TYPES._FOLD_UP_DOWN_STORAGE,
+        id: CONCEPT_STYLE_STORAGE_TYPES._FOLD_UP_DOWN_STORAGE,
         label: 'Fold Up/Down Storage',
         icon: <TandemVanitiesIcon />,
     },
 
     {
-        id: CONCEPT_STYLE_TYPES._CORNER_STORAGE,
+        id: CONCEPT_STYLE_STORAGE_TYPES._CORNER_STORAGE,
         label: 'Corner Storage',
         icon: <TandemVanitiesIcon />,
     },
     {
-        id: CONCEPT_STYLE_TYPES._MIRRORED_STORAGE,
+        id: CONCEPT_STYLE_STORAGE_TYPES._MIRRORED_STORAGE,
         label: 'Mirrored Storage',
         icon: <TandemVanitiesIcon />,
     },
     {
-        id: CONCEPT_STYLE_TYPES._ROTATING_REVOLVED_STORAGE,
+        id: CONCEPT_STYLE_STORAGE_TYPES._ROTATING_REVOLVED_STORAGE,
         label: 'Rotating, Revolving Storage',
         icon: <TandemVanitiesIcon />,
     },
     {
-        id: CONCEPT_STYLE_TYPES._RECESSED_STORAGE,
+        id: CONCEPT_STYLE_STORAGE_TYPES._RECESSED_STORAGE,
         label: 'Recessed Storage',
         icon: <TandemVanitiesIcon />,
     },
     {
-        id: CONCEPT_STYLE_TYPES._LIGHTED_STORAGE,
+        id: CONCEPT_STYLE_STORAGE_TYPES._LIGHTED_STORAGE,
         label: 'Lighted Storage',
         icon: <TandemVanitiesIcon />,
     },
     {
-        id: CONCEPT_STYLE_TYPES._FLOOR_MOUNT_STORAGE,
+        id: CONCEPT_STYLE_STORAGE_TYPES._FLOOR_MOUNT_STORAGE,
         label: 'Floor-mount Storage',
         icon: <TandemVanitiesIcon />,
     },
     {
-        id: CONCEPT_STYLE_TYPES._LOWER_STORAGE,
+        id: CONCEPT_STYLE_STORAGE_TYPES._LOWER_STORAGE,
         label: 'Lower storage',
         icon: <TandemVanitiesIcon />,
     },
     {
-        id: CONCEPT_STYLE_TYPES._FLOOR_TO_CEILING,
+        id: CONCEPT_STYLE_STORAGE_TYPES._FLOOR_TO_CEILING,
         label: 'Floor-to-Ceiling',
         icon: <TandemVanitiesIcon />,
     },

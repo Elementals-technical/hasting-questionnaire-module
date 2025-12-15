@@ -4,14 +4,25 @@ import ProductsFocusPicker from './components/BathroomFocusPicker/ProductsFocusP
 import s from './ProductsFocusForm.module.scss';
 
 export const ProductsFocusForm = () => {
-    const { currentStep, setFormStepData, goToNextStep } = useMultiStepFormContext();
+    const { currentStep, setFormStepData, goToStep } = useMultiStepFormContext();
 
     const { form } = useMultiStepFormStepForm('productsFocus');
 
     const submitHandler = form.handleSubmit(
         (data) => {
             setFormStepData('productsFocus', (data = { ...data }));
-            goToNextStep();
+            // goToNextStep();
+
+            //TODO по завершенню створення всіх форм просто робити goToStep(data.product)
+            if (data.product === 'vanities') {
+                goToStep('storage');
+            }
+
+            if (data.product === 'storage') {
+                goToStep('storage');
+            } else {
+                goToStep('vanities');
+            }
         },
         (errors) => {
             console.log('❌ VALIDATION ERRORS:', errors);

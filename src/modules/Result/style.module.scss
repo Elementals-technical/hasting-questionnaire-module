@@ -107,6 +107,10 @@
     padding: 50px 80px;
     align-self: stretch;
 
+    @include md {
+        padding: 20px;
+    }
+
     .title {
         width: 690px;
         color: #ac5331;

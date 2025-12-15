@@ -7,9 +7,13 @@ import { DefaultValues, Path, PathValue, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useSafeContext } from '@/hooks/useSafeContext';
 import {
-    CONCEPT_STYLE_TYPES,
+    CONCEPT_STYLE_VANITIES_TYPES,
     SINK_TYPE_TYPES,
 } from '@/modules/Home/components/Questionnaire/steps/VanitiesStep/constants';
+import {
+    CONCEPT_STYLE_STORAGE_TYPES,
+    STORAGE_ARRANGEMENT_TYPES,
+} from '../../Questionnaire/steps/StorageStep/constants';
 import {
     bathroomsFocusStepSchema,
     bathroomsStepSchema,
@@ -20,6 +24,7 @@ import {
     projectGoalsStepSchema,
     roomStyleStepSchema,
     stageStepSchema,
+    storageStepSchema,
     vanitiesStepSchema,
 } from './schemas';
 
@@ -34,7 +39,7 @@ type MultiStepFormContextType = {
     isLastStep: boolean;
     isFirstStep: boolean;
     goToNextStep: () => void;
-    goToStep: (_stepIndex: number) => void;
+    goToStep: (_stepName: keyof typeof MULTI_STEP_FORM_STEPS) => void;
     goToPreviousStep: () => void;
     setFormStepData: <TField extends keyof MultiStepForm>(
         // eslint-disable-next-line no-unused-vars
@@ -126,6 +131,14 @@ export const MULTI_STEP_FORM_STEPS = {
         schema: vanitiesStepSchema,
         enabled: true,
     },
+    storage: {
+        id: 'storage',
+        label: 'Storage',
+        title: 'Let’s get to know your storage must-haves',
+        description: 'Don’t feel compelled to answer everything. Thats why we’re here!',
+        schema: storageStepSchema,
+        enabled: true,
+    },
 } as const satisfies Record<keyof MultiStepForm, MultiStepFormStep>;
 const MULTI_STEP_FORM_STEPS_ARRAY = Object.values(MULTI_STEP_FORM_STEPS).filter((step) => {
     return step.enabled;
@@ -153,8 +166,17 @@ export const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
         color: [],
         mountingType: [],
         sinkType: SINK_TYPE_TYPES._INTEGRATED,
-        conceptStyle: CONCEPT_STYLE_TYPES._CURVED_VANITY,
+        conceptStyle: CONCEPT_STYLE_VANITIES_TYPES._CURVED_VANITY,
         look: [],
+    },
+    storage: {
+        width: 0,
+        depth: '5-9.9"',
+        conceptStyle: CONCEPT_STYLE_STORAGE_TYPES._CLOSED_STORAGE_COLUMN,
+        color: [],
+        look: [],
+        storageArrangement: STORAGE_ARRANGEMENT_TYPES._SINGLE_UNIT,
+        height: 0,
     },
 };
 
@@ -197,12 +219,13 @@ export const MultiStepFormProvider: React.FC<React.PropsWithChildren> = ({ child
     }, [formData]);
 
     const goToStep = React.useCallback(
-        (stepIndex: number) => {
+        (stepName: keyof typeof MULTI_STEP_FORM_STEPS) => {
+            const targetStepIndex = MULTI_STEP_FORM_STEPS_ARRAY.findIndex((i) => i.id === stepName) || -1;
             flushSync(() => {
-                setAnimationDirection(currentStepIndex < stepIndex ? 'next' : 'prev');
+                setAnimationDirection(currentStepIndex < targetStepIndex ? 'next' : 'prev');
             });
 
-            setCurrentStepIndex(stepIndex);
+            setCurrentStepIndex(targetStepIndex);
         },
         [incrementCurrentStepIndex]
     );

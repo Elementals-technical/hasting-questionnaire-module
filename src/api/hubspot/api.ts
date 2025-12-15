@@ -5,6 +5,7 @@ import {
     HubspotTokenResponse,
 } from './types';
 import axios from 'axios';
+import { MultiStepForm } from '@/modules/Home/components/shared/MultiStepForm/types';
 
 const PROXY_URL = import.meta.env.VITE_DO_PROXY;
 
@@ -64,5 +65,26 @@ export async function refreshAccessToken(): Promise<HubspotTokenResponse> {
     } catch (error) {
         console.error('Error refreshing token', error);
         throw new Error('Failed to refresh HubSpot access token.');
+    }
+}
+
+/**
+ * Відправити користувачу емейл з даними опитувальника.
+ *
+ * @param refreshToken - Поточний токен оновлення.
+ * @returns Promise<RefreshTokenResponse>
+ */
+export async function sendEmail(payload: MultiStepForm): Promise<string> {
+    const EMAIL_ENDPOINT = `${PROXY_URL}/email/send`;
+
+    try {
+        const response = await axios.post<string>(EMAIL_ENDPOINT, payload, {
+            headers: { authorization: 'zCxGZgV3iVUR93C2Cua2lTgZZZppRL1z32VifmzwdPgcP' },
+        });
+
+        return response.data;
+    } catch (error) {
+        console.error('Error sending email', error);
+        throw new Error('Failed to send email.');
     }
 }

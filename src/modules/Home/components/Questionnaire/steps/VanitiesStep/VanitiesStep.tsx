@@ -6,6 +6,7 @@ import { useNavigate } from '@tanstack/react-router';
 import clsx from 'clsx';
 import { Controller } from 'react-hook-form';
 import { useCreateHubspotContact } from '@/hooks/useCreateHubspotContact';
+import { useSendEmail } from '@/hooks/useSendEmail';
 import BathroomCard from '@/modules/Home/components/shared/BathroomCard/BathroomCard';
 import {
     useMultiStepFormContext,
@@ -14,21 +15,16 @@ import {
 import { QuoteRotator } from '@/modules/Home/components/shared/QuoteRotator/QuoteRotator';
 import Slider from '@/modules/Home/components/shared/Slider/Slider';
 import TagSelector from '@/modules/Home/components/shared/TagSelector/TagSelector';
+import { colorTypesOptions, lookTypesOptions } from '../constants';
 import { quotes } from '../ProductsStep/constants';
-import {
-    colorTypesOptions,
-    conceptStyleOptions,
-    lookTypesOptions,
-    mountingTypesOptions,
-    sinkTypesOptions,
-    VANITIES_DEPTH_TYPES,
-} from './constants';
+import { conceptStyleOptions, mountingTypesOptions, sinkTypesOptions, VANITIES_DEPTH_TYPES } from './constants';
 import s from './VanitiesStep.module.scss';
 
 export const VanitiesForm = () => {
     const [showOverlay, setShowOverlay] = useState(false);
     const { currentStep, setFormStepData, formData } = useMultiStepFormContext();
     const contactMutation = useCreateHubspotContact();
+    const sendEmailMutation = useSendEmail();
 
     const { name } = useMultiStepFormStepForm('name').form.getValues();
     const { email } = useMultiStepFormStepForm('email').form.getValues();
@@ -51,6 +47,7 @@ export const VanitiesForm = () => {
             };
 
             contactMutation.mutate(contactData);
+            sendEmailMutation.mutate(formData);
 
             setTimeout(() => {
                 navigate({ to: '/result' });

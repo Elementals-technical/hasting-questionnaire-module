@@ -7,6 +7,7 @@ import { ProductsForm } from './steps/ProductsStep/ProductsForm';
 import { RoomStyleForm } from './steps/RoomStyleStep/RoomStyleForm';
 import { BathroomsForm } from './steps/SelectBathroomsStep/BathroomsForm';
 import { StageForm } from './steps/StageStep/StageStep';
+import { StorageForm } from './steps/StorageStep/StorageStep';
 import { VanitiesForm } from './steps/VanitiesStep/VanitiesStep';
 import { MultiStepFormProvider } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
 import { MultiStepFormStep } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormStep';
@@ -47,6 +48,9 @@ export const Questionnaire: React.FC = () => {
                     </MultiStepFormStep>
                     <MultiStepFormStep id="vanities">
                         <VanitiesForm />
+                    </MultiStepFormStep>
+                    <MultiStepFormStep id="storage">
+                        <StorageForm />
                     </MultiStepFormStep>
                 </MultiStepFormWrapper>
             </div>
