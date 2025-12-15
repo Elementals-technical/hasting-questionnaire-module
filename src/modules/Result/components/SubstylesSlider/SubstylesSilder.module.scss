@@ -1,16 +1,17 @@
 // SubstylesSlider.module.scss
+@import '../../../../styles/breakpoints.scss';
+
 .container {
     width: 100%;
     max-width: 1000px;
     margin: 0 auto;
     position: relative;
-    min-height: 600px;
+    min-height: 400px;
     display: flex;
     flex-direction: column;
 
-    @media (max-width: 768px) {
-        padding: 40px 20px;
-        min-height: 500px;
+    @include md {
+        min-height: 350px;
     }
 }
 
@@ -21,6 +22,16 @@
     font-style: normal;
     font-weight: 500;
     line-height: 52px; /* 130% */
+    margin-bottom: 32px;
+
+    @include md {
+        color: #ac5331;
+        font-family: 'Proxima Nova';
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 28px; /* 140% */
+    }
 }
 
 .sliderContent {
@@ -45,10 +56,15 @@
     font-style: normal;
     font-weight: 500;
     line-height: 32px; /* 160% */
+    margin-bottom: 16px;
 
-    @media (max-width: 768px) {
-        font-size: 24px;
-        margin-bottom: 16px;
+    @include md {
+        color: #282828;
+        font-family: Poppins;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 24px; /* 150% */
     }
 }
 
@@ -60,8 +76,13 @@
     font-weight: 400;
     line-height: 24px; /* 150% */
 
-    @media (max-width: 768px) {
-        font-size: 16px;
+    @include md {
+        color: #282828;
+        font-family: Poppins;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 20px; /* 166.667% */
     }
 }
 
