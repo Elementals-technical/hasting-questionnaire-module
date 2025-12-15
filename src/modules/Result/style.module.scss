@@ -16,6 +16,9 @@
     padding: 80px;
     background-size: cover;
     background-position: center;
+    @include md {
+        padding: 20px;
+    }
 }
 
 .title {
