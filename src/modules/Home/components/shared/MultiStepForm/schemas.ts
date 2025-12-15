@@ -83,9 +83,11 @@ export const productsStepSchema = z.object({
 });
 
 export const productsFocusStepSchema = z.object({
-    product: z.enum(PRODUCTS_TYPES, {
-        message: 'Please select at least one focus product',
-    }),
+    product: z
+        .enum(PRODUCTS_TYPES, {
+            message: 'Please select at least one focus product',
+        })
+        .default('vanities'),
 });
 
 export const vanitiesStepSchema = z.object({

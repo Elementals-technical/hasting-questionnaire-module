@@ -159,7 +159,7 @@ export const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
     stage: { stage: '' },
     aboutProject: { projectType: '', goals: [], challenges: [] },
     products: { products: [] },
-    productsFocus: { product: [] },
+    productsFocus: { product: 'vanities' },
     vanities: {
         width: 0,
         depth: '14-15"',
