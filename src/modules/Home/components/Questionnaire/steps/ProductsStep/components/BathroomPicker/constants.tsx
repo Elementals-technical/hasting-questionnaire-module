@@ -3,9 +3,9 @@ import CountertopsIcon from '@/assets/icons/products/CountertopsIcon';
 import MirrorsIcon from '@/assets/icons/products/MirrorsIcon';
 import PedestalsAndConsolesIcon from '@/assets/icons/products/PedestalsAndConsolesIcon';
 import StorageIcon from '@/assets/icons/products/StorageIcon';
+import ToiletsIcon from '@/assets/icons/products/ToiletsIcon';
 import TubsIcon from '@/assets/icons/products/TubsIcon';
 import VanitiesIcon from '@/assets/icons/products/VanitiesIcon';
-import { ToiletIcon } from 'lucide-react';
 import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types';
 
 export const productsOptions: CardOption[] = [
@@ -47,7 +47,7 @@ export const productsOptions: CardOption[] = [
     {
         id: 'toilets',
         label: 'Toilets',
-        icon: <ToiletIcon />,
+        icon: <ToiletsIcon />,
     },
 ];
 

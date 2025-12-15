@@ -152,7 +152,7 @@ export const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
         rooms: [],
     },
     bathroomFocus: {
-        rooms: [],
+        rooms: 'accessibleBath',
     },
     name: { name: '' },
     email: { email: '' },

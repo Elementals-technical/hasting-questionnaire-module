@@ -56,7 +56,7 @@ export const VanitiesForm = () => {
         }
     );
 
-    if (!showOverlay) {
+    if (showOverlay) {
         return <CalculatingOverlay />;
     }
 

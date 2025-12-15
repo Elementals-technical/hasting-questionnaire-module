@@ -29,29 +29,21 @@ const BathroomFocusPicker: React.FC<BathroomFocusPickerPropsT> = ({ form }) => {
                 name="rooms"
                 control={control}
                 render={({ field }) => {
-                    const handleToggle = (optionId: string) => {
-                        const existingIndex = field.value.findIndex((room) => {
-                            return room === optionId;
-                        });
+                    const handleToggle = (targetValue: string) => {
+                        const currentValue = field.value;
+                        const isSelected = currentValue === targetValue;
 
-                        if (existingIndex >= 0) {
-                            field.onChange(
-                                field.value.filter((_, i) => {
-                                    return i !== existingIndex;
-                                })
-                            );
+                        if (isSelected) {
+                            field.onChange('');
                         } else {
-                            field.onChange([optionId]);
+                            field.onChange(targetValue);
                         }
                     };
 
                     return (
                         <div className={s.list}>
                             {focusOptions.map((option) => {
-                                const room = field.value.find((r) => {
-                                    return r === option.id;
-                                });
-                                const isSelected = !!room;
+                                const isSelected = field.value === option.id;
 
                                 return (
                                     <BathroomCard

@@ -4,13 +4,18 @@ import { BathroomsPicker } from './components/BathroomPicker/BathroomPicker';
 import s from './BathroomsForm.module.scss';
 
 export const BathroomsForm = () => {
-    const { currentStep, setFormStepData, goToNextStep } = useMultiStepFormContext();
+    const { currentStep, setFormStepData, goToNextStep, goToStep } = useMultiStepFormContext();
 
     const { form } = useMultiStepFormStepForm('bathrooms');
 
     const submitHandler = form.handleSubmit((data) => {
         setFormStepData('bathrooms', (data = { ...data }));
-        goToNextStep();
+        if (data.rooms.length === 1) {
+            setFormStepData('bathroomFocus', { rooms: data.rooms[0].id });
+            goToStep('name');
+        } else {
+            goToNextStep();
+        }
     });
 
     const { watch } = form;

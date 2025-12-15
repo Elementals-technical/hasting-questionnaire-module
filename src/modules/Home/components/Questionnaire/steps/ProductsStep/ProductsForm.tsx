@@ -4,7 +4,7 @@ import { ProductsPicker } from './components/BathroomPicker/ProductsPicker';
 import s from './ProductsForm.module.scss';
 
 export const ProductsForm = () => {
-    const { currentStep, setFormStepData, goToNextStep } = useMultiStepFormContext();
+    const { currentStep, setFormStepData, goToNextStep, goToStep } = useMultiStepFormContext();
 
     const { form } = useMultiStepFormStepForm('products');
 
@@ -12,6 +12,21 @@ export const ProductsForm = () => {
         (data) => {
             setFormStepData('products', (data = { ...data }));
             goToNextStep();
+
+            if (data.products.length === 1) {
+                setFormStepData('productsFocus', { product: data.products[0].id });
+
+                if (data.products[0].id === 'vanities') {
+                    goToStep('vanities');
+                }
+
+                if (data.products[0].id === 'storage') {
+                    goToStep('storage');
+                }
+                goToStep('vanities');
+            } else {
+                goToNextStep();
+            }
         },
         (errors) => {
             console.log('❌ VALIDATION ERRORS:', errors);

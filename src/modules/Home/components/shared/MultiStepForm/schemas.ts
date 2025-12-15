@@ -43,7 +43,7 @@ export const bathroomsStepSchema = z.object({
 });
 
 export const bathroomsFocusStepSchema = z.object({
-    rooms: z.array(z.enum(BATHROOM_TYPES)).min(1, 'Please select at least one bathroom'),
+    rooms: z.enum(BATHROOM_TYPES, { message: 'Please select value' }),
 });
 
 export const nameStepSchema = z.object({

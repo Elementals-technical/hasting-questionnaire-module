@@ -7,7 +7,7 @@
 
 .body {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     height: 100%;
     @include md {
         flex-direction: column;
@@ -15,10 +15,14 @@
     .content {
         align-self: center;
     }
+
+    .right {
+        flex: 1;
+    }
 }
 
 .title {
-    width: 335px;
+    width: 435px;
     color: #ac5331;
     font-family: 'Proxima Nova';
     font-size: 40px;
@@ -51,6 +55,7 @@
     flex-direction: column;
     gap: 16px;
     align-items: flex-start;
+    justify-self: center;
 }
 
 .optionButton {
@@ -135,35 +140,5 @@
 
     svg {
         cursor: pointer;
-    }
-}
-
-.footer {
-    position: fixed;
-    background: rgba(241, 235, 230, 0.8);
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-self: flex-end;
-    padding: 20px 80px;
-    .btnBack,
-    .btnNext {
-        text-transform: uppercase;
-        border-radius: 100px;
-        border: 2px solid #ac5331;
-        display: flex;
-        padding: 13px 32px;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-
-        color: #ac5331;
-        font-family: Poppins;
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 20px; /* 142.857% */
     }
 }

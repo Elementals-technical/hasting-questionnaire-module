@@ -34,7 +34,7 @@ export const StageForm = () => {
                     <div className={s.title}>{currentStep.title}</div>
                     <div className={s.subtitle}>{currentStep.description}</div>
                 </div>
-                <div className={s.content}>
+                <div className={clsx(s.content, s.right)}>
                     <Controller
                         name="stage"
                         control={form.control}
