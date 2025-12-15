@@ -110,6 +110,10 @@ export const vanitiesStepSchema = z.object({
 });
 
 export const storageStepSchema = z.object({
+    storageArrangement: z.nativeEnum(CONCEPT_STYLE_TYPES, {
+        message: 'Please select a style type',
+    }),
+
     width: z
         .number()
         .min(24, { message: 'Value must be 24 or greater' })

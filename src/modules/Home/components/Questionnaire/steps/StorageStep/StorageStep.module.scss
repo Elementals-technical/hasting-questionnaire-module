@@ -1,0 +1,326 @@
+@import '../../../../../../styles/breakpoints.scss';
+
+.wrap {
+    width: 100%;
+    height: 100%;
+}
+
+.body {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 40px;
+    height: 100%;
+    @include md {
+        flex-direction: column;
+        padding-bottom: 20px;
+    }
+
+    .left {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: center;
+        align-items: start;
+        flex: 0 0 50%;
+
+        @include md {
+            align-items: center;
+            height: auto;
+            flex: none;
+        }
+    }
+    .right {
+        flex: 1;
+        position: relative;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-right: 5px;
+        padding-left: 20px;
+        .form {
+            gap: 64px;
+        }
+    }
+}
+
+.title {
+    width: 450px;
+    color: #ac5331;
+    font-family: 'Proxima Nova';
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 52px; /* 130% */
+
+    @include md {
+        color: #ac5331;
+        text-align: center;
+        font-family: 'Proxima Nova';
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 32px; /* 133.333% */
+    }
+}
+
+.subtitle {
+    width: 450px;
+    color: #282828;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 32px; /* 160% */
+
+    @include md {
+        color: #282828;
+        text-align: center;
+        font-family: Poppins;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 20px; /* 142.857% */
+    }
+}
+
+.optionsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.sectionTitle {
+    margin-bottom: 16px;
+    color: #ac5331;
+    font-family: 'Proxima Nova';
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 32px; /* 133.333% */
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+.section {
+    margin-bottom: 64px;
+}
+
+.fieldWwrap {
+    display: flex;
+    flex-direction: column;
+}
+
+.optionButton {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 20px;
+    border-radius: 100px;
+    border: 1px solid #282828;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+        border-color: #ac5331;
+        background: rgba(172, 83, 49, 0.05);
+    }
+
+    &Selected {
+        background: #282828;
+        border-color: #282828;
+        color: #fff;
+
+        .optionLabel {
+            color: #fff;
+        }
+
+        .infoIcon {
+            color: #fff;
+        }
+
+        &:hover {
+            background: #3a3a3a;
+            border-color: #3a3a3a;
+        }
+    }
+}
+
+.optionLabel {
+    color: #282828;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 28px;
+    transition: color 0.3s ease;
+}
+
+.fieldLabel {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    color: #282828;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 120% */
+    text-transform: capitalize;
+}
+
+.tooltipText {
+    width: 490px;
+    display: flex;
+    gap: 8px;
+    padding: 20px;
+    align-items: flex-start;
+    gap: 8px;
+
+    border-radius: 20px;
+    border: 1px solid #282828;
+    background: #fff;
+
+    color: #282828;
+    font-family: Poppins;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 166.667% */
+    span {
+        width: 100%;
+    }
+
+    svg {
+        cursor: pointer;
+    }
+}
+
+.footer {
+    position: fixed;
+    background: rgba(241, 235, 230, 0.8);
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-self: flex-end;
+    padding: 20px 80px;
+    .btnBack,
+    .btnNext {
+        text-transform: uppercase;
+        border-radius: 100px;
+        border: 2px solid #ac5331;
+        display: flex;
+        padding: 13px 32px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+
+        color: #ac5331;
+        font-family: Poppins;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 20px; /* 142.857% */
+    }
+}
+
+.greetingOverlay {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.greetingText {
+    color: #ac5331;
+    font-family: 'Proxima Nova';
+    font-size: 54px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 64px; /* 118.519% */
+}
+
+.loader {
+    width: 60px;
+    aspect-ratio: 2;
+    --_g: no-repeat radial-gradient(circle closest-side, #000 90%, #0000);
+    background:
+        var(--_g) 0% 50%,
+        var(--_g) 50% 50%,
+        var(--_g) 100% 50%;
+    background-size: calc(100% / 5) 50%;
+    animation: l3 1s infinite linear;
+}
+@keyframes l3 {
+    20% {
+        background-position:
+            0% 0%,
+            50% 50%,
+            100% 50%;
+    }
+    40% {
+        background-position:
+            0% 100%,
+            50% 0%,
+            100% 50%;
+    }
+    60% {
+        background-position:
+            0% 50%,
+            50% 100%,
+            100% 0%;
+    }
+    80% {
+        background-position:
+            0% 50%,
+            50% 50%,
+            100% 100%;
+    }
+}
+
+.overlay {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease-in;
+    &Title {
+        color: #ac5331;
+        font-family: 'Proxima Nova';
+        font-size: 54px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 64px; /* 118.519% */
+    }
+    &Subtitle {
+        color: #ac5331;
+        text-align: center;
+        font-family: 'Proxima Nova';
+        font-size: 40px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 52px; /* 130% */
+    }
+}
