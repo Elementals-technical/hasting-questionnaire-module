@@ -6,10 +6,12 @@ import { flushSync } from 'react-dom';
 import { DefaultValues, Path, PathValue, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useSafeContext } from '@/hooks/useSafeContext';
+import { CONCEPT_STYLE_VANITIES_TYPES } from '@/modules/Home/components/Questionnaire/steps/VanitiesStep/constants';
+import { SINK_TYPE_TYPES } from '../../Questionnaire/steps/constants';
 import {
-    CONCEPT_STYLE_VANITIES_TYPES,
-    SINK_TYPE_TYPES,
-} from '@/modules/Home/components/Questionnaire/steps/VanitiesStep/constants';
+    STYLE_COUNTERTOPS_TYPES,
+    TOP_THICKNESS_COUNTERTOPS_TYPES,
+} from '../../Questionnaire/steps/CountertopsStep/constants';
 import {
     CONCEPT_STYLE_STORAGE_TYPES,
     STORAGE_ARRANGEMENT_TYPES,
@@ -17,6 +19,7 @@ import {
 import {
     bathroomsFocusStepSchema,
     bathroomsStepSchema,
+    countertopsStepSchema,
     emailStepSchema,
     nameStepSchema,
     productsFocusStepSchema,
@@ -139,6 +142,14 @@ export const MULTI_STEP_FORM_STEPS = {
         schema: storageStepSchema,
         enabled: true,
     },
+    countertops: {
+        id: 'countertops',
+        label: 'Countertops',
+        title: 'Gives us the lowdown on your countertop needs',
+        description: `Don't feel compelled to answer everything. Thats why we're here!`,
+        schema: countertopsStepSchema,
+        enabled: true,
+    },
 } as const satisfies Record<keyof MultiStepForm, MultiStepFormStep>;
 const MULTI_STEP_FORM_STEPS_ARRAY = Object.values(MULTI_STEP_FORM_STEPS).filter((step) => {
     return step.enabled;
@@ -177,6 +188,16 @@ export const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
         look: [],
         storageArrangement: STORAGE_ARRANGEMENT_TYPES._SINGLE_UNIT,
         height: 0,
+    },
+    countertops: {
+        style: STYLE_COUNTERTOPS_TYPES._FLOATING,
+        sinkType: SINK_TYPE_TYPES._INTEGRATED,
+        width: 0,
+        depth: '14-15"',
+        topThickness: TOP_THICKNESS_COUNTERTOPS_TYPES._THIN,
+        basinQuantity: '',
+        color: [],
+        look: [],
     },
 };
 

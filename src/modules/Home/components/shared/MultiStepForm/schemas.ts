@@ -1,3 +1,9 @@
+import {
+    ADDITIONAL_INFO_FIELD_SCHEMA,
+    COLOR_FIELD_SCHEMA,
+    FILES_FIELD_SCHEMA,
+    LOOK_FIELD_SCHEMA,
+} from './schemas/fieldsShemas';
 import * as z from 'zod';
 import {
     CHALLENGES_OPTIONS_IDS,
@@ -10,10 +16,15 @@ import { STAGE_OPTIONS_IDS } from '@/modules/Home/components/Questionnaire/steps
 import {
     CONCEPT_STYLE_VANITIES_TYPES,
     MOUNTING_TYPE_TYPES,
-    SINK_TYPE_TYPES,
     VANITIES_DEPTH_TYPES,
 } from '@/modules/Home/components/Questionnaire/steps/VanitiesStep/constants';
-import { COLOR_TYPES, LOOK_TYPES } from '../../Questionnaire/steps/constants';
+import { COLOR_TYPES, LOOK_TYPES, SINK_TYPE_TYPES } from '../../Questionnaire/steps/constants';
+import {
+    BASIN_QUANTITY_TYPES,
+    COUNTERTOPS_DEPTH_TYPES,
+    STYLE_COUNTERTOPS_TYPES,
+    TOP_THICKNESS_COUNTERTOPS_TYPES,
+} from '../../Questionnaire/steps/CountertopsStep/constants';
 import {
     CONCEPT_STYLE_STORAGE_TYPES,
     STORAGE_ARRANGEMENT_TYPES,
@@ -69,6 +80,8 @@ export const projectGoalsStepSchema = z.object({
     challenges: z
         .array(z.enum(CHALLENGES_OPTIONS_IDS as [string, ...string[]]))
         .min(1, 'Please select at least one challenge'),
+    additionalInfo: ADDITIONAL_INFO_FIELD_SCHEMA,
+    files: FILES_FIELD_SCHEMA,
 });
 
 export const productsStepSchema = z.object({
@@ -113,6 +126,8 @@ export const vanitiesStepSchema = z.object({
         .array(z.nativeEnum(LOOK_TYPES))
         .min(1, 'Please select at least one look')
         .max(Object.keys(LOOK_TYPES).length),
+    additionalInfo: ADDITIONAL_INFO_FIELD_SCHEMA,
+    files: FILES_FIELD_SCHEMA,
 });
 
 export const storageStepSchema = z.object({
@@ -142,24 +157,30 @@ export const storageStepSchema = z.object({
         .array(z.nativeEnum(LOOK_TYPES))
         .min(1, 'Please select at least one look')
         .max(Object.keys(LOOK_TYPES).length),
+    additionalInfo: ADDITIONAL_INFO_FIELD_SCHEMA,
+    files: FILES_FIELD_SCHEMA,
 });
 
 export const countertopsStepSchema = z.object({
-    width: z
-        .number()
-        .min(24, { message: 'Value must be 24 or greater' })
-        .max(114.2, { message: 'Value must be 114.2 or less' }),
-    depth: z.enum(VANITIES_DEPTH_TYPES, {
-        message: 'Please select a depth',
-    }),
-    mountingType: z
-        .array(z.enum(MOUNTING_TYPE_TYPES as [string, ...string[]]))
-        .min(1, 'Please select valid mounting type'),
-    conceptStyle: z.nativeEnum(CONCEPT_STYLE_VANITIES_TYPES, {
-        message: 'Please select a style type',
+    style: z.nativeEnum(STYLE_COUNTERTOPS_TYPES, {
+        message: 'Please select a style',
     }),
     sinkType: z.nativeEnum(SINK_TYPE_TYPES, {
         message: 'Please select a sink type',
+    }),
+
+    width: z
+        .number()
+        .min(24, { message: 'Value must be 24 or greater' })
+        .max(120, { message: 'Value must be 120 or less' }),
+    depth: z.enum(COUNTERTOPS_DEPTH_TYPES, {
+        message: 'Please select a depth',
+    }),
+    topThickness: z.nativeEnum(TOP_THICKNESS_COUNTERTOPS_TYPES, {
+        message: 'Please select a depth',
+    }),
+    basinQuantity: z.enum(BASIN_QUANTITY_TYPES as [string, ...string[]], {
+        message: 'Please select a depth',
     }),
     color: z
         .array(z.nativeEnum(COLOR_TYPES))
@@ -169,6 +190,8 @@ export const countertopsStepSchema = z.object({
         .array(z.nativeEnum(LOOK_TYPES))
         .min(1, 'Please select at least one color')
         .max(Object.keys(LOOK_TYPES).length),
+    additionalInfo: ADDITIONAL_INFO_FIELD_SCHEMA,
+    files: FILES_FIELD_SCHEMA,
 });
 
 export const mirrorsStepSchema = z.object({
@@ -196,6 +219,8 @@ export const mirrorsStepSchema = z.object({
         .array(z.nativeEnum(LOOK_TYPES))
         .min(1, 'Please select at least one color')
         .max(Object.keys(LOOK_TYPES).length),
+    additionalInfo: ADDITIONAL_INFO_FIELD_SCHEMA,
+    files: FILES_FIELD_SCHEMA,
 });
 
 export const pedestalAndConsolesStepSchema = z.object({
@@ -215,14 +240,10 @@ export const pedestalAndConsolesStepSchema = z.object({
     sinkType: z.nativeEnum(SINK_TYPE_TYPES, {
         message: 'Please select a sink type',
     }),
-    color: z
-        .array(z.nativeEnum(COLOR_TYPES))
-        .min(1, 'Please select at least one color')
-        .max(Object.keys(COLOR_TYPES).length),
-    look: z
-        .array(z.nativeEnum(LOOK_TYPES))
-        .min(1, 'Please select at least one color')
-        .max(Object.keys(LOOK_TYPES).length),
+    color: COLOR_FIELD_SCHEMA,
+    look: LOOK_FIELD_SCHEMA,
+    additionalInfo: ADDITIONAL_INFO_FIELD_SCHEMA,
+    files: FILES_FIELD_SCHEMA,
 });
 
 export const basinStepSchema = z.object({
@@ -242,14 +263,10 @@ export const basinStepSchema = z.object({
     sinkType: z.nativeEnum(SINK_TYPE_TYPES, {
         message: 'Please select a sink type',
     }),
-    color: z
-        .array(z.nativeEnum(COLOR_TYPES))
-        .min(1, 'Please select at least one color')
-        .max(Object.keys(COLOR_TYPES).length),
-    look: z
-        .array(z.nativeEnum(LOOK_TYPES))
-        .min(1, 'Please select at least one color')
-        .max(Object.keys(LOOK_TYPES).length),
+    color: COLOR_FIELD_SCHEMA,
+    look: LOOK_FIELD_SCHEMA,
+    additionalInfo: ADDITIONAL_INFO_FIELD_SCHEMA,
+    files: FILES_FIELD_SCHEMA,
 });
 
 export const tubsStepSchema = z.object({
@@ -269,14 +286,10 @@ export const tubsStepSchema = z.object({
     sinkType: z.nativeEnum(SINK_TYPE_TYPES, {
         message: 'Please select a sink type',
     }),
-    color: z
-        .array(z.nativeEnum(COLOR_TYPES))
-        .min(1, 'Please select at least one color')
-        .max(Object.keys(COLOR_TYPES).length),
-    look: z
-        .array(z.nativeEnum(LOOK_TYPES))
-        .min(1, 'Please select at least one color')
-        .max(Object.keys(LOOK_TYPES).length),
+    color: COLOR_FIELD_SCHEMA,
+    look: LOOK_FIELD_SCHEMA,
+    additionalInfo: ADDITIONAL_INFO_FIELD_SCHEMA,
+    files: FILES_FIELD_SCHEMA,
 });
 
 export const toiletsStepSchema = z.object({
@@ -296,12 +309,8 @@ export const toiletsStepSchema = z.object({
     sinkType: z.nativeEnum(SINK_TYPE_TYPES, {
         message: 'Please select a sink type',
     }),
-    color: z
-        .array(z.nativeEnum(COLOR_TYPES))
-        .min(1, 'Please select at least one color')
-        .max(Object.keys(COLOR_TYPES).length),
-    look: z
-        .array(z.nativeEnum(LOOK_TYPES))
-        .min(1, 'Please select at least one color')
-        .max(Object.keys(LOOK_TYPES).length),
+    color: COLOR_FIELD_SCHEMA,
+    look: LOOK_FIELD_SCHEMA,
+    additionalInfo: ADDITIONAL_INFO_FIELD_SCHEMA,
+    files: FILES_FIELD_SCHEMA,
 });

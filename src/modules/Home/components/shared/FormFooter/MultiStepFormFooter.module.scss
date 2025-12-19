@@ -41,6 +41,10 @@
         font-style: normal;
         font-weight: 700;
         line-height: 20px; /* 142.857% */
+
+        @include md {
+            padding: 12px 20px;
+        }
     }
 
     .btnNext {

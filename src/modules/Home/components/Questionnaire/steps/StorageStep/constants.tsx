@@ -10,6 +10,7 @@ import TandemVanitiesIcon from '@/assets/icons/vanities/TandemVanitiesIcon';
 import TwoDrawerIcon from '@/assets/icons/vanities/TwoDrawerIcon';
 import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types';
 import { TagOption } from '@/modules/Home/components/shared/TagSelector/types';
+import { SINK_TYPE_TYPES } from '../constants';
 
 export const STORAGE_DEPTH_TYPES = ['5-9.9"', '10-15.9" ', '16-20.9"'] as const;
 
@@ -44,12 +45,6 @@ export enum CONCEPT_STYLE_STORAGE_TYPES {
     _STAGGERED = 'staggered',
     _GEOMETRIC = 'geometric',
     _CREATIVE = 'creative',
-}
-
-export enum SINK_TYPE_TYPES {
-    _INTEGRATED = 'integrated',
-    _VESSEL = 'vessel',
-    _UNDERMOUNT = 'undermount',
 }
 
 export enum COLOR_TYPES {

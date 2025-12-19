@@ -11,32 +11,31 @@ import TandemVanitiesIcon from '@/assets/icons/vanities/TandemVanitiesIcon';
 import TwoDrawerIcon from '@/assets/icons/vanities/TwoDrawerIcon';
 import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types';
 import { SINK_TYPE_TYPES } from '../constants';
+import { CONCEPT_STYLE_VANITIES_TYPES } from '../VanitiesStep/constants';
 
-export const VANITIES_DEPTH_TYPES = ['14-15"', '18-19"', '19-21"'] as const;
-export const MOUNTING_TYPE_TYPES = ['wall', 'floor'];
+export const COUNTERTOPS_DEPTH_TYPES = ['14-15"', '18-19"', '19-21"'] as const;
+export const TOP_THICKNESS_COUNTERTOPS_TYPES = ['Thin', 'Thick'] as const;
+export const BASIN_QUANTITY_TYPES = ['1', '2'] as const;
 
-export enum CONCEPT_STYLE_VANITIES_TYPES {
-    _SINGLE_VANITY = 'single-vanity',
-    _DOUBLE_VANITY = 'double-vanity',
-    _ONE_DRAWER = '1-drawer',
-    _ONE_DRAWER_INNER = '1-drawer-inner',
-    _TWO_DRAWER = '2-drawer',
-    _OPEN_SHELVING = 'open-shelving',
-    _MULTI_LEVEL = 'multi-level',
-    _SLIM_PROFILE = 'slim-profile',
-    _CURVED_VANITY = 'curved-vanity',
-    _TANDEM_VANITIES = 'tandem-vanities',
+export enum STYLE_COUNTERTOPS_TYPES {
+    _FLOATING = 'floating',
+    _VANITY = 'vanity',
 }
 
-export const mountingTypesOptions: CardOption[] = [
+export enum FEATURES_COUNTERTOPS_TYPES {
+    _TOWEL_BAR = 'towel-bar',
+    _OVERFLOW = 'overflow',
+}
+
+export const styleCountertopsOptions: CardOption[] = [
     {
-        id: 'wall',
-        label: 'Wall',
+        id: STYLE_COUNTERTOPS_TYPES._FLOATING,
+        label: 'Floating',
         icon: <VanitiesIcon />,
     },
     {
-        id: 'floor',
-        label: 'Floor',
+        id: STYLE_COUNTERTOPS_TYPES._VANITY,
+        label: 'Vanity',
         icon: <VanitiesIcon />,
     },
 ];

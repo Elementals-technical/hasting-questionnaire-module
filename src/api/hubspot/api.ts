@@ -5,7 +5,7 @@ import {
     HubspotTokenResponse,
 } from './types';
 import axios from 'axios';
-import { MultiStepForm } from '@/modules/Home/components/shared/MultiStepForm/types';
+import { EmailMutationData } from '@/hooks/useSendEmail';
 
 const PROXY_URL = import.meta.env.VITE_DO_PROXY;
 
@@ -74,8 +74,8 @@ export async function refreshAccessToken(): Promise<HubspotTokenResponse> {
  * @param refreshToken - Поточний токен оновлення.
  * @returns Promise<RefreshTokenResponse>
  */
-export async function sendEmail(payload: MultiStepForm): Promise<string> {
-    const EMAIL_ENDPOINT = `${PROXY_URL}/email/send`;
+export async function sendEmail(payload: EmailMutationData): Promise<string> {
+    const EMAIL_ENDPOINT = `${PROXY_URL}/api/email/send`;
 
     try {
         const response = await axios.post<string>(EMAIL_ENDPOINT, payload, {
@@ -86,5 +86,53 @@ export async function sendEmail(payload: MultiStepForm): Promise<string> {
     } catch (error) {
         console.error('Error sending email', error);
         throw new Error('Failed to send email.');
+    }
+}
+
+export interface FileUploadResult {
+    success: boolean;
+    id: string;
+    url: string;
+    originalName: string;
+    size: number;
+    mimeType: string;
+}
+
+export interface FileUploadResponse {
+    total: number;
+    success: number;
+    failed: number;
+    results: FileUploadResult[];
+}
+
+/**
+ * Завантажити файли на сервер (bulk upload).
+ *
+ * @param files - Масив файлів для завантаження.
+ * @returns Promise<FileUploadResponse>
+ */
+export async function uploadFiles(files: File[]): Promise<FileUploadResponse> {
+    const UPLOAD_ENDPOINT = `${PROXY_URL}/api/files/upload/bulk`;
+
+    try {
+        // Створюємо FormData для відправки файлів
+        const formData = new FormData();
+
+        // Додаємо кожен файл до FormData з ключем "files"
+        files.forEach((file) => {
+            formData.append('files', file);
+        });
+
+        const response = await axios.post<FileUploadResponse>(UPLOAD_ENDPOINT, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                authorization: 'zCxGZgV3iVUR93C2Cua2lTgZZZppRL1z32VifmzwdPgcP',
+            },
+        });
+
+        return response.data;
+    } catch (error) {
+        console.error('Error uploading files', error);
+        throw new Error('Failed to upload files.');
     }
 }

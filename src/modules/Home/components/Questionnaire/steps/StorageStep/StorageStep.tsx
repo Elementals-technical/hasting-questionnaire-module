@@ -5,15 +5,19 @@ import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
 import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
 import Slider from '../../../shared/Slider/Slider';
 import TagSelector from '../../../shared/TagSelector/TagSelector';
+import { useFileIndexedDBValue } from '@/lib/indexedDB/utils';
 import { useNavigate } from '@tanstack/react-router';
 import clsx from 'clsx';
 import { Controller } from 'react-hook-form';
 import { useCreateHubspotContact } from '@/hooks/useCreateHubspotContact';
 import { useSendEmail } from '@/hooks/useSendEmail';
+import { useUploadFiles } from '@/hooks/useUploadFiles';
 import {
     useMultiStepFormContext,
     useMultiStepFormStepForm,
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
+import { SUBSTYLES } from '@/modules/Result/components/BonusSuggestions/constants';
+import { determineDominantStyles } from '@/modules/Result/components/BonusSuggestions/utils';
 import {
     colorTypesOptions,
     conceptStyleOptions,
@@ -29,6 +33,8 @@ export const StorageForm = () => {
     const { currentStep, setFormStepData, formData } = useMultiStepFormContext();
     const contactMutation = useCreateHubspotContact();
     const sendEmailMutation = useSendEmail();
+    const uploadFiles = useUploadFiles();
+    const { get } = useFileIndexedDBValue();
 
     const { name } = useMultiStepFormStepForm('name').form.getValues();
     const { email } = useMultiStepFormStepForm('email').form.getValues();
@@ -41,7 +47,7 @@ export const StorageForm = () => {
     } = form;
 
     const submitHandler = form.handleSubmit(
-        (data) => {
+        async (data) => {
             setFormStepData('storage', data);
             setShowOverlay(true);
             const contactData = {
@@ -50,8 +56,35 @@ export const StorageForm = () => {
                 questionnaire_app: JSON.stringify(formData),
             };
 
+            const emailData = {
+                ...formData,
+                aesthetics: determineDominantStyles(formData.roomStyle.rooms, SUBSTYLES),
+            };
+
             contactMutation.mutate(contactData);
-            sendEmailMutation.mutate(formData);
+            // 2. Отримання файлів з IndexedDB
+            const filesData = [
+                ...(formData.aboutProject?.files?.map((i) => i.idInIndexedDB) || []),
+                ...(formData.vanities?.files?.map((i) => i.idInIndexedDB) || []),
+            ];
+
+            const filePromises = filesData.map((fileId) => get('files', parseInt(fileId || '')));
+            const results = await Promise.allSettled(filePromises);
+
+            const successfulFiles = results
+                .filter((result): result is PromiseFulfilledResult<File> => result.status === 'fulfilled')
+                .map((result) => result.value);
+
+            contactMutation.mutate(contactData);
+
+            const uploadResponse = await uploadFiles.mutateAsync(successfulFiles);
+
+            // Тепер у нас є дані від сервера (URL, ID тощо)
+            // Відправляємо імейл, використовуючи результати завантаження
+            sendEmailMutation.mutate({
+                ...emailData,
+                attachments: uploadResponse.results,
+            });
 
             setTimeout(() => {
                 navigate({ to: '/result' });

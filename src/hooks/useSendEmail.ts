@@ -1,19 +1,19 @@
 // src/hooks/useCreateHubspotContact.ts
 import { useMutation, UseMutationOptions } from '@tanstack/react-query';
 import { MultiStepForm } from '@/modules/Home/components/shared/MultiStepForm/types';
-import { sendEmail } from '@/api/hubspot/api';
+import { FileUploadResult, sendEmail } from '@/api/hubspot/api';
 
 type HubspotMutationOptions = UseMutationOptions<string, Error, MultiStepForm>;
 
-export const useSendEmail = (options?: HubspotMutationOptions) => {
-    const handleSendEmail = async (payload: MultiStepForm) => {
-        return await sendEmail(payload);
-    };
+export type EmailMutationData = MultiStepForm & {
+    attachments: FileUploadResult[]; // Додаємо поле для результатів завантаження
+};
 
+export const useSendEmail = (options?: HubspotMutationOptions) => {
     // --- 3. Повернення useMutation ---
-    return useMutation<string, Error, MultiStepForm>({
+    return useMutation<string, Error, EmailMutationData>({
         // mutationFn тепер приймає fields і викликає обробник з логікою токена
-        mutationFn: handleSendEmail,
+        mutationFn: (payload) => sendEmail(payload),
 
         onSuccess: (data, variables, context) => {
             console.log('Email successfully sent.', data);

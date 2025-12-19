@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import CalculatingOverlay from '../../../shared/CalculatingOverlay/CalculatingOverlay';
 import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
 import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
+import Slider from '../../../shared/Slider/Slider';
 import AttachIcon from '@/assets/icons/common/AttachIcon';
 import { useFileIndexedDBValue, useSetFileToIndexedDB } from '@/lib/indexedDB/utils';
 import { useNavigate } from '@tanstack/react-router';
@@ -16,16 +17,21 @@ import {
     useMultiStepFormContext,
     useMultiStepFormStepForm,
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
-import Slider from '@/modules/Home/components/shared/Slider/Slider';
 import TagSelector from '@/modules/Home/components/shared/TagSelector/TagSelector';
 import { SUBSTYLES } from '@/modules/Result/components/BonusSuggestions/constants';
 import { determineDominantStyles } from '@/modules/Result/components/BonusSuggestions/utils';
 import { colorTypesOptions, lookTypesOptions } from '../constants';
-import { conceptStyleOptions, mountingTypesOptions, sinkTypesOptions, VANITIES_DEPTH_TYPES } from './constants';
+import {
+    BASIN_QUANTITY_TYPES,
+    COUNTERTOPS_DEPTH_TYPES,
+    sinkTypesOptions,
+    styleCountertopsOptions,
+    TOP_THICKNESS_COUNTERTOPS_TYPES,
+} from './constants';
 import { Button } from '@/components/ui/Button/Button';
-import s from './VanitiesStep.module.scss';
+import s from './CountertopsStep.module.scss';
 
-export const VanitiesForm = () => {
+export const CountertopsForm = () => {
     const [showOverlay, setShowOverlay] = useState(false);
     const { currentStep, setFormStepData, formData } = useMultiStepFormContext();
     const contactMutation = useCreateHubspotContact();
@@ -33,11 +39,8 @@ export const VanitiesForm = () => {
     const uploadFiles = useUploadFiles();
     const { remove, get } = useFileIndexedDBValue();
 
-    const { name } = useMultiStepFormStepForm('name').form.getValues();
-    const { email } = useMultiStepFormStepForm('email').form.getValues();
-
     const navigate = useNavigate();
-    const { form } = useMultiStepFormStepForm('vanities');
+    const { form } = useMultiStepFormStepForm('countertops');
 
     const { mutate: setFileToIndexedDB } = useSetFileToIndexedDB();
     // const { mutate: getFileFromIndexedDB } = useGetFileFromIndexedDB();
@@ -49,13 +52,13 @@ export const VanitiesForm = () => {
     const submitHandler = form.handleSubmit(
         async (data) => {
             try {
-                setFormStepData('vanities', data);
+                setFormStepData('countertops', data);
                 setShowOverlay(true);
 
                 // 1. Підготовка даних
                 const contactData = {
-                    firstname: name + '_ELEMENTALS_TEST',
-                    email: email,
+                    firstname: formData.name.name + '_ELEMENTALS_TEST',
+                    email: formData.email.email,
                     questionnaire_app: JSON.stringify(formData),
                 };
 
@@ -67,9 +70,10 @@ export const VanitiesForm = () => {
                 // 2. Отримання файлів з IndexedDB
                 const filesData = [
                     ...(formData.aboutProject?.files?.map((i) => i.idInIndexedDB) || []),
-                    ...(formData.vanities?.files?.map((i) => i.idInIndexedDB) || []),
+                    ...(formData.countertops?.files?.map((i) => i.idInIndexedDB) || []),
                 ];
 
+                //3. Створення промісів
                 const filePromises = filesData.map((fileId) => get<File>('files', parseInt(fileId || '')));
                 const results = await Promise.allSettled(filePromises);
 
@@ -120,100 +124,11 @@ export const VanitiesForm = () => {
                     <div className={s.subtitle}>{currentStep.description}</div>
                 </div>
                 <div className={clsx(s.right, s.form)}>
-                    {/* Size Section */}
-                    <div className={s.section}>
-                        <h2 className={s.sectionTitle}>Size</h2>
-                        <Controller
-                            name="width"
-                            control={form.control}
-                            render={({ field }) => (
-                                <div className={s.optionsContainer}>
-                                    <Slider
-                                        key={field.name}
-                                        label={field.name}
-                                        attributeValue={field.value}
-                                        onValueChange={(value) => field.onChange(value)}
-                                    />
-                                </div>
-                            )}
-                        />
-                        <Controller
-                            name="depth"
-                            control={form.control}
-                            render={({ field }) => (
-                                <div className={s.fieldWwrap}>
-                                    <span className={s.fieldLabel}>Depth</span>
-                                    <div className={clsx(s.optionsContainer, 'justify-start')}>
-                                        {VANITIES_DEPTH_TYPES.map((option) => {
-                                            const isSelected = field.value === option;
-
-                                            return (
-                                                <button
-                                                    key={option}
-                                                    type="button"
-                                                    onClick={() => field.onChange(option)}
-                                                    className={clsx(s.optionButton, {
-                                                        [s.optionButtonSelected]: isSelected,
-                                                    })}
-                                                >
-                                                    {option}
-                                                </button>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-                            )}
-                        />
-                        {errors.width && <ErrorMessage>{errors.width.message}</ErrorMessage>}
-                    </div>
-                    {/* Mount type section */}
-                    <div className={s.section}>
-                        <h2 className={s.sectionTitle}>Mounting type</h2>
-                        <Controller
-                            name="mountingType"
-                            control={form.control}
-                            render={({ field }) => {
-                                const handleToggle = (goalId: string) => {
-                                    const currentGoals = field.value || [];
-                                    const isSelected = currentGoals.includes(goalId);
-
-                                    if (isSelected) {
-                                        field.onChange(currentGoals.filter((id) => id !== goalId));
-                                    } else {
-                                        field.onChange([...currentGoals, goalId]);
-                                    }
-                                };
-
-                                return (
-                                    <div className={s.optionsContainer}>
-                                        {mountingTypesOptions.map((option) => {
-                                            const room = field.value.find((r) => {
-                                                return r === option.id;
-                                            });
-                                            const isSelected = !!room;
-
-                                            return (
-                                                <BathroomCard
-                                                    key={option.id}
-                                                    option={option}
-                                                    isSelected={isSelected}
-                                                    onToggle={() => {
-                                                        return handleToggle(option.id);
-                                                    }}
-                                                />
-                                            );
-                                        })}
-                                    </div>
-                                );
-                            }}
-                        />
-                        {errors.mountingType && <ErrorMessage>{errors.mountingType.message}</ErrorMessage>}
-                    </div>
-                    {/* Concept style section */}
+                    {/* Style section */}
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Concept | Style</h2>
                         <Controller
-                            name="conceptStyle"
+                            name="style"
                             control={form.control}
                             render={({ field }) => {
                                 const handleToggle = (targetValue: string) => {
@@ -229,7 +144,7 @@ export const VanitiesForm = () => {
 
                                 return (
                                     <div className={s.optionsContainer}>
-                                        {conceptStyleOptions.map((option) => {
+                                        {styleCountertopsOptions.map((option) => {
                                             const isSelected = field.value === option.id;
 
                                             return (
@@ -247,9 +162,8 @@ export const VanitiesForm = () => {
                                 );
                             }}
                         />
-                        {errors.conceptStyle && <ErrorMessage>{errors.conceptStyle.message}</ErrorMessage>}
+                        {errors.style && <ErrorMessage>{errors.style.message}</ErrorMessage>}
                     </div>
-
                     {/* Sink type style section */}
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Sink type</h2>
@@ -289,6 +203,112 @@ export const VanitiesForm = () => {
                             }}
                         />
                         {errors.sinkType && <ErrorMessage>{errors.sinkType.message}</ErrorMessage>}
+                    </div>
+                    {/* Size Section */}
+                    <div className={s.section}>
+                        <h2 className={s.sectionTitle}>Size</h2>
+                        <Controller
+                            name="width"
+                            control={form.control}
+                            render={({ field }) => (
+                                <div className={s.optionsContainer}>
+                                    <Slider
+                                        key={field.name}
+                                        label={field.name}
+                                        attributeValue={field.value}
+                                        onValueChange={(value) => field.onChange(value)}
+                                    />
+                                </div>
+                            )}
+                        />
+                        <Controller
+                            name="depth"
+                            control={form.control}
+                            render={({ field }) => (
+                                <div className={s.fieldWwrap}>
+                                    <span className={s.fieldLabel}>Depth</span>
+                                    <div className={clsx(s.optionsContainer, 'justify-start')}>
+                                        {COUNTERTOPS_DEPTH_TYPES.map((option) => {
+                                            const isSelected = field.value === option;
+
+                                            return (
+                                                <Button
+                                                    key={option}
+                                                    type="button"
+                                                    onClick={() => field.onChange(option)}
+                                                    className={clsx(s.optionButton, {
+                                                        [s.optionButtonSelected]: isSelected,
+                                                    })}
+                                                >
+                                                    {option}
+                                                </Button>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            )}
+                        />
+                        {errors.width && <ErrorMessage>{errors.width.message}</ErrorMessage>}
+                        <Controller
+                            name="topThickness"
+                            control={form.control}
+                            render={({ field }) => (
+                                <div className={s.fieldWwrap}>
+                                    <span className={s.fieldLabel}>Depth</span>
+                                    <div className={clsx(s.optionsContainer, 'justify-start')}>
+                                        {TOP_THICKNESS_COUNTERTOPS_TYPES.map((option) => {
+                                            const isSelected = field.value === option;
+
+                                            return (
+                                                <Button
+                                                    key={option}
+                                                    type="button"
+                                                    onClick={() => field.onChange(option)}
+                                                    className={clsx(s.optionButton, {
+                                                        [s.optionButtonSelected]: isSelected,
+                                                    })}
+                                                >
+                                                    {option}
+                                                </Button>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            )}
+                        />
+                        {errors.width && <ErrorMessage>{errors.width.message}</ErrorMessage>}
+                    </div>
+                    {/* Basin quantity section */}
+                    <div className={s.section}>
+                        <h2 className={s.sectionTitle}>Basin Quantity</h2>
+                        <Controller
+                            name="basinQuantity"
+                            control={form.control}
+                            render={({ field }) => (
+                                <div className={s.fieldWwrap}>
+                                    <span className={s.fieldLabel}>Depth</span>
+                                    <div className={clsx(s.optionsContainer, 'justify-start')}>
+                                        {BASIN_QUANTITY_TYPES.map((option) => {
+                                            const isSelected = field.value === option;
+
+                                            return (
+                                                <Button
+                                                    key={option}
+                                                    type="button"
+                                                    onClick={() => field.onChange(option)}
+                                                    className={clsx(s.optionButton, {
+                                                        [s.optionButtonSelected]: isSelected,
+                                                    })}
+                                                >
+                                                    {option}
+                                                </Button>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            )}
+                        />
+                        {errors.basinQuantity && <ErrorMessage>{errors.basinQuantity.message}</ErrorMessage>}
                     </div>
 
                     {/* Color type style section */}

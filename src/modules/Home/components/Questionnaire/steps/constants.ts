@@ -21,6 +21,12 @@ export enum LOOK_TYPES {
     _METALLIC_LOOK = 'metallic',
 }
 
+export enum SINK_TYPE_TYPES {
+    _INTEGRATED = 'integrated',
+    _VESSEL = 'vessel',
+    _UNDERMOUNT = 'undermount',
+}
+
 export const colorTypesOptions: TagOption[] = [
     { label: 'Beige', id: COLOR_TYPES._BEIGE },
     { label: 'Black', id: COLOR_TYPES._BLACK },

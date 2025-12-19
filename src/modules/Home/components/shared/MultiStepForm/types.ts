@@ -2,6 +2,7 @@ import * as z from 'zod';
 import {
     bathroomsFocusStepSchema,
     bathroomsStepSchema,
+    countertopsStepSchema,
     emailStepSchema,
     nameStepSchema,
     productsFocusStepSchema,
@@ -26,6 +27,7 @@ export type ProductsStepData = z.infer<typeof productsStepSchema>;
 export type ProductsFocusStepData = z.infer<typeof productsFocusStepSchema>;
 export type VanitiesStepData = z.infer<typeof vanitiesStepSchema>;
 export type StorageStepdata = z.infer<typeof storageStepSchema>;
+export type countertopsStepdata = z.infer<typeof countertopsStepSchema>;
 
 export type MultiStepForm = {
     roomStyle: RoomStyleStepData;
@@ -40,6 +42,7 @@ export type MultiStepForm = {
     //НИЖЧЕ ФОРМИ ЯКІ ЗАЛЕЖАТЬ ВІД ТОГО, ЩО БУЛО ОБРАНО НА productsFocus кроці
     vanities: VanitiesStepData;
     storage: StorageStepdata;
+    countertops: countertopsStepdata;
 };
 
 export type MultiStepFormStep = {

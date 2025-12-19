@@ -21,7 +21,7 @@ export const ResultRoute = () => {
             <div
                 className={s.header}
                 style={{
-                    background: `linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),url(${formData.roomStyle.rooms[0].img})`,
+                    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),url(${formData.roomStyle.rooms[0].img})`,
                 }}
             >
                 <h1 className={s.title}>Thank you for completing the questionnaire!</h1>
