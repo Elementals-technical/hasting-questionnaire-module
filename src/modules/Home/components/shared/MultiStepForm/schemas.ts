@@ -176,7 +176,7 @@ export const countertopsStepSchema = z.object({
     depth: z.enum(COUNTERTOPS_DEPTH_TYPES, {
         message: 'Please select a depth',
     }),
-    topThickness: z.nativeEnum(TOP_THICKNESS_COUNTERTOPS_TYPES, {
+    topThickness: z.enum(TOP_THICKNESS_COUNTERTOPS_TYPES, {
         message: 'Please select a depth',
     }),
     basinQuantity: z.enum(BASIN_QUANTITY_TYPES as [string, ...string[]], {
