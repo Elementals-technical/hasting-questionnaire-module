@@ -194,7 +194,7 @@ export const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
         sinkType: SINK_TYPE_TYPES._INTEGRATED,
         width: 0,
         depth: '14-15"',
-        topThickness: TOP_THICKNESS_COUNTERTOPS_TYPES._THIN,
+        topThickness: TOP_THICKNESS_COUNTERTOPS_TYPES[0],
         basinQuantity: '',
         color: [],
         look: [],
