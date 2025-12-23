@@ -14,6 +14,7 @@ interface MultiStepFormFooterProps {
     hideNext?: boolean;
     className?: string;
     componentBeforeNext?: React.ReactNode;
+    isDisabled?: boolean;
 }
 
 export const MultiStepFormFooter = ({
@@ -26,6 +27,7 @@ export const MultiStepFormFooter = ({
     hideBack = false,
     hideNext = false,
     className,
+    isDisabled = false,
 }: MultiStepFormFooterProps) => {
     const { goToPreviousStep, goToNextStep, isLastStep } = useMultiStepFormContext();
 
@@ -42,7 +44,12 @@ export const MultiStepFormFooter = ({
             {!hideNext && (
                 <div className={s.nextWrap}>
                     {componentBeforeNext && componentBeforeNext}
-                    <Button className={s.btnNext} onClick={handleNext} disabled={isNextDisabled} type="submit">
+                    <Button
+                        className={clsx(s.btnNext, { [s.disabled]: isDisabled })}
+                        onClick={handleNext}
+                        disabled={isNextDisabled}
+                        type="submit"
+                    >
                         {isLastStep ? 'SUBMIT' : nextLabel}
                     </Button>
                 </div>

@@ -9,9 +9,10 @@ import s from './ImagePicker.module.scss';
 interface ImagesPickerProps {
     images: Product[]; // Массив URL изображений с бэкенда
     form: UseFormReturn<RoomStyleStepData>;
+    isLoading: boolean;
 }
 
-export const ImagePicker: React.FC<ImagesPickerProps> = ({ images, form }) => {
+export const ImagePicker: React.FC<ImagesPickerProps> = ({ images, form, isLoading }) => {
     const {
         control,
         handleSubmit,
@@ -23,6 +24,7 @@ export const ImagePicker: React.FC<ImagesPickerProps> = ({ images, form }) => {
         // Handle form submission
     };
 
+    if (isLoading) return <span>Loading...</span>;
     return (
         <form className={s.wrap} onSubmit={handleSubmit(onSubmit)}>
             <Controller

@@ -1,3 +1,4 @@
+import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
 import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
 import { useMultiStepFormContext, useMultiStepFormStepForm } from '@/modules/Home/components/shared';
 import ProductsFocusPicker from './components/BathroomFocusPicker/ProductsFocusPicker';
@@ -13,16 +14,7 @@ export const ProductsFocusForm = () => {
             setFormStepData('productsFocus', (data = { ...data }));
             // goToNextStep();
 
-            //TODO по завершенню створення всіх форм просто робити goToStep(data.product)
-            if (data.product === 'vanities') {
-                goToStep('storage');
-            }
-
-            if (data.product === 'storage') {
-                goToStep('storage');
-            } else {
-                goToStep('vanities');
-            }
+            goToStep(data.product);
         },
         (errors) => {
             console.log('❌ VALIDATION ERRORS:', errors);
@@ -30,17 +22,13 @@ export const ProductsFocusForm = () => {
     );
 
     return (
-        <div className={s.wrap}>
-            <div className={s.body}>
-                <div className={s.content}>
-                    <div className={s.title}>{currentStep.title}</div>
-                    <div className={s.subtitle}>{currentStep.description}</div>
-                </div>
+        <>
+            <FormStepLayout title={currentStep.title} description={currentStep.description}>
                 <div className={s.content}>
                     <ProductsFocusPicker form={form} />
                 </div>
-            </div>
-            <MultiStepFormFooter onNext={submitHandler} />
-        </div>
+            </FormStepLayout>
+            <MultiStepFormFooter onNext={submitHandler} isDisabled={!form.formState.isValid} />
+        </>
     );
 };

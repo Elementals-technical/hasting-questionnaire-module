@@ -1,16 +1,21 @@
 import * as z from 'zod';
 import {
+    basinStepSchema,
     bathroomsFocusStepSchema,
     bathroomsStepSchema,
     countertopsStepSchema,
     emailStepSchema,
+    mirrorsStepSchema,
     nameStepSchema,
+    pedestalAndConsolesStepSchema,
     productsFocusStepSchema,
     productsStepSchema,
     projectGoalsStepSchema,
     roomStyleStepSchema,
     stageStepSchema,
     storageStepSchema,
+    toiletsStepSchema,
+    tubsStepSchema,
     vanitiesStepSchema,
 } from './schemas';
 
@@ -28,7 +33,11 @@ export type ProductsFocusStepData = z.infer<typeof productsFocusStepSchema>;
 export type VanitiesStepData = z.infer<typeof vanitiesStepSchema>;
 export type StorageStepdata = z.infer<typeof storageStepSchema>;
 export type countertopsStepdata = z.infer<typeof countertopsStepSchema>;
-
+export type mirrorsStepdata = z.infer<typeof mirrorsStepSchema>;
+export type pedestalAndConsolesStepdata = z.infer<typeof pedestalAndConsolesStepSchema>;
+export type basinStepdata = z.infer<typeof basinStepSchema>;
+export type tubsStepdata = z.infer<typeof tubsStepSchema>;
+export type toiletsStepdata = z.infer<typeof toiletsStepSchema>;
 export type MultiStepForm = {
     roomStyle: RoomStyleStepData;
     bathrooms: BathroomsStepData;
@@ -43,6 +52,11 @@ export type MultiStepForm = {
     vanities: VanitiesStepData;
     storage: StorageStepdata;
     countertops: countertopsStepdata;
+    mirror: mirrorsStepdata;
+    pedestalAndConsoles: pedestalAndConsolesStepdata;
+    basin: basinStepdata;
+    tubs: tubsStepdata;
+    toilets: toiletsStepdata;
 };
 
 export type MultiStepFormStep = {

@@ -1,7 +1,9 @@
 import { useRef, useState } from 'react';
+import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
 import CalculatingOverlay from '../../../shared/CalculatingOverlay/CalculatingOverlay';
 import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
 import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
+import { VanitiesStepData } from '../../../shared/MultiStepForm/types';
 import AttachIcon from '@/assets/icons/common/AttachIcon';
 import { useFileIndexedDBValue, useSetFileToIndexedDB } from '@/lib/indexedDB/utils';
 import { useNavigate } from '@tanstack/react-router';
@@ -24,17 +26,15 @@ import { colorTypesOptions, lookTypesOptions } from '../constants';
 import { conceptStyleOptions, mountingTypesOptions, sinkTypesOptions, VANITIES_DEPTH_TYPES } from './constants';
 import { Button } from '@/components/ui/Button/Button';
 import s from './VanitiesStep.module.scss';
+import { vanitiesStepSchema } from '../../../shared/MultiStepForm/schemas';
 
 export const VanitiesForm = () => {
     const [showOverlay, setShowOverlay] = useState(false);
-    const { currentStep, setFormStepData, formData } = useMultiStepFormContext();
+    const { currentStep, setFormStepData, formData, cleanUp, goToStep } = useMultiStepFormContext();
     const contactMutation = useCreateHubspotContact();
     const sendEmailMutation = useSendEmail();
     const uploadFiles = useUploadFiles();
     const { remove, get } = useFileIndexedDBValue();
-
-    const { name } = useMultiStepFormStepForm('name').form.getValues();
-    const { email } = useMultiStepFormStepForm('email').form.getValues();
 
     const navigate = useNavigate();
     const { form } = useMultiStepFormStepForm('vanities');
@@ -54,8 +54,8 @@ export const VanitiesForm = () => {
 
                 // 1. Підготовка даних
                 const contactData = {
-                    firstname: name + '_ELEMENTALS_TEST',
-                    email: email,
+                    firstname: formData.name.name + '_ELEMENTALS_TEST',
+                    email: formData.email.email,
                     questionnaire_app: JSON.stringify(formData),
                 };
 
@@ -91,6 +91,7 @@ export const VanitiesForm = () => {
                 // 4. Навігація після успіху
                 setTimeout(() => {
                     navigate({ to: '/result' });
+                    cleanUp();
                 }, 5500);
             } catch (error) {
                 console.error('Помилка під час обробки форми:', error);
@@ -113,13 +114,9 @@ export const VanitiesForm = () => {
     }
 
     return (
-        <div className={s.wrap}>
-            <div className={s.body}>
-                <div className={s.left}>
-                    <div className={s.title}>{currentStep.title}</div>
-                    <div className={s.subtitle}>{currentStep.description}</div>
-                </div>
-                <div className={clsx(s.right, s.form)}>
+        <>
+            <FormStepLayout title={currentStep.title} description={currentStep.description}>
+                <div className={s.content}>
                     {/* Size Section */}
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Size</h2>
@@ -129,6 +126,8 @@ export const VanitiesForm = () => {
                             render={({ field }) => (
                                 <div className={s.optionsContainer}>
                                     <Slider
+                                        min={vanitiesStepSchema  .min}
+                                        max={WIDTH_LIMITS.max}
                                         key={field.name}
                                         label={field.name}
                                         attributeValue={field.value}
@@ -175,7 +174,9 @@ export const VanitiesForm = () => {
                             render={({ field }) => {
                                 const handleToggle = (goalId: string) => {
                                     const currentGoals = field.value || [];
-                                    const isSelected = currentGoals.includes(goalId);
+                                    const isSelected = currentGoals.includes(
+                                        goalId as VanitiesStepData['mountingType'][number]
+                                    );
 
                                     if (isSelected) {
                                         field.onChange(currentGoals.filter((id) => id !== goalId));
@@ -435,8 +436,12 @@ export const VanitiesForm = () => {
                         />
                     </div>
                 </div>
-            </div>
-            <MultiStepFormFooter onNext={submitHandler} />
-        </div>
+            </FormStepLayout>
+            <MultiStepFormFooter
+                onBack={() => goToStep('products')}
+                onNext={submitHandler}
+                isDisabled={!form.formState.isValid}
+            />
+        </>
     );
 };

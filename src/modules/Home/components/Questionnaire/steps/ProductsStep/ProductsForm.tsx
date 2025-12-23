@@ -1,3 +1,4 @@
+import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
 import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
 import { useMultiStepFormContext, useMultiStepFormStepForm } from '@/modules/Home/components/shared';
 import { ProductsPicker } from './components/BathroomPicker/ProductsPicker';
@@ -11,19 +12,12 @@ export const ProductsForm = () => {
     const submitHandler = form.handleSubmit(
         (data) => {
             setFormStepData('products', (data = { ...data }));
-            goToNextStep();
 
             if (data.products.length === 1) {
                 setFormStepData('productsFocus', { product: data.products[0].id });
 
-                if (data.products[0].id === 'vanities') {
-                    goToStep('vanities');
-                }
-
-                if (data.products[0].id === 'storage') {
-                    goToStep('storage');
-                }
-                goToStep('vanities');
+                goToStep(data.products[0].id as 'vanities' | 'storage' | 'countertops');
+                return;
             } else {
                 goToNextStep();
             }
@@ -42,20 +36,17 @@ export const ProductsForm = () => {
     }, 0);
 
     return (
-        <div className={s.wrap}>
-            <div className={s.body}>
-                <div className={s.content}>
-                    <div className={s.title}>{currentStep.title}</div>
-                    <div className={s.subtitle}>{currentStep.description}</div>
-                </div>
+        <>
+            <FormStepLayout title={currentStep.title} description={currentStep.description}>
                 <div className={s.content}>
                     <ProductsPicker form={form} />
                 </div>
-            </div>
+            </FormStepLayout>
             <MultiStepFormFooter
                 componentBeforeNext={<span className={s.totalRooms}>Total products : {totalProducts}</span>}
                 onNext={submitHandler}
+                isDisabled={!form.formState.isValid}
             />
-        </div>
+        </>
     );
 };

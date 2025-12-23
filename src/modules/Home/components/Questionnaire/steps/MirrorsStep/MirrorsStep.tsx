@@ -22,16 +22,18 @@ import { SUBSTYLES } from '@/modules/Result/components/BonusSuggestions/constant
 import { determineDominantStyles } from '@/modules/Result/components/BonusSuggestions/utils';
 import { colorTypesOptions, lookTypesOptions } from '../constants';
 import {
-    BASIN_QUANTITY_TYPES,
-    COUNTERTOPS_DEPTH_TYPES,
-    sinkTypesOptions,
-    styleCountertopsOptions,
-    TOP_THICKNESS_COUNTERTOPS_TYPES,
+    MIRRORS_BACKLIT_TYPES,
+    MIRRORS_DEFOGGER_TYPES,
+    MIRRORS_DIMMABLE_TYPES,
+    MIRRORS_LIGHT_TEMPERATURE_TYPES,
+    MIRRORS_POWER_SENSOR_TYPES,
+    MIRRORS_TYPES,
+    shapeMirrorsOptions,
 } from './constants';
 import { Button } from '@/components/ui/Button/Button';
-import s from './CountertopsStep.module.scss';
+import s from './MirrorsStep.module.scss';
 
-export const CountertopsForm = () => {
+export const MirrorForm = () => {
     const [showOverlay, setShowOverlay] = useState(false);
     const { currentStep, setFormStepData, formData, goToStep } = useMultiStepFormContext();
     const contactMutation = useCreateHubspotContact();
@@ -40,7 +42,7 @@ export const CountertopsForm = () => {
     const { remove, get } = useFileIndexedDBValue();
 
     const navigate = useNavigate();
-    const { form } = useMultiStepFormStepForm('countertops');
+    const { form } = useMultiStepFormStepForm('mirror');
 
     const { mutate: setFileToIndexedDB } = useSetFileToIndexedDB();
     // const { mutate: getFileFromIndexedDB } = useGetFileFromIndexedDB();
@@ -51,7 +53,7 @@ export const CountertopsForm = () => {
 
     const submitHandler = form.handleSubmit(
         async (data) => {
-            setFormStepData('countertops', data);
+            setFormStepData('mirror', data);
             setShowOverlay(true);
             const contactData = {
                 firstname: formData.name.name + '_ELEMENTALS_TEST',
@@ -68,7 +70,7 @@ export const CountertopsForm = () => {
             // 2. Отримання файлів з IndexedDB
             const filesData = [
                 ...(formData.aboutProject?.files?.map((i) => i.idInIndexedDB) || []),
-                ...(formData.countertops?.files?.map((i) => i.idInIndexedDB) || []),
+                ...(formData.mirror?.files?.map((i) => i.idInIndexedDB) || []),
             ];
 
             const filePromises = filesData.map((fileId) => get('files', parseInt(fileId || '')));
@@ -97,7 +99,6 @@ export const CountertopsForm = () => {
             console.log('❌ VALIDATION ERRORS:', errors);
         }
     );
-
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleAttachClick = () => {
@@ -116,11 +117,11 @@ export const CountertopsForm = () => {
                     <div className={s.subtitle}>{currentStep.description}</div>
                 </div>
                 <div className={clsx(s.right, s.form)}>
-                    {/* Style section */}
+                    {/* Shape type section */}
                     <div className={s.section}>
-                        <h2 className={s.sectionTitle}>Concept | Style</h2>
+                        <h2 className={s.sectionTitle}>Shape</h2>
                         <Controller
-                            name="style"
+                            name="shape"
                             control={form.control}
                             render={({ field }) => {
                                 const handleToggle = (targetValue: string) => {
@@ -136,7 +137,7 @@ export const CountertopsForm = () => {
 
                                 return (
                                     <div className={s.optionsContainer}>
-                                        {styleCountertopsOptions.map((option) => {
+                                        {shapeMirrorsOptions.map((option) => {
                                             const isSelected = field.value === option.id;
 
                                             return (
@@ -154,47 +155,7 @@ export const CountertopsForm = () => {
                                 );
                             }}
                         />
-                        {errors.style && <ErrorMessage>{errors.style.message}</ErrorMessage>}
-                    </div>
-                    {/* Sink type style section */}
-                    <div className={s.section}>
-                        <h2 className={s.sectionTitle}>Sink type</h2>
-                        <Controller
-                            name="sinkType"
-                            control={form.control}
-                            render={({ field }) => {
-                                const handleToggle = (targetValue: string) => {
-                                    const currentValue = field.value;
-                                    const isSelected = currentValue === targetValue;
-
-                                    if (isSelected) {
-                                        field.onChange('');
-                                    } else {
-                                        field.onChange(targetValue);
-                                    }
-                                };
-
-                                return (
-                                    <div className={s.optionsContainer}>
-                                        {sinkTypesOptions.map((option) => {
-                                            const isSelected = field.value === option.id;
-
-                                            return (
-                                                <BathroomCard
-                                                    key={option.id}
-                                                    option={option}
-                                                    isSelected={isSelected}
-                                                    onToggle={() => {
-                                                        return handleToggle(option.id);
-                                                    }}
-                                                />
-                                            );
-                                        })}
-                                    </div>
-                                );
-                            }}
-                        />
-                        {errors.sinkType && <ErrorMessage>{errors.sinkType.message}</ErrorMessage>}
+                        {errors.shape && <ErrorMessage>{errors.shape.message}</ErrorMessage>}
                     </div>
                     {/* Size Section */}
                     <div className={s.section}>
@@ -213,48 +174,40 @@ export const CountertopsForm = () => {
                                 </div>
                             )}
                         />
+                        {errors.width && <ErrorMessage>{errors.width.message}</ErrorMessage>}
                         <Controller
-                            name="depth"
+                            name="height"
                             control={form.control}
                             render={({ field }) => (
-                                <div className={s.fieldWwrap}>
-                                    <span className={s.fieldLabel}>Depth</span>
-                                    <div className={clsx(s.optionsContainer, 'justify-start')}>
-                                        {COUNTERTOPS_DEPTH_TYPES.map((option) => {
-                                            const isSelected = field.value === option;
-
-                                            return (
-                                                <Button
-                                                    key={option}
-                                                    type="button"
-                                                    onClick={() => field.onChange(option)}
-                                                    className={clsx(s.optionButton, {
-                                                        [s.optionButtonSelected]: isSelected,
-                                                    })}
-                                                >
-                                                    {option}
-                                                </Button>
-                                            );
-                                        })}
-                                    </div>
+                                <div className={s.optionsContainer}>
+                                    <Slider
+                                        key={field.name}
+                                        label={field.name}
+                                        attributeValue={field.value}
+                                        onValueChange={(value) => field.onChange(value)}
+                                    />
                                 </div>
                             )}
                         />
-                        {errors.width && <ErrorMessage>{errors.width.message}</ErrorMessage>}
+                        {errors.height && <ErrorMessage>{errors.height.message}</ErrorMessage>}
+                    </div>
+
+                    {/* Type Section */}
+                    <div className={s.section}>
+                        <h2 className={s.sectionTitle}>Type</h2>
                         <Controller
-                            name="topThickness"
+                            name="type"
                             control={form.control}
                             render={({ field }) => (
                                 <div className={s.fieldWwrap}>
-                                    <span className={s.fieldLabel}>Depth</span>
+                                    <span className={s.fieldLabel}>Soft-close seat</span>
                                     <div className={clsx(s.optionsContainer, 'justify-start')}>
-                                        {TOP_THICKNESS_COUNTERTOPS_TYPES.map((option) => {
+                                        {MIRRORS_TYPES.map((option) => {
                                             const isSelected = field.value === option;
 
                                             return (
                                                 <Button
                                                     key={option}
-                                                    type="button"
                                                     onClick={() => field.onChange(option)}
                                                     className={clsx(s.optionButton, {
                                                         [s.optionButtonSelected]: isSelected,
@@ -270,37 +223,181 @@ export const CountertopsForm = () => {
                         />
                         {errors.width && <ErrorMessage>{errors.width.message}</ErrorMessage>}
                     </div>
-                    {/* Basin quantity section */}
-                    <div className={s.section}>
-                        <h2 className={s.sectionTitle}>Basin Quantity</h2>
-                        <Controller
-                            name="basinQuantity"
-                            control={form.control}
-                            render={({ field }) => (
-                                <div className={s.fieldWwrap}>
-                                    <span className={s.fieldLabel}>Depth</span>
-                                    <div className={clsx(s.optionsContainer, 'justify-start')}>
-                                        {BASIN_QUANTITY_TYPES.map((option) => {
-                                            const isSelected = field.value === option;
 
-                                            return (
-                                                <Button
-                                                    key={option}
-                                                    type="button"
-                                                    onClick={() => field.onChange(option)}
-                                                    className={clsx(s.optionButton, {
-                                                        [s.optionButtonSelected]: isSelected,
-                                                    })}
-                                                >
-                                                    {option}
-                                                </Button>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-                            )}
-                        />
-                        {errors.basinQuantity && <ErrorMessage>{errors.basinQuantity.message}</ErrorMessage>}
+                    {/* Features Section */}
+                    <div className={s.section}>
+                        <h2 className={s.sectionTitle}>Features</h2>
+                        <div className={s.featuresWrap}>
+                            <div className={s.features}>
+                                <Controller
+                                    name="defogger"
+                                    control={form.control}
+                                    render={({ field }) => (
+                                        <div className={s.fieldWwrap}>
+                                            <span className={s.fieldLabel}>Defogger</span>
+                                            <div className={clsx(s.optionsContainer, 'justify-start')}>
+                                                {MIRRORS_DEFOGGER_TYPES.map((option) => {
+                                                    const isSelected = field.value === option;
+
+                                                    return (
+                                                        <Button
+                                                            key={option}
+                                                            onClick={() => field.onChange(option)}
+                                                            className={clsx(s.optionButton, {
+                                                                [s.optionButtonSelected]: isSelected,
+                                                            })}
+                                                        >
+                                                            {option}
+                                                        </Button>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    )}
+                                />
+                                {errors.defogger && <ErrorMessage>{errors.defogger.message}</ErrorMessage>}
+                                <Controller
+                                    name="powerSensor"
+                                    control={form.control}
+                                    render={({ field }) => (
+                                        <div className={s.fieldWwrap}>
+                                            <span className={s.fieldLabel}>On/off sensor</span>
+                                            <div className={clsx(s.optionsContainer, 'justify-start')}>
+                                                {MIRRORS_POWER_SENSOR_TYPES.map((option) => {
+                                                    const isSelected = field.value === option;
+
+                                                    return (
+                                                        <Button
+                                                            key={option}
+                                                            onClick={() => field.onChange(option)}
+                                                            className={clsx(s.optionButton, {
+                                                                [s.optionButtonSelected]: isSelected,
+                                                            })}
+                                                        >
+                                                            {option}
+                                                        </Button>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    )}
+                                />
+                                {errors.powerSensor && <ErrorMessage>{errors.powerSensor.message}</ErrorMessage>}
+                                <Controller
+                                    name="dimmable"
+                                    control={form.control}
+                                    render={({ field }) => (
+                                        <div className={s.fieldWwrap}>
+                                            <span className={s.fieldLabel}>Dimmable</span>
+                                            <div className={clsx(s.optionsContainer, 'justify-start')}>
+                                                {MIRRORS_DIMMABLE_TYPES.map((option) => {
+                                                    const isSelected = field.value === option;
+
+                                                    return (
+                                                        <Button
+                                                            key={option}
+                                                            onClick={() => field.onChange(option)}
+                                                            className={clsx(s.optionButton, {
+                                                                [s.optionButtonSelected]: isSelected,
+                                                            })}
+                                                        >
+                                                            {option}
+                                                        </Button>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    )}
+                                />
+                                {errors.dimmable && <ErrorMessage>{errors.dimmable.message}</ErrorMessage>}
+                            </div>
+                            <div className={s.divider} />
+                            <div className={s.features}>
+                                <Controller
+                                    name="lightTemperature"
+                                    control={form.control}
+                                    render={({ field }) => (
+                                        <div className={s.fieldWwrap}>
+                                            <span className={s.fieldLabel}>LED Light Temperature</span>
+                                            <div className={clsx(s.optionsContainer, 'justify-start')}>
+                                                {MIRRORS_LIGHT_TEMPERATURE_TYPES.map((option) => {
+                                                    const isSelected = field.value === option;
+
+                                                    return (
+                                                        <Button
+                                                            key={option}
+                                                            onClick={() => field.onChange(option)}
+                                                            className={clsx(s.optionButton, {
+                                                                [s.optionButtonSelected]: isSelected,
+                                                            })}
+                                                        >
+                                                            {option}
+                                                        </Button>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    )}
+                                />
+                                {errors.lightTemperature && (
+                                    <ErrorMessage>{errors.lightTemperature.message}</ErrorMessage>
+                                )}
+                                <Controller
+                                    name="backlit"
+                                    control={form.control}
+                                    render={({ field }) => (
+                                        <div className={s.fieldWwrap}>
+                                            <span className={s.fieldLabel}>Backlit</span>
+                                            <div className={clsx(s.optionsContainer, 'justify-start')}>
+                                                {MIRRORS_BACKLIT_TYPES.map((option) => {
+                                                    const isSelected = field.value === option;
+
+                                                    return (
+                                                        <Button
+                                                            key={option}
+                                                            onClick={() => field.onChange(option)}
+                                                            className={clsx(s.optionButton, {
+                                                                [s.optionButtonSelected]: isSelected,
+                                                            })}
+                                                        >
+                                                            {option}
+                                                        </Button>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    )}
+                                />
+                                {errors.backlit && <ErrorMessage>{errors.backlit.message}</ErrorMessage>}
+                                <Controller
+                                    name="magnifying"
+                                    control={form.control}
+                                    render={({ field }) => (
+                                        <div className={s.fieldWwrap}>
+                                            <span className={s.fieldLabel}>Magnifying Mirror</span>
+                                            <div className={clsx(s.optionsContainer, 'justify-start')}>
+                                                {MIRRORS_DEFOGGER_TYPES.map((option) => {
+                                                    const isSelected = field.value === option;
+
+                                                    return (
+                                                        <Button
+                                                            key={option}
+                                                            onClick={() => field.onChange(option)}
+                                                            className={clsx(s.optionButton, {
+                                                                [s.optionButtonSelected]: isSelected,
+                                                            })}
+                                                        >
+                                                            {option}
+                                                        </Button>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    )}
+                                />
+                                {errors.magnifying && <ErrorMessage>{errors.magnifying.message}</ErrorMessage>}
+                            </div>
+                        </div>
                     </div>
 
                     {/* Color type style section */}

@@ -1,3 +1,4 @@
+import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
 import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
 import { useMultiStepFormContext, useMultiStepFormStepForm } from '@/modules/Home/components/shared';
 import { BathroomsPicker } from './components/BathroomPicker/BathroomPicker';
@@ -27,20 +28,15 @@ export const BathroomsForm = () => {
     }, 0);
 
     return (
-        <div className={s.wrap}>
-            <div className={s.body}>
-                <div className={s.content}>
-                    <div className={s.title}>{currentStep.title}</div>
-                    <div className={s.subtitle}>{currentStep.description}</div>
-                </div>
-                <div className={s.content}>
-                    <BathroomsPicker form={form} />
-                </div>
-            </div>
+        <>
+            <FormStepLayout title={currentStep.title} description={currentStep.description}>
+                <BathroomsPicker form={form} />
+            </FormStepLayout>
             <MultiStepFormFooter
                 onNext={submitHandler}
                 componentBeforeNext={<span className={s.totalRooms}>Total rooms : {totalRooms}</span>}
+                isDisabled={!form.formState.isValid}
             />
-        </div>
+        </>
     );
 };

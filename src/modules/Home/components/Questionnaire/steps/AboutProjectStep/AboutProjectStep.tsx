@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
 import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
 import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
 import AttachIcon from '@/assets/icons/common/AttachIcon';
@@ -53,12 +54,8 @@ export const AboutProjectForm = () => {
     }
 
     return (
-        <div className={s.wrap}>
-            <div className={s.body}>
-                <div className={s.left}>
-                    <div className={s.title}>{currentStep.title}</div>
-                    <div className={s.subtitle}>{currentStep.description}</div>
-                </div>
+        <>
+            <FormStepLayout title={currentStep.title} description={currentStep.description}>
                 <div className={s.right}>
                     {/* Project Type Section */}
                     <div className={s.section}>
@@ -273,8 +270,8 @@ export const AboutProjectForm = () => {
                         />
                     </div>
                 </div>
-            </div>
-            <MultiStepFormFooter onNext={submitHandler} />
-        </div>
+            </FormStepLayout>
+            <MultiStepFormFooter isDisabled={!form.formState.isValid} onNext={submitHandler} />
+        </>
     );
 };

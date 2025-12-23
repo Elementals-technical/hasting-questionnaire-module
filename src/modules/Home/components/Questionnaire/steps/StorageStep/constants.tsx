@@ -12,6 +12,16 @@ import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types'
 import { TagOption } from '@/modules/Home/components/shared/TagSelector/types';
 import { SINK_TYPE_TYPES } from '../constants';
 
+export const STORAGE_HEIGHT_LIMITS = {
+    MIN: 5,
+    MAX: 99,
+};
+
+export const STORAGE_WIDTH_LIMITS = {
+    MIN: 5,
+    MAX: 100,
+};
+
 export const STORAGE_DEPTH_TYPES = ['5-9.9"', '10-15.9" ', '16-20.9"'] as const;
 
 export enum STORAGE_ARRANGEMENT_TYPES {
@@ -71,12 +81,17 @@ export enum LOOK_TYPES {
 export const storageArrangementOptions: CardOption[] = [
     {
         id: STORAGE_ARRANGEMENT_TYPES._SINGLE_UNIT,
-        label: 'Single Unit',
+        label: 'Single-unit Solution',
         icon: <VanitiesIcon />,
     },
     {
-        id: 'floor',
-        label: 'Floor',
+        id: STORAGE_ARRANGEMENT_TYPES._MULTI_UNIT,
+        label: 'Multi-Unit Solution',
+        icon: <VanitiesIcon />,
+    },
+    {
+        id: STORAGE_ARRANGEMENT_TYPES._NOT_SURE,
+        label: 'Not Sure',
         icon: <VanitiesIcon />,
     },
 ];

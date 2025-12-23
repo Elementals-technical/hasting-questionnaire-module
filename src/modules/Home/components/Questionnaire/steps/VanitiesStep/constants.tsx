@@ -12,8 +12,13 @@ import TwoDrawerIcon from '@/assets/icons/vanities/TwoDrawerIcon';
 import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types';
 import { SINK_TYPE_TYPES } from '../constants';
 
+export const VANITIES_WIDTH_LIMITS = {
+    MIN: 24,
+    MAX: 114.2,
+};
+
 export const VANITIES_DEPTH_TYPES = ['14-15"', '18-19"', '19-21"'] as const;
-export const MOUNTING_TYPE_TYPES = ['wall', 'floor'];
+export const MOUNTING_TYPE_TYPES = ['wall', 'floor'] as const;
 
 export enum CONCEPT_STYLE_VANITIES_TYPES {
     _SINGLE_VANITY = 'single-vanity',

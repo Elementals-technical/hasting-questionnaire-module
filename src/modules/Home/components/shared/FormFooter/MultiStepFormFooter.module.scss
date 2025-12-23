@@ -26,6 +26,7 @@
 
     .btnBack,
     .btnNext {
+        cursor: pointer;
         text-transform: uppercase;
         border-radius: 100px;
         border: 2px solid #ac5331;
@@ -44,6 +45,13 @@
 
         @include md {
             padding: 12px 20px;
+        }
+
+        &.disabled {
+            cursor: not-allowed;
+            background: #cbb6ae;
+            border: 2px solid #cbb6ae;
+            color: #fff;
         }
     }
 

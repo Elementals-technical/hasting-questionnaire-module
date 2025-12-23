@@ -30,14 +30,11 @@ import s from './StorageStep.module.scss';
 export const StorageForm = () => {
     const [showOverlay, setShowOverlay] = useState(false);
 
-    const { currentStep, setFormStepData, formData } = useMultiStepFormContext();
+    const { currentStep, setFormStepData, formData, goToStep } = useMultiStepFormContext();
     const contactMutation = useCreateHubspotContact();
     const sendEmailMutation = useSendEmail();
     const uploadFiles = useUploadFiles();
     const { get } = useFileIndexedDBValue();
-
-    const { name } = useMultiStepFormStepForm('name').form.getValues();
-    const { email } = useMultiStepFormStepForm('email').form.getValues();
 
     const navigate = useNavigate();
     const { form } = useMultiStepFormStepForm('storage');
@@ -51,8 +48,8 @@ export const StorageForm = () => {
             setFormStepData('storage', data);
             setShowOverlay(true);
             const contactData = {
-                firstname: name + '_ELEMENTALS_TEST',
-                email: email,
+                firstname: formData.name.name + '_ELEMENTALS_TEST',
+                email: formData.email.email,
                 questionnaire_app: JSON.stringify(formData),
             };
 
@@ -65,7 +62,7 @@ export const StorageForm = () => {
             // 2. Отримання файлів з IndexedDB
             const filesData = [
                 ...(formData.aboutProject?.files?.map((i) => i.idInIndexedDB) || []),
-                ...(formData.vanities?.files?.map((i) => i.idInIndexedDB) || []),
+                ...(formData.storage?.files?.map((i) => i.idInIndexedDB) || []),
             ];
 
             const filePromises = filesData.map((fileId) => get('files', parseInt(fileId || '')));
@@ -294,7 +291,11 @@ export const StorageForm = () => {
                     </div>
                 </div>
             </div>
-            <MultiStepFormFooter onNext={submitHandler} />
+            <MultiStepFormFooter
+                onBack={() => goToStep('products')}
+                onNext={submitHandler}
+                isDisabled={!form.formState.isValid}
+            />
         </div>
     );
 };

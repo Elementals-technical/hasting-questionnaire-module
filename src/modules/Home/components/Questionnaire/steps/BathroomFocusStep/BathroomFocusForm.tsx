@@ -1,3 +1,4 @@
+import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
 import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
 import { useMultiStepFormContext, useMultiStepFormStepForm } from '@/modules/Home/components/shared';
 import BathroomFocusPicker from './components/BathroomFocusPicker/BathroomFocusPicker';
@@ -14,17 +15,16 @@ export const BathroomFocusForm = () => {
     });
 
     return (
-        <div className={s.wrap}>
-            <div className={s.body}>
-                <div className={s.content}>
-                    <div className={s.title}>{currentStep.title}</div>
-                    <div className={s.subtitle}>{currentStep.description}</div>
-                </div>
+        <>
+            <FormStepLayout
+                title={<div className={s.title}>{currentStep.title}</div>}
+                description={currentStep.description}
+            >
                 <div className={s.content}>
                     <BathroomFocusPicker form={form} />
                 </div>
-            </div>
-            <MultiStepFormFooter onNext={submitHandler} />
-        </div>
+            </FormStepLayout>
+            <MultiStepFormFooter onNext={submitHandler} isDisabled={!form.formState.isValid} />
+        </>
     );
 };

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
 import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
 import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
 import CloseIcon from '@/assets/icons/common/CloseIcon';
@@ -28,13 +29,9 @@ export const StageForm = () => {
     const handleShowTooltip = (text: string) => setTooltip(text);
 
     return (
-        <div className={s.wrap}>
-            <div className={s.body}>
+        <>
+            <FormStepLayout title={currentStep.title} description={currentStep.description}>
                 <div className={s.content}>
-                    <div className={s.title}>{currentStep.title}</div>
-                    <div className={s.subtitle}>{currentStep.description}</div>
-                </div>
-                <div className={clsx(s.content, s.right)}>
                     <Controller
                         name="stage"
                         control={form.control}
@@ -84,8 +81,9 @@ export const StageForm = () => {
                         )}
                     />
                 </div>
-            </div>
-            <MultiStepFormFooter onNext={submitHandler} />
-        </div>
+            </FormStepLayout>
+
+            <MultiStepFormFooter onNext={submitHandler} isDisabled={!form.formState.isValid} />
+        </>
     );
 };

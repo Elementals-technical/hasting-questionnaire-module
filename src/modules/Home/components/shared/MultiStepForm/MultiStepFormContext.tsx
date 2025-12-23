@@ -7,27 +7,38 @@ import { DefaultValues, Path, PathValue, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useSafeContext } from '@/hooks/useSafeContext';
 import { CONCEPT_STYLE_VANITIES_TYPES } from '@/modules/Home/components/Questionnaire/steps/VanitiesStep/constants';
+import { BASIN_MOUNTING_TYPES } from '../../Questionnaire/steps/BasinStep/constants';
 import { SINK_TYPE_TYPES } from '../../Questionnaire/steps/constants';
 import {
     STYLE_COUNTERTOPS_TYPES,
     TOP_THICKNESS_COUNTERTOPS_TYPES,
 } from '../../Questionnaire/steps/CountertopsStep/constants';
+import { SHAPE_MIRRORS_TYPES } from '../../Questionnaire/steps/MirrorsStep/constants';
+import { STYLE_TYPES } from '../../Questionnaire/steps/PedestalAndConsolesStep/constants';
+import { PRODUCTS_TYPES } from '../../Questionnaire/steps/ProductsStep/components/BathroomPicker/constants';
 import {
     CONCEPT_STYLE_STORAGE_TYPES,
     STORAGE_ARRANGEMENT_TYPES,
 } from '../../Questionnaire/steps/StorageStep/constants';
+import { TOILETS_MOUNTING_TYPES } from '../../Questionnaire/steps/ToiletsStep/constants';
+import { TUBS_SHAPE_TYPES } from '../../Questionnaire/steps/TubsStep/constants';
 import {
+    basinStepSchema,
     bathroomsFocusStepSchema,
     bathroomsStepSchema,
     countertopsStepSchema,
     emailStepSchema,
+    mirrorsStepSchema,
     nameStepSchema,
+    pedestalAndConsolesStepSchema,
     productsFocusStepSchema,
     productsStepSchema,
     projectGoalsStepSchema,
     roomStyleStepSchema,
     stageStepSchema,
     storageStepSchema,
+    toiletsStepSchema,
+    tubsStepSchema,
     vanitiesStepSchema,
 } from './schemas';
 
@@ -150,6 +161,46 @@ export const MULTI_STEP_FORM_STEPS = {
         schema: countertopsStepSchema,
         enabled: true,
     },
+    mirror: {
+        id: 'mirror',
+        label: 'Mirror',
+        title: `Let's get to know your mirror must-haves`,
+        description: `Don't feel compelled to answer everything. Thats why we're here!`,
+        schema: mirrorsStepSchema,
+        enabled: true,
+    },
+    pedestalAndConsoles: {
+        id: 'pedestalAndConsoles',
+        label: 'Pedestan and Consoles',
+        title: `Let's get to know your console must-haves`,
+        description: `Don't feel compelled to answer everything. Thats why we're here!`,
+        schema: pedestalAndConsolesStepSchema,
+        enabled: true,
+    },
+    basin: {
+        id: 'basin',
+        label: 'Basin',
+        title: `Let's get to know your basin must-haves`,
+        description: `Don't feel compelled to answer everything. Thats why we're here!`,
+        schema: basinStepSchema,
+        enabled: true,
+    },
+    tubs: {
+        id: 'tubs',
+        label: 'Tubs',
+        title: `Let's get to know your tubs must-haves`,
+        description: `Don't feel compelled to answer everything. Thats why we're here!`,
+        schema: tubsStepSchema,
+        enabled: true,
+    },
+    toilets: {
+        id: 'toilets',
+        label: 'Toilets',
+        title: `Let's get to know your toilets must-haves`,
+        description: `Don't feel compelled to answer everything. Thats why we're here!`,
+        schema: toiletsStepSchema,
+        enabled: true,
+    },
 } as const satisfies Record<keyof MultiStepForm, MultiStepFormStep>;
 const MULTI_STEP_FORM_STEPS_ARRAY = Object.values(MULTI_STEP_FORM_STEPS).filter((step) => {
     return step.enabled;
@@ -170,9 +221,9 @@ export const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
     stage: { stage: '' },
     aboutProject: { projectType: '', goals: [], challenges: [] },
     products: { products: [] },
-    productsFocus: { product: 'vanities' },
+    productsFocus: { product: PRODUCTS_TYPES._MIRROR },
     vanities: {
-        width: 0,
+        width: 24,
         depth: '14-15"',
         color: [],
         mountingType: [],
@@ -181,7 +232,7 @@ export const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
         look: [],
     },
     storage: {
-        width: 0,
+        width: 5,
         depth: '5-9.9"',
         conceptStyle: CONCEPT_STYLE_STORAGE_TYPES._CLOSED_STORAGE_COLUMN,
         color: [],
@@ -192,12 +243,53 @@ export const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
     countertops: {
         style: STYLE_COUNTERTOPS_TYPES._FLOATING,
         sinkType: SINK_TYPE_TYPES._INTEGRATED,
-        width: 0,
+        width: 29,
         depth: '14-15"',
         topThickness: TOP_THICKNESS_COUNTERTOPS_TYPES[0],
         basinQuantity: '',
         color: [],
         look: [],
+    },
+    mirror: {
+        shape: SHAPE_MIRRORS_TYPES._OVAL,
+        type: 'Framed Mirror',
+        width: 15,
+        height: 20,
+        conceptStyle: CONCEPT_STYLE_VANITIES_TYPES._SINGLE_VANITY,
+        sinkType: SINK_TYPE_TYPES._INTEGRATED,
+        color: [],
+        look: [],
+    },
+    pedestalAndConsoles: {
+        width: 24,
+        depth: 24,
+        color: [],
+        look: [],
+        style: STYLE_TYPES._PEDESTAL,
+    },
+    basin: {
+        width: 14,
+        depth: 10,
+        mountingType: BASIN_MOUNTING_TYPES._WALL_MOUNTED,
+        color: [],
+        look: [],
+        height: 4,
+    },
+    tubs: {
+        width: 24,
+        color: [],
+        look: [],
+        height: 19,
+        shape: TUBS_SHAPE_TYPES._RECTANGLE,
+        lenght: 51,
+    },
+    toilets: {
+        lenght: 51,
+        width: 24,
+        height: 19,
+        color: [],
+        look: [],
+        mountingType: TOILETS_MOUNTING_TYPES._WALL_MOUNTED,
     },
 };
 

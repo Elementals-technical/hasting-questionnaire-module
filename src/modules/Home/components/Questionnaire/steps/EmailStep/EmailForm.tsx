@@ -1,3 +1,4 @@
+import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
 import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
 import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
 import clsx from 'clsx';
@@ -19,35 +20,29 @@ export const EmailForm = () => {
     });
 
     return (
-        <div className={s.wrap}>
-            <div className={s.body}>
-                <div className={s.content}>
-                    <div className={s.title}>{currentStep.title}</div>
-                    <div className={s.subtitle}>{currentStep.description}</div>
-                </div>
-                <div className={s.content}>
-                    <Controller
-                        name="email"
-                        control={form.control}
-                        render={({ field, fieldState: { error } }) => {
-                            return (
-                                <div className={s.inputWrapper}>
-                                    <input
-                                        type="text"
-                                        className={clsx(s.input, { [s.inputError]: error })}
-                                        placeholder="Type your email here"
-                                        value={field.value || ''}
-                                        onChange={field.onChange}
-                                        onBlur={field.onBlur}
-                                    />
-                                    {error && <ErrorMessage>{error.message}</ErrorMessage>}
-                                </div>
-                            );
-                        }}
-                    />
-                </div>
-            </div>
-            <MultiStepFormFooter onNext={submitHandler} />
-        </div>
+        <>
+            <FormStepLayout title={currentStep.title} description={currentStep.description}>
+                <Controller
+                    name="email"
+                    control={form.control}
+                    render={({ field, fieldState: { error } }) => {
+                        return (
+                            <div className={s.inputWrapper}>
+                                <input
+                                    type="text"
+                                    className={clsx(s.input, { [s.inputError]: error })}
+                                    placeholder="Type your email here"
+                                    value={field.value || ''}
+                                    onChange={field.onChange}
+                                    onBlur={field.onBlur}
+                                />
+                                {error && <ErrorMessage>{error.message}</ErrorMessage>}
+                            </div>
+                        );
+                    }}
+                />
+            </FormStepLayout>
+            <MultiStepFormFooter onNext={submitHandler} isDisabled={!form.formState.isValid} />
+        </>
     );
 };
