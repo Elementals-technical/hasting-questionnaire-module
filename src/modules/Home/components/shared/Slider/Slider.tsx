@@ -11,7 +11,7 @@ const Slider: FC<SliderPropsT> = ({
     onValueChange,
     min = 24,
     max = 114.2,
-    step = 0.1,
+    step = 1,
     unit = '"',
     showMinMax = true,
 }) => {
