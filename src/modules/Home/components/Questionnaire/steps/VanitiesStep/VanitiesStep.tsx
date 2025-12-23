@@ -23,8 +23,13 @@ import TagSelector from '@/modules/Home/components/shared/TagSelector/TagSelecto
 import { SUBSTYLES } from '@/modules/Result/components/BonusSuggestions/constants';
 import { determineDominantStyles } from '@/modules/Result/components/BonusSuggestions/utils';
 import { colorTypesOptions, lookTypesOptions } from '../constants';
-import { conceptStyleOptions, mountingTypesOptions, sinkTypesOptions, VANITIES_DEPTH_TYPES } from './constants';
-import { vanitiesStepSchema } from '../../../shared/MultiStepForm/schemas';
+import {
+    conceptStyleOptions,
+    mountingTypesOptions,
+    sinkTypesOptions,
+    VANITIES_DEPTH_TYPES,
+    VANITIES_WIDTH_LIMITS,
+} from './constants';
 import { Button } from '@/components/ui/Button/Button';
 import s from './VanitiesStep.module.scss';
 
@@ -126,8 +131,8 @@ export const VanitiesForm = () => {
                             render={({ field }) => (
                                 <div className={s.optionsContainer}>
                                     <Slider
-                                        min={vanitiesStepSchema.min}
-                                        max={WIDTH_LIMITS.max}
+                                        min={VANITIES_WIDTH_LIMITS.MIN}
+                                        max={VANITIES_WIDTH_LIMITS.MAX}
                                         key={field.name}
                                         label={field.name}
                                         attributeValue={field.value}
