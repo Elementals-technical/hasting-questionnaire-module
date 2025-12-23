@@ -46,6 +46,9 @@
         @include md {
             padding: 12px 20px;
         }
+        &:hover {
+            background: #94482a;
+        }
 
         &.disabled {
             cursor: not-allowed;
