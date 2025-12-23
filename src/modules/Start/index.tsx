@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useLocalStorageValue } from '@react-hookz/web';
 import { useNavigate } from '@tanstack/react-router';
 import { WorkflowStep } from '@/modules/Home/components/shared/WorkflowSteps/WorkflowStep';
 import { STEPS_ITEMS } from './components/constants';
@@ -6,6 +8,12 @@ import s from './style.module.scss';
 
 export const StartRoute = () => {
     const navigate = useNavigate();
+
+    const { remove } = useLocalStorageValue('HASTINGS_multi-step-form');
+
+    useEffect(() => {
+        remove();
+    }, []);
 
     const handleClick = () => {
         navigate({ to: '/questionnaire' });
