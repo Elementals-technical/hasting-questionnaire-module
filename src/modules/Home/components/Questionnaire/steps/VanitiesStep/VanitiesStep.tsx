@@ -24,9 +24,9 @@ import { SUBSTYLES } from '@/modules/Result/components/BonusSuggestions/constant
 import { determineDominantStyles } from '@/modules/Result/components/BonusSuggestions/utils';
 import { colorTypesOptions, lookTypesOptions } from '../constants';
 import { conceptStyleOptions, mountingTypesOptions, sinkTypesOptions, VANITIES_DEPTH_TYPES } from './constants';
+import { vanitiesStepSchema } from '../../../shared/MultiStepForm/schemas';
 import { Button } from '@/components/ui/Button/Button';
 import s from './VanitiesStep.module.scss';
-import { vanitiesStepSchema } from '../../../shared/MultiStepForm/schemas';
 
 export const VanitiesForm = () => {
     const [showOverlay, setShowOverlay] = useState(false);
@@ -126,7 +126,7 @@ export const VanitiesForm = () => {
                             render={({ field }) => (
                                 <div className={s.optionsContainer}>
                                     <Slider
-                                        min={vanitiesStepSchema  .min}
+                                        min={vanitiesStepSchema.min}
                                         max={WIDTH_LIMITS.max}
                                         key={field.name}
                                         label={field.name}
