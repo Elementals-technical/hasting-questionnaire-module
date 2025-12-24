@@ -1,5 +1,12 @@
 @import '../../../../../../styles/breakpoints.scss';
 
+.form {
+    height: 100%;
+    padding: 0 25px;
+    overflow: auto;
+    width: 100%;
+}
+
 .content {
     height: 100%;
     overflow-y: auto;
@@ -13,6 +20,20 @@
     gap: 12px;
     align-items: flex-start;
     justify-content: center;
+}
+
+.gridContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    max-width: 75rem;
+    margin: 0 auto;
+    max-width: 560px;
+
+    @include md {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
 }
 
 .sectionTitle {

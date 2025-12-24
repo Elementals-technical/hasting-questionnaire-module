@@ -126,7 +126,7 @@ export const BasinForm = () => {
                 <div className={clsx(s.right, s.form)}>
                     {/* Mounting type section */}
                     <div className={s.section}>
-                        <h2 className={s.sectionTitle}>Concept | Style</h2>
+                        <h2 className={s.sectionTitle}>Mounting type</h2>
                         <Controller
                             name="mountingType"
                             control={form.control}
@@ -260,7 +260,7 @@ export const BasinForm = () => {
                         {errors.look && <ErrorMessage>{errors.look.message}</ErrorMessage>}
                     </div>
 
-                    {/* Soft Close Section */}
+                    {/* Features Section */}
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Features</h2>
                         <Controller
@@ -268,7 +268,7 @@ export const BasinForm = () => {
                             control={form.control}
                             render={({ field }) => (
                                 <div className={s.fieldWwrap}>
-                                    <span className={s.fieldLabel}>Soft-close seat</span>
+                                    <span className={s.fieldLabel}>Overflow</span>
                                     <div className={clsx(s.optionsContainer, 'justify-start')}>
                                         {BASIN_OVERFLOW_TYPES.map((option) => {
                                             const isSelected = field.value === option;

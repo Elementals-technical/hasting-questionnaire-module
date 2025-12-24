@@ -1,6 +1,7 @@
 import VanitiesIcon from '@/assets/icons/products/VanitiesIcon';
 import CurvedVanityIcon from '@/assets/icons/vanities/CurvedVanityIcon';
 import DoubleVanityIcon from '@/assets/icons/vanities/DoubleVanityIcon';
+import FloorIcon from '@/assets/icons/vanities/FloorIcon';
 import MultiLevelIcon from '@/assets/icons/vanities/MultiLevelIcon';
 import OneDrawerIcon from '@/assets/icons/vanities/OneDrawerIcon';
 import OneDrawerInnerIcon from '@/assets/icons/vanities/OnerDrawerInnerIcon';
@@ -9,6 +10,7 @@ import SingleVanityIcon from '@/assets/icons/vanities/SingleVanityIcon';
 import SlimProfileIcon from '@/assets/icons/vanities/SlimProfileIcon';
 import TandemVanitiesIcon from '@/assets/icons/vanities/TandemVanitiesIcon';
 import TwoDrawerIcon from '@/assets/icons/vanities/TwoDrawerIcon';
+import WallIcon from '@/assets/icons/vanities/WallIcon';
 import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types';
 import { SINK_TYPE_TYPES } from '../constants';
 
@@ -40,12 +42,12 @@ export const mountingTypesOptions: CardOption[] = [
     {
         id: 'wall',
         label: 'Wall',
-        icon: <VanitiesIcon />,
+        icon: <WallIcon />,
     },
     {
         id: 'floor',
         label: 'Floor',
-        icon: <VanitiesIcon />,
+        icon: <FloorIcon />,
     },
 ];
 

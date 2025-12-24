@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
 import BathroomCard from '../../../shared/BathroomCard/BathroomCard';
 import CalculatingOverlay from '../../../shared/CalculatingOverlay/CalculatingOverlay';
 import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
 import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
+import { StorageStepdata } from '../../../shared/MultiStepForm/types';
 import Slider from '../../../shared/Slider/Slider';
 import TagSelector from '../../../shared/TagSelector/TagSelector';
 import { useFileIndexedDBValue } from '@/lib/indexedDB/utils';
@@ -99,13 +101,9 @@ export const StorageForm = () => {
     }
 
     return (
-        <div className={s.wrap}>
-            <div className={s.body}>
-                <div className={s.left}>
-                    <div className={s.title}>{currentStep.title}</div>
-                    <div className={s.subtitle}>{currentStep.description}</div>
-                </div>
-                <div className={clsx(s.right, s.form)}>
+        <>
+            <FormStepLayout title={currentStep.title} description={currentStep.description}>
+                <div className={s.form}>
                     {/* Storage arr. section */}
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Storage Arrangement</h2>
@@ -125,7 +123,7 @@ export const StorageForm = () => {
                                 };
 
                                 return (
-                                    <div className={s.optionsContainer}>
+                                    <div className={s.gridContainer}>
                                         {storageArrangementOptions.map((option) => {
                                             const isSelected = field.value === option.id;
 
@@ -154,21 +152,23 @@ export const StorageForm = () => {
                             name="conceptStyle"
                             control={form.control}
                             render={({ field }) => {
-                                const handleToggle = (targetValue: string) => {
-                                    const currentValue = field.value;
-                                    const isSelected = currentValue === targetValue;
+                                const handleToggle = (value: string) => {
+                                    const current: string[] = field.value || [];
+                                    const exists = current.includes(value);
 
-                                    if (isSelected) {
-                                        field.onChange('');
+                                    if (exists) {
+                                        field.onChange(current.filter((v) => v !== value));
                                     } else {
-                                        field.onChange(targetValue);
+                                        field.onChange([...current, value]);
                                     }
                                 };
 
                                 return (
-                                    <div className={s.optionsContainer}>
+                                    <div className={s.gridContainer}>
                                         {conceptStyleOptions.map((option) => {
-                                            const isSelected = field.value === option.id;
+                                            const isSelected = field.value.includes(
+                                                option.id as StorageStepdata['conceptStyle'][number]
+                                            );
 
                                             return (
                                                 <BathroomCard
@@ -296,12 +296,12 @@ export const StorageForm = () => {
                         {errors.look && <ErrorMessage>{errors.look.message}</ErrorMessage>}
                     </div>
                 </div>
-            </div>
+            </FormStepLayout>
             <MultiStepFormFooter
                 onBack={() => goToStep('products')}
                 onNext={submitHandler}
                 isDisabled={!form.formState.isValid}
             />
-        </div>
+        </>
     );
 };

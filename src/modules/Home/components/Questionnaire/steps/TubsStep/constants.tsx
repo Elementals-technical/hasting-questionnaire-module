@@ -1,4 +1,5 @@
-import VanitiesIcon from '@/assets/icons/products/VanitiesIcon';
+import OvalIcon from '@/assets/icons/tubs/OvalIcon';
+import RectangleIcon from '@/assets/icons/tubs/RectangleIcon';
 import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types';
 
 export const TUBS_LENGTH_LIMITS = {
@@ -25,11 +26,11 @@ export const styleOptions: CardOption[] = [
     {
         id: TUBS_SHAPE_TYPES._RECTANGLE,
         label: 'Rectangle',
-        icon: <VanitiesIcon />,
+        icon: <RectangleIcon />,
     },
     {
         id: TUBS_SHAPE_TYPES._OVAL,
         label: 'Oval',
-        icon: <VanitiesIcon />,
+        icon: <OvalIcon />,
     },
 ];

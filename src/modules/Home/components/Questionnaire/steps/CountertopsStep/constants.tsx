@@ -1,4 +1,7 @@
-import VanitiesIcon from '@/assets/icons/products/VanitiesIcon';
+import FloatingIcon from '@/assets/icons/countertop/FloatingIcon';
+import IntegratedIcon from '@/assets/icons/countertop/IntegratedIcon';
+import VanityIcon from '@/assets/icons/countertop/VanityIcon';
+import VesselIcon from '@/assets/icons/countertop/VesselIcon';
 import CurvedVanityIcon from '@/assets/icons/vanities/CurvedVanityIcon';
 import MultiLevelIcon from '@/assets/icons/vanities/MultiLevelIcon';
 import OneDrawerIcon from '@/assets/icons/vanities/OneDrawerIcon';
@@ -34,12 +37,12 @@ export const styleCountertopsOptions: CardOption[] = [
     {
         id: STYLE_COUNTERTOPS_TYPES._FLOATING,
         label: 'Floating',
-        icon: <VanitiesIcon />,
+        icon: <FloatingIcon />,
     },
     {
         id: STYLE_COUNTERTOPS_TYPES._VANITY,
         label: 'Vanity',
-        icon: <VanitiesIcon />,
+        icon: <VanityIcon />,
     },
 ];
 
@@ -91,12 +94,12 @@ export const sinkTypesOptions: CardOption[] = [
     {
         id: SINK_TYPE_TYPES._INTEGRATED,
         label: 'Integrated',
-        icon: <VanitiesIcon />,
+        icon: <IntegratedIcon />,
     },
     {
         id: SINK_TYPE_TYPES._VESSEL,
         label: 'Vessel',
-        icon: <VanitiesIcon />,
+        icon: <VesselIcon />,
     },
 
     // DISABLED BY RYAN 2025 December

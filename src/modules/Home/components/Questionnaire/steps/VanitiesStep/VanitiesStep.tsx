@@ -83,23 +83,30 @@ export const VanitiesForm = () => {
                     ...(formData.vanities?.files?.map((i) => i.idInIndexedDB) || []),
                 ];
 
-                const filePromises = filesData.map((fileId) => get<File>('files', parseInt(fileId || '')));
-                const results = await Promise.allSettled(filePromises);
+                if (filesData.length) {
+                    const filePromises = filesData.map((fileId) => get<File>('files', parseInt(fileId || '')));
+                    const results = await Promise.allSettled(filePromises);
 
-                const successfulFiles = results
-                    .filter((result): result is PromiseFulfilledResult<File> => result.status === 'fulfilled')
-                    .map((result) => result.value);
+                    const successfulFiles = results
+                        .filter((result): result is PromiseFulfilledResult<File> => result.status === 'fulfilled')
+                        .map((result) => result.value);
+
+                    const uploadResponse = await uploadFiles.mutateAsync(successfulFiles);
+
+                    // Тепер у нас є дані від сервера (URL, ID тощо)
+                    // Відправляємо імейл, використовуючи результати завантаження
+                    sendEmailMutation.mutate({
+                        ...emailData,
+                        attachments: uploadResponse.results,
+                    });
+                } else {
+                    sendEmailMutation.mutate({
+                        ...emailData,
+                        attachments: [],
+                    });
+                }
 
                 contactMutation.mutate(contactData);
-
-                const uploadResponse = await uploadFiles.mutateAsync(successfulFiles);
-
-                // Тепер у нас є дані від сервера (URL, ID тощо)
-                // Відправляємо імейл, використовуючи результати завантаження
-                sendEmailMutation.mutate({
-                    ...emailData,
-                    attachments: uploadResponse.results,
-                });
 
                 // 4. Навігація після успіху
                 setTimeout(() => {
@@ -107,7 +114,7 @@ export const VanitiesForm = () => {
                     cleanUp();
                 }, 5500);
             } catch (error) {
-                console.error('Помилка під час обробки форми:', error);
+                console.error('Form handling error:', error);
                 setShowOverlay(false); // Ховаємо оверлей, якщо сталася помилка
             }
         },
@@ -257,6 +264,11 @@ export const VanitiesForm = () => {
                                                 />
                                             );
                                         })}
+                                        {numberOfBasins.length < numberOfBasinsOptions.length && (
+                                            <p className={s.hint}>
+                                                💡 Double basin is only available for widths 48" and above
+                                            </p>
+                                        )}
                                     </div>
                                 );
                             }}

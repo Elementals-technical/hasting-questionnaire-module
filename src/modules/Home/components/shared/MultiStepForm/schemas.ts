@@ -169,9 +169,7 @@ export const storageStepSchema = z.object({
     storageArrangement: z.nativeEnum(STORAGE_ARRANGEMENT_TYPES, {
         message: 'Please select a storage arrangement',
     }),
-    conceptStyle: z.nativeEnum(CONCEPT_STYLE_STORAGE_TYPES, {
-        message: 'Please select a style type',
-    }),
+    conceptStyle: z.array(z.nativeEnum(CONCEPT_STYLE_STORAGE_TYPES)).min(1, 'Please select at least one style type'),
     height: z
         .number()
         .min(STORAGE_HEIGHT_LIMITS.MIN, { message: `Value must be ${STORAGE_HEIGHT_LIMITS.MIN} or greater` })
@@ -340,7 +338,7 @@ export const tubsStepSchema = z.object({
     shape: z.nativeEnum(TUBS_SHAPE_TYPES, {
         message: 'Please select a shape type',
     }),
-    lenght: z
+    length: z
         .number()
         .min(TUBS_LENGTH_LIMITS.MIN, { message: `Value must be ${TUBS_LENGTH_LIMITS.MIN} or greater` })
         .max(TUBS_LENGTH_LIMITS.MAX, { message: `Value must be ${TUBS_LENGTH_LIMITS.MAX} or less` }),

@@ -205,13 +205,12 @@ export const PedestalAndConsolesForm = () => {
 
                     {/* Shape Section */}
                     <div className={s.section}>
-                        <h2 className={s.sectionTitle}>Features</h2>
+                        <h2 className={s.sectionTitle}>Shape</h2>
                         <Controller
                             name="shape"
                             control={form.control}
                             render={({ field }) => (
                                 <div className={s.fieldWwrap}>
-                                    <span className={s.fieldLabel}>Soft-close seat</span>
                                     <div className={clsx(s.optionsContainer, 'justify-start')}>
                                         {PEDESTAL_AND_CONSOLES_SHAPE_TYPES.map((option) => {
                                             const isSelected = field.value === option;
@@ -277,13 +276,13 @@ export const PedestalAndConsolesForm = () => {
 
                     {/* Soft Close Section */}
                     <div className={s.section}>
-                        <h2 className={s.sectionTitle}>Integrated Storage</h2>
+                        <h2 className={s.sectionTitle}>Integrated storage</h2>
                         <Controller
                             name="integratedStorage"
                             control={form.control}
                             render={({ field }) => (
                                 <div className={s.fieldWwrap}>
-                                    <span className={s.fieldLabel}>Soft-close seat</span>
+                                    {/* <span className={s.fieldLabel}>Some title</span> */}
                                     <div className={clsx(s.optionsContainer, 'justify-start')}>
                                         {INTEGRATED_STORAGE_TYPES.map((option) => {
                                             const isSelected = field.value === option;

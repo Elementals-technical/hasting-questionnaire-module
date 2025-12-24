@@ -1,4 +1,5 @@
-import VanitiesIcon from '@/assets/icons/products/VanitiesIcon';
+import ConsoleIcon from '@/assets/icons/pedestalAndConsoles/ConsoleIcon';
+import PedestalIcon from '@/assets/icons/pedestalAndConsoles/PedestalIcon';
 import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types';
 
 export const PEDESTAL_AND_CONSOLES_WIDTH_LIMITS = {
@@ -22,11 +23,11 @@ export const styleOptions: CardOption[] = [
     {
         id: STYLE_TYPES._PEDESTAL,
         label: 'Pedestal',
-        icon: <VanitiesIcon />,
+        icon: <PedestalIcon />,
     },
     {
         id: STYLE_TYPES._CONSOLE,
         label: 'Console',
-        icon: <VanitiesIcon />,
+        icon: <ConsoleIcon />,
     },
 ];

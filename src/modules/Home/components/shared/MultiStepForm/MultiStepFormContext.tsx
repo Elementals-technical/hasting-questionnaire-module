@@ -285,7 +285,7 @@ export const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
         look: [],
         height: 19,
         shape: TUBS_SHAPE_TYPES._RECTANGLE,
-        lenght: 51,
+        length: 51,
     },
     toilets: {
         color: [],

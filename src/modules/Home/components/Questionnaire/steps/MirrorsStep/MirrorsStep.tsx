@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import CalculatingOverlay from '../../../shared/CalculatingOverlay/CalculatingOverlay';
 import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
 import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
+import { mirrorsStepdata } from '../../../shared/MultiStepForm/types';
 import Slider from '../../../shared/Slider/Slider';
 import AttachIcon from '@/assets/icons/common/AttachIcon';
 import { useFileIndexedDBValue, useSetFileToIndexedDB } from '@/lib/indexedDB/utils';
@@ -206,25 +207,28 @@ export const MirrorForm = () => {
                             control={form.control}
                             render={({ field }) => (
                                 <div className={s.fieldWwrap}>
-                                    <span className={s.fieldLabel}>Soft-close seat</span>
                                     <div className={clsx(s.optionsContainer, 'justify-start')}>
                                         {MIRRORS_TYPES.map((option) => {
-                                            const currentGoals = field.value || [];
-                                            const isSelected = currentGoals.includes(option);
+                                            const handleToggle = (goalId: string) => {
+                                                const currentGoals = field.value || [];
+                                                const isSelected = currentGoals.includes(
+                                                    goalId as mirrorsStepdata['type'][number]
+                                                );
 
-                                            if (isSelected) {
-                                                field.onChange(currentGoals.filter((id) => id !== option));
-                                            } else {
-                                                field.onChange([...currentGoals, option]);
-                                            }
+                                                if (isSelected) {
+                                                    field.onChange(currentGoals.filter((id) => id !== goalId));
+                                                } else {
+                                                    field.onChange([...currentGoals, goalId]);
+                                                }
+                                            };
+
+                                            const isSelected = field.value?.includes(option) || false;
 
                                             return (
                                                 <Button
                                                     key={option}
-                                                    onClick={() => field.onChange(option)}
-                                                    className={clsx(s.optionButton, {
-                                                        [s.optionButtonSelected]: isSelected,
-                                                    })}
+                                                    onClick={() => handleToggle(option)}
+                                                    className={`${s.optionButton} ${isSelected ? s.optionButtonSelected : ''}`}
                                                 >
                                                     {option}
                                                 </Button>

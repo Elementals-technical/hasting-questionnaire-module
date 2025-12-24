@@ -162,7 +162,7 @@ export const TubsForm = () => {
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Size</h2>
                         <Controller
-                            name="lenght"
+                            name="length"
                             control={form.control}
                             render={({ field }) => (
                                 <div className={s.optionsContainer}>
@@ -177,7 +177,7 @@ export const TubsForm = () => {
                                 </div>
                             )}
                         />
-                        {errors.lenght && <ErrorMessage>{errors.lenght.message}</ErrorMessage>}
+                        {errors.length && <ErrorMessage>{errors.length.message}</ErrorMessage>}
                         <Controller
                             name="width"
                             control={form.control}

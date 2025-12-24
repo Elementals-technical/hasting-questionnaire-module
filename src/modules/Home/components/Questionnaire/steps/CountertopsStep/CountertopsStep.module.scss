@@ -90,6 +90,21 @@
     justify-content: center;
 }
 
+.gridContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    max-width: 75rem;
+    margin: 0 auto;
+    max-width: 560px;
+    justify-self: center;
+
+    @include md {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
 .sectionTitle {
     margin-bottom: 16px;
     color: #ac5331;

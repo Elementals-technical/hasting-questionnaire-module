@@ -136,7 +136,7 @@ export const CountertopsForm = () => {
                                 };
 
                                 return (
-                                    <div className={s.optionsContainer}>
+                                    <div className={s.gridContainer}>
                                         {styleCountertopsOptions.map((option) => {
                                             const isSelected = field.value === option.id;
 
@@ -176,7 +176,7 @@ export const CountertopsForm = () => {
                                 };
 
                                 return (
-                                    <div className={s.optionsContainer}>
+                                    <div className={s.gridContainer}>
                                         {sinkTypesOptions.map((option) => {
                                             const isSelected = field.value === option.id;
 

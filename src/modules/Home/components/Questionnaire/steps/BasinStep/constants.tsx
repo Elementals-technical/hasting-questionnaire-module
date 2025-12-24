@@ -1,4 +1,5 @@
-import VanitiesIcon from '@/assets/icons/products/VanitiesIcon';
+import DeckMountedIcon from '@/assets/icons/basin/DeckMountedIcon';
+import WallMountedIcon from '@/assets/icons/basin/WallMountedIcon';
 import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types';
 
 export const BASIN_WIDTH_LIMITS = {
@@ -27,11 +28,11 @@ export const styleOptions: CardOption[] = [
     {
         id: BASIN_MOUNTING_TYPES._WALL_MOUNTED,
         label: 'Wall Mounted',
-        icon: <VanitiesIcon />,
+        icon: <WallMountedIcon />,
     },
     {
         id: BASIN_MOUNTING_TYPES._DECK_MOUNTED,
         label: 'Deck Mounted',
-        icon: <VanitiesIcon />,
+        icon: <DeckMountedIcon />,
     },
 ];
