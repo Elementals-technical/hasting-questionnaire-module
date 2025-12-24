@@ -1,11 +1,9 @@
 import VanitiesIcon from '@/assets/icons/products/VanitiesIcon';
 import CurvedVanityIcon from '@/assets/icons/vanities/CurvedVanityIcon';
-import DoubleVanityIcon from '@/assets/icons/vanities/DoubleVanityIcon';
 import MultiLevelIcon from '@/assets/icons/vanities/MultiLevelIcon';
 import OneDrawerIcon from '@/assets/icons/vanities/OneDrawerIcon';
 import OneDrawerInnerIcon from '@/assets/icons/vanities/OnerDrawerInnerIcon';
 import OpenShelvingIcon from '@/assets/icons/vanities/OpenShelvingIcon';
-import SingleVanityIcon from '@/assets/icons/vanities/SingleVanityIcon';
 import SlimProfileIcon from '@/assets/icons/vanities/SlimProfileIcon';
 import TandemVanitiesIcon from '@/assets/icons/vanities/TandemVanitiesIcon';
 import TwoDrawerIcon from '@/assets/icons/vanities/TwoDrawerIcon';
@@ -46,16 +44,6 @@ export const styleCountertopsOptions: CardOption[] = [
 ];
 
 export const conceptStyleOptions: CardOption[] = [
-    {
-        id: CONCEPT_STYLE_VANITIES_TYPES._SINGLE_VANITY,
-        label: 'Single vanity',
-        icon: <SingleVanityIcon />,
-    },
-    {
-        id: CONCEPT_STYLE_VANITIES_TYPES._DOUBLE_VANITY,
-        label: 'Double vanity',
-        icon: <DoubleVanityIcon />,
-    },
     {
         id: CONCEPT_STYLE_VANITIES_TYPES._ONE_DRAWER,
         label: '1-Drawer',
