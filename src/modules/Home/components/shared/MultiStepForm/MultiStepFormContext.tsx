@@ -238,7 +238,7 @@ export const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
     storage: {
         width: 5,
         depth: '5-9.9"',
-        conceptStyle: CONCEPT_STYLE_STORAGE_TYPES._CLOSED_STORAGE_COLUMN,
+        conceptStyle: [CONCEPT_STYLE_STORAGE_TYPES._CLOSED_STORAGE_COLUMN],
         color: [],
         look: [],
         storageArrangement: STORAGE_ARRANGEMENT_TYPES._SINGLE_UNIT,

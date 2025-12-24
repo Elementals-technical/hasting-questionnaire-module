@@ -14,6 +14,7 @@ import { Controller } from 'react-hook-form';
 import { useCreateHubspotContact } from '@/hooks/useCreateHubspotContact';
 import { useSendEmail } from '@/hooks/useSendEmail';
 import { useUploadFiles } from '@/hooks/useUploadFiles';
+import { useFilterStorageStepOptionsByRules } from './hooks/useFilterStorageStepOptionsByRules';
 import {
     useMultiStepFormContext,
     useMultiStepFormStepForm,
@@ -46,6 +47,8 @@ export const StorageForm = () => {
     const {
         formState: { errors },
     } = form;
+
+    const { conceptStyle } = useFilterStorageStepOptionsByRules(form, conceptStyleOptions);
 
     const submitHandler = form.handleSubmit(
         async (data) => {
@@ -165,7 +168,7 @@ export const StorageForm = () => {
 
                                 return (
                                     <div className={s.gridContainer}>
-                                        {conceptStyleOptions.map((option) => {
+                                        {conceptStyle.map((option) => {
                                             const isSelected = field.value.includes(
                                                 option.id as StorageStepdata['conceptStyle'][number]
                                             );

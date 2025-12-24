@@ -179,9 +179,11 @@ export const storageStepSchema = z.object({
         .number()
         .min(STORAGE_WIDTH_LIMITS.MIN, { message: `Value must be ${STORAGE_WIDTH_LIMITS.MIN} or greater` })
         .max(STORAGE_WIDTH_LIMITS.MAX, { message: `Value must be ${STORAGE_WIDTH_LIMITS.MAX} or less` }),
-    depth: z.enum(STORAGE_DEPTH_TYPES, {
-        message: 'Please select a depth',
-    }),
+    depth: z
+        .enum(STORAGE_DEPTH_TYPES, {
+            message: 'Please select a depth',
+        })
+        .optional(),
     color: COLOR_FIELD_SCHEMA,
     look: LOOK_FIELD_SCHEMA,
     additionalInfo: ADDITIONAL_INFO_FIELD_SCHEMA,
