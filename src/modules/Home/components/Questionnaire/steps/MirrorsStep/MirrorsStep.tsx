@@ -209,7 +209,14 @@ export const MirrorForm = () => {
                                     <span className={s.fieldLabel}>Soft-close seat</span>
                                     <div className={clsx(s.optionsContainer, 'justify-start')}>
                                         {MIRRORS_TYPES.map((option) => {
-                                            const isSelected = field.value === option;
+                                            const currentGoals = field.value || [];
+                                            const isSelected = currentGoals.includes(option);
+
+                                            if (isSelected) {
+                                                field.onChange(currentGoals.filter((id) => id !== option));
+                                            } else {
+                                                field.onChange([...currentGoals, option]);
+                                            }
 
                                             return (
                                                 <Button
