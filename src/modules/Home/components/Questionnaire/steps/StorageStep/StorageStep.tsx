@@ -108,7 +108,7 @@ export const StorageForm = () => {
                 <div className={clsx(s.right, s.form)}>
                     {/* Storage arr. section */}
                     <div className={s.section}>
-                        <h2 className={s.sectionTitle}>Concept | Style</h2>
+                        <h2 className={s.sectionTitle}>Storage Arrangement</h2>
                         <Controller
                             name="storageArrangement"
                             control={form.control}

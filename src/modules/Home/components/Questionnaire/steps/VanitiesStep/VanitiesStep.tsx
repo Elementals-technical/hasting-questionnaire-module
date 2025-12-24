@@ -13,6 +13,7 @@ import { Controller } from 'react-hook-form';
 import { useCreateHubspotContact } from '@/hooks/useCreateHubspotContact';
 import { useSendEmail } from '@/hooks/useSendEmail';
 import { useUploadFiles } from '@/hooks/useUploadFiles';
+import { useFilterStepOptionsByRules } from './hooks/useFilterStepOptionsByRules';
 import BathroomCard from '@/modules/Home/components/shared/BathroomCard/BathroomCard';
 import {
     useMultiStepFormContext,
@@ -44,6 +45,12 @@ export const VanitiesForm = () => {
 
     const navigate = useNavigate();
     const { form } = useMultiStepFormStepForm('vanities');
+
+    const { conceptStyle, numberOfBasins } = useFilterStepOptionsByRules(
+        form,
+        numberOfBasinsOptions,
+        conceptStyleOptions
+    );
 
     const { mutate: setFileToIndexedDB } = useSetFileToIndexedDB();
     // const { mutate: getFileFromIndexedDB } = useGetFileFromIndexedDB();
@@ -236,7 +243,7 @@ export const VanitiesForm = () => {
 
                                 return (
                                     <div className={s.optionsContainer}>
-                                        {numberOfBasinsOptions.map((option) => {
+                                        {numberOfBasins.map((option) => {
                                             const isSelected = field.value === option.id;
 
                                             return (
@@ -277,7 +284,7 @@ export const VanitiesForm = () => {
 
                                 return (
                                     <div className={s.optionsContainer}>
-                                        {conceptStyleOptions.map((option) => {
+                                        {conceptStyle.map((option) => {
                                             const isSelected = field.value === option.id;
 
                                             return (

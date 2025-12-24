@@ -227,9 +227,7 @@ export const mirrorsStepSchema = z.object({
         .number()
         .min(MIRROR_HEIGHT_LIMITS.MIN, { message: `Value must be ${MIRROR_HEIGHT_LIMITS.MIN} or greater` })
         .max(MIRROR_HEIGHT_LIMITS.MAX, { message: `Value must be ${MIRROR_HEIGHT_LIMITS.MAX} or less` }),
-    type: z.enum(MIRRORS_TYPES, {
-        message: 'Please select a mirror type',
-    }),
+    type: z.array(z.enum(MIRRORS_TYPES)).min(1, 'Please select at least one mirror'),
     defogger: z
         .enum(MIRRORS_DEFOGGER_TYPES, {
             message: 'Please select a defogger',

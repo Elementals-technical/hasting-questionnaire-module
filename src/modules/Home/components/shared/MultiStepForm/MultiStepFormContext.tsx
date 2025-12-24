@@ -256,7 +256,7 @@ export const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
     },
     mirror: {
         shape: SHAPE_MIRRORS_TYPES._OVAL,
-        type: 'Framed Mirror',
+        type: ['Lit Mirror'],
         width: 15,
         height: 20,
         conceptStyle: CONCEPT_STYLE_VANITIES_TYPES._MULTI_LEVEL,

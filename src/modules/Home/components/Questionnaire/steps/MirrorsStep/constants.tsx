@@ -11,7 +11,7 @@ export const MIRROR_HEIGHT_LIMITS = {
     MAX: 90,
 };
 
-export const MIRRORS_TYPES = ['Framed Mirror', 'Mirror Cabinet', 'Folding Mirror'] as const;
+export const MIRRORS_TYPES = ['Lit Mirror', 'Framed Mirror', 'Mirror Cabinet', 'Folding Mirror'] as const;
 
 export const MIRRORS_DEFOGGER_TYPES = ['Yes'] as const;
 export const MIRRORS_POWER_SENSOR_TYPES = ['Yes'] as const;

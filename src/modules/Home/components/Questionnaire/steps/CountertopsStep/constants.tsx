@@ -98,9 +98,11 @@ export const sinkTypesOptions: CardOption[] = [
         label: 'Vessel',
         icon: <VanitiesIcon />,
     },
-    {
-        id: SINK_TYPE_TYPES._UNDERMOUNT,
-        label: 'Undermount',
-        icon: <VanitiesIcon />,
-    },
+
+    // DISABLED BY RYAN 2025 December
+    // {
+    //     id: SINK_TYPE_TYPES._UNDERMOUNT,
+    //     label: 'Undermount',
+    //     icon: <VanitiesIcon />,
+    // },
 ];

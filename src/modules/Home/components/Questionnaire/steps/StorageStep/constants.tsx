@@ -10,7 +10,6 @@ import TandemVanitiesIcon from '@/assets/icons/vanities/TandemVanitiesIcon';
 import TwoDrawerIcon from '@/assets/icons/vanities/TwoDrawerIcon';
 import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types';
 import { TagOption } from '@/modules/Home/components/shared/TagSelector/types';
-import { SINK_TYPE_TYPES } from '../constants';
 
 export const STORAGE_HEIGHT_LIMITS = {
     MIN: 5,
@@ -183,24 +182,6 @@ export const conceptStyleOptions: CardOption[] = [
         id: CONCEPT_STYLE_STORAGE_TYPES._FLOOR_TO_CEILING,
         label: 'Floor-to-Ceiling',
         icon: <TandemVanitiesIcon />,
-    },
-];
-
-export const sinkTypesOptions: CardOption[] = [
-    {
-        id: SINK_TYPE_TYPES._INTEGRATED,
-        label: 'Integrated',
-        icon: <VanitiesIcon />,
-    },
-    {
-        id: SINK_TYPE_TYPES._VESSEL,
-        label: 'Vessel',
-        icon: <VanitiesIcon />,
-    },
-    {
-        id: SINK_TYPE_TYPES._UNDERMOUNT,
-        label: 'Undermount',
-        icon: <VanitiesIcon />,
     },
 ];
 
