@@ -5,14 +5,24 @@
 }
 
 .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; // Центрує всі елементи, включаючи останній ряд
     gap: 40px;
-    max-width: 75rem;
+    max-width: 560px;
     margin: 0 auto;
 
-    @include md {
-        grid-template-columns: repeat(2, 1fr);
+    // Щоб зберегти вигляд 3-х колонок
+    & > * {
+        flex: 0 1 calc(33.333% - 40px); // 33% мінус gap
+        min-width: 140px; // Щоб картки не стискалися занадто сильно
+    }
+}
+
+@include md {
+    .grid > * {
+        flex: 0 1 calc(50% - 20px); // 50% мінус gap
         gap: 20px;
+        min-width: 140px; // Щоб картки не стискалися занадто сильно
     }
 }

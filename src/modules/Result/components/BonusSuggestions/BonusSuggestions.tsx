@@ -11,8 +11,8 @@ const BonusSuggestions: FC<BonusSuggestionsProps> = ({ images }) => {
 
     return (
         <div className={s.wrap}>
-            <div className={s.title}>Bonus!</div>
-            <div className={s.subtitle}>See your personal design style and sub-styles</div>
+            {/* <div className={s.title}>Bonus!</div>
+            <div className={s.subtitle}>See your personal design style and sub-styles</div> */}
             <div className={s.styleSection}>
                 <div className={s.left}>
                     <div className={s.styleTitle}>Based on our algorithm, your main style is </div>
