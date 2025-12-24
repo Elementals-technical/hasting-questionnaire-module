@@ -15,7 +15,6 @@ export const ResultRoute = () => {
 
     const formData = value ? (JSON.parse(value) as MultiStepForm) : (MULTI_STEP_FORM_INITIAL_STATE as MultiStepForm);
 
-    console.log('IMAGE', formData.roomStyle.rooms[0]);
     return (
         <>
             <div
