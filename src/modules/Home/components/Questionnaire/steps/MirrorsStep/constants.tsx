@@ -1,6 +1,16 @@
 import VanitiesIcon from '@/assets/icons/products/VanitiesIcon';
 import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types';
 
+export const MIRROR_WIDTH_LIMITS = {
+    MIN: 15,
+    MAX: 90,
+};
+
+export const MIRROR_HEIGHT_LIMITS = {
+    MIN: 15,
+    MAX: 90,
+};
+
 export const MIRRORS_TYPES = ['Framed Mirror', 'Mirror Cabinet', 'Folding Mirror'] as const;
 
 export const MIRRORS_DEFOGGER_TYPES = ['Yes'] as const;

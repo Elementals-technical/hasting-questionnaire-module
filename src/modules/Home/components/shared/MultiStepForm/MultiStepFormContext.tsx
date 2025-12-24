@@ -6,7 +6,10 @@ import { flushSync } from 'react-dom';
 import { DefaultValues, Path, PathValue, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useSafeContext } from '@/hooks/useSafeContext';
-import { CONCEPT_STYLE_VANITIES_TYPES } from '@/modules/Home/components/Questionnaire/steps/VanitiesStep/constants';
+import {
+    CONCEPT_STYLE_VANITIES_TYPES,
+    NUMBER_OF_BASINS_VANITITES_TYPES,
+} from '@/modules/Home/components/Questionnaire/steps/VanitiesStep/constants';
 import { BASIN_MOUNTING_TYPES } from '../../Questionnaire/steps/BasinStep/constants';
 import { SINK_TYPE_TYPES } from '../../Questionnaire/steps/constants';
 import {
@@ -230,6 +233,7 @@ export const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
         sinkType: SINK_TYPE_TYPES._INTEGRATED,
         conceptStyle: CONCEPT_STYLE_VANITIES_TYPES._CURVED_VANITY,
         look: [],
+        numberOfBasins: NUMBER_OF_BASINS_VANITITES_TYPES._SINGLE_VANITY,
     },
     storage: {
         width: 5,
@@ -246,7 +250,7 @@ export const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
         width: 29,
         depth: '14-15"',
         topThickness: TOP_THICKNESS_COUNTERTOPS_TYPES[0],
-        basinQuantity: '',
+        basinQuantity: '1',
         color: [],
         look: [],
     },
@@ -255,7 +259,7 @@ export const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
         type: 'Framed Mirror',
         width: 15,
         height: 20,
-        conceptStyle: CONCEPT_STYLE_VANITIES_TYPES._SINGLE_VANITY,
+        conceptStyle: CONCEPT_STYLE_VANITIES_TYPES._MULTI_LEVEL,
         sinkType: SINK_TYPE_TYPES._INTEGRATED,
         color: [],
         look: [],
@@ -284,9 +288,6 @@ export const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
         lenght: 51,
     },
     toilets: {
-        lenght: 51,
-        width: 24,
-        height: 19,
         color: [],
         look: [],
         mountingType: TOILETS_MOUNTING_TYPES._WALL_MOUNTED,

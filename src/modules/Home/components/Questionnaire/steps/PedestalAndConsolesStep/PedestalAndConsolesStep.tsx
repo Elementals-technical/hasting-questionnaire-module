@@ -21,7 +21,13 @@ import TagSelector from '@/modules/Home/components/shared/TagSelector/TagSelecto
 import { SUBSTYLES } from '@/modules/Result/components/BonusSuggestions/constants';
 import { determineDominantStyles } from '@/modules/Result/components/BonusSuggestions/utils';
 import { colorTypesOptions, lookTypesOptions } from '../constants';
-import { INTEGRATED_STORAGE_TYPES, PEDESTAL_AND_CONSOLES_SHAPE_TYPES, styleOptions } from './constants';
+import {
+    INTEGRATED_STORAGE_TYPES,
+    PEDESTAL_AND_CONSOLES_DEPTH_LIMITS,
+    PEDESTAL_AND_CONSOLES_SHAPE_TYPES,
+    PEDESTAL_AND_CONSOLES_WIDTH_LIMITS,
+    styleOptions,
+} from './constants';
 import { Button } from '@/components/ui/Button/Button';
 import s from './PedestalAndConsolesStep.module.scss';
 
@@ -167,6 +173,8 @@ export const PedestalAndConsolesForm = () => {
                             render={({ field }) => (
                                 <div className={s.optionsContainer}>
                                     <Slider
+                                        min={PEDESTAL_AND_CONSOLES_WIDTH_LIMITS.MIN}
+                                        max={PEDESTAL_AND_CONSOLES_WIDTH_LIMITS.MAX}
                                         key={field.name}
                                         label={field.name}
                                         attributeValue={field.value}
@@ -182,6 +190,8 @@ export const PedestalAndConsolesForm = () => {
                             render={({ field }) => (
                                 <div className={s.optionsContainer}>
                                     <Slider
+                                        min={PEDESTAL_AND_CONSOLES_DEPTH_LIMITS.MIN}
+                                        max={PEDESTAL_AND_CONSOLES_DEPTH_LIMITS.MAX}
                                         key={field.name}
                                         label={field.name}
                                         attributeValue={field.value}

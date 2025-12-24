@@ -21,7 +21,13 @@ import TagSelector from '@/modules/Home/components/shared/TagSelector/TagSelecto
 import { SUBSTYLES } from '@/modules/Result/components/BonusSuggestions/constants';
 import { determineDominantStyles } from '@/modules/Result/components/BonusSuggestions/utils';
 import { colorTypesOptions, lookTypesOptions } from '../constants';
-import { BASIN_OVERFLOW_TYPES, styleOptions } from './constants';
+import {
+    BASIN_DEPTH_LIMITS,
+    BASIN_HEIGHT_LIMITS,
+    BASIN_OVERFLOW_TYPES,
+    BASIN_WIDTH_LIMITS,
+    styleOptions,
+} from './constants';
 import { Button } from '@/components/ui/Button/Button';
 import s from './BasinStep.module.scss';
 
@@ -167,6 +173,8 @@ export const BasinForm = () => {
                             render={({ field }) => (
                                 <div className={s.optionsContainer}>
                                     <Slider
+                                        min={BASIN_WIDTH_LIMITS.MIN}
+                                        max={BASIN_WIDTH_LIMITS.MAX}
                                         key={field.name}
                                         label={field.name}
                                         attributeValue={field.value}
@@ -182,6 +190,8 @@ export const BasinForm = () => {
                             render={({ field }) => (
                                 <div className={s.optionsContainer}>
                                     <Slider
+                                        min={BASIN_DEPTH_LIMITS.MIN}
+                                        max={BASIN_DEPTH_LIMITS.MAX}
                                         key={field.name}
                                         label={field.name}
                                         attributeValue={field.value}
@@ -197,6 +207,8 @@ export const BasinForm = () => {
                             render={({ field }) => (
                                 <div className={s.optionsContainer}>
                                     <Slider
+                                        min={BASIN_HEIGHT_LIMITS.MIN}
+                                        max={BASIN_HEIGHT_LIMITS.MAX}
                                         key={field.name}
                                         label={field.name}
                                         attributeValue={field.value}

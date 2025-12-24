@@ -4,12 +4,13 @@ import { useNavigate } from '@tanstack/react-router';
 import { WorkflowStep } from '@/modules/Home/components/shared/WorkflowSteps/WorkflowStep';
 import { STEPS_ITEMS } from './components/constants';
 import { Button } from '@/components/ui';
+import { LS_MULTI_STEP_FORM_KEY } from '../Home/components/shared';
 import s from './style.module.scss';
 
 export const StartRoute = () => {
     const navigate = useNavigate();
 
-    const { remove } = useLocalStorageValue('HASTINGS_multi-step-form');
+    const { remove } = useLocalStorageValue(LS_MULTI_STEP_FORM_KEY);
 
     useEffect(() => {
         remove();

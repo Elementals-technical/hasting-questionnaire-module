@@ -29,7 +29,10 @@ export const BathroomsForm = () => {
 
     return (
         <>
-            <FormStepLayout title={currentStep.title} description={currentStep.description}>
+            <FormStepLayout
+                title={<span className={s.title}>{currentStep.title}</span>}
+                description={currentStep.description}
+            >
                 <BathroomsPicker form={form} />
             </FormStepLayout>
             <MultiStepFormFooter

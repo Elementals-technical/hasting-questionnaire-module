@@ -26,6 +26,7 @@ import { colorTypesOptions, lookTypesOptions } from '../constants';
 import {
     conceptStyleOptions,
     mountingTypesOptions,
+    numberOfBasinsOptions,
     sinkTypesOptions,
     VANITIES_DEPTH_TYPES,
     VANITIES_WIDTH_LIMITS,
@@ -215,6 +216,47 @@ export const VanitiesForm = () => {
                         />
                         {errors.mountingType && <ErrorMessage>{errors.mountingType.message}</ErrorMessage>}
                     </div>
+                    {/* Number of basins section */}
+                    <div className={s.section}>
+                        <h2 className={s.sectionTitle}>Basin Quantity</h2>
+                        <Controller
+                            name="numberOfBasins"
+                            control={form.control}
+                            render={({ field }) => {
+                                const handleToggle = (targetValue: string) => {
+                                    const currentValue = field.value;
+                                    const isSelected = currentValue === targetValue;
+
+                                    if (isSelected) {
+                                        field.onChange('');
+                                    } else {
+                                        field.onChange(targetValue);
+                                    }
+                                };
+
+                                return (
+                                    <div className={s.optionsContainer}>
+                                        {numberOfBasinsOptions.map((option) => {
+                                            const isSelected = field.value === option.id;
+
+                                            return (
+                                                <BathroomCard
+                                                    key={option.id}
+                                                    option={option}
+                                                    isSelected={isSelected}
+                                                    onToggle={() => {
+                                                        return handleToggle(option.id);
+                                                    }}
+                                                />
+                                            );
+                                        })}
+                                    </div>
+                                );
+                            }}
+                        />
+                        {errors.numberOfBasins && <ErrorMessage>{errors.numberOfBasins.message}</ErrorMessage>}
+                    </div>
+
                     {/* Concept style section */}
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Concept | Style</h2>

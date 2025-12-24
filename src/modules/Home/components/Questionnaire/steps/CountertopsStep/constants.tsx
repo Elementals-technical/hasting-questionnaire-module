@@ -13,9 +13,14 @@ import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types'
 import { SINK_TYPE_TYPES } from '../constants';
 import { CONCEPT_STYLE_VANITIES_TYPES } from '../VanitiesStep/constants';
 
+export const COUNTERTOPS_WIDTH_LIMITS = {
+    MIN: 24,
+    MAX: 120,
+};
+
 export const COUNTERTOPS_DEPTH_TYPES = ['14-15"', '18-19"', '19-21"'] as const;
 export const TOP_THICKNESS_COUNTERTOPS_TYPES = ['Thin', 'Thick'] as const;
-export const BASIN_QUANTITY_TYPES = ['1', '2'];
+export const BASIN_QUANTITY_TYPES = ['1', '2'] as const;
 
 export enum STYLE_COUNTERTOPS_TYPES {
     _FLOATING = 'floating',

@@ -22,6 +22,8 @@ import { SUBSTYLES } from '@/modules/Result/components/BonusSuggestions/constant
 import { determineDominantStyles } from '@/modules/Result/components/BonusSuggestions/utils';
 import { colorTypesOptions, lookTypesOptions } from '../constants';
 import {
+    MIRROR_HEIGHT_LIMITS,
+    MIRROR_WIDTH_LIMITS,
     MIRRORS_BACKLIT_TYPES,
     MIRRORS_DEFOGGER_TYPES,
     MIRRORS_DIMMABLE_TYPES,
@@ -166,6 +168,8 @@ export const MirrorForm = () => {
                             render={({ field }) => (
                                 <div className={s.optionsContainer}>
                                     <Slider
+                                        min={MIRROR_WIDTH_LIMITS.MIN}
+                                        max={MIRROR_WIDTH_LIMITS.MAX}
                                         key={field.name}
                                         label={field.name}
                                         attributeValue={field.value}
@@ -181,6 +185,8 @@ export const MirrorForm = () => {
                             render={({ field }) => (
                                 <div className={s.optionsContainer}>
                                     <Slider
+                                        min={MIRROR_HEIGHT_LIMITS.MIN}
+                                        max={MIRROR_HEIGHT_LIMITS.MAX}
                                         key={field.name}
                                         label={field.name}
                                         attributeValue={field.value}
@@ -221,7 +227,7 @@ export const MirrorForm = () => {
                                 </div>
                             )}
                         />
-                        {errors.width && <ErrorMessage>{errors.width.message}</ErrorMessage>}
+                        {errors.type && <ErrorMessage>{errors.type.message}</ErrorMessage>}
                     </div>
 
                     {/* Features Section */}
@@ -242,7 +248,7 @@ export const MirrorForm = () => {
                                                     return (
                                                         <Button
                                                             key={option}
-                                                            onClick={() => field.onChange(option)}
+                                                            onClick={() => field.onChange(isSelected ? '' : option)}
                                                             className={clsx(s.optionButton, {
                                                                 [s.optionButtonSelected]: isSelected,
                                                             })}
@@ -269,7 +275,7 @@ export const MirrorForm = () => {
                                                     return (
                                                         <Button
                                                             key={option}
-                                                            onClick={() => field.onChange(option)}
+                                                            onClick={() => field.onChange(isSelected ? '' : option)}
                                                             className={clsx(s.optionButton, {
                                                                 [s.optionButtonSelected]: isSelected,
                                                             })}
@@ -296,7 +302,7 @@ export const MirrorForm = () => {
                                                     return (
                                                         <Button
                                                             key={option}
-                                                            onClick={() => field.onChange(option)}
+                                                            onClick={() => field.onChange(isSelected ? '' : option)}
                                                             className={clsx(s.optionButton, {
                                                                 [s.optionButtonSelected]: isSelected,
                                                             })}
@@ -326,7 +332,7 @@ export const MirrorForm = () => {
                                                     return (
                                                         <Button
                                                             key={option}
-                                                            onClick={() => field.onChange(option)}
+                                                            onClick={() => field.onChange(isSelected ? '' : option)}
                                                             className={clsx(s.optionButton, {
                                                                 [s.optionButtonSelected]: isSelected,
                                                             })}
@@ -355,7 +361,7 @@ export const MirrorForm = () => {
                                                     return (
                                                         <Button
                                                             key={option}
-                                                            onClick={() => field.onChange(option)}
+                                                            onClick={() => field.onChange(isSelected ? '' : option)}
                                                             className={clsx(s.optionButton, {
                                                                 [s.optionButtonSelected]: isSelected,
                                                             })}
@@ -382,7 +388,7 @@ export const MirrorForm = () => {
                                                     return (
                                                         <Button
                                                             key={option}
-                                                            onClick={() => field.onChange(option)}
+                                                            onClick={() => field.onChange(isSelected ? '' : option)}
                                                             className={clsx(s.optionButton, {
                                                                 [s.optionButtonSelected]: isSelected,
                                                             })}

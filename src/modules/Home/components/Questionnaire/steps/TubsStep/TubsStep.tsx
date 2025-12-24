@@ -21,7 +21,7 @@ import TagSelector from '@/modules/Home/components/shared/TagSelector/TagSelecto
 import { SUBSTYLES } from '@/modules/Result/components/BonusSuggestions/constants';
 import { determineDominantStyles } from '@/modules/Result/components/BonusSuggestions/utils';
 import { colorTypesOptions, lookTypesOptions } from '../constants';
-import { styleOptions } from './constants';
+import { styleOptions, TUBS_HEIGHT_LIMITS, TUBS_LENGTH_LIMITS, TUBS_WIDTH_LIMITS } from './constants';
 import { Button } from '@/components/ui/Button/Button';
 import s from './TubsStep.module.scss';
 
@@ -167,6 +167,8 @@ export const TubsForm = () => {
                             render={({ field }) => (
                                 <div className={s.optionsContainer}>
                                     <Slider
+                                        min={TUBS_LENGTH_LIMITS.MIN}
+                                        max={TUBS_LENGTH_LIMITS.MAX}
                                         key={field.name}
                                         label={field.name}
                                         attributeValue={field.value}
@@ -182,6 +184,8 @@ export const TubsForm = () => {
                             render={({ field }) => (
                                 <div className={s.optionsContainer}>
                                     <Slider
+                                        min={TUBS_WIDTH_LIMITS.MIN}
+                                        max={TUBS_WIDTH_LIMITS.MAX}
                                         key={field.name}
                                         label={field.name}
                                         attributeValue={field.value}
@@ -197,6 +201,8 @@ export const TubsForm = () => {
                             render={({ field }) => (
                                 <div className={s.optionsContainer}>
                                     <Slider
+                                        min={TUBS_HEIGHT_LIMITS.MIN}
+                                        max={TUBS_HEIGHT_LIMITS.MAX}
                                         key={field.name}
                                         label={field.name}
                                         attributeValue={field.value}

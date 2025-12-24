@@ -174,7 +174,7 @@ export const ToiletsForm = () => {
                                                 <Button
                                                     key={option}
                                                     type="button"
-                                                    onClick={() => field.onChange(option)}
+                                                    onClick={() => field.onChange(isSelected ? '' : option)}
                                                     className={clsx(s.optionButton, {
                                                         [s.optionButtonSelected]: isSelected,
                                                     })}
@@ -187,7 +187,7 @@ export const ToiletsForm = () => {
                                 </div>
                             )}
                         />
-                        {errors.width && <ErrorMessage>{errors.width.message}</ErrorMessage>}
+                        {errors.softCloseSeat && <ErrorMessage>{errors.softCloseSeat.message}</ErrorMessage>}
                     </div>
 
                     {/* Color type style section */}

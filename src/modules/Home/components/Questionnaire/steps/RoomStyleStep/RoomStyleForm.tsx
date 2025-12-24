@@ -38,7 +38,10 @@ export const RoomStyleForm = () => {
 
     return (
         <>
-            <FormStepLayout title={currentStep.title} description={currentStep.description}>
+            <FormStepLayout
+                title={<span className={s.title}>{currentStep.title}</span>}
+                description={currentStep.description}
+            >
                 <div className={s.content}>
                     <ImagePicker isLoading={isLoading} images={data?.rows || []} form={form} />
                 </div>

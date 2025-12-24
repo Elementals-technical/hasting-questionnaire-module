@@ -20,9 +20,12 @@ export const VANITIES_WIDTH_LIMITS = {
 export const VANITIES_DEPTH_TYPES = ['14-15"', '18-19"', '19-21"'] as const;
 export const MOUNTING_TYPE_TYPES = ['wall', 'floor'] as const;
 
-export enum CONCEPT_STYLE_VANITIES_TYPES {
+export enum NUMBER_OF_BASINS_VANITITES_TYPES {
     _SINGLE_VANITY = 'single-vanity',
     _DOUBLE_VANITY = 'double-vanity',
+}
+
+export enum CONCEPT_STYLE_VANITIES_TYPES {
     _ONE_DRAWER = '1-drawer',
     _ONE_DRAWER_INNER = '1-drawer-inner',
     _TWO_DRAWER = '2-drawer',
@@ -46,17 +49,20 @@ export const mountingTypesOptions: CardOption[] = [
     },
 ];
 
-export const conceptStyleOptions: CardOption[] = [
+export const numberOfBasinsOptions: CardOption[] = [
     {
-        id: CONCEPT_STYLE_VANITIES_TYPES._SINGLE_VANITY,
-        label: 'Single vanity',
+        id: NUMBER_OF_BASINS_VANITITES_TYPES._SINGLE_VANITY,
+        label: 'Single Basin',
         icon: <SingleVanityIcon />,
     },
     {
-        id: CONCEPT_STYLE_VANITIES_TYPES._DOUBLE_VANITY,
-        label: 'Double vanity',
+        id: NUMBER_OF_BASINS_VANITITES_TYPES._DOUBLE_VANITY,
+        label: 'Double Basin',
         icon: <DoubleVanityIcon />,
     },
+];
+
+export const conceptStyleOptions: CardOption[] = [
     {
         id: CONCEPT_STYLE_VANITIES_TYPES._ONE_DRAWER,
         label: '1-Drawer',

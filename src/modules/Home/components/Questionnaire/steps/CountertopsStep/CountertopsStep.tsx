@@ -24,6 +24,7 @@ import { colorTypesOptions, lookTypesOptions } from '../constants';
 import {
     BASIN_QUANTITY_TYPES,
     COUNTERTOPS_DEPTH_TYPES,
+    COUNTERTOPS_WIDTH_LIMITS,
     sinkTypesOptions,
     styleCountertopsOptions,
     TOP_THICKNESS_COUNTERTOPS_TYPES,
@@ -205,6 +206,8 @@ export const CountertopsForm = () => {
                             render={({ field }) => (
                                 <div className={s.optionsContainer}>
                                     <Slider
+                                        min={COUNTERTOPS_WIDTH_LIMITS.MIN}
+                                        max={COUNTERTOPS_WIDTH_LIMITS.MAX}
                                         key={field.name}
                                         label={field.name}
                                         attributeValue={field.value}

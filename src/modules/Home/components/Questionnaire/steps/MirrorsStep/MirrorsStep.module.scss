@@ -98,22 +98,6 @@
     font-style: normal;
     font-weight: 600;
     line-height: 32px; /* 133.333% */
-
-    .featuresWrap {
-        display: flex;
-
-        .features {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .divider {
-            width: 2px;
-            align-self: stretch;
-            border-radius: 100px;
-            background: #282828;
-        }
-    }
 }
 
 .content {
@@ -123,6 +107,26 @@
 
 .section {
     margin-bottom: 64px;
+    .featuresWrap {
+        display: flex;
+        justify-content: space-between;
+
+        .features {
+            display: flex;
+            flex-direction: column;
+            max-width: 260px;
+        }
+
+        .divider {
+            width: 2px;
+            align-self: stretch;
+            border-radius: 100px;
+            background: #282828;
+        }
+    }
+    &:last-child {
+        margin-bottom: 90px;
+    }
 }
 
 .fieldWwrap {

@@ -1,3 +1,5 @@
+@import '../../../../../../../../styles/breakpoints.scss';
+
 .wrap {
     position: relative;
 }
@@ -8,4 +10,9 @@
     gap: 2rem;
     max-width: 75rem;
     margin: 0 auto;
+
+    @include md {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
 }

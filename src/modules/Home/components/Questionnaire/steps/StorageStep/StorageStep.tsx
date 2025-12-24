@@ -23,6 +23,8 @@ import {
     conceptStyleOptions,
     lookTypesOptions,
     STORAGE_DEPTH_TYPES,
+    STORAGE_HEIGHT_LIMITS,
+    STORAGE_WIDTH_LIMITS,
     storageArrangementOptions,
 } from './constants';
 import s from './StorageStep.module.scss';
@@ -195,6 +197,8 @@ export const StorageForm = () => {
                             render={({ field }) => (
                                 <div className={s.optionsContainer}>
                                     <Slider
+                                        min={STORAGE_HEIGHT_LIMITS.MIN}
+                                        max={STORAGE_HEIGHT_LIMITS.MAX}
                                         key={field.name}
                                         label={field.name}
                                         attributeValue={field.value}
@@ -210,6 +214,8 @@ export const StorageForm = () => {
                             render={({ field }) => (
                                 <div className={s.optionsContainer}>
                                     <Slider
+                                        min={STORAGE_WIDTH_LIMITS.MIN}
+                                        max={STORAGE_WIDTH_LIMITS.MAX}
                                         key={field.name}
                                         label={field.name}
                                         attributeValue={field.value}

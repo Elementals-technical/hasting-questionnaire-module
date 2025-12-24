@@ -15,18 +15,28 @@ import { STAGE_OPTIONS_IDS } from '@/modules/Home/components/Questionnaire/steps
 import {
     CONCEPT_STYLE_VANITIES_TYPES,
     MOUNTING_TYPE_TYPES,
+    NUMBER_OF_BASINS_VANITITES_TYPES,
     VANITIES_DEPTH_TYPES,
     VANITIES_WIDTH_LIMITS,
 } from '@/modules/Home/components/Questionnaire/steps/VanitiesStep/constants';
-import { BASIN_MOUNTING_TYPES, BASIN_OVERFLOW_TYPES } from '../../Questionnaire/steps/BasinStep/constants';
+import {
+    BASIN_DEPTH_LIMITS,
+    BASIN_HEIGHT_LIMITS,
+    BASIN_MOUNTING_TYPES,
+    BASIN_OVERFLOW_TYPES,
+    BASIN_WIDTH_LIMITS,
+} from '../../Questionnaire/steps/BasinStep/constants';
 import { SINK_TYPE_TYPES } from '../../Questionnaire/steps/constants';
 import {
     BASIN_QUANTITY_TYPES,
     COUNTERTOPS_DEPTH_TYPES,
+    COUNTERTOPS_WIDTH_LIMITS,
     STYLE_COUNTERTOPS_TYPES,
     TOP_THICKNESS_COUNTERTOPS_TYPES,
 } from '../../Questionnaire/steps/CountertopsStep/constants';
 import {
+    MIRROR_HEIGHT_LIMITS,
+    MIRROR_WIDTH_LIMITS,
     MIRRORS_BACKLIT_TYPES,
     MIRRORS_DEFOGGER_TYPES,
     MIRRORS_DIMMABLE_TYPES,
@@ -38,7 +48,9 @@ import {
 } from '../../Questionnaire/steps/MirrorsStep/constants';
 import {
     INTEGRATED_STORAGE_TYPES,
+    PEDESTAL_AND_CONSOLES_DEPTH_LIMITS,
     PEDESTAL_AND_CONSOLES_SHAPE_TYPES,
+    PEDESTAL_AND_CONSOLES_WIDTH_LIMITS,
     STYLE_TYPES,
 } from '../../Questionnaire/steps/PedestalAndConsolesStep/constants';
 import { PRODUCTS_TYPES } from '../../Questionnaire/steps/ProductsStep/components/BathroomPicker/constants';
@@ -50,7 +62,12 @@ import {
     STORAGE_WIDTH_LIMITS,
 } from '../../Questionnaire/steps/StorageStep/constants';
 import { TOILETS_MOUNTING_TYPES, TOILETS_SOFT_CLOSE_SEAT_TYPES } from '../../Questionnaire/steps/ToiletsStep/constants';
-import { TUBS_SHAPE_TYPES } from '../../Questionnaire/steps/TubsStep/constants';
+import {
+    TUBS_HEIGHT_LIMITS,
+    TUBS_LENGTH_LIMITS,
+    TUBS_SHAPE_TYPES,
+    TUBS_WIDTH_LIMITS,
+} from '../../Questionnaire/steps/TubsStep/constants';
 
 export const roomStyleStepSchema = z.object({
     rooms: z
@@ -131,6 +148,9 @@ export const vanitiesStepSchema = z.object({
         message: 'Please select a depth',
     }),
     mountingType: z.array(z.enum(MOUNTING_TYPE_TYPES)).min(1, 'Please select valid mounting type'),
+    numberOfBasins: z.nativeEnum(NUMBER_OF_BASINS_VANITITES_TYPES, {
+        message: 'Please select a basin quantity',
+    }),
     conceptStyle: z.nativeEnum(CONCEPT_STYLE_VANITIES_TYPES, {
         message: 'Please select a style type',
     }),
@@ -152,13 +172,13 @@ export const storageStepSchema = z.object({
     }),
     height: z
         .number()
-        .min(STORAGE_HEIGHT_LIMITS.MIN, { message: 'Value must be 5 or greater' })
-        .max(STORAGE_HEIGHT_LIMITS.MAX, { message: 'Value must be 99 or less' }),
+        .min(STORAGE_HEIGHT_LIMITS.MIN, { message: `Value must be ${STORAGE_HEIGHT_LIMITS.MIN} or greater` })
+        .max(STORAGE_HEIGHT_LIMITS.MAX, { message: `Value must be ${STORAGE_HEIGHT_LIMITS.MAX} or less` }),
 
     width: z
         .number()
-        .min(STORAGE_WIDTH_LIMITS.MIN, { message: 'Value must be 5 or greater' })
-        .max(STORAGE_WIDTH_LIMITS.MAX, { message: 'Value must be 100 or less' }),
+        .min(STORAGE_WIDTH_LIMITS.MIN, { message: `Value must be ${STORAGE_WIDTH_LIMITS.MIN} or greater` })
+        .max(STORAGE_WIDTH_LIMITS.MAX, { message: `Value must be ${STORAGE_WIDTH_LIMITS.MAX} or less` }),
     depth: z.enum(STORAGE_DEPTH_TYPES, {
         message: 'Please select a depth',
     }),
@@ -178,16 +198,16 @@ export const countertopsStepSchema = z.object({
 
     width: z
         .number()
-        .min(24, { message: 'Value must be 24 or greater' })
-        .max(120, { message: 'Value must be 120 or less' }),
+        .min(COUNTERTOPS_WIDTH_LIMITS.MIN, { message: `Value must be ${COUNTERTOPS_WIDTH_LIMITS.MIN} or greater` })
+        .max(COUNTERTOPS_WIDTH_LIMITS.MAX, { message: `Value must be ${COUNTERTOPS_WIDTH_LIMITS.MAX} or less` }),
     depth: z.enum(COUNTERTOPS_DEPTH_TYPES, {
         message: 'Please select a depth',
     }),
     topThickness: z.enum(TOP_THICKNESS_COUNTERTOPS_TYPES, {
-        message: 'Please select a depth',
+        message: 'Please select a top thickness',
     }),
-    basinQuantity: z.enum(BASIN_QUANTITY_TYPES as [string, ...string[]], {
-        message: 'Please select a depth',
+    basinQuantity: z.enum(BASIN_QUANTITY_TYPES, {
+        message: 'Please select a quantity',
     }),
     color: COLOR_FIELD_SCHEMA,
     look: LOOK_FIELD_SCHEMA,
@@ -201,12 +221,12 @@ export const mirrorsStepSchema = z.object({
     }),
     width: z
         .number()
-        .min(15, { message: 'Value must be 15 or greater' })
-        .max(90, { message: 'Value must be 90 or less' }),
+        .min(MIRROR_WIDTH_LIMITS.MIN, { message: `Value must be ${MIRROR_WIDTH_LIMITS.MIN} or greater` })
+        .max(MIRROR_WIDTH_LIMITS.MAX, { message: `Value must be ${MIRROR_WIDTH_LIMITS.MAX} or less` }),
     height: z
         .number()
-        .min(20, { message: 'Value must be 20 or greater' })
-        .max(60, { message: 'Value must be 90 or less' }),
+        .min(MIRROR_HEIGHT_LIMITS.MIN, { message: `Value must be ${MIRROR_HEIGHT_LIMITS.MIN} or greater` })
+        .max(MIRROR_HEIGHT_LIMITS.MAX, { message: `Value must be ${MIRROR_HEIGHT_LIMITS.MAX} or less` }),
     type: z.enum(MIRRORS_TYPES, {
         message: 'Please select a mirror type',
     }),
@@ -259,12 +279,20 @@ export const pedestalAndConsolesStepSchema = z.object({
     }),
     width: z
         .number()
-        .min(10, { message: 'Value must be 10 or greater' })
-        .max(50, { message: 'Value must be 50 or less' }),
+        .min(PEDESTAL_AND_CONSOLES_WIDTH_LIMITS.MIN, {
+            message: `Value must be ${PEDESTAL_AND_CONSOLES_WIDTH_LIMITS.MIN} or greater`,
+        })
+        .max(PEDESTAL_AND_CONSOLES_WIDTH_LIMITS.MAX, {
+            message: `Value must be ${PEDESTAL_AND_CONSOLES_WIDTH_LIMITS.MAX} or less`,
+        }),
     depth: z
         .number()
-        .min(5, { message: 'Value must be 5 or greater' })
-        .max(20, { message: 'Value must be 20 or less' }),
+        .min(PEDESTAL_AND_CONSOLES_DEPTH_LIMITS.MIN, {
+            message: `Value must be ${PEDESTAL_AND_CONSOLES_DEPTH_LIMITS.MIN} or greater`,
+        })
+        .max(PEDESTAL_AND_CONSOLES_DEPTH_LIMITS.MAX, {
+            message: `Value must be ${PEDESTAL_AND_CONSOLES_DEPTH_LIMITS.MAX} or less`,
+        }),
     shape: z
         .enum(PEDESTAL_AND_CONSOLES_SHAPE_TYPES, {
             message: 'Please select a integrated storage',
@@ -287,16 +315,16 @@ export const basinStepSchema = z.object({
     }),
     width: z
         .number()
-        .min(14, { message: 'Value must be 14 or greater' })
-        .max(38, { message: 'Value must be 38 or less' }),
+        .min(BASIN_WIDTH_LIMITS.MIN, { message: `Value must be ${BASIN_WIDTH_LIMITS.MIN} or greater` })
+        .max(BASIN_WIDTH_LIMITS.MAX, { message: `Value must be ${BASIN_WIDTH_LIMITS.MAX} or less` }),
     depth: z
         .number()
-        .min(10, { message: 'Value must be 10 or greater' })
-        .max(20, { message: 'Value must be 20 or less' }),
+        .min(BASIN_DEPTH_LIMITS.MIN, { message: `Value must be ${BASIN_DEPTH_LIMITS.MIN} or greater` })
+        .max(BASIN_WIDTH_LIMITS.MAX, { message: `Value must be ${BASIN_DEPTH_LIMITS.MAX} or less` }),
     height: z
         .number()
-        .min(4, { message: 'Value must be 4 or greater' })
-        .max(11, { message: 'Value must be 11 or less' }),
+        .min(BASIN_HEIGHT_LIMITS.MIN, { message: `Value must be${BASIN_HEIGHT_LIMITS.MIN} or greater` })
+        .max(BASIN_WIDTH_LIMITS.MAX, { message: `Value must be ${BASIN_HEIGHT_LIMITS.MAX} or less` }),
     color: COLOR_FIELD_SCHEMA,
     look: LOOK_FIELD_SCHEMA,
     overflow: z
@@ -314,16 +342,16 @@ export const tubsStepSchema = z.object({
     }),
     lenght: z
         .number()
-        .min(51, { message: 'Value must be 51 or greater' })
-        .max(67, { message: 'Value must be 67 or less' }),
+        .min(TUBS_LENGTH_LIMITS.MIN, { message: `Value must be ${TUBS_LENGTH_LIMITS.MIN} or greater` })
+        .max(TUBS_LENGTH_LIMITS.MAX, { message: `Value must be ${TUBS_LENGTH_LIMITS.MAX} or less` }),
     width: z
         .number()
-        .min(24, { message: 'Value must be 24 or greater' })
-        .max(114.2, { message: 'Value must be 114.2 or less' }),
+        .min(TUBS_WIDTH_LIMITS.MIN, { message: `Value must be ${TUBS_WIDTH_LIMITS.MIN} or greater` })
+        .max(TUBS_WIDTH_LIMITS.MAX, { message: `Value must be ${TUBS_WIDTH_LIMITS.MAX}  or less` }),
     height: z
         .number()
-        .min(19, { message: 'Value must be 19 or greater' })
-        .max(28, { message: 'Value must be 28 or less' }),
+        .min(TUBS_HEIGHT_LIMITS.MIN, { message: `Value must be  ${TUBS_HEIGHT_LIMITS.MIN} or greater` })
+        .max(TUBS_HEIGHT_LIMITS.MAX, { message: `Value must be ${TUBS_HEIGHT_LIMITS.MAX}  or less` }),
     color: COLOR_FIELD_SCHEMA,
     look: LOOK_FIELD_SCHEMA,
     additionalInfo: ADDITIONAL_INFO_FIELD_SCHEMA,
@@ -339,18 +367,6 @@ export const toiletsStepSchema = z.object({
             message: 'Please select a option',
         })
         .optional(),
-    lenght: z
-        .number()
-        .min(51, { message: 'Value must be 51 or greater' })
-        .max(67, { message: 'Value must be 67 or less' }),
-    width: z
-        .number()
-        .min(24, { message: 'Value must be 24 or greater' })
-        .max(114.2, { message: 'Value must be 114.2 or less' }),
-    height: z
-        .number()
-        .min(19, { message: 'Value must be 19 or greater' })
-        .max(28, { message: 'Value must be 28 or less' }),
     color: COLOR_FIELD_SCHEMA,
     look: LOOK_FIELD_SCHEMA,
     additionalInfo: ADDITIONAL_INFO_FIELD_SCHEMA,
