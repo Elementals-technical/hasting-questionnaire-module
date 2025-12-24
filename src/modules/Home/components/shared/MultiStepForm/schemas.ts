@@ -154,9 +154,11 @@ export const vanitiesStepSchema = z.object({
     conceptStyle: z.nativeEnum(CONCEPT_STYLE_VANITIES_TYPES, {
         message: 'Please select a style type',
     }),
-    sinkType: z.nativeEnum(SINK_TYPE_TYPES, {
-        message: 'Please select a sink type',
-    }),
+    sinkType: z
+        .nativeEnum(SINK_TYPE_TYPES, {
+            message: 'Please select a sink type',
+        })
+        .optional(),
     color: COLOR_FIELD_SCHEMA,
     look: LOOK_FIELD_SCHEMA,
     additionalInfo: ADDITIONAL_INFO_FIELD_SCHEMA,

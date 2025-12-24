@@ -444,7 +444,7 @@ export const MirrorForm = () => {
                                     <div className={clsx(s.optionsContainer, 'justify-start')}>
                                         <TagSelector
                                             options={lookTypesOptions}
-                                            selected={field.value}
+                                            selected={field.value || []}
                                             onSelect={(value) => field.onChange(value)}
                                         />
                                     </div>
