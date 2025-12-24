@@ -13,12 +13,13 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as ResultImport } from './routes/result'
 
 // Create Virtual Routes
 
 const StartLazyImport = createFileRoute('/start')()
-const ResultLazyImport = createFileRoute('/result')()
 const QuestionnaireLazyImport = createFileRoute('/questionnaire')()
+const ErrorLazyImport = createFileRoute('/error')()
 
 // Create/Update Routes
 
@@ -28,34 +29,47 @@ const StartLazyRoute = StartLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/start.lazy').then((d) => d.Route))
 
-const ResultLazyRoute = ResultLazyImport.update({
-  id: '/result',
-  path: '/result',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/result.lazy').then((d) => d.Route))
-
 const QuestionnaireLazyRoute = QuestionnaireLazyImport.update({
   id: '/questionnaire',
   path: '/questionnaire',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/questionnaire.lazy').then((d) => d.Route))
 
+const ErrorLazyRoute = ErrorLazyImport.update({
+  id: '/error',
+  path: '/error',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/error.lazy').then((d) => d.Route))
+
+const ResultRoute = ResultImport.update({
+  id: '/result',
+  path: '/result',
+  getParentRoute: () => rootRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/result': {
+      id: '/result'
+      path: '/result'
+      fullPath: '/result'
+      preLoaderRoute: typeof ResultImport
+      parentRoute: typeof rootRoute
+    }
+    '/error': {
+      id: '/error'
+      path: '/error'
+      fullPath: '/error'
+      preLoaderRoute: typeof ErrorLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/questionnaire': {
       id: '/questionnaire'
       path: '/questionnaire'
       fullPath: '/questionnaire'
       preLoaderRoute: typeof QuestionnaireLazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/result': {
-      id: '/result'
-      path: '/result'
-      fullPath: '/result'
-      preLoaderRoute: typeof ResultLazyImport
       parentRoute: typeof rootRoute
     }
     '/start': {
@@ -71,42 +85,47 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
+  '/result': typeof ResultRoute
+  '/error': typeof ErrorLazyRoute
   '/questionnaire': typeof QuestionnaireLazyRoute
-  '/result': typeof ResultLazyRoute
   '/start': typeof StartLazyRoute
 }
 
 export interface FileRoutesByTo {
+  '/result': typeof ResultRoute
+  '/error': typeof ErrorLazyRoute
   '/questionnaire': typeof QuestionnaireLazyRoute
-  '/result': typeof ResultLazyRoute
   '/start': typeof StartLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
+  '/result': typeof ResultRoute
+  '/error': typeof ErrorLazyRoute
   '/questionnaire': typeof QuestionnaireLazyRoute
-  '/result': typeof ResultLazyRoute
   '/start': typeof StartLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/questionnaire' | '/result' | '/start'
+  fullPaths: '/result' | '/error' | '/questionnaire' | '/start'
   fileRoutesByTo: FileRoutesByTo
-  to: '/questionnaire' | '/result' | '/start'
-  id: '__root__' | '/questionnaire' | '/result' | '/start'
+  to: '/result' | '/error' | '/questionnaire' | '/start'
+  id: '__root__' | '/result' | '/error' | '/questionnaire' | '/start'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
+  ResultRoute: typeof ResultRoute
+  ErrorLazyRoute: typeof ErrorLazyRoute
   QuestionnaireLazyRoute: typeof QuestionnaireLazyRoute
-  ResultLazyRoute: typeof ResultLazyRoute
   StartLazyRoute: typeof StartLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
+  ResultRoute: ResultRoute,
+  ErrorLazyRoute: ErrorLazyRoute,
   QuestionnaireLazyRoute: QuestionnaireLazyRoute,
-  ResultLazyRoute: ResultLazyRoute,
   StartLazyRoute: StartLazyRoute,
 }
 
@@ -120,16 +139,20 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/questionnaire",
         "/result",
+        "/error",
+        "/questionnaire",
         "/start"
       ]
     },
+    "/result": {
+      "filePath": "result.tsx"
+    },
+    "/error": {
+      "filePath": "error.lazy.tsx"
+    },
     "/questionnaire": {
       "filePath": "questionnaire.lazy.tsx"
-    },
-    "/result": {
-      "filePath": "result.lazy.tsx"
     },
     "/start": {
       "filePath": "start.lazy.tsx"
