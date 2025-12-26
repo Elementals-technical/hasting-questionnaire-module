@@ -8,8 +8,8 @@ export const TUBS_LENGTH_LIMITS = {
 };
 
 export const TUBS_WIDTH_LIMITS = {
-    MIN: 24,
-    MAX: 114.2,
+    MIN: 26,
+    MAX: 32,
 };
 
 export const TUBS_HEIGHT_LIMITS = {

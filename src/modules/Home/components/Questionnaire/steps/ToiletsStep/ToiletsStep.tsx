@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
 import CalculatingOverlay from '../../../shared/CalculatingOverlay/CalculatingOverlay';
 import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
 import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
@@ -17,7 +18,7 @@ import {
     useMultiStepFormStepForm,
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
 import TagSelector from '@/modules/Home/components/shared/TagSelector/TagSelector';
-import { colorTypesOptions, lookTypesOptions } from '../constants';
+import { colorTypesOptions } from '../constants';
 import { styleOptions, TOILETS_SOFT_CLOSE_SEAT_TYPES } from './constants';
 import { Button } from '@/components/ui/Button/Button';
 import s from './ToiletsStep.module.scss';
@@ -68,13 +69,9 @@ export const ToiletsForm = () => {
     }
 
     return (
-        <div className={s.wrap}>
-            <div className={s.body}>
-                <div className={s.left}>
-                    <div className={s.title}>{currentStep.title}</div>
-                    <div className={s.subtitle}>{currentStep.description}</div>
-                </div>
-                <div className={clsx(s.right, s.form)}>
+        <>
+            <FormStepLayout title={currentStep.title} description={currentStep.description}>
+                <div className={s.form}>
                     {/* Mounting type section */}
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Concept | Style</h2>
@@ -132,7 +129,7 @@ export const ToiletsForm = () => {
                                                 <Button
                                                     key={option}
                                                     type="button"
-                                                    onClick={() => field.onChange(isSelected ? '' : option)}
+                                                    onClick={() => field.onChange(isSelected ? null : option)}
                                                     className={clsx(s.optionButton, {
                                                         [s.optionButtonSelected]: isSelected,
                                                     })}
@@ -167,26 +164,6 @@ export const ToiletsForm = () => {
                             }}
                         />
                         {errors.color && <ErrorMessage>{errors.color.message}</ErrorMessage>}
-                    </div>
-                    {/* Look type style section */}
-                    <div className={s.section}>
-                        <h2 className={s.sectionTitle}>Look</h2>
-                        <Controller
-                            name="look"
-                            control={form.control}
-                            render={({ field }) => {
-                                return (
-                                    <div className={clsx(s.optionsContainer, 'justify-start')}>
-                                        <TagSelector
-                                            options={lookTypesOptions}
-                                            selected={field.value || []}
-                                            onSelect={(value) => field.onChange(value)}
-                                        />
-                                    </div>
-                                );
-                            }}
-                        />
-                        {errors.look && <ErrorMessage>{errors.look.message}</ErrorMessage>}
                     </div>
 
                     <div className={s.section}>
@@ -292,12 +269,12 @@ export const ToiletsForm = () => {
                         />
                     </div>
                 </div>
-            </div>
+            </FormStepLayout>
             <MultiStepFormFooter
                 onBack={() => goToStep('products')}
                 onNext={submitHandler}
                 isDisabled={!form.formState.isValid}
             />
-        </div>
+        </>
     );
 };

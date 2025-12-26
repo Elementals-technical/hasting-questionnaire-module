@@ -31,6 +31,7 @@ import {
     BASIN_QUANTITY_TYPES,
     COUNTERTOPS_DEPTH_TYPES,
     COUNTERTOPS_WIDTH_LIMITS,
+    FEATURES_TYPES,
     STYLE_COUNTERTOPS_TYPES,
     TOP_THICKNESS_COUNTERTOPS_TYPES,
 } from '../../Questionnaire/steps/CountertopsStep/constants';
@@ -77,7 +78,7 @@ export const roomStyleStepSchema = z.object({
                 aesthetics: z.array(z.string()),
             })
         )
-        .min(2, 'Choose at least two images'),
+        .min(1, 'Choose at least one image'),
 });
 
 export const bathroomsStepSchema = z.object({
@@ -99,7 +100,10 @@ export const nameStepSchema = z.object({
     name: z
         .string()
         .min(2, { message: 'Name should containt at least 2 characters' })
-        .max(32, { message: 'Name is too long' }),
+        .max(32, { message: 'Name is too long' })
+        .regex(/^[a-zA-Zа-яА-ЯёЁіІїЇєЄґҐ\s'-]+$/, {
+            message: 'Name should only contain letters, no numbers or symbols',
+        }),
 });
 
 export const emailStepSchema = z.object({ email: z.string().email('Please enter a valid email') });
@@ -208,15 +212,18 @@ export const countertopsStepSchema = z.object({
         .enum(COUNTERTOPS_DEPTH_TYPES, {
             message: 'Please select a depth',
         })
-        .optional(),
+        .optional()
+        .nullable(),
     topThickness: z
         .enum(TOP_THICKNESS_COUNTERTOPS_TYPES, {
             message: 'Please select a top thickness',
         })
-        .optional(),
+        .optional()
+        .nullable(),
     basinQuantity: z.enum(BASIN_QUANTITY_TYPES, {
         message: 'Please select a quantity',
     }),
+    features: z.array(z.enum(FEATURES_TYPES)).min(1, 'Please select at least one value'),
     color: COLOR_FIELD_SCHEMA,
     look: LOOK_FIELD_SCHEMA,
     additionalInfo: ADDITIONAL_INFO_FIELD_SCHEMA,
@@ -240,27 +247,32 @@ export const mirrorsStepSchema = z.object({
         .enum(MIRRORS_DEFOGGER_TYPES, {
             message: 'Please select a defogger',
         })
-        .optional(),
+        .optional()
+        .nullable(),
     powerSensor: z
         .enum(MIRRORS_POWER_SENSOR_TYPES, {
             message: 'Please select a power sensor',
         })
-        .optional(),
+        .optional()
+        .nullable(),
     dimmable: z
         .enum(MIRRORS_DIMMABLE_TYPES, {
             message: 'Please select a dimmable',
         })
-        .optional(),
+        .optional()
+        .nullable(),
     lightTemperature: z
         .enum(MIRRORS_LIGHT_TEMPERATURE_TYPES, {
             message: 'Please select a light temperature option',
         })
-        .optional(),
+        .optional()
+        .nullable(),
     backlit: z
         .enum(MIRRORS_BACKLIT_TYPES, {
             message: 'Please select a backlit',
         })
-        .optional(),
+        .optional()
+        .nullable(),
     conceptStyle: z.nativeEnum(CONCEPT_STYLE_VANITIES_TYPES, {
         message: 'Please select a style type',
     }),
@@ -268,7 +280,8 @@ export const mirrorsStepSchema = z.object({
         .enum(MIRRORS_MAGNIFYING_TYPES, {
             message: 'Please select a magnifying',
         })
-        .optional(),
+        .optional()
+        .nullable(),
 
     sinkType: z.nativeEnum(SINK_TYPE_TYPES, {
         message: 'Please select a sink type',
@@ -344,7 +357,8 @@ export const basinStepSchema = z.object({
         .enum(BASIN_OVERFLOW_TYPES, {
             message: 'Please select a overflow',
         })
-        .optional(),
+        .optional()
+        .nullable(),
     additionalInfo: ADDITIONAL_INFO_FIELD_SCHEMA,
     files: FILES_FIELD_SCHEMA,
 });
@@ -368,7 +382,7 @@ export const tubsStepSchema = z.object({
         .max(TUBS_HEIGHT_LIMITS.MAX, { message: `Value must be ${TUBS_HEIGHT_LIMITS.MAX}  or less` })
         .optional(),
     color: COLOR_FIELD_SCHEMA,
-    look: LOOK_FIELD_SCHEMA,
+    // look: LOOK_FIELD_SCHEMA,
     additionalInfo: ADDITIONAL_INFO_FIELD_SCHEMA,
     files: FILES_FIELD_SCHEMA,
 });
@@ -381,9 +395,10 @@ export const toiletsStepSchema = z.object({
         .enum(TOILETS_SOFT_CLOSE_SEAT_TYPES, {
             message: 'Please select a option',
         })
-        .optional(),
+        .optional()
+        .nullable(),
     color: COLOR_FIELD_SCHEMA,
-    look: LOOK_FIELD_SCHEMA,
+    // look: LOOK_FIELD_SCHEMA,
     additionalInfo: ADDITIONAL_INFO_FIELD_SCHEMA,
     files: FILES_FIELD_SCHEMA,
 });

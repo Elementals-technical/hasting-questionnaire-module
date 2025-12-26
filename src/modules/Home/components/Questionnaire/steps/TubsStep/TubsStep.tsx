@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
 import CalculatingOverlay from '../../../shared/CalculatingOverlay/CalculatingOverlay';
 import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
 import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
@@ -18,7 +19,7 @@ import {
     useMultiStepFormStepForm,
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
 import TagSelector from '@/modules/Home/components/shared/TagSelector/TagSelector';
-import { colorTypesOptions, lookTypesOptions } from '../constants';
+import { colorTypesOptions } from '../constants';
 import { styleOptions, TUBS_HEIGHT_LIMITS, TUBS_LENGTH_LIMITS, TUBS_WIDTH_LIMITS } from './constants';
 import { Button } from '@/components/ui/Button/Button';
 import s from './TubsStep.module.scss';
@@ -69,13 +70,9 @@ export const TubsForm = () => {
     }
 
     return (
-        <div className={s.wrap}>
-            <div className={s.body}>
-                <div className={s.left}>
-                    <div className={s.title}>{currentStep.title}</div>
-                    <div className={s.subtitle}>{currentStep.description}</div>
-                </div>
-                <div className={clsx(s.right, s.form)}>
+        <>
+            <FormStepLayout title={currentStep.title} description={currentStep.description}>
+                <div className={s.form}>
                     {/* Mounting type section */}
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Concept | Style</h2>
@@ -192,7 +189,7 @@ export const TubsForm = () => {
                         {errors.color && <ErrorMessage>{errors.color.message}</ErrorMessage>}
                     </div>
                     {/* Look type style section */}
-                    <div className={s.section}>
+                    {/* <div className={s.section}>
                         <h2 className={s.sectionTitle}>Look</h2>
                         <Controller
                             name="look"
@@ -210,7 +207,7 @@ export const TubsForm = () => {
                             }}
                         />
                         {errors.look && <ErrorMessage>{errors.look.message}</ErrorMessage>}
-                    </div>
+                    </div> */}
 
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>What else should we know</h2>
@@ -315,12 +312,12 @@ export const TubsForm = () => {
                         />
                     </div>
                 </div>
-            </div>
+            </FormStepLayout>
             <MultiStepFormFooter
                 onBack={() => goToStep('products')}
                 onNext={submitHandler}
                 isDisabled={!form.formState.isValid}
             />
-        </div>
+        </>
     );
 };

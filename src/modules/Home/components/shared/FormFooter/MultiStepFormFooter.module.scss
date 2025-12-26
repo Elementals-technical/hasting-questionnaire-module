@@ -47,11 +47,14 @@
             padding: 12px 20px;
         }
         &:hover {
+            border: 2px solid transparent;
+            color: #fff;
             background: #94482a;
         }
 
         &.disabled {
             cursor: not-allowed;
+            // pointer-events: none;
             background: #cbb6ae;
             border: 2px solid #cbb6ae;
             color: #fff;

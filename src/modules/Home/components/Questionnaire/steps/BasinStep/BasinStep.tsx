@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
 import CalculatingOverlay from '../../../shared/CalculatingOverlay/CalculatingOverlay';
 import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
 import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
@@ -74,13 +75,9 @@ export const BasinForm = () => {
     }
 
     return (
-        <div className={s.wrap}>
-            <div className={s.body}>
-                <div className={s.left}>
-                    <div className={s.title}>{currentStep.title}</div>
-                    <div className={s.subtitle}>{currentStep.description}</div>
-                </div>
-                <div className={clsx(s.right, s.form)}>
+        <>
+            <FormStepLayout title={currentStep.title} description={currentStep.description}>
+                <div className={s.form}>
                     {/* Mounting type section */}
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Mounting type</h2>
@@ -234,7 +231,7 @@ export const BasinForm = () => {
                                                 <Button
                                                     key={option}
                                                     type="button"
-                                                    onClick={() => field.onChange(option)}
+                                                    onClick={() => field.onChange(isSelected ? null : option)}
                                                     className={clsx(s.optionButton, {
                                                         [s.optionButtonSelected]: isSelected,
                                                     })}
@@ -353,12 +350,12 @@ export const BasinForm = () => {
                         />
                     </div>
                 </div>
-            </div>
+            </FormStepLayout>
             <MultiStepFormFooter
                 onBack={() => goToStep('products')}
                 onNext={submitHandler}
                 isDisabled={!form.formState.isValid}
             />
-        </div>
+        </>
     );
 };

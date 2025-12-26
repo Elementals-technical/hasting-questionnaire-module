@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
 import CalculatingOverlay from '../../../shared/CalculatingOverlay/CalculatingOverlay';
 import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
 import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
@@ -24,6 +25,7 @@ import {
     BASIN_QUANTITY_TYPES,
     COUNTERTOPS_DEPTH_TYPES,
     COUNTERTOPS_WIDTH_LIMITS,
+    FEATURES_TYPES,
     sinkTypesOptions,
     styleCountertopsOptions,
     TOP_THICKNESS_COUNTERTOPS_TYPES,
@@ -80,13 +82,9 @@ export const CountertopsForm = () => {
     }
 
     return (
-        <div className={s.wrap}>
-            <div className={s.body}>
-                <div className={s.left}>
-                    <div className={s.title}>{currentStep.title}</div>
-                    <div className={s.subtitle}>{currentStep.description}</div>
-                </div>
-                <div className={clsx(s.right, s.form)}>
+        <>
+            <FormStepLayout title={currentStep.title} description={currentStep.description}>
+                <div className={s.form}>
                     {/* Style section */}
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Concept | Style</h2>
@@ -200,7 +198,7 @@ export const CountertopsForm = () => {
                                                 <Button
                                                     key={option}
                                                     type="button"
-                                                    onClick={() => field.onChange(option)}
+                                                    onClick={() => field.onChange(!isSelected ? option : null)}
                                                     className={clsx(s.optionButton, {
                                                         [s.optionButtonSelected]: isSelected,
                                                     })}
@@ -219,7 +217,7 @@ export const CountertopsForm = () => {
                             control={form.control}
                             render={({ field }) => (
                                 <div className={s.fieldWwrap}>
-                                    <span className={s.fieldLabel}>Depth</span>
+                                    <span className={s.fieldLabel}>Top thickness</span>
                                     <div className={clsx(s.optionsContainer, 'justify-start')}>
                                         {TOP_THICKNESS_COUNTERTOPS_TYPES.map((option) => {
                                             const isSelected = field.value === option;
@@ -228,7 +226,7 @@ export const CountertopsForm = () => {
                                                 <Button
                                                     key={option}
                                                     type="button"
-                                                    onClick={() => field.onChange(option)}
+                                                    onClick={() => field.onChange(!isSelected ? option : null)}
                                                     className={clsx(s.optionButton, {
                                                         [s.optionButtonSelected]: isSelected,
                                                     })}
@@ -315,6 +313,47 @@ export const CountertopsForm = () => {
                             }}
                         />
                         {errors.look && <ErrorMessage>{errors.look.message}</ErrorMessage>}
+                    </div>
+
+                    {/* Feature Section */}
+                    <div className={s.section}>
+                        <h2 className={s.sectionTitle}>Features</h2>
+                        <Controller
+                            name="features"
+                            control={form.control}
+                            render={({ field }) => {
+                                const handleToggle = (feature: (typeof FEATURES_TYPES)[number]) => {
+                                    const currentChallenges = field.value || [];
+                                    const isSelected = currentChallenges.includes(feature);
+
+                                    if (isSelected) {
+                                        field.onChange(currentChallenges.filter((id) => id !== feature));
+                                    } else {
+                                        field.onChange([...currentChallenges, feature]);
+                                    }
+                                };
+
+                                return (
+                                    <div className={clsx(s.optionsContainer, 'justify-start')}>
+                                        {FEATURES_TYPES.map((option) => {
+                                            const isSelected = field.value?.includes(option) || false;
+
+                                            return (
+                                                <button
+                                                    key={option}
+                                                    type="button"
+                                                    onClick={() => handleToggle(option)}
+                                                    className={`${s.optionButton} ${isSelected ? s.optionButtonSelected : ''}`}
+                                                >
+                                                    {option}
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                );
+                            }}
+                        />
+                        {errors.features && <ErrorMessage>{errors.features.message}</ErrorMessage>}
                     </div>
 
                     <div className={s.section}>
@@ -420,12 +459,12 @@ export const CountertopsForm = () => {
                         />
                     </div>
                 </div>
-            </div>
+            </FormStepLayout>
             <MultiStepFormFooter
                 onBack={() => goToStep('products')}
                 onNext={submitHandler}
                 isDisabled={!form.formState.isValid}
             />
-        </div>
+        </>
     );
 };

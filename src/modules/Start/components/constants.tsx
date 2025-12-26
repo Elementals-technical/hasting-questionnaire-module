@@ -23,4 +23,4 @@ export const STEPS_ITEMS = [
     },
 ];
 
-export const keyWords = ['ideas', 'solutions', 'designs', 'insights'];
+export const words = ['inspiration', 'solutions', 'insights', 'designs'];

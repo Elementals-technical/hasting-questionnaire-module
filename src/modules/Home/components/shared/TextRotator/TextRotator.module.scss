@@ -1,0 +1,45 @@
+// RotatingText.module.scss
+@import '../../../../../styles/breakpoints.scss';
+.container {
+    display: inline-block;
+    position: relative;
+    min-width: 130px;
+    height: 36px;
+    overflow: hidden;
+    vertical-align: bottom;
+
+    @include md {
+        min-width: 85px;
+        height: 24px;
+    }
+}
+
+.word {
+    display: block; // Изменили на block
+    position: absolute;
+    left: 50%;
+    top: 50%; // Центрируем по вертикали
+    transform: translate(-50%, -50%); // Центрируем
+    color: #ac5331;
+    font-family: 'Proxima Nova';
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1; // Убираем лишний line-height
+    white-space: nowrap;
+    animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
+    @include md {
+        font-size: 16px;
+    }
+}
+
+@keyframes slideUp {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, calc(-50% + 20px)); // Adjusted for centering
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}

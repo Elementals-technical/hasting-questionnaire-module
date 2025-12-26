@@ -53,7 +53,7 @@ export const NameForm = () => {
                                     onChange={field.onChange}
                                     onBlur={field.onBlur}
                                 />
-                                {error && <ErrorMessage>{error.message}</ErrorMessage>}
+                                <span>{error && <ErrorMessage>{error.message}</ErrorMessage>}</span>
                             </div>
                         );
                     }}

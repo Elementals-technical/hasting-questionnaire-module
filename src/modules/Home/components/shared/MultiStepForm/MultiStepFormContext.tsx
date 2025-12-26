@@ -238,7 +238,7 @@ export const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
         depth: '14-15"',
         color: [],
         mountingType: 'wall',
-        sinkType: SINK_TYPE_TYPES._INTEGRATED,
+        sinkType: undefined,
         conceptStyle: CONCEPT_STYLE_VANITIES_TYPES._CURVED_VANITY,
         look: [],
         numberOfBasins: NUMBER_OF_BASINS_VANITITES_TYPES._SINGLE_VANITY,
@@ -256,11 +256,12 @@ export const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
         style: STYLE_COUNTERTOPS_TYPES._FLOATING,
         sinkType: SINK_TYPE_TYPES._INTEGRATED,
         width: 29,
-        depth: '14-15"',
+        depth: null,
         topThickness: TOP_THICKNESS_COUNTERTOPS_TYPES[0],
         basinQuantity: '1',
         color: [],
         look: [],
+        features: [],
     },
     mirror: {
         shape: SHAPE_MIRRORS_TYPES._OVAL,
@@ -290,14 +291,12 @@ export const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
     tubs: {
         width: 24,
         color: [],
-        look: [],
         height: 19,
         shape: TUBS_SHAPE_TYPES._RECTANGLE,
         length: 51,
     },
     toilets: {
         color: [],
-        look: [],
         mountingType: TOILETS_MOUNTING_TYPES._WALL_MOUNTED,
     },
 };
@@ -568,6 +567,8 @@ export const useMultiStepFormStepForm = <TStepId extends keyof MultiStepForm>(st
         //@ts-expect-error strange type issue.
         resolver: zodResolver(MULTI_STEP_FORM_STEPS[stepId].schema as unknown as z.ZodType<MultiStepForm[TStepId]>),
         defaultValues: formDataValue as DefaultValues<MultiStepForm[TStepId]>,
+        reValidateMode: 'onChange',
+        mode: 'onChange',
     });
 
     React.useEffect(() => {

@@ -1,6 +1,7 @@
 // MirrorForm.tsx - Пример использования хука
 
 import { useRef, useState } from 'react';
+import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
 import CalculatingOverlay from '../../../shared/CalculatingOverlay/CalculatingOverlay';
 import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
 import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
@@ -81,13 +82,9 @@ export const MirrorForm = () => {
     }
 
     return (
-        <div className={s.wrap}>
-            <div className={s.body}>
-                <div className={s.left}>
-                    <div className={s.title}>{currentStep.title}</div>
-                    <div className={s.subtitle}>{currentStep.description}</div>
-                </div>
-                <div className={clsx(s.right, s.form)}>
+        <>
+            <FormStepLayout title={currentStep.title} description={currentStep.description}>
+                <div className={s.form}>
                     {/* Shape Section */}
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Shape</h2>
@@ -127,9 +124,6 @@ export const MirrorForm = () => {
                         {errors.shape && <ErrorMessage>{errors.shape.message}</ErrorMessage>}
                     </div>
 
-                    {/* ============================================ */}
-                    {/* 🎯 Size Section - С УСЛОВНОЙ БЛОКИРОВКОЙ */}
-                    {/* ============================================ */}
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Size</h2>
 
@@ -256,7 +250,7 @@ export const MirrorForm = () => {
                                                     return (
                                                         <Button
                                                             key={option}
-                                                            onClick={() => field.onChange(isSelected ? '' : option)}
+                                                            onClick={() => field.onChange(isSelected ? null : option)}
                                                             className={clsx(s.optionButton, {
                                                                 [s.optionButtonSelected]: isSelected,
                                                             })}
@@ -284,7 +278,7 @@ export const MirrorForm = () => {
                                                     return (
                                                         <Button
                                                             key={option}
-                                                            onClick={() => field.onChange(isSelected ? '' : option)}
+                                                            onClick={() => field.onChange(isSelected ? null : option)}
                                                             className={clsx(s.optionButton, {
                                                                 [s.optionButtonSelected]: isSelected,
                                                             })}
@@ -312,7 +306,7 @@ export const MirrorForm = () => {
                                                     return (
                                                         <Button
                                                             key={option}
-                                                            onClick={() => field.onChange(isSelected ? '' : option)}
+                                                            onClick={() => field.onChange(isSelected ? null : option)}
                                                             className={clsx(s.optionButton, {
                                                                 [s.optionButtonSelected]: isSelected,
                                                             })}
@@ -344,7 +338,7 @@ export const MirrorForm = () => {
                                                     return (
                                                         <Button
                                                             key={option}
-                                                            onClick={() => field.onChange(isSelected ? '' : option)}
+                                                            onClick={() => field.onChange(isSelected ? null : option)}
                                                             className={clsx(s.optionButton, {
                                                                 [s.optionButtonSelected]: isSelected,
                                                             })}
@@ -372,7 +366,7 @@ export const MirrorForm = () => {
                                                     return (
                                                         <Button
                                                             key={option}
-                                                            onClick={() => field.onChange(isSelected ? '' : option)}
+                                                            onClick={() => field.onChange(isSelected ? null : option)}
                                                             className={clsx(s.optionButton, {
                                                                 [s.optionButtonSelected]: isSelected,
                                                             })}
@@ -400,7 +394,7 @@ export const MirrorForm = () => {
                                                     return (
                                                         <Button
                                                             key={option}
-                                                            onClick={() => field.onChange(isSelected ? '' : option)}
+                                                            onClick={() => field.onChange(isSelected ? null : option)}
                                                             className={clsx(s.optionButton, {
                                                                 [s.optionButtonSelected]: isSelected,
                                                             })}
@@ -416,10 +410,6 @@ export const MirrorForm = () => {
                             </div>
                         </div>
                     </div>
-
-                    {/* ============================================ */}
-                    {/* 🎯 Color - ПОКАЗЫВАТЬ ТОЛЬКО ЕСЛИ FRAMED */}
-                    {/* ============================================ */}
                     {filteredOptions.shouldShowColorField && (
                         <div className={s.section}>
                             <h2 className={s.sectionTitle}>Color</h2>
@@ -561,12 +551,12 @@ export const MirrorForm = () => {
                         />
                     </div>
                 </div>
-            </div>
+            </FormStepLayout>
             <MultiStepFormFooter
                 onBack={() => goToStep('products')}
                 onNext={submitHandler}
                 isDisabled={!form.formState.isValid}
             />
-        </div>
+        </>
     );
 };

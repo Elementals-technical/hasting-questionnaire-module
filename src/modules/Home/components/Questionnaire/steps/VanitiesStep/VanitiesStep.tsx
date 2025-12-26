@@ -87,7 +87,7 @@ export const VanitiesForm = () => {
     return (
         <>
             <FormStepLayout title={currentStep.title} description={currentStep.description}>
-                <div className={s.content}>
+                <div className={s.form}>
                     {/* Size Section */}
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Size</h2>
@@ -275,7 +275,7 @@ export const VanitiesForm = () => {
                                     const isSelected = currentValue === targetValue;
 
                                     if (isSelected) {
-                                        field.onChange('');
+                                        field.onChange(undefined);
                                     } else {
                                         field.onChange(targetValue);
                                     }

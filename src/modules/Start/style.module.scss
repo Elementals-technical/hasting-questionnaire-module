@@ -80,6 +80,7 @@
 }
 
 .cta {
+    cursor: pointer;
     width: 195px;
     margin: 0 auto;
     border-radius: 100px;
@@ -95,6 +96,11 @@
     font-style: normal;
     font-weight: 700;
     line-height: 20px; /* 142.857% */
+
+    &:hover {
+        color: #fff;
+        background: #94482a;
+    }
 
     @include md {
         margin-top: 32px;

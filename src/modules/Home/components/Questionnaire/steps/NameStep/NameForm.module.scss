@@ -5,6 +5,12 @@
     flex-direction: column;
     gap: 8px;
     padding: 0 210px;
+    position: relative;
+
+    span {
+        position: absolute;
+        top: 32px;
+    }
 
     @include md {
         padding: 0;
