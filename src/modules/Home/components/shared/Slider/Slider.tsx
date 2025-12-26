@@ -14,15 +14,17 @@ const Slider: FC<SliderPropsT> = ({
     step = 1,
     unit = '"',
     showMinMax = true,
+    disabled,
 }) => {
     return (
-        <div className={clsx(s.wrap, className)}>
+        <div className={clsx(s.wrap, { [s.disabled]: disabled }, className)}>
             <div className={s.content}>
                 <span className={s.label}>{label}</span>
             </div>
 
             <div className={s.sliderWrapper}>
                 <S.Root
+                    disabled={disabled}
                     onValueChange={([value]) => onValueChange(value)}
                     value={[attributeValue]}
                     onDoubleClick={() => onValueChange(29)}

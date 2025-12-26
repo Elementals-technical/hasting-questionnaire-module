@@ -1,8 +1,14 @@
+// PedestalAndConsolesForm.tsx - Пример использования хука
+
 import { useRef, useState } from 'react';
+// Импорты компонентов
 import CalculatingOverlay from '../../../shared/CalculatingOverlay/CalculatingOverlay';
 import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
 import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
 import Slider from '../../../shared/Slider/Slider';
+import { useFilterPedestalOptionsByRules } from './hook/useFilterPedestalOptionsByRules';
+// ИМПОРТ НАШЕГО ХУКА
+
 import AttachIcon from '@/assets/icons/common/AttachIcon';
 import { useFileIndexedDBValue, useSetFileToIndexedDB } from '@/lib/indexedDB/utils';
 import { useNavigate } from '@tanstack/react-router';
@@ -13,6 +19,7 @@ import { useCreateHubspotContact } from '@/hooks/useCreateHubspotContact';
 import { useSendEmail } from '@/hooks/useSendEmail';
 import { useUploadFiles } from '@/hooks/useUploadFiles';
 import BathroomCard from '@/modules/Home/components/shared/BathroomCard/BathroomCard';
+// Импорты хуков
 import {
     useMultiStepFormContext,
     useMultiStepFormStepForm,
@@ -20,12 +27,12 @@ import {
 import TagSelector from '@/modules/Home/components/shared/TagSelector/TagSelector';
 import { SUBSTYLES } from '@/modules/Result/components/BonusSuggestions/constants';
 import { determineDominantStyles } from '@/modules/Result/components/BonusSuggestions/utils';
+// Импорты констант
 import { colorTypesOptions, lookTypesOptions } from '../constants';
 import {
     INTEGRATED_STORAGE_TYPES,
     PEDESTAL_AND_CONSOLES_DEPTH_LIMITS,
     PEDESTAL_AND_CONSOLES_SHAPE_TYPES,
-    PEDESTAL_AND_CONSOLES_WIDTH_LIMITS,
     styleOptions,
 } from './constants';
 import { Button } from '@/components/ui/Button/Button';
@@ -38,12 +45,13 @@ export const PedestalAndConsolesForm = () => {
     const sendEmailMutation = useSendEmail();
     const uploadFiles = useUploadFiles();
     const { remove, get } = useFileIndexedDBValue();
-
     const navigate = useNavigate();
-    const { form } = useMultiStepFormStepForm('pedestalAndConsoles');
 
+    const { form } = useMultiStepFormStepForm('pedestalAndConsoles');
     const { mutate: setFileToIndexedDB } = useSetFileToIndexedDB();
-    // const { mutate: getFileFromIndexedDB } = useGetFileFromIndexedDB();
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
+    const filteredOptions = useFilterPedestalOptionsByRules(form, INTEGRATED_STORAGE_TYPES);
 
     const {
         formState: { errors },
@@ -55,7 +63,6 @@ export const PedestalAndConsolesForm = () => {
                 setFormStepData('pedestalAndConsoles', data);
                 setShowOverlay(true);
 
-                // 1. Підготовка даних
                 const contactData = {
                     firstname: formData.name.name + '_ELEMENTALS_TEST',
                     email: formData.email.email,
@@ -67,13 +74,11 @@ export const PedestalAndConsolesForm = () => {
                     aesthetics: determineDominantStyles(formData.roomStyle.rooms, SUBSTYLES),
                 };
 
-                // 2. Отримання файлів з IndexedDB
                 const filesData = [
                     ...(formData.aboutProject?.files?.map((i) => i.idInIndexedDB) || []),
                     ...(formData.countertops?.files?.map((i) => i.idInIndexedDB) || []),
                 ];
 
-                //3. Створення промісів
                 const filePromises = filesData.map((fileId) => get<File>('files', parseInt(fileId || '')));
                 const results = await Promise.allSettled(filePromises);
 
@@ -85,28 +90,23 @@ export const PedestalAndConsolesForm = () => {
 
                 const uploadResponse = await uploadFiles.mutateAsync(successfulFiles);
 
-                // Тепер у нас є дані від сервера (URL, ID тощо)
-                // Відправляємо імейл, використовуючи результати завантаження
                 sendEmailMutation.mutate({
                     ...emailData,
                     attachments: uploadResponse.results,
                 });
 
-                // 4. Навігація після успіху
                 setTimeout(() => {
                     navigate({ to: '/result' });
                 }, 5500);
             } catch (error) {
                 console.error('Помилка під час обробки форми:', error);
-                setShowOverlay(false); // Ховаємо оверлей, якщо сталася помилка
+                setShowOverlay(false);
             }
         },
         (errors) => {
             console.log('❌ VALIDATION ERRORS:', errors);
         }
     );
-
-    const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleAttachClick = () => {
         fileInputRef.current?.click();
@@ -124,7 +124,7 @@ export const PedestalAndConsolesForm = () => {
                     <div className={s.subtitle}>{currentStep.description}</div>
                 </div>
                 <div className={clsx(s.right, s.form)}>
-                    {/* Mounting type section */}
+                    {/* Style Section */}
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Concept | Style</h2>
                         <Controller
@@ -152,9 +152,7 @@ export const PedestalAndConsolesForm = () => {
                                                     key={option.id}
                                                     option={option}
                                                     isSelected={isSelected}
-                                                    onToggle={() => {
-                                                        return handleToggle(option.id);
-                                                    }}
+                                                    onToggle={() => handleToggle(option.id)}
                                                 />
                                             );
                                         })}
@@ -164,18 +162,24 @@ export const PedestalAndConsolesForm = () => {
                         />
                         {errors.style && <ErrorMessage>{errors.style.message}</ErrorMessage>}
                     </div>
-                    {/* Size Section */}
+
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Size</h2>
+
+                        {/* Подсказка о лимите для Pedestal */}
+                        {filteredOptions.widthLimits.max === 25 && (
+                            <p className={s.hint}>💡 Maximum width for Pedestal style is 25"</p>
+                        )}
+
                         <Controller
                             name="width"
                             control={form.control}
                             render={({ field }) => (
                                 <div className={s.optionsContainer}>
                                     <Slider
-                                        min={PEDESTAL_AND_CONSOLES_WIDTH_LIMITS.MIN}
-                                        max={PEDESTAL_AND_CONSOLES_WIDTH_LIMITS.MAX}
-                                        key={field.name}
+                                        min={filteredOptions.widthLimits.min}
+                                        max={filteredOptions.widthLimits.max}
+                                        key={`width-${filteredOptions.widthLimits.max}`} // Key для перерендера
                                         label={field.name}
                                         attributeValue={field.value}
                                         onValueChange={(value) => field.onChange(value)}
@@ -184,6 +188,7 @@ export const PedestalAndConsolesForm = () => {
                             )}
                         />
                         {errors.width && <ErrorMessage>{errors.width.message}</ErrorMessage>}
+
                         <Controller
                             name="depth"
                             control={form.control}
@@ -203,7 +208,7 @@ export const PedestalAndConsolesForm = () => {
                         {errors.depth && <ErrorMessage>{errors.depth.message}</ErrorMessage>}
                     </div>
 
-                    {/* Shape Section */}
+                    {/* Shape Section - Optional */}
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Shape</h2>
                         <Controller
@@ -231,85 +236,90 @@ export const PedestalAndConsolesForm = () => {
                                 </div>
                             )}
                         />
-                        {errors.width && <ErrorMessage>{errors.width.message}</ErrorMessage>}
+                        {errors.shape && <ErrorMessage>{errors.shape.message}</ErrorMessage>}
                     </div>
-                    {/* Color type style section */}
+
+                    {/* Color Section */}
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Color</h2>
                         <Controller
                             name="color"
                             control={form.control}
-                            render={({ field }) => {
-                                return (
-                                    <div className={clsx(s.optionsContainer, 'justify-start')}>
-                                        <TagSelector
-                                            options={colorTypesOptions}
-                                            selected={field.value}
-                                            onSelect={(value) => field.onChange(value)}
-                                        />
-                                    </div>
-                                );
-                            }}
+                            render={({ field }) => (
+                                <div className={clsx(s.optionsContainer, 'justify-start')}>
+                                    <TagSelector
+                                        options={colorTypesOptions}
+                                        selected={field.value}
+                                        onSelect={(value) => field.onChange(value)}
+                                    />
+                                </div>
+                            )}
                         />
                         {errors.color && <ErrorMessage>{errors.color.message}</ErrorMessage>}
                     </div>
-                    {/* Look type style section */}
+
+                    {/* Look Section */}
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Look</h2>
                         <Controller
                             name="look"
                             control={form.control}
-                            render={({ field }) => {
-                                return (
-                                    <div className={clsx(s.optionsContainer, 'justify-start')}>
-                                        <TagSelector
-                                            options={lookTypesOptions}
-                                            selected={field.value || []}
-                                            onSelect={(value) => field.onChange(value)}
-                                        />
-                                    </div>
-                                );
-                            }}
+                            render={({ field }) => (
+                                <div className={clsx(s.optionsContainer, 'justify-start')}>
+                                    <TagSelector
+                                        options={lookTypesOptions}
+                                        selected={field.value || []}
+                                        onSelect={(value) => field.onChange(value)}
+                                    />
+                                </div>
+                            )}
                         />
                         {errors.look && <ErrorMessage>{errors.look.message}</ErrorMessage>}
                     </div>
 
-                    {/* Soft Close Section */}
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Integrated storage</h2>
                         <Controller
                             name="integratedStorage"
                             control={form.control}
                             render={({ field }) => (
-                                <div className={s.fieldWwrap}>
-                                    {/* <span className={s.fieldLabel}>Some title</span> */}
-                                    <div className={clsx(s.optionsContainer, 'justify-start')}>
-                                        {INTEGRATED_STORAGE_TYPES.map((option) => {
-                                            const isSelected = field.value === option;
+                                <>
+                                    <div className={s.fieldWwrap}>
+                                        <div className={clsx(s.optionsContainer, 'justify-start')}>
+                                            {filteredOptions.integratedStorage.map((option) => {
+                                                const isSelected = field.value === option;
 
-                                            return (
-                                                <Button
-                                                    key={option}
-                                                    type="button"
-                                                    onClick={() => field.onChange(option)}
-                                                    className={clsx(s.optionButton, {
-                                                        [s.optionButtonSelected]: isSelected,
-                                                    })}
-                                                >
-                                                    {option}
-                                                </Button>
-                                            );
-                                        })}
+                                                return (
+                                                    <Button
+                                                        key={option}
+                                                        type="button"
+                                                        onClick={() => field.onChange(option)}
+                                                        className={clsx(s.optionButton, {
+                                                            [s.optionButtonSelected]: isSelected,
+                                                        })}
+                                                    >
+                                                        {option}
+                                                    </Button>
+                                                );
+                                            })}
+                                        </div>
                                     </div>
-                                </div>
+
+                                    {/* Подсказка, если опции отфильтрованы */}
+                                    {filteredOptions.integratedStorage.length < INTEGRATED_STORAGE_TYPES.length && (
+                                        <p className={s.hint}>
+                                            💡 Integrated Drawer is not available for Pedestal style
+                                        </p>
+                                    )}
+                                </>
                             )}
                         />
-                        {errors.width && <ErrorMessage>{errors.width.message}</ErrorMessage>}
+                        {errors.integratedStorage && <ErrorMessage>{errors.integratedStorage.message}</ErrorMessage>}
                     </div>
 
+                    {/* Additional Info - Optional */}
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>What else should we know</h2>
-                        {/* Text Area */}
                         <Controller
                             name="additionalInfo"
                             control={form.control}
@@ -335,7 +345,7 @@ export const PedestalAndConsolesForm = () => {
                             )}
                         />
 
-                        {/* Files */}
+                        {/* Files Controller */}
                         <Controller
                             name="files"
                             control={form.control}
@@ -344,7 +354,6 @@ export const PedestalAndConsolesForm = () => {
                                     if (!indexedDbId) return;
 
                                     const currentFiles = field.value || [];
-
                                     remove('files', parseInt(indexedDbId));
                                     field.onChange(currentFiles.filter((item) => item.idInIndexedDB !== indexedDbId));
                                 };
@@ -365,7 +374,6 @@ export const PedestalAndConsolesForm = () => {
                                                                 ? field.value
                                                                 : [];
 
-                                                            // Додаємо новий файл до масиву
                                                             field.onChange([
                                                                 ...currentFiles,
                                                                 {

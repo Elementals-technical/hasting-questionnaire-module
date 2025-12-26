@@ -202,12 +202,16 @@ export const countertopsStepSchema = z.object({
         .number()
         .min(COUNTERTOPS_WIDTH_LIMITS.MIN, { message: `Value must be ${COUNTERTOPS_WIDTH_LIMITS.MIN} or greater` })
         .max(COUNTERTOPS_WIDTH_LIMITS.MAX, { message: `Value must be ${COUNTERTOPS_WIDTH_LIMITS.MAX} or less` }),
-    depth: z.enum(COUNTERTOPS_DEPTH_TYPES, {
-        message: 'Please select a depth',
-    }),
-    topThickness: z.enum(TOP_THICKNESS_COUNTERTOPS_TYPES, {
-        message: 'Please select a top thickness',
-    }),
+    depth: z
+        .enum(COUNTERTOPS_DEPTH_TYPES, {
+            message: 'Please select a depth',
+        })
+        .optional(),
+    topThickness: z
+        .enum(TOP_THICKNESS_COUNTERTOPS_TYPES, {
+            message: 'Please select a top thickness',
+        })
+        .optional(),
     basinQuantity: z.enum(BASIN_QUANTITY_TYPES, {
         message: 'Please select a quantity',
     }),
@@ -320,11 +324,13 @@ export const basinStepSchema = z.object({
     depth: z
         .number()
         .min(BASIN_DEPTH_LIMITS.MIN, { message: `Value must be ${BASIN_DEPTH_LIMITS.MIN} or greater` })
-        .max(BASIN_WIDTH_LIMITS.MAX, { message: `Value must be ${BASIN_DEPTH_LIMITS.MAX} or less` }),
+        .max(BASIN_WIDTH_LIMITS.MAX, { message: `Value must be ${BASIN_DEPTH_LIMITS.MAX} or less` })
+        .optional(),
     height: z
         .number()
         .min(BASIN_HEIGHT_LIMITS.MIN, { message: `Value must be${BASIN_HEIGHT_LIMITS.MIN} or greater` })
-        .max(BASIN_WIDTH_LIMITS.MAX, { message: `Value must be ${BASIN_HEIGHT_LIMITS.MAX} or less` }),
+        .max(BASIN_WIDTH_LIMITS.MAX, { message: `Value must be ${BASIN_HEIGHT_LIMITS.MAX} or less` })
+        .optional(),
     color: COLOR_FIELD_SCHEMA,
     look: LOOK_FIELD_SCHEMA,
     overflow: z
@@ -347,11 +353,13 @@ export const tubsStepSchema = z.object({
     width: z
         .number()
         .min(TUBS_WIDTH_LIMITS.MIN, { message: `Value must be ${TUBS_WIDTH_LIMITS.MIN} or greater` })
-        .max(TUBS_WIDTH_LIMITS.MAX, { message: `Value must be ${TUBS_WIDTH_LIMITS.MAX}  or less` }),
+        .max(TUBS_WIDTH_LIMITS.MAX, { message: `Value must be ${TUBS_WIDTH_LIMITS.MAX}  or less` })
+        .optional(),
     height: z
         .number()
         .min(TUBS_HEIGHT_LIMITS.MIN, { message: `Value must be  ${TUBS_HEIGHT_LIMITS.MIN} or greater` })
-        .max(TUBS_HEIGHT_LIMITS.MAX, { message: `Value must be ${TUBS_HEIGHT_LIMITS.MAX}  or less` }),
+        .max(TUBS_HEIGHT_LIMITS.MAX, { message: `Value must be ${TUBS_HEIGHT_LIMITS.MAX}  or less` })
+        .optional(),
     color: COLOR_FIELD_SCHEMA,
     look: LOOK_FIELD_SCHEMA,
     additionalInfo: ADDITIONAL_INFO_FIELD_SCHEMA,

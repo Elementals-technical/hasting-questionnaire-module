@@ -6,6 +6,37 @@
     flex: 1 0 0;
     width: 100%;
     margin-bottom: 16px;
+    &.disabled {
+        opacity: 0.5;
+        pointer-events: none; // Запобігає всім взаємодіям на рівні контейнера
+
+        .label,
+        .minValue,
+        .maxValue {
+            color: #8e8e8e; // Робимо текст сірим
+        }
+
+        .Thumb {
+            cursor: not-allowed;
+            border-color: #8e8e8e;
+
+            &:hover,
+            &:focus {
+                width: 20px; // Скасовуємо ефект збільшення при наведенні
+                height: 20px;
+                background: #fff;
+            }
+        }
+
+        .Track {
+            border-color: #8e8e8e;
+        }
+
+        .valueDisplay {
+            background: #8e8e8e;
+            border-color: #8e8e8e;
+        }
+    }
 }
 
 .content {

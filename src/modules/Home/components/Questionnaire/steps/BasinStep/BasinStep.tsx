@@ -194,7 +194,7 @@ export const BasinForm = () => {
                                         max={BASIN_DEPTH_LIMITS.MAX}
                                         key={field.name}
                                         label={field.name}
-                                        attributeValue={field.value}
+                                        attributeValue={field.value || BASIN_DEPTH_LIMITS.MIN}
                                         onValueChange={(value) => field.onChange(value)}
                                     />
                                 </div>

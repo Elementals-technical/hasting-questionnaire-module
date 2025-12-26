@@ -1,9 +1,11 @@
+// MirrorForm.tsx - Пример использования хука
+
 import { useRef, useState } from 'react';
 import CalculatingOverlay from '../../../shared/CalculatingOverlay/CalculatingOverlay';
 import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
 import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
-import { mirrorsStepdata } from '../../../shared/MultiStepForm/types';
 import Slider from '../../../shared/Slider/Slider';
+import { useFilterMirrorsOptionsByRules } from './hook/useFilteredMirrorsOptionsByRules';
 import AttachIcon from '@/assets/icons/common/AttachIcon';
 import { useFileIndexedDBValue, useSetFileToIndexedDB } from '@/lib/indexedDB/utils';
 import { useNavigate } from '@tanstack/react-router';
@@ -43,12 +45,13 @@ export const MirrorForm = () => {
     const sendEmailMutation = useSendEmail();
     const uploadFiles = useUploadFiles();
     const { remove, get } = useFileIndexedDBValue();
-
     const navigate = useNavigate();
-    const { form } = useMultiStepFormStepForm('mirror');
 
+    const { form } = useMultiStepFormStepForm('mirror');
     const { mutate: setFileToIndexedDB } = useSetFileToIndexedDB();
-    // const { mutate: getFileFromIndexedDB } = useGetFileFromIndexedDB();
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
+    const filteredOptions = useFilterMirrorsOptionsByRules(form);
 
     const {
         formState: { errors },
@@ -58,6 +61,7 @@ export const MirrorForm = () => {
         async (data) => {
             setFormStepData('mirror', data);
             setShowOverlay(true);
+
             const contactData = {
                 firstname: formData.name.name + '_ELEMENTALS_TEST',
                 email: formData.email.email,
@@ -70,7 +74,7 @@ export const MirrorForm = () => {
             };
 
             contactMutation.mutate(contactData);
-            // 2. Отримання файлів з IndexedDB
+
             const filesData = [
                 ...(formData.aboutProject?.files?.map((i) => i.idInIndexedDB) || []),
                 ...(formData.mirror?.files?.map((i) => i.idInIndexedDB) || []),
@@ -83,12 +87,8 @@ export const MirrorForm = () => {
                 .filter((result): result is PromiseFulfilledResult<File> => result.status === 'fulfilled')
                 .map((result) => result.value);
 
-            contactMutation.mutate(contactData);
-
             const uploadResponse = await uploadFiles.mutateAsync(successfulFiles);
 
-            // Тепер у нас є дані від сервера (URL, ID тощо)
-            // Відправляємо імейл, використовуючи результати завантаження
             sendEmailMutation.mutate({
                 ...emailData,
                 attachments: uploadResponse.results,
@@ -102,7 +102,6 @@ export const MirrorForm = () => {
             console.log('❌ VALIDATION ERRORS:', errors);
         }
     );
-    const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleAttachClick = () => {
         fileInputRef.current?.click();
@@ -120,7 +119,7 @@ export const MirrorForm = () => {
                     <div className={s.subtitle}>{currentStep.description}</div>
                 </div>
                 <div className={clsx(s.right, s.form)}>
-                    {/* Shape type section */}
+                    {/* Shape Section */}
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Shape</h2>
                         <Controller
@@ -148,9 +147,7 @@ export const MirrorForm = () => {
                                                     key={option.id}
                                                     option={option}
                                                     isSelected={isSelected}
-                                                    onToggle={() => {
-                                                        return handleToggle(option.id);
-                                                    }}
+                                                    onToggle={() => handleToggle(option.id)}
                                                 />
                                             );
                                         })}
@@ -160,38 +157,66 @@ export const MirrorForm = () => {
                         />
                         {errors.shape && <ErrorMessage>{errors.shape.message}</ErrorMessage>}
                     </div>
-                    {/* Size Section */}
+
+                    {/* ============================================ */}
+                    {/* 🎯 Size Section - С УСЛОВНОЙ БЛОКИРОВКОЙ */}
+                    {/* ============================================ */}
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Size</h2>
+
+                        {/* Уведомление о недоступности размеров */}
+                        {filteredOptions.sizeDisabledMessage && (
+                            <div className={s.infoMessage}>ℹ️ {filteredOptions.sizeDisabledMessage}</div>
+                        )}
+
                         <Controller
                             name="width"
                             control={form.control}
                             render={({ field }) => (
-                                <div className={s.optionsContainer}>
+                                <div
+                                    className={clsx(s.optionsContainer, {
+                                        [s.disabled]: filteredOptions.isSizeDisabled,
+                                    })}
+                                >
                                     <Slider
                                         min={MIRROR_WIDTH_LIMITS.MIN}
                                         max={MIRROR_WIDTH_LIMITS.MAX}
                                         key={field.name}
                                         label={field.name}
                                         attributeValue={field.value}
-                                        onValueChange={(value) => field.onChange(value)}
+                                        onValueChange={(value) => {
+                                            if (!filteredOptions.isSizeDisabled) {
+                                                field.onChange(value);
+                                            }
+                                        }}
+                                        disabled={filteredOptions.isSizeDisabled}
                                     />
                                 </div>
                             )}
                         />
                         {errors.width && <ErrorMessage>{errors.width.message}</ErrorMessage>}
+
                         <Controller
                             name="height"
                             control={form.control}
                             render={({ field }) => (
-                                <div className={s.optionsContainer}>
+                                <div
+                                    className={clsx(s.optionsContainer, {
+                                        [s.disabled]: filteredOptions.isSizeDisabled,
+                                    })}
+                                >
                                     <Slider
                                         min={MIRROR_HEIGHT_LIMITS.MIN}
                                         max={MIRROR_HEIGHT_LIMITS.MAX}
                                         key={field.name}
                                         label={field.name}
                                         attributeValue={field.value}
-                                        onValueChange={(value) => field.onChange(value)}
+                                        onValueChange={(value) => {
+                                            if (!filteredOptions.isSizeDisabled) {
+                                                field.onChange(value);
+                                            }
+                                        }}
+                                        disabled={filteredOptions.isSizeDisabled}
                                     />
                                 </div>
                             )}
@@ -199,7 +224,7 @@ export const MirrorForm = () => {
                         {errors.height && <ErrorMessage>{errors.height.message}</ErrorMessage>}
                     </div>
 
-                    {/* Type Section */}
+                    {/* Type Section - Multi-select */}
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Type</h2>
                         <Controller
@@ -212,7 +237,7 @@ export const MirrorForm = () => {
                                             const handleToggle = (goalId: string) => {
                                                 const currentGoals = field.value || [];
                                                 const isSelected = currentGoals.includes(
-                                                    goalId as mirrorsStepdata['type'][number]
+                                                    goalId as (typeof field.value)[number]
                                                 );
 
                                                 if (isSelected) {
@@ -228,7 +253,9 @@ export const MirrorForm = () => {
                                                 <Button
                                                     key={option}
                                                     onClick={() => handleToggle(option)}
-                                                    className={`${s.optionButton} ${isSelected ? s.optionButtonSelected : ''}`}
+                                                    className={clsx(s.optionButton, {
+                                                        [s.optionButtonSelected]: isSelected,
+                                                    })}
                                                 >
                                                     {option}
                                                 </Button>
@@ -241,11 +268,12 @@ export const MirrorForm = () => {
                         {errors.type && <ErrorMessage>{errors.type.message}</ErrorMessage>}
                     </div>
 
-                    {/* Features Section */}
+                    {/* Features Section - Все опциональные */}
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Features</h2>
                         <div className={s.featuresWrap}>
                             <div className={s.features}>
+                                {/* Defogger - Optional */}
                                 <Controller
                                     name="defogger"
                                     control={form.control}
@@ -272,7 +300,8 @@ export const MirrorForm = () => {
                                         </div>
                                     )}
                                 />
-                                {errors.defogger && <ErrorMessage>{errors.defogger.message}</ErrorMessage>}
+
+                                {/* Power Sensor - Optional */}
                                 <Controller
                                     name="powerSensor"
                                     control={form.control}
@@ -299,7 +328,8 @@ export const MirrorForm = () => {
                                         </div>
                                     )}
                                 />
-                                {errors.powerSensor && <ErrorMessage>{errors.powerSensor.message}</ErrorMessage>}
+
+                                {/* Dimmable - Optional */}
                                 <Controller
                                     name="dimmable"
                                     control={form.control}
@@ -326,10 +356,12 @@ export const MirrorForm = () => {
                                         </div>
                                     )}
                                 />
-                                {errors.dimmable && <ErrorMessage>{errors.dimmable.message}</ErrorMessage>}
                             </div>
+
                             <div className={s.divider} />
+
                             <div className={s.features}>
+                                {/* Light Temperature - Optional */}
                                 <Controller
                                     name="lightTemperature"
                                     control={form.control}
@@ -356,9 +388,8 @@ export const MirrorForm = () => {
                                         </div>
                                     )}
                                 />
-                                {errors.lightTemperature && (
-                                    <ErrorMessage>{errors.lightTemperature.message}</ErrorMessage>
-                                )}
+
+                                {/* Backlit - Optional */}
                                 <Controller
                                     name="backlit"
                                     control={form.control}
@@ -385,7 +416,8 @@ export const MirrorForm = () => {
                                         </div>
                                     )}
                                 />
-                                {errors.backlit && <ErrorMessage>{errors.backlit.message}</ErrorMessage>}
+
+                                {/* Magnifying - Optional */}
                                 <Controller
                                     name="magnifying"
                                     control={form.control}
@@ -412,19 +444,20 @@ export const MirrorForm = () => {
                                         </div>
                                     )}
                                 />
-                                {errors.magnifying && <ErrorMessage>{errors.magnifying.message}</ErrorMessage>}
                             </div>
                         </div>
                     </div>
 
-                    {/* Color type style section */}
-                    <div className={s.section}>
-                        <h2 className={s.sectionTitle}>Color</h2>
-                        <Controller
-                            name="color"
-                            control={form.control}
-                            render={({ field }) => {
-                                return (
+                    {/* ============================================ */}
+                    {/* 🎯 Color - ПОКАЗЫВАТЬ ТОЛЬКО ЕСЛИ FRAMED */}
+                    {/* ============================================ */}
+                    {filteredOptions.shouldShowColorField && (
+                        <div className={s.section}>
+                            <h2 className={s.sectionTitle}>Color</h2>
+                            <Controller
+                                name="color"
+                                control={form.control}
+                                render={({ field }) => (
                                     <div className={clsx(s.optionsContainer, 'justify-start')}>
                                         <TagSelector
                                             options={colorTypesOptions}
@@ -432,19 +465,22 @@ export const MirrorForm = () => {
                                             onSelect={(value) => field.onChange(value)}
                                         />
                                     </div>
-                                );
-                            }}
-                        />
-                        {errors.color && <ErrorMessage>{errors.color.message}</ErrorMessage>}
-                    </div>
-                    {/* Look type style section */}
-                    <div className={s.section}>
-                        <h2 className={s.sectionTitle}>Look</h2>
-                        <Controller
-                            name="look"
-                            control={form.control}
-                            render={({ field }) => {
-                                return (
+                                )}
+                            />
+                            {errors.color && <ErrorMessage>{errors.color.message}</ErrorMessage>}
+                        </div>
+                    )}
+
+                    {/* ============================================ */}
+                    {/* 🎯 Look - ПОКАЗЫВАТЬ ТОЛЬКО ЕСЛИ FRAMED */}
+                    {/* ============================================ */}
+                    {filteredOptions.shouldShowLookField && (
+                        <div className={s.section}>
+                            <h2 className={s.sectionTitle}>Look</h2>
+                            <Controller
+                                name="look"
+                                control={form.control}
+                                render={({ field }) => (
                                     <div className={clsx(s.optionsContainer, 'justify-start')}>
                                         <TagSelector
                                             options={lookTypesOptions}
@@ -452,15 +488,15 @@ export const MirrorForm = () => {
                                             onSelect={(value) => field.onChange(value)}
                                         />
                                     </div>
-                                );
-                            }}
-                        />
-                        {errors.look && <ErrorMessage>{errors.look.message}</ErrorMessage>}
-                    </div>
+                                )}
+                            />
+                            {errors.look && <ErrorMessage>{errors.look.message}</ErrorMessage>}
+                        </div>
+                    )}
 
+                    {/* Additional Info - Optional */}
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>What else should we know</h2>
-                        {/* Text Area */}
                         <Controller
                             name="additionalInfo"
                             control={form.control}
@@ -486,7 +522,7 @@ export const MirrorForm = () => {
                             )}
                         />
 
-                        {/* Files */}
+                        {/* Files Controller */}
                         <Controller
                             name="files"
                             control={form.control}
@@ -495,7 +531,6 @@ export const MirrorForm = () => {
                                     if (!indexedDbId) return;
 
                                     const currentFiles = field.value || [];
-
                                     remove('files', parseInt(indexedDbId));
                                     field.onChange(currentFiles.filter((item) => item.idInIndexedDB !== indexedDbId));
                                 };
@@ -516,7 +551,6 @@ export const MirrorForm = () => {
                                                                 ? field.value
                                                                 : [];
 
-                                                            // Додаємо новий файл до масиву
                                                             field.onChange([
                                                                 ...currentFiles,
                                                                 {

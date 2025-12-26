@@ -3,6 +3,7 @@ import CalculatingOverlay from '../../../shared/CalculatingOverlay/CalculatingOv
 import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
 import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
 import Slider from '../../../shared/Slider/Slider';
+import { useFilterCountertopsOptionsByRules } from './hook/useFilterOptionByRules';
 import AttachIcon from '@/assets/icons/common/AttachIcon';
 import { useFileIndexedDBValue, useSetFileToIndexedDB } from '@/lib/indexedDB/utils';
 import { useNavigate } from '@tanstack/react-router';
@@ -49,6 +50,8 @@ export const CountertopsForm = () => {
     const {
         formState: { errors },
     } = form;
+
+    const filteredOptions = useFilterCountertopsOptionsByRules(form, BASIN_QUANTITY_TYPES);
 
     const submitHandler = form.handleSubmit(
         async (data) => {
@@ -283,7 +286,7 @@ export const CountertopsForm = () => {
                                 <div className={s.fieldWwrap}>
                                     <span className={s.fieldLabel}>Depth</span>
                                     <div className={clsx(s.optionsContainer, 'justify-start')}>
-                                        {BASIN_QUANTITY_TYPES.map((option) => {
+                                        {filteredOptions.basinQuantity.map((option) => {
                                             const isSelected = field.value === option;
 
                                             return (

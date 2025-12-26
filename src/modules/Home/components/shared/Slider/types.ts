@@ -8,4 +8,5 @@ export interface SliderPropsT {
     step?: number;
     unit?: string;
     showMinMax?: boolean;
+    disabled?: boolean;
 }
