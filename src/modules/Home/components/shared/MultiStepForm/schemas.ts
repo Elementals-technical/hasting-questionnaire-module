@@ -296,7 +296,8 @@ export const pedestalAndConsolesStepSchema = z.object({
         })
         .max(PEDESTAL_AND_CONSOLES_DEPTH_LIMITS.MAX, {
             message: `Value must be ${PEDESTAL_AND_CONSOLES_DEPTH_LIMITS.MAX} or less`,
-        }),
+        })
+        .optional(),
     shape: z
         .enum(PEDESTAL_AND_CONSOLES_SHAPE_TYPES, {
             message: 'Please select a integrated storage',
