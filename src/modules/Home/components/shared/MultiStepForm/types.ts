@@ -1,4 +1,9 @@
+import { useFileIndexedDBValue } from '@/lib/indexedDB/utils';
+import { useNavigate } from '@tanstack/react-router';
 import * as z from 'zod';
+import { useCreateHubspotContact } from '@/hooks/useCreateHubspotContact';
+import { useSendEmail } from '@/hooks/useSendEmail';
+import { useUploadFiles } from '@/hooks/useUploadFiles';
 import {
     basinStepSchema,
     bathroomsFocusStepSchema,
@@ -66,4 +71,19 @@ export type MultiStepFormStep = {
     description?: string;
     schema: z.ZodSchema<MultiStepForm[keyof MultiStepForm]>;
     enabled?: boolean;
+};
+
+// Тип для кроків, які можуть містити файли (на основі вашої схеми)
+export type StepWithFiles = {
+    files?: { idInIndexedDB?: string; name: string; size: number }[];
+};
+
+export type FinalActions = {
+    setShowOverlay: (_value: boolean) => void;
+    get: ReturnType<typeof useFileIndexedDBValue>['get'];
+    contactMutation: ReturnType<typeof useCreateHubspotContact>;
+    uploadFiles: ReturnType<typeof useUploadFiles>;
+    sendEmailMutation: ReturnType<typeof useSendEmail>;
+    navigate: ReturnType<typeof useNavigate>;
+    cleanUp: () => void;
 };

@@ -20,6 +20,6 @@ export const COLOR_FIELD_SCHEMA = z
 
 export const LOOK_FIELD_SCHEMA = z
     .array(z.nativeEnum(LOOK_TYPES))
-    .min(1, 'Please select at least one color')
+    // .min(1, 'Please select at least one look')
     .max(Object.keys(LOOK_TYPES).length)
     .optional();

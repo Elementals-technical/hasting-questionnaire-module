@@ -16,7 +16,7 @@ export const ProductsForm = () => {
             if (data.products.length === 1) {
                 setFormStepData('productsFocus', { product: data.products[0].id });
 
-                goToStep(data.products[0].id as 'vanities' | 'storage' | 'countertops');
+                goToStep(data.products[0].id);
                 return;
             } else {
                 goToNextStep();

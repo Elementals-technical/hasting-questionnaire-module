@@ -21,8 +21,6 @@ import {
     useMultiStepFormStepForm,
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
 import TagSelector from '@/modules/Home/components/shared/TagSelector/TagSelector';
-import { SUBSTYLES } from '@/modules/Result/components/BonusSuggestions/constants';
-import { determineDominantStyles } from '@/modules/Result/components/BonusSuggestions/utils';
 import { colorTypesOptions, lookTypesOptions } from '../constants';
 import {
     MIRROR_HEIGHT_LIMITS,
@@ -40,7 +38,7 @@ import s from './MirrorsStep.module.scss';
 
 export const MirrorForm = () => {
     const [showOverlay, setShowOverlay] = useState(false);
-    const { currentStep, setFormStepData, formData, goToStep } = useMultiStepFormContext();
+    const { currentStep, handleProductStepSubmit, cleanUp, goToStep } = useMultiStepFormContext();
     const contactMutation = useCreateHubspotContact();
     const sendEmailMutation = useSendEmail();
     const uploadFiles = useUploadFiles();
@@ -59,44 +57,15 @@ export const MirrorForm = () => {
 
     const submitHandler = form.handleSubmit(
         async (data) => {
-            setFormStepData('mirror', data);
-            setShowOverlay(true);
-
-            const contactData = {
-                firstname: formData.name.name + '_ELEMENTALS_TEST',
-                email: formData.email.email,
-                questionnaire_app: JSON.stringify(formData),
-            };
-
-            const emailData = {
-                ...formData,
-                aesthetics: determineDominantStyles(formData.roomStyle.rooms, SUBSTYLES),
-            };
-
-            contactMutation.mutate(contactData);
-
-            const filesData = [
-                ...(formData.aboutProject?.files?.map((i) => i.idInIndexedDB) || []),
-                ...(formData.mirror?.files?.map((i) => i.idInIndexedDB) || []),
-            ];
-
-            const filePromises = filesData.map((fileId) => get('files', parseInt(fileId || '')));
-            const results = await Promise.allSettled(filePromises);
-
-            const successfulFiles = results
-                .filter((result): result is PromiseFulfilledResult<File> => result.status === 'fulfilled')
-                .map((result) => result.value);
-
-            const uploadResponse = await uploadFiles.mutateAsync(successfulFiles);
-
-            sendEmailMutation.mutate({
-                ...emailData,
-                attachments: uploadResponse.results,
+            await handleProductStepSubmit('mirror', data, {
+                setShowOverlay,
+                get,
+                contactMutation,
+                uploadFiles,
+                sendEmailMutation,
+                navigate,
+                cleanUp,
             });
-
-            setTimeout(() => {
-                navigate({ to: '/result' });
-            }, 5500);
         },
         (errors) => {
             console.log('❌ VALIDATION ERRORS:', errors);
@@ -461,7 +430,7 @@ export const MirrorForm = () => {
                                     <div className={clsx(s.optionsContainer, 'justify-start')}>
                                         <TagSelector
                                             options={colorTypesOptions}
-                                            selected={field.value}
+                                            selected={field.value || []}
                                             onSelect={(value) => field.onChange(value)}
                                         />
                                     </div>
@@ -471,9 +440,6 @@ export const MirrorForm = () => {
                         </div>
                     )}
 
-                    {/* ============================================ */}
-                    {/* 🎯 Look - ПОКАЗЫВАТЬ ТОЛЬКО ЕСЛИ FRAMED */}
-                    {/* ============================================ */}
                     {filteredOptions.shouldShowLookField && (
                         <div className={s.section}>
                             <h2 className={s.sectionTitle}>Look</h2>

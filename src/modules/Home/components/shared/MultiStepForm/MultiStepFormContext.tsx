@@ -1,5 +1,5 @@
 import React from 'react';
-import { AnimationDirection, MultiStepForm, MultiStepFormStep } from './types';
+import { AnimationDirection, FinalActions, MultiStepForm, MultiStepFormStep, StepWithFiles } from './types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useCounter, useLocalStorageValue, useToggle } from '@react-hookz/web';
 import { flushSync } from 'react-dom';
@@ -10,6 +10,9 @@ import {
     CONCEPT_STYLE_VANITIES_TYPES,
     NUMBER_OF_BASINS_VANITITES_TYPES,
 } from '@/modules/Home/components/Questionnaire/steps/VanitiesStep/constants';
+import { SUBSTYLES } from '@/modules/Result/components/BonusSuggestions/constants';
+import { determineDominantStyles } from '@/modules/Result/components/BonusSuggestions/utils';
+import { FileUploadResponse, FileUploadResult } from '@/api/hubspot/api';
 import { BASIN_MOUNTING_TYPES } from '../../Questionnaire/steps/BasinStep/constants';
 import { SINK_TYPE_TYPES } from '../../Questionnaire/steps/constants';
 import {
@@ -65,6 +68,11 @@ type MultiStepFormContextType = {
         data: MultiStepForm[TField]
     ) => void;
     cleanUp: () => void;
+    handleProductStepSubmit: <T extends keyof MultiStepForm>(
+        _stepId: T,
+        _data: MultiStepForm[T],
+        _actions: FinalActions
+    ) => Promise<void>;
 };
 
 export const LS_MULTI_STEP_FORM_KEY = 'HASTINGS_multi-step-form';
@@ -229,7 +237,7 @@ export const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
         width: 24,
         depth: '14-15"',
         color: [],
-        mountingType: [],
+        mountingType: 'wall',
         sinkType: SINK_TYPE_TYPES._INTEGRATED,
         conceptStyle: CONCEPT_STYLE_VANITIES_TYPES._CURVED_VANITY,
         look: [],
@@ -381,6 +389,97 @@ export const MultiStepFormProvider: React.FC<React.PropsWithChildren> = ({ child
         setFormData(JSON.stringify(MULTI_STEP_FORM_INITIAL_STATE));
     }, [resetCurrentStepIndex, setFormData]);
 
+    const getOrderedProductSteps = React.useCallback((formData: MultiStepForm) => {
+        const allSelected = formData.products.products.map((p) => p.id); // наприклад: ['vanities', 'mirror', 'toilets']
+        const focusProduct = formData.productsFocus.product; // наприклад: 'mirror'
+
+        // Ставимо фокусний продукт першим, інші — після нього
+        const otherProducts = allSelected.filter((id) => id !== focusProduct);
+        return [focusProduct, ...otherProducts];
+    }, []);
+
+    const runFinalSubmission = async (finalData: MultiStepForm, actions: FinalActions) => {
+        try {
+            actions.setShowOverlay(true);
+
+            const selectedProductIds = finalData.products.products.map((p) => p.id);
+            const filesMetadata = [
+                ...(finalData.aboutProject?.files || []),
+                ...selectedProductIds.flatMap((id) => {
+                    // Отримуємо дані конкретного кроку
+                    const stepData = finalData[id as keyof MultiStepForm];
+
+                    // Використовуємо твій тип StepWithFiles для перевірки
+                    const files = (stepData as StepWithFiles)?.files;
+
+                    // Якщо файли є і це масив — повертаємо його, інакше порожній масив
+                    return Array.isArray(files) ? files : [];
+                }),
+            ].filter((f) => f.idInIndexedDB);
+
+            // Робота з IndexedDB
+            const filePromises = filesMetadata.map((f) => actions.get<File>('files', parseInt(f.idInIndexedDB!)));
+            const results = await Promise.allSettled(filePromises);
+            const successfulFiles = results
+                .filter((r): r is PromiseFulfilledResult<File> => r.status === 'fulfilled')
+                .map((r) => r.value);
+
+            // Мутації
+            await actions.contactMutation.mutateAsync({
+                firstname: finalData.name.name + '_ELEMENTALS_TEST',
+                email: finalData.email.email,
+                questionnaire_app: JSON.stringify(finalData),
+            });
+
+            let attachments: FileUploadResult[] = [];
+
+            if (successfulFiles.length > 0) {
+                // Вказуємо тип для відповіді мутації
+                const uploadResponse: FileUploadResponse = await actions.uploadFiles.mutateAsync(successfulFiles);
+                attachments = uploadResponse.results;
+            }
+
+            // 3. Відправляємо імейл
+            await actions.sendEmailMutation.mutateAsync({
+                ...finalData,
+                aesthetics: determineDominantStyles(finalData.roomStyle.rooms, SUBSTYLES),
+                attachments: attachments, // Тепер типи збігаються (FileUploadResult[])
+            });
+
+            setTimeout(() => {
+                actions.navigate({ to: '/result' });
+            }, 5500);
+        } catch (e) {
+            console.error(e);
+        } finally {
+            actions.navigate({ to: '/result' });
+            actions.setShowOverlay(false);
+        }
+    };
+
+    const handleProductStepSubmit = React.useCallback(
+        async <T extends keyof MultiStepForm>(
+            stepId: T,
+            data: MultiStepForm[T],
+            finalActions: FinalActions // Передаємо інструменти сюди
+        ) => {
+            setFormStepData(stepId, data);
+            const updatedFormData = { ...parsedFormData, [stepId]: data };
+
+            const productQueue = getOrderedProductSteps(updatedFormData);
+            const currentIndex = productQueue.indexOf(stepId as unknown as PRODUCTS_TYPES);
+            const nextProductId = productQueue[currentIndex + 1];
+
+            if (nextProductId) {
+                goToStep(nextProductId);
+            } else {
+                // Якщо це останній крок — запускаємо фінальну логіку
+                await runFinalSubmission(updatedFormData, finalActions);
+            }
+        },
+        [parsedFormData, setFormStepData, goToStep]
+    );
+
     const memoizedValue = React.useMemo(() => {
         return {
             formData: parsedFormData,
@@ -397,6 +496,8 @@ export const MultiStepFormProvider: React.FC<React.PropsWithChildren> = ({ child
             goToPreviousStep,
             setFormStepData,
             cleanUp,
+            getOrderedProductSteps,
+            handleProductStepSubmit,
         };
     }, [
         parsedFormData,
@@ -412,6 +513,8 @@ export const MultiStepFormProvider: React.FC<React.PropsWithChildren> = ({ child
         goToPreviousStep,
         setFormStepData,
         cleanUp,
+        getOrderedProductSteps,
+        handleProductStepSubmit,
     ]);
 
     React.useEffect(() => {

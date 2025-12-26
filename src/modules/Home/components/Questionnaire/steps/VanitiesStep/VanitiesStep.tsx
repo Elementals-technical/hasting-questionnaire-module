@@ -3,7 +3,6 @@ import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
 import CalculatingOverlay from '../../../shared/CalculatingOverlay/CalculatingOverlay';
 import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
 import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
-import { VanitiesStepData } from '../../../shared/MultiStepForm/types';
 import AttachIcon from '@/assets/icons/common/AttachIcon';
 import { useFileIndexedDBValue, useSetFileToIndexedDB } from '@/lib/indexedDB/utils';
 import { useNavigate } from '@tanstack/react-router';
@@ -21,8 +20,6 @@ import {
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
 import Slider from '@/modules/Home/components/shared/Slider/Slider';
 import TagSelector from '@/modules/Home/components/shared/TagSelector/TagSelector';
-import { SUBSTYLES } from '@/modules/Result/components/BonusSuggestions/constants';
-import { determineDominantStyles } from '@/modules/Result/components/BonusSuggestions/utils';
 import { colorTypesOptions, lookTypesOptions } from '../constants';
 import {
     conceptStyleOptions,
@@ -37,7 +34,7 @@ import s from './VanitiesStep.module.scss';
 
 export const VanitiesForm = () => {
     const [showOverlay, setShowOverlay] = useState(false);
-    const { currentStep, setFormStepData, formData, cleanUp, goToStep } = useMultiStepFormContext();
+    const { currentStep, handleProductStepSubmit, cleanUp, goToStep } = useMultiStepFormContext();
     const contactMutation = useCreateHubspotContact();
     const sendEmailMutation = useSendEmail();
     const uploadFiles = useUploadFiles();
@@ -61,62 +58,16 @@ export const VanitiesForm = () => {
 
     const submitHandler = form.handleSubmit(
         async (data) => {
-            try {
-                setFormStepData('vanities', data);
-                setShowOverlay(true);
-
-                // 1. Підготовка даних
-                const contactData = {
-                    firstname: formData.name.name + '_ELEMENTALS_TEST',
-                    email: formData.email.email,
-                    questionnaire_app: JSON.stringify(formData),
-                };
-
-                const emailData = {
-                    ...formData,
-                    aesthetics: determineDominantStyles(formData.roomStyle.rooms, SUBSTYLES),
-                };
-
-                // 2. Отримання файлів з IndexedDB
-                const filesData = [
-                    ...(formData.aboutProject?.files?.map((i) => i.idInIndexedDB) || []),
-                    ...(formData.vanities?.files?.map((i) => i.idInIndexedDB) || []),
-                ];
-
-                if (filesData.length) {
-                    const filePromises = filesData.map((fileId) => get<File>('files', parseInt(fileId || '')));
-                    const results = await Promise.allSettled(filePromises);
-
-                    const successfulFiles = results
-                        .filter((result): result is PromiseFulfilledResult<File> => result.status === 'fulfilled')
-                        .map((result) => result.value);
-
-                    const uploadResponse = await uploadFiles.mutateAsync(successfulFiles);
-
-                    // Тепер у нас є дані від сервера (URL, ID тощо)
-                    // Відправляємо імейл, використовуючи результати завантаження
-                    sendEmailMutation.mutate({
-                        ...emailData,
-                        attachments: uploadResponse.results,
-                    });
-                } else {
-                    sendEmailMutation.mutate({
-                        ...emailData,
-                        attachments: [],
-                    });
-                }
-
-                contactMutation.mutate(contactData);
-
-                // 4. Навігація після успіху
-                setTimeout(() => {
-                    navigate({ to: '/result' });
-                    cleanUp();
-                }, 5500);
-            } catch (error) {
-                console.error('Form handling error:', error);
-                setShowOverlay(false); // Ховаємо оверлей, якщо сталася помилка
-            }
+            // Ми просто викликаємо функцію з контексту
+            await handleProductStepSubmit('vanities', data, {
+                setShowOverlay,
+                get,
+                contactMutation,
+                uploadFiles,
+                sendEmailMutation,
+                navigate,
+                cleanUp,
+            });
         },
         (errors) => {
             console.log('❌ VALIDATION ERRORS:', errors);
@@ -192,26 +143,21 @@ export const VanitiesForm = () => {
                             name="mountingType"
                             control={form.control}
                             render={({ field }) => {
-                                const handleToggle = (goalId: string) => {
-                                    const currentGoals = field.value || [];
-                                    const isSelected = currentGoals.includes(
-                                        goalId as VanitiesStepData['mountingType'][number]
-                                    );
+                                const handleToggle = (targetValue: string) => {
+                                    const currentValue = field.value;
+                                    const isSelected = currentValue === targetValue;
 
                                     if (isSelected) {
-                                        field.onChange(currentGoals.filter((id) => id !== goalId));
+                                        field.onChange('');
                                     } else {
-                                        field.onChange([...currentGoals, goalId]);
+                                        field.onChange(targetValue);
                                     }
                                 };
 
                                 return (
                                     <div className={s.optionsContainer}>
                                         {mountingTypesOptions.map((option) => {
-                                            const room = field.value.find((r) => {
-                                                return r === option.id;
-                                            });
-                                            const isSelected = !!room;
+                                            const isSelected = field.value === option.id;
 
                                             return (
                                                 <BathroomCard

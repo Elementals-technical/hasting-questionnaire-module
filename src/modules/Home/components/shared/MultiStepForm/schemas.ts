@@ -26,7 +26,7 @@ import {
     BASIN_OVERFLOW_TYPES,
     BASIN_WIDTH_LIMITS,
 } from '../../Questionnaire/steps/BasinStep/constants';
-import { SINK_TYPE_TYPES } from '../../Questionnaire/steps/constants';
+import { COLOR_TYPES, SINK_TYPE_TYPES } from '../../Questionnaire/steps/constants';
 import {
     BASIN_QUANTITY_TYPES,
     COUNTERTOPS_DEPTH_TYPES,
@@ -147,7 +147,9 @@ export const vanitiesStepSchema = z.object({
     depth: z.enum(VANITIES_DEPTH_TYPES, {
         message: 'Please select a depth',
     }),
-    mountingType: z.array(z.enum(MOUNTING_TYPE_TYPES)).min(1, 'Please select valid mounting type'),
+    mountingType: z.enum(MOUNTING_TYPE_TYPES, {
+        message: 'Please select valid mounting type',
+    }),
     numberOfBasins: z.nativeEnum(NUMBER_OF_BASINS_VANITITES_TYPES, {
         message: 'Please select a basin quantity',
     }),
@@ -271,7 +273,11 @@ export const mirrorsStepSchema = z.object({
     sinkType: z.nativeEnum(SINK_TYPE_TYPES, {
         message: 'Please select a sink type',
     }),
-    color: COLOR_FIELD_SCHEMA,
+    color: z
+        .array(z.nativeEnum(COLOR_TYPES))
+        // .min(1, 'Please select at least one color')
+        .max(Object.keys(COLOR_TYPES).length)
+        .optional(),
     look: LOOK_FIELD_SCHEMA,
     additionalInfo: ADDITIONAL_INFO_FIELD_SCHEMA,
     files: FILES_FIELD_SCHEMA,

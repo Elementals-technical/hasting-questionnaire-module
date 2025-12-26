@@ -1,7 +1,7 @@
-import VanitiesIcon from '@/assets/icons/products/VanitiesIcon';
 import CurvedVanityIcon from '@/assets/icons/vanities/CurvedVanityIcon';
 import DoubleVanityIcon from '@/assets/icons/vanities/DoubleVanityIcon';
 import FloorIcon from '@/assets/icons/vanities/FloorIcon';
+import IntegratedIcon from '@/assets/icons/vanities/IntegratedVanitiesIcon';
 import MultiLevelIcon from '@/assets/icons/vanities/MultiLevelIcon';
 import OneDrawerIcon from '@/assets/icons/vanities/OneDrawerIcon';
 import OneDrawerInnerIcon from '@/assets/icons/vanities/OnerDrawerInnerIcon';
@@ -10,6 +10,8 @@ import SingleVanityIcon from '@/assets/icons/vanities/SingleVanityIcon';
 import SlimProfileIcon from '@/assets/icons/vanities/SlimProfileIcon';
 import TandemVanitiesIcon from '@/assets/icons/vanities/TandemVanitiesIcon';
 import TwoDrawerIcon from '@/assets/icons/vanities/TwoDrawerIcon';
+import UndermountVanitiesIcon from '@/assets/icons/vanities/UndermountVanitiesIcon';
+import VesselVanitiesIcon from '@/assets/icons/vanities/VesselVanitiesIcon';
 import WallIcon from '@/assets/icons/vanities/WallIcon';
 import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types';
 import { SINK_TYPE_TYPES } from '../constants';
@@ -112,16 +114,16 @@ export const sinkTypesOptions: CardOption[] = [
     {
         id: SINK_TYPE_TYPES._INTEGRATED,
         label: 'Integrated',
-        icon: <VanitiesIcon />,
+        icon: <IntegratedIcon />,
     },
     {
         id: SINK_TYPE_TYPES._VESSEL,
         label: 'Vessel',
-        icon: <VanitiesIcon />,
+        icon: <VesselVanitiesIcon />,
     },
     {
         id: SINK_TYPE_TYPES._UNDERMOUNT,
         label: 'Undermount',
-        icon: <VanitiesIcon />,
+        icon: <UndermountVanitiesIcon />,
     },
 ];

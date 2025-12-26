@@ -1,11 +1,13 @@
 // src/hooks/useCreateHubspotContact.ts
 import { useMutation, UseMutationOptions } from '@tanstack/react-query';
 import { MultiStepForm } from '@/modules/Home/components/shared/MultiStepForm/types';
+import { AestheticResult } from '@/modules/Result/components/BonusSuggestions/types';
 import { FileUploadResult, sendEmail } from '@/api/hubspot/api';
 
 type HubspotMutationOptions = UseMutationOptions<string, Error, MultiStepForm>;
 
 export type EmailMutationData = MultiStepForm & {
+    aesthetics: AestheticResult | null;
     attachments: FileUploadResult[]; // Додаємо поле для результатів завантаження
 };
 

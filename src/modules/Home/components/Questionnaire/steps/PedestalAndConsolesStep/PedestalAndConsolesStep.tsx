@@ -25,8 +25,6 @@ import {
     useMultiStepFormStepForm,
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
 import TagSelector from '@/modules/Home/components/shared/TagSelector/TagSelector';
-import { SUBSTYLES } from '@/modules/Result/components/BonusSuggestions/constants';
-import { determineDominantStyles } from '@/modules/Result/components/BonusSuggestions/utils';
 // Импорты констант
 import { colorTypesOptions, lookTypesOptions } from '../constants';
 import {
@@ -40,7 +38,7 @@ import s from './PedestalAndConsolesStep.module.scss';
 
 export const PedestalAndConsolesForm = () => {
     const [showOverlay, setShowOverlay] = useState(false);
-    const { currentStep, setFormStepData, formData, goToStep } = useMultiStepFormContext();
+    const { currentStep, handleProductStepSubmit, cleanUp, goToStep } = useMultiStepFormContext();
     const contactMutation = useCreateHubspotContact();
     const sendEmailMutation = useSendEmail();
     const uploadFiles = useUploadFiles();
@@ -59,49 +57,15 @@ export const PedestalAndConsolesForm = () => {
 
     const submitHandler = form.handleSubmit(
         async (data) => {
-            try {
-                setFormStepData('pedestalAndConsoles', data);
-                setShowOverlay(true);
-
-                const contactData = {
-                    firstname: formData.name.name + '_ELEMENTALS_TEST',
-                    email: formData.email.email,
-                    questionnaire_app: JSON.stringify(formData),
-                };
-
-                const emailData = {
-                    ...formData,
-                    aesthetics: determineDominantStyles(formData.roomStyle.rooms, SUBSTYLES),
-                };
-
-                const filesData = [
-                    ...(formData.aboutProject?.files?.map((i) => i.idInIndexedDB) || []),
-                    ...(formData.countertops?.files?.map((i) => i.idInIndexedDB) || []),
-                ];
-
-                const filePromises = filesData.map((fileId) => get<File>('files', parseInt(fileId || '')));
-                const results = await Promise.allSettled(filePromises);
-
-                const successfulFiles = results
-                    .filter((result): result is PromiseFulfilledResult<File> => result.status === 'fulfilled')
-                    .map((result) => result.value);
-
-                contactMutation.mutate(contactData);
-
-                const uploadResponse = await uploadFiles.mutateAsync(successfulFiles);
-
-                sendEmailMutation.mutate({
-                    ...emailData,
-                    attachments: uploadResponse.results,
-                });
-
-                setTimeout(() => {
-                    navigate({ to: '/result' });
-                }, 5500);
-            } catch (error) {
-                console.error('Помилка під час обробки форми:', error);
-                setShowOverlay(false);
-            }
+            await handleProductStepSubmit('pedestalAndConsoles', data, {
+                setShowOverlay,
+                get,
+                contactMutation,
+                uploadFiles,
+                sendEmailMutation,
+                navigate,
+                cleanUp,
+            });
         },
         (errors) => {
             console.log('❌ VALIDATION ERRORS:', errors);
@@ -199,7 +163,7 @@ export const PedestalAndConsolesForm = () => {
                                         max={PEDESTAL_AND_CONSOLES_DEPTH_LIMITS.MAX}
                                         key={field.name}
                                         label={field.name}
-                                        attributeValue={field.value}
+                                        attributeValue={field.value || PEDESTAL_AND_CONSOLES_DEPTH_LIMITS.MIN}
                                         onValueChange={(value) => field.onChange(value)}
                                     />
                                 </div>

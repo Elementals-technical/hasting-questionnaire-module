@@ -6,6 +6,7 @@ export interface HubspotContactFormFields {
     firstname: string;
     lastname?: string;
     phone?: string;
+    questionnaire_app?: string;
     // ... інші поля HubSpot (наприклад, quiz_result, company)
 }
 

@@ -19,8 +19,6 @@ import {
     useMultiStepFormStepForm,
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
 import TagSelector from '@/modules/Home/components/shared/TagSelector/TagSelector';
-import { SUBSTYLES } from '@/modules/Result/components/BonusSuggestions/constants';
-import { determineDominantStyles } from '@/modules/Result/components/BonusSuggestions/utils';
 import { colorTypesOptions, lookTypesOptions } from '../constants';
 import {
     BASIN_QUANTITY_TYPES,
@@ -35,7 +33,7 @@ import s from './CountertopsStep.module.scss';
 
 export const CountertopsForm = () => {
     const [showOverlay, setShowOverlay] = useState(false);
-    const { currentStep, setFormStepData, formData, goToStep } = useMultiStepFormContext();
+    const { currentStep, handleProductStepSubmit, cleanUp, goToStep } = useMultiStepFormContext();
     const contactMutation = useCreateHubspotContact();
     const sendEmailMutation = useSendEmail();
     const uploadFiles = useUploadFiles();
@@ -55,47 +53,16 @@ export const CountertopsForm = () => {
 
     const submitHandler = form.handleSubmit(
         async (data) => {
-            setFormStepData('countertops', data);
-            setShowOverlay(true);
-            const contactData = {
-                firstname: formData.name.name + '_ELEMENTALS_TEST',
-                email: formData.email.email,
-                questionnaire_app: JSON.stringify(formData),
-            };
-
-            const emailData = {
-                ...formData,
-                aesthetics: determineDominantStyles(formData.roomStyle.rooms, SUBSTYLES),
-            };
-
-            contactMutation.mutate(contactData);
-            // 2. Отримання файлів з IndexedDB
-            const filesData = [
-                ...(formData.aboutProject?.files?.map((i) => i.idInIndexedDB) || []),
-                ...(formData.countertops?.files?.map((i) => i.idInIndexedDB) || []),
-            ];
-
-            const filePromises = filesData.map((fileId) => get('files', parseInt(fileId || '')));
-            const results = await Promise.allSettled(filePromises);
-
-            const successfulFiles = results
-                .filter((result): result is PromiseFulfilledResult<File> => result.status === 'fulfilled')
-                .map((result) => result.value);
-
-            contactMutation.mutate(contactData);
-
-            const uploadResponse = await uploadFiles.mutateAsync(successfulFiles);
-
-            // Тепер у нас є дані від сервера (URL, ID тощо)
-            // Відправляємо імейл, використовуючи результати завантаження
-            sendEmailMutation.mutate({
-                ...emailData,
-                attachments: uploadResponse.results,
+            // Ми просто викликаємо функцію з контексту
+            await handleProductStepSubmit('countertops', data, {
+                setShowOverlay,
+                get,
+                contactMutation,
+                uploadFiles,
+                sendEmailMutation,
+                navigate,
+                cleanUp,
             });
-
-            setTimeout(() => {
-                navigate({ to: '/result' });
-            }, 5500);
         },
         (errors) => {
             console.log('❌ VALIDATION ERRORS:', errors);
