@@ -188,7 +188,7 @@ export const TubsForm = () => {
                                         max={TUBS_WIDTH_LIMITS.MAX}
                                         key={field.name}
                                         label={field.name}
-                                        attributeValue={field.value}
+                                        attributeValue={field.value || TUBS_WIDTH_LIMITS.MIN}
                                         onValueChange={(value) => field.onChange(value)}
                                     />
                                 </div>
@@ -205,7 +205,7 @@ export const TubsForm = () => {
                                         max={TUBS_HEIGHT_LIMITS.MAX}
                                         key={field.name}
                                         label={field.name}
-                                        attributeValue={field.value}
+                                        attributeValue={field.value || TUBS_HEIGHT_LIMITS.MIN}
                                         onValueChange={(value) => field.onChange(value)}
                                     />
                                 </div>
