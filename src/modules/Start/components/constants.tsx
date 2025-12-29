@@ -18,7 +18,7 @@ export const STEPS_ITEMS = [
     {
         title: 'Collab with your Designer',
         description:
-            'Let your Designer know what you think! Collaborate with your Designer via notes, email, or virtual meetings (completely your call) to dial in your design with unlimited revisions.',
+            'Let us know what you think! Collaborate with your designer via notes, email, or virtual meetings (completely your call) to dial in your design with unlimited revisions.',
         icon: <HeartCircleIcon />,
     },
 ];

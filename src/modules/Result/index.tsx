@@ -1,3 +1,4 @@
+import HeaderBG from '../../assets/images/output.jpg';
 import { useGetProductsSuggest } from '@/tanstackQuery/queries/products_suggest';
 import { useLocalStorageValue } from '@react-hookz/web';
 import { WorkflowStep } from '@/modules/Home/components/shared/WorkflowSteps/WorkflowStep';
@@ -20,7 +21,7 @@ export const ResultRoute = () => {
             <div
                 className={s.header}
                 style={{
-                    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),url(${formData.roomStyle.rooms[0].img})`,
+                    backgroundImage: `url(${HeaderBG})`,
                 }}
             >
                 <h1 className={s.title}>Thank you for completing the questionnaire!</h1>

@@ -12,7 +12,7 @@ import s from './RoomStyleForm.module.scss';
 
 export const RoomStyleForm = () => {
     const [page, setPage] = useState(1);
-    const productParams = useMemo(() => ({ page: page, limit: 30 }), [page]);
+    const productParams = useMemo(() => ({ page: page, limit: 100 }), []);
     const { data, isLoading, error } = useGetProducts(productParams);
 
     const { currentStep, goToNextStep, setFormStepData } = useMultiStepFormContext();

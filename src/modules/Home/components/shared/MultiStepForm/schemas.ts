@@ -223,7 +223,7 @@ export const countertopsStepSchema = z.object({
     basinQuantity: z.enum(BASIN_QUANTITY_TYPES, {
         message: 'Please select a quantity',
     }),
-    features: z.array(z.enum(FEATURES_TYPES)).min(1, 'Please select at least one value'),
+    features: z.array(z.enum(FEATURES_TYPES)).optional(),
     color: COLOR_FIELD_SCHEMA,
     look: LOOK_FIELD_SCHEMA,
     additionalInfo: ADDITIONAL_INFO_FIELD_SCHEMA,
