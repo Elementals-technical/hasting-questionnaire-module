@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { FormStepLayoutProps } from './types';
+import { Subtitle } from './components/Subtitle/Subtitle';
 import s from './FormStepLayout.module.scss';
 
 const FormStepLayout: FC<FormStepLayoutProps> = ({ title, description, children }) => {
@@ -8,7 +9,7 @@ const FormStepLayout: FC<FormStepLayoutProps> = ({ title, description, children 
             <div className={s.body}>
                 <div className={s.left}>
                     {typeof title === 'string' ? <div className={s.title}>{title}</div> : title}
-                    <div className={s.subtitle}>{description}</div>
+                    <Subtitle>{description}</Subtitle>
                 </div>
                 <div className={s.right}>{children}</div>
             </div>

@@ -6,9 +6,22 @@ import { CONCEPT_STYLE_STORAGE_TYPES, STORAGE_ARRANGEMENT_TYPES } from '../const
 
 interface FilteredStorageOptions {
     conceptStyle: CardOption[];
+    isSingleSelectMode: boolean;
     isOptionalField: (_field: keyof Pick<StorageStepdata, 'look' | 'additionalInfo' | 'color'>) => boolean;
 }
 
+/**
+ * Storage Rulesets:
+ *
+ * Concept | Style:
+ *   - This should be a multi-select by default
+ *   - If "Single unit" in Storage Arrangement is selected:
+ *     * Remove options: "Open-Closed", "Multi-Depth", "Clustered", "Multi-Level", "Staggered", "Geometric", "Creative"
+ *     * Change to single-select (only one style can be selected)
+ *
+ * Optional Fields:
+ *   - Users can proceed without making selections for: Look, Additional Info, Color
+ */
 export const useFilterStorageStepOptionsByRules = (
     form: UseFormReturn<StorageStepdata>,
     allConceptStyleOptions: CardOption[]
@@ -26,23 +39,32 @@ export const useFilterStorageStepOptionsByRules = (
         CONCEPT_STYLE_STORAGE_TYPES._CREATIVE,
     ]);
 
-    const filteredConceptStyle = useMemo(() => {
-        const isSingle = storageArrangement === STORAGE_ARRANGEMENT_TYPES._SINGLE_UNIT;
+    const isSingleUnit = storageArrangement === STORAGE_ARRANGEMENT_TYPES._SINGLE_UNIT;
 
-        if (!isSingle) return allConceptStyleOptions;
+    const filteredConceptStyle = useMemo(() => {
+        if (!isSingleUnit) return allConceptStyleOptions;
 
         return allConceptStyleOptions.filter(
             (opt) => !excludedForSingleUnit.has(opt.id as CONCEPT_STYLE_STORAGE_TYPES)
         );
-    }, [storageArrangement, allConceptStyleOptions]);
+    }, [isSingleUnit, allConceptStyleOptions]);
 
-    // --- AUTO RESET INVALID ITEMS ---
+    // --- AUTO RESET INVALID ITEMS & ENFORCE SINGLE SELECT ---
     useEffect(() => {
         const allowedIds = new Set(filteredConceptStyle.map((opt) => opt.id));
-
         const validSelected = selectedStyles.filter((id) => allowedIds.has(id));
 
-        // Case: all selected styles were removed → choose fallback
+        // Case 1: Single unit mode - enforce only one selection
+        if (isSingleUnit && validSelected.length > 1) {
+            // Keep only the first valid selection
+            form.setValue('conceptStyle', [validSelected[0]] as CONCEPT_STYLE_STORAGE_TYPES[], {
+                shouldValidate: true,
+                shouldDirty: true,
+            });
+            return;
+        }
+
+        // Case 2: All selected styles were removed → choose fallback
         if (validSelected.length === 0) {
             const fallback = filteredConceptStyle[0];
             if (fallback) {
@@ -54,14 +76,14 @@ export const useFilterStorageStepOptionsByRules = (
             return;
         }
 
-        // If some were removed → update list
+        // Case 3: Some were removed → update list
         if (validSelected.length !== selectedStyles.length) {
             form.setValue('conceptStyle', validSelected as CONCEPT_STYLE_STORAGE_TYPES[], {
                 shouldValidate: true,
                 shouldDirty: true,
             });
         }
-    }, [selectedStyles, filteredConceptStyle, form]);
+    }, [selectedStyles, filteredConceptStyle, form, isSingleUnit]);
 
     // Optional fields
     const optionalFields: Array<keyof StorageStepdata> = ['look', 'additionalInfo', 'color'];
@@ -71,6 +93,7 @@ export const useFilterStorageStepOptionsByRules = (
 
     return {
         conceptStyle: filteredConceptStyle,
+        isSingleSelectMode: isSingleUnit,
         isOptionalField,
     };
 };

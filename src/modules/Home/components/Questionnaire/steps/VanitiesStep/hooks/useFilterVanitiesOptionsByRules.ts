@@ -22,7 +22,7 @@ interface FilteredOptions {
  *    - 'Curved Vanity'
  * 3. Optional fields: Sink Type, Look, 'What else should we know'
  */
-export const useFilterStepOptionsByRules = (
+export const useFilterVanitiesOptionsByRules = (
     form: UseFormReturn<VanitiesStepData>,
     allNumberOfBasinsOptions: CardOption[],
     allConceptStyleOptions: CardOption[]
@@ -31,7 +31,7 @@ export const useFilterStepOptionsByRules = (
     const width = form.watch('width');
     const mountingType = form.watch('mountingType');
     const numberOfBasins = form.watch('numberOfBasins');
-    const conceptStyle = form.watch('conceptStyle');
+    const conceptStyle = form.watch('conceptStyle'); // Это МАССИВ теперь
 
     // Rule 1: Width < 48" → Double Basin не доступен
     const filteredNumberOfBasins = useMemo(() => {
@@ -72,7 +72,6 @@ export const useFilterStepOptionsByRules = (
             const isBasinsValid = filteredNumberOfBasins.some((option) => option.id === numberOfBasins);
 
             if (!isBasinsValid) {
-                // Сбрасываем значение, если оно больше не валидно
                 form.setValue('numberOfBasins', '' as unknown as NUMBER_OF_BASINS_VANITITES_TYPES, {
                     shouldValidate: true,
                     shouldDirty: true,
@@ -83,16 +82,32 @@ export const useFilterStepOptionsByRules = (
 
     // Автоматический сброс невалидных значений для conceptStyle
     useEffect(() => {
-        if (conceptStyle) {
-            const isStyleValid = filteredConceptStyle.some((option) => option.id === conceptStyle);
+        const selectedStyles = conceptStyle || [];
 
-            if (!isStyleValid) {
-                // Сбрасываем значение, если оно больше не валидно
-                form.setValue('conceptStyle', '' as unknown as CONCEPT_STYLE_VANITIES_TYPES, {
+        // Создаем Set из доступных ID
+        const allowedIds = new Set(filteredConceptStyle.map((opt) => opt.id));
+
+        // Фильтруем только валидные
+        const validSelected = selectedStyles.filter((id) => allowedIds.has(id));
+
+        // Если ВСЕ стили стали невалидными → выбираем первый доступный
+        if (validSelected.length === 0 && selectedStyles.length > 0) {
+            const fallback = filteredConceptStyle[0];
+            if (fallback) {
+                form.setValue('conceptStyle', [fallback.id] as CONCEPT_STYLE_VANITIES_TYPES[], {
                     shouldValidate: true,
                     shouldDirty: true,
                 });
             }
+            return;
+        }
+
+        // Если некоторые были удалены → обновляем список
+        if (validSelected.length !== selectedStyles.length) {
+            form.setValue('conceptStyle', validSelected as CONCEPT_STYLE_VANITIES_TYPES[], {
+                shouldValidate: true,
+                shouldDirty: true,
+            });
         }
     }, [conceptStyle, filteredConceptStyle, form]);
 
@@ -109,13 +124,4 @@ export const useFilterStepOptionsByRules = (
         conceptStyle: filteredConceptStyle,
         isOptionalField,
     };
-};
-
-/**
- * Утилитарная функция для проверки валидности выбора
- * (оставлена для возможного использования вне хука)
- */
-export const isSelectionValid = (selectedValue: string | undefined, availableOptions: CardOption[]): boolean => {
-    if (!selectedValue) return true;
-    return availableOptions.some((option) => option.id === selectedValue);
 };

@@ -3,6 +3,7 @@ import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
 import CalculatingOverlay from '../../../shared/CalculatingOverlay/CalculatingOverlay';
 import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
 import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
+import { VanitiesStepData } from '../../../shared/MultiStepForm/types';
 import AttachIcon from '@/assets/icons/common/AttachIcon';
 import { useFileIndexedDBValue, useSetFileToIndexedDB } from '@/lib/indexedDB/utils';
 import { useNavigate } from '@tanstack/react-router';
@@ -12,7 +13,7 @@ import { Controller } from 'react-hook-form';
 import { useCreateHubspotContact } from '@/hooks/useCreateHubspotContact';
 import { useSendEmail } from '@/hooks/useSendEmail';
 import { useUploadFiles } from '@/hooks/useUploadFiles';
-import { useFilterStepOptionsByRules } from './hooks/useFilterStepOptionsByRules';
+import { useFilterVanitiesOptionsByRules } from './hooks/useFilterVanitiesOptionsByRules';
 import BathroomCard from '@/modules/Home/components/shared/BathroomCard/BathroomCard';
 import {
     useMultiStepFormContext,
@@ -43,7 +44,7 @@ export const VanitiesForm = () => {
     const navigate = useNavigate();
     const { form } = useMultiStepFormStepForm('vanities');
 
-    const { conceptStyle, numberOfBasins } = useFilterStepOptionsByRules(
+    const { conceptStyle, numberOfBasins } = useFilterVanitiesOptionsByRules(
         form,
         numberOfBasinsOptions,
         conceptStyleOptions
@@ -229,21 +230,23 @@ export const VanitiesForm = () => {
                             name="conceptStyle"
                             control={form.control}
                             render={({ field }) => {
-                                const handleToggle = (targetValue: string) => {
-                                    const currentValue = field.value;
-                                    const isSelected = currentValue === targetValue;
+                                const handleToggle = (value: string) => {
+                                    const current: string[] = field.value || [];
+                                    const exists = current.includes(value);
 
-                                    if (isSelected) {
-                                        field.onChange('');
+                                    if (exists) {
+                                        field.onChange(current.filter((v) => v !== value));
                                     } else {
-                                        field.onChange(targetValue);
+                                        field.onChange([...current, value]);
                                     }
                                 };
 
                                 return (
                                     <div className={s.optionsContainer}>
                                         {conceptStyle.map((option) => {
-                                            const isSelected = field.value === option.id;
+                                            const isSelected = field.value.includes(
+                                                option.id as VanitiesStepData['conceptStyle'][number]
+                                            );
 
                                             return (
                                                 <BathroomCard

@@ -18,7 +18,7 @@ import { SINK_TYPE_TYPES } from '../constants';
 
 export const VANITIES_WIDTH_LIMITS = {
     MIN: 24,
-    MAX: 114.2,
+    MAX: 120,
 };
 
 export const VANITIES_DEPTH_TYPES = ['14-15"', '18-19"', '19-21"'] as const;

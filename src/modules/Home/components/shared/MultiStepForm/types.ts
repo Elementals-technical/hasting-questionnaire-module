@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { useFileIndexedDBValue } from '@/lib/indexedDB/utils';
 import { useNavigate } from '@tanstack/react-router';
 import * as z from 'zod';
@@ -68,7 +69,7 @@ export type MultiStepFormStep = {
     id: keyof MultiStepForm;
     label: string;
     title: string;
-    description?: string;
+    description?: ReactNode;
     schema: z.ZodSchema<MultiStepForm[keyof MultiStepForm]>;
     enabled?: boolean;
 };

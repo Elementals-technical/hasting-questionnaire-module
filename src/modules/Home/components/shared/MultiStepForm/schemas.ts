@@ -157,9 +157,7 @@ export const vanitiesStepSchema = z.object({
     numberOfBasins: z.nativeEnum(NUMBER_OF_BASINS_VANITITES_TYPES, {
         message: 'Please select a basin quantity',
     }),
-    conceptStyle: z.nativeEnum(CONCEPT_STYLE_VANITIES_TYPES, {
-        message: 'Please select a style type',
-    }),
+    conceptStyle: z.array(z.nativeEnum(CONCEPT_STYLE_VANITIES_TYPES)).min(1, 'Please select at least one style type'),
     sinkType: z
         .nativeEnum(SINK_TYPE_TYPES, {
             message: 'Please select a sink type',
@@ -180,7 +178,6 @@ export const storageStepSchema = z.object({
         .number()
         .min(STORAGE_HEIGHT_LIMITS.MIN, { message: `Value must be ${STORAGE_HEIGHT_LIMITS.MIN} or greater` })
         .max(STORAGE_HEIGHT_LIMITS.MAX, { message: `Value must be ${STORAGE_HEIGHT_LIMITS.MAX} or less` }),
-
     width: z
         .number()
         .min(STORAGE_WIDTH_LIMITS.MIN, { message: `Value must be ${STORAGE_WIDTH_LIMITS.MIN} or greater` })

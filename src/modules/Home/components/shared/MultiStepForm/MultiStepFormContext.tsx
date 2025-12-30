@@ -28,6 +28,7 @@ import {
 } from '../../Questionnaire/steps/StorageStep/constants';
 import { TOILETS_MOUNTING_TYPES } from '../../Questionnaire/steps/ToiletsStep/constants';
 import { TUBS_SHAPE_TYPES } from '../../Questionnaire/steps/TubsStep/constants';
+import { PRODUCT_STEP_SUBTITLE } from './constants';
 import {
     basinStepSchema,
     bathroomsFocusStepSchema,
@@ -47,6 +48,7 @@ import {
     tubsStepSchema,
     vanitiesStepSchema,
 } from './schemas';
+import { Subtitle } from '../../layouts/FormStepLayout/components/Subtitle/Subtitle';
 
 type MultiStepFormContextType = {
     formData: MultiStepForm;
@@ -152,7 +154,7 @@ export const MULTI_STEP_FORM_STEPS = {
         id: 'vanities',
         label: 'Vanities',
         title: 'Let’s get to know your vanity musts',
-        description: 'Don’t feel compelled to answer everything. Thats why we’re here!',
+        description: <Subtitle maxWidth={480}>{PRODUCT_STEP_SUBTITLE}</Subtitle>,
         schema: vanitiesStepSchema,
         enabled: true,
     },
@@ -160,7 +162,7 @@ export const MULTI_STEP_FORM_STEPS = {
         id: 'storage',
         label: 'Storage',
         title: 'Let’s get to know your storage must-haves',
-        description: 'Don’t feel compelled to answer everything. Thats why we’re here!',
+        description: <Subtitle maxWidth={480}>{PRODUCT_STEP_SUBTITLE}</Subtitle>,
         schema: storageStepSchema,
         enabled: true,
     },
@@ -168,7 +170,7 @@ export const MULTI_STEP_FORM_STEPS = {
         id: 'countertops',
         label: 'Countertops',
         title: 'Gives us the lowdown on your countertop needs',
-        description: `Don't feel compelled to answer everything. Thats why we're here!`,
+        description: <Subtitle maxWidth={480}>{PRODUCT_STEP_SUBTITLE}</Subtitle>,
         schema: countertopsStepSchema,
         enabled: true,
     },
@@ -176,7 +178,7 @@ export const MULTI_STEP_FORM_STEPS = {
         id: 'mirror',
         label: 'Mirror',
         title: `Let's get to know your mirror must-haves`,
-        description: `Don't feel compelled to answer everything. Thats why we're here!`,
+        description: <Subtitle maxWidth={480}>{PRODUCT_STEP_SUBTITLE}</Subtitle>,
         schema: mirrorsStepSchema,
         enabled: true,
     },
@@ -184,7 +186,7 @@ export const MULTI_STEP_FORM_STEPS = {
         id: 'pedestalAndConsoles',
         label: 'Pedestan and Consoles',
         title: `Let's get to know your console must-haves`,
-        description: `Don't feel compelled to answer everything. Thats why we're here!`,
+        description: <Subtitle maxWidth={480}>{PRODUCT_STEP_SUBTITLE}</Subtitle>,
         schema: pedestalAndConsolesStepSchema,
         enabled: true,
     },
@@ -192,7 +194,7 @@ export const MULTI_STEP_FORM_STEPS = {
         id: 'basin',
         label: 'Basin',
         title: `Let's get to know your basin must-haves`,
-        description: `Don't feel compelled to answer everything. Thats why we're here!`,
+        description: <Subtitle maxWidth={480}>{PRODUCT_STEP_SUBTITLE}</Subtitle>,
         schema: basinStepSchema,
         enabled: true,
     },
@@ -200,7 +202,7 @@ export const MULTI_STEP_FORM_STEPS = {
         id: 'tubs',
         label: 'Tubs',
         title: `Let's get to know your tubs must-haves`,
-        description: `Don't feel compelled to answer everything. Thats why we're here!`,
+        description: <Subtitle maxWidth={480}>{PRODUCT_STEP_SUBTITLE}</Subtitle>,
         schema: tubsStepSchema,
         enabled: true,
     },
@@ -208,7 +210,7 @@ export const MULTI_STEP_FORM_STEPS = {
         id: 'toilets',
         label: 'Toilets',
         title: `Let's get to know your toilets must-haves`,
-        description: `Don't feel compelled to answer everything. Thats why we're here!`,
+        description: <Subtitle maxWidth={480}>{PRODUCT_STEP_SUBTITLE}</Subtitle>,
         schema: toiletsStepSchema,
         enabled: true,
     },
@@ -235,11 +237,11 @@ export const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
     productsFocus: { product: PRODUCTS_TYPES._MIRROR },
     vanities: {
         width: 24,
-        depth: '14-15"',
+        depth: '19-21"',
         color: [],
         mountingType: 'wall',
         sinkType: undefined,
-        conceptStyle: CONCEPT_STYLE_VANITIES_TYPES._CURVED_VANITY,
+        conceptStyle: [],
         look: [],
         numberOfBasins: NUMBER_OF_BASINS_VANITITES_TYPES._SINGLE_VANITY,
     },
