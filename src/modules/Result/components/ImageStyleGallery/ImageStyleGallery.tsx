@@ -14,10 +14,10 @@ interface ImageOverlapGalleryProps {
  * з ефектом зміщення, імітуючи наданий знімок.
  */
 const ImageOverlapGallery: React.FC<ImageOverlapGalleryProps> = ({ images, className }) => {
-    const [imgPrimary, imgOverlap] = images;
-    if (images.length !== 2) {
-        throw new Error('ImageOverlapGallery requires exactly two image URLs.');
-    }
+    const [imgPrimary] = images;
+    // if (images.length !== 2) {
+    //     throw new Error('ImageOverlapGallery requires exactly two image URLs.');
+    // }
 
     return (
         <div className={clsx(s.overlapGalleryContainer, className)}>
@@ -25,7 +25,7 @@ const ImageOverlapGallery: React.FC<ImageOverlapGalleryProps> = ({ images, class
             <img className={clsx(s.galleryImage, s.primaryImage)} src={imgPrimary} alt="Primary view" />
 
             {/* Друге (накладене) зображення - зміщене */}
-            <img className={clsx(s.galleryImage, s.overlapImage)} src={imgOverlap} alt="Overlapping view" />
+            {/* <img className={clsx(s.galleryImage, s.overlapImage)} src={imgOverlap} alt="Overlapping view" /> */}
         </div>
     );
 };

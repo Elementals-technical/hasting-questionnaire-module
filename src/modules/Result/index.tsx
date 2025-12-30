@@ -49,7 +49,7 @@ export const ResultRoute = () => {
             <BonusSuggestions images={formData.roomStyle} />
             <div className={s.suggest}>
                 <span className={s.title}>
-                    Explore recommended products while your designer <span>gets to it </span> .
+                    Explore recommended products while your designer <span>gets to it.</span>
                 </span>
                 <div className={s.products}>
                     {data?.rows.map((i) => {

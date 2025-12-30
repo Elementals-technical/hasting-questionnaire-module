@@ -126,12 +126,6 @@ export const PedestalAndConsolesForm = () => {
 
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Size</h2>
-
-                        {/* Подсказка о лимите для Pedestal */}
-                        {filteredOptions.widthLimits.max === 25 && (
-                            <p className={s.hint}>💡 Maximum width for Pedestal style is 25"</p>
-                        )}
-
                         <Controller
                             name="width"
                             control={form.control}
@@ -244,35 +238,26 @@ export const PedestalAndConsolesForm = () => {
                             name="integratedStorage"
                             control={form.control}
                             render={({ field }) => (
-                                <>
-                                    <div className={s.fieldWwrap}>
-                                        <div className={clsx(s.optionsContainer, 'justify-start')}>
-                                            {filteredOptions.integratedStorage.map((option) => {
-                                                const isSelected = field.value === option;
+                                <div className={s.fieldWwrap}>
+                                    <div className={clsx(s.optionsContainer, 'justify-start')}>
+                                        {filteredOptions.integratedStorage.map((option) => {
+                                            const isSelected = field.value === option;
 
-                                                return (
-                                                    <Button
-                                                        key={option}
-                                                        type="button"
-                                                        onClick={() => field.onChange(option)}
-                                                        className={clsx(s.optionButton, {
-                                                            [s.optionButtonSelected]: isSelected,
-                                                        })}
-                                                    >
-                                                        {option}
-                                                    </Button>
-                                                );
-                                            })}
-                                        </div>
+                                            return (
+                                                <Button
+                                                    key={option}
+                                                    type="button"
+                                                    onClick={() => field.onChange(option)}
+                                                    className={clsx(s.optionButton, {
+                                                        [s.optionButtonSelected]: isSelected,
+                                                    })}
+                                                >
+                                                    {option}
+                                                </Button>
+                                            );
+                                        })}
                                     </div>
-
-                                    {/* Подсказка, если опции отфильтрованы */}
-                                    {filteredOptions.integratedStorage.length < INTEGRATED_STORAGE_TYPES.length && (
-                                        <p className={s.hint}>
-                                            💡 Integrated Drawer is not available for Pedestal style
-                                        </p>
-                                    )}
-                                </>
+                                </div>
                             )}
                         />
                         {errors.integratedStorage && <ErrorMessage>{errors.integratedStorage.message}</ErrorMessage>}

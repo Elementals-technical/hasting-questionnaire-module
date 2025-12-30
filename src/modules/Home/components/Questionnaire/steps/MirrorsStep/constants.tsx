@@ -11,8 +11,8 @@ export const MIRROR_WIDTH_LIMITS = {
 };
 
 export const MIRROR_HEIGHT_LIMITS = {
-    MIN: 15,
-    MAX: 90,
+    MIN: 20,
+    MAX: 60,
 };
 
 export const MIRRORS_TYPES = ['Lit Mirror', 'Framed Mirror', 'Mirror Cabinet', 'Folding Mirror'] as const;
@@ -40,7 +40,7 @@ export const shapeMirrorsOptions: CardOption[] = [
     },
     {
         id: SHAPE_MIRRORS_TYPES._RECTANGLE,
-        label: 'Rectangle',
+        label: 'Rectangular',
         icon: <RectangleIcon />,
     },
     {

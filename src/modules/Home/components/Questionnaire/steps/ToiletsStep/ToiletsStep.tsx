@@ -74,7 +74,7 @@ export const ToiletsForm = () => {
                 <div className={s.form}>
                     {/* Mounting type section */}
                     <div className={s.section}>
-                        <h2 className={s.sectionTitle}>Concept | Style</h2>
+                        <h2 className={s.sectionTitle}>Mounting Type</h2>
                         <Controller
                             name="mountingType"
                             control={form.control}

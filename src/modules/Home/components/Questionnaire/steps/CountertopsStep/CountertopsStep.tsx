@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
 import CalculatingOverlay from '../../../shared/CalculatingOverlay/CalculatingOverlay';
+import Divider from '../../../shared/Divider/Divider';
 import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
 import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
 import Slider from '../../../shared/Slider/Slider';
@@ -127,7 +128,7 @@ export const CountertopsForm = () => {
                     </div>
                     {/* Sink type style section */}
                     <div className={s.section}>
-                        <h2 className={s.sectionTitle}>Sink type</h2>
+                        <h2 className={s.sectionTitle}>Sink Type</h2>
                         <Controller
                             name="sinkType"
                             control={form.control}
@@ -168,6 +169,7 @@ export const CountertopsForm = () => {
                     {/* Size Section */}
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Size</h2>
+
                         <Controller
                             name="width"
                             control={form.control}
@@ -184,62 +186,70 @@ export const CountertopsForm = () => {
                                 </div>
                             )}
                         />
-                        <Controller
-                            name="depth"
-                            control={form.control}
-                            render={({ field }) => (
-                                <div className={s.fieldWwrap}>
-                                    <span className={s.fieldLabel}>Depth</span>
-                                    <div className={clsx(s.optionsContainer, 'justify-start')}>
-                                        {COUNTERTOPS_DEPTH_TYPES.map((option) => {
-                                            const isSelected = field.value === option;
 
-                                            return (
-                                                <Button
-                                                    key={option}
-                                                    type="button"
-                                                    onClick={() => field.onChange(!isSelected ? option : null)}
-                                                    className={clsx(s.optionButton, {
-                                                        [s.optionButtonSelected]: isSelected,
-                                                    })}
-                                                >
-                                                    {option}
-                                                </Button>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-                            )}
-                        />
-                        {errors.width && <ErrorMessage>{errors.width.message}</ErrorMessage>}
-                        <Controller
-                            name="topThickness"
-                            control={form.control}
-                            render={({ field }) => (
-                                <div className={s.fieldWwrap}>
-                                    <span className={s.fieldLabel}>Top thickness</span>
-                                    <div className={clsx(s.optionsContainer, 'justify-start')}>
-                                        {TOP_THICKNESS_COUNTERTOPS_TYPES.map((option) => {
-                                            const isSelected = field.value === option;
+                        <div className={s.featuresWrap}>
+                            <div className={s.feature}>
+                                <Controller
+                                    name="depth"
+                                    control={form.control}
+                                    render={({ field }) => (
+                                        <div className={s.fieldWwrap}>
+                                            <span className={s.fieldLabel}>Depth</span>
+                                            <div className={clsx(s.optionsContainer, 'justify-start')}>
+                                                {COUNTERTOPS_DEPTH_TYPES.map((option) => {
+                                                    const isSelected = field.value === option;
 
-                                            return (
-                                                <Button
-                                                    key={option}
-                                                    type="button"
-                                                    onClick={() => field.onChange(!isSelected ? option : null)}
-                                                    className={clsx(s.optionButton, {
-                                                        [s.optionButtonSelected]: isSelected,
-                                                    })}
-                                                >
-                                                    {option}
-                                                </Button>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-                            )}
-                        />
-                        {errors.width && <ErrorMessage>{errors.width.message}</ErrorMessage>}
+                                                    return (
+                                                        <Button
+                                                            key={option}
+                                                            type="button"
+                                                            onClick={() => field.onChange(!isSelected ? option : null)}
+                                                            className={clsx(s.optionButton, {
+                                                                [s.optionButtonSelected]: isSelected,
+                                                            })}
+                                                        >
+                                                            {option}
+                                                        </Button>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    )}
+                                />
+                                {errors.depth && <ErrorMessage>{errors.depth.message}</ErrorMessage>}
+                            </div>
+                            <Divider />
+                            <div className={s.feature}>
+                                <Controller
+                                    name="topThickness"
+                                    control={form.control}
+                                    render={({ field }) => (
+                                        <div className={s.fieldWwrap}>
+                                            <span className={s.fieldLabel}>Top thickness</span>
+                                            <div className={clsx(s.optionsContainer, 'justify-start')}>
+                                                {TOP_THICKNESS_COUNTERTOPS_TYPES.map((option) => {
+                                                    const isSelected = field.value === option;
+
+                                                    return (
+                                                        <Button
+                                                            key={option}
+                                                            type="button"
+                                                            onClick={() => field.onChange(!isSelected ? option : null)}
+                                                            className={clsx(s.optionButton, {
+                                                                [s.optionButtonSelected]: isSelected,
+                                                            })}
+                                                        >
+                                                            {option}
+                                                        </Button>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    )}
+                                />
+                                {errors.topThickness && <ErrorMessage>{errors.topThickness.message}</ErrorMessage>}
+                            </div>
+                        </div>
                     </div>
                     {/* Basin quantity section */}
                     <div className={s.section}>
@@ -249,7 +259,7 @@ export const CountertopsForm = () => {
                             control={form.control}
                             render={({ field }) => (
                                 <div className={s.fieldWwrap}>
-                                    <span className={s.fieldLabel}>Depth</span>
+                                    {/* <span className={s.fieldLabel}>Basin Quantity</span> */}
                                     <div className={clsx(s.optionsContainer, 'justify-start')}>
                                         {filteredOptions.basinQuantity.map((option) => {
                                             const isSelected = field.value === option;

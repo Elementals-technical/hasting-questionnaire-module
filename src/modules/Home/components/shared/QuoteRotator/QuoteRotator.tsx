@@ -10,7 +10,7 @@ export const QuoteRotator: FC<QuoteRotatorPropsT> = ({ className, quotes }) => {
     useEffect(() => {
         const interval = setInterval(() => {
             setIndex((prev) => (prev + 1) % quotes.length);
-        }, 3000);
+        }, 1800);
 
         return () => clearInterval(interval);
     }, []);

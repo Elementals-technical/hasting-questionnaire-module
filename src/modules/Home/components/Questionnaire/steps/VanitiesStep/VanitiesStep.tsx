@@ -139,7 +139,7 @@ export const VanitiesForm = () => {
                     </div>
                     {/* Mount type section */}
                     <div className={s.section}>
-                        <h2 className={s.sectionTitle}>Mounting type</h2>
+                        <h2 className={s.sectionTitle}>Mounting Type</h2>
                         <Controller
                             name="mountingType"
                             control={form.control}
@@ -211,11 +211,11 @@ export const VanitiesForm = () => {
                                                 />
                                             );
                                         })}
-                                        {numberOfBasins.length < numberOfBasinsOptions.length && (
+                                        {/* {numberOfBasins.length < numberOfBasinsOptions.length && (
                                             <p className={s.hint}>
                                                 💡 Double basin is only available for widths 48" and above
                                             </p>
-                                        )}
+                                        )} */}
                                     </div>
                                 );
                             }}
@@ -268,7 +268,7 @@ export const VanitiesForm = () => {
 
                     {/* Sink type style section */}
                     <div className={s.section}>
-                        <h2 className={s.sectionTitle}>Sink type</h2>
+                        <h2 className={s.sectionTitle}>Sink Type</h2>
                         <Controller
                             name="sinkType"
                             control={form.control}

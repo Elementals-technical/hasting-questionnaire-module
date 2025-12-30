@@ -75,7 +75,7 @@ export const TubsForm = () => {
                 <div className={s.form}>
                     {/* Mounting type section */}
                     <div className={s.section}>
-                        <h2 className={s.sectionTitle}>Concept | Style</h2>
+                        <h2 className={s.sectionTitle}>Shape</h2>
                         <Controller
                             name="shape"
                             control={form.control}

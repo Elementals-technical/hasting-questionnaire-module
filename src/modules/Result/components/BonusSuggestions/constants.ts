@@ -18,10 +18,9 @@ export const SUBSTYLES: SubstyleSlide[] = [
         description:
             'Contemporary Luxe is where sleek silhouettes meet rich materials—marble, brass, velvet—balancing clean lines with indulgent texture. It’s glam yet grounded, luxury without the ego, designed for spaces meant to be lived in, not tiptoed through. Sophisticated and inviting, it offers just enough drama to make every moment feel a touch more exquisite',
     },
-
     {
         id: '4',
-        title: 'Scandi / Scandinavian Modern',
+        title: 'Scandi Modern',
         description:
             'Scandinavian Modern is minimalism with a warm pulse—clean lines, soft light, and design that quietly cares for you. In the bathroom, it blends pale woods, matte fixtures, and honest materials with clever simplicity, where every detail earns its place. It invites you to slow down, breathe, and maybe even enjoy your morning routine—bonus points for a windowsill plant and radiant floors under your toes. It’s not less; it’s better.',
     },
@@ -45,9 +44,9 @@ export const SUBSTYLES: SubstyleSlide[] = [
     },
     {
         id: '8',
-        title: 'Transitional Glam / Parisian Chic',
+        title: 'Transitional Glam',
         description:
-            'Transitional Glam with Parisian Chic feels like stepping into a refined Paris boutique—elegant, effortless, and gently glamorous. Soft neutrals and classic detailing meet marble surfaces, gilded accents, and crystal touches that catch the light without trying too hard. A plush stool cozied beside a sleek vanity, a vintage-inspired mirror reflecting your best morning smile—every element balances sophistication with charm. It’s timeless luxury with a playful wink, turning everyday rituals into quiet moments of indulgence.',
+            'Transitional Glam with Italian Elegance feels like stepping into a sunlit Roman villa—sophisticated yet welcoming, classic with a hint of refined allure. Warm neutrals and graceful detailing meet veined marble, rich brass fixtures, and artisanal Venetian glass that glimmers like hidden treasure. Vanities echo heirloom beauty while embracing modern function, creating a space where heritage moves with ease. It’s la dolce vita for everyday living, bringing Italian romance into your daily ritual—no passport required.',
     },
     {
         id: '9',
@@ -79,6 +78,18 @@ export const SUBSTYLES: SubstyleSlide[] = [
         title: 'Art Deco Revival / Modern Deco',
         description:
             'Modern Deco is glamour with geometry—bold, romantic, and undeniably confident. In the bathroom, it shines through fluted details, jewel-toned accents, gleaming metals, and arching mirrors that play with light. Think symmetry, statement, and a little cinematic drama. It’s designed for those who love spaces that speak—elevated, expressive, and unapologetically dressed to impress.',
+    },
+    {
+        id: '14',
+        title: 'Ultra Modern Minimal',
+        description:
+            'The Ultra Modern | Modern Minimal bathroom isn’t just a space—it’s an experience in calm precision and quiet luxury. Picture clean architectural lines softened by warm light and smart materials that seem to do the thinking for you. Every detail has purpose: a sculptural faucet that feels more like an art piece than hardware, a floating vanity that defies gravity, and a palette so refined it lets texture and shadow take center stage. This aesthetic celebrates the beauty of “less,” but never at the cost of comfort—think heated floors, seamless storage, and lighting that knows when to set the mood. It’s minimalism with heart: human, tactile, and effortlessly sophisticated.',
+    },
+    {
+        id: '15',
+        title: 'Zen Inspired',
+        description:
+            'Step into a Zen, spa-like oasis, where every detail whispers relax. Think soft, dappled light bouncing off natural stone, the gentle hush of running water, and the kind of calm that makes your shoulders drop the second you enter. This bathroom design isn’t just about looking serene—it’s about feeling it. Earthy textures, warm woods, and tactile linens invite you to slow down, while subtle aromatics and organic shapes remind you that self-care isn’t an indulgence—it’s a daily ritual. It’s minimalist, yes—but not in a cold, “don’t-touch” way. This is minimalism with heart, where the clutter fades and you become the focus. A place to breathe, to soak, to just be.',
     },
 ] as const;
 

@@ -9,25 +9,41 @@ import { useSafeContext } from '@/hooks/useSafeContext';
 import {
     CONCEPT_STYLE_VANITIES_TYPES,
     NUMBER_OF_BASINS_VANITITES_TYPES,
+    VANITIES_WIDTH_LIMITS,
 } from '@/modules/Home/components/Questionnaire/steps/VanitiesStep/constants';
 import { SUBSTYLES } from '@/modules/Result/components/BonusSuggestions/constants';
 import { determineDominantStyles } from '@/modules/Result/components/BonusSuggestions/utils';
 import { FileUploadResponse, FileUploadResult } from '@/api/hubspot/api';
-import { BASIN_MOUNTING_TYPES } from '../../Questionnaire/steps/BasinStep/constants';
-import { SINK_TYPE_TYPES } from '../../Questionnaire/steps/constants';
 import {
-    STYLE_COUNTERTOPS_TYPES,
-    TOP_THICKNESS_COUNTERTOPS_TYPES,
-} from '../../Questionnaire/steps/CountertopsStep/constants';
-import { SHAPE_MIRRORS_TYPES } from '../../Questionnaire/steps/MirrorsStep/constants';
-import { STYLE_TYPES } from '../../Questionnaire/steps/PedestalAndConsolesStep/constants';
+    BASIN_DEPTH_LIMITS,
+    BASIN_MOUNTING_TYPES,
+    BASIN_WIDTH_LIMITS,
+} from '../../Questionnaire/steps/BasinStep/constants';
+import { SINK_TYPE_TYPES } from '../../Questionnaire/steps/constants';
+import { COUNTERTOPS_WIDTH_LIMITS, STYLE_COUNTERTOPS_TYPES } from '../../Questionnaire/steps/CountertopsStep/constants';
+import {
+    MIRROR_HEIGHT_LIMITS,
+    MIRROR_WIDTH_LIMITS,
+    SHAPE_MIRRORS_TYPES,
+} from '../../Questionnaire/steps/MirrorsStep/constants';
+import {
+    PEDESTAL_AND_CONSOLES_DEPTH_LIMITS,
+    PEDESTAL_AND_CONSOLES_WIDTH_LIMITS,
+    STYLE_TYPES,
+} from '../../Questionnaire/steps/PedestalAndConsolesStep/constants';
 import { PRODUCTS_TYPES } from '../../Questionnaire/steps/ProductsStep/components/BathroomPicker/constants';
 import {
     CONCEPT_STYLE_STORAGE_TYPES,
     STORAGE_ARRANGEMENT_TYPES,
+    STORAGE_WIDTH_LIMITS,
 } from '../../Questionnaire/steps/StorageStep/constants';
 import { TOILETS_MOUNTING_TYPES } from '../../Questionnaire/steps/ToiletsStep/constants';
-import { TUBS_SHAPE_TYPES } from '../../Questionnaire/steps/TubsStep/constants';
+import {
+    TUBS_HEIGHT_LIMITS,
+    TUBS_LENGTH_LIMITS,
+    TUBS_SHAPE_TYPES,
+    TUBS_WIDTH_LIMITS,
+} from '../../Questionnaire/steps/TubsStep/constants';
 import { PRODUCT_STEP_SUBTITLE } from './constants';
 import {
     basinStepSchema,
@@ -201,7 +217,7 @@ export const MULTI_STEP_FORM_STEPS = {
     tubs: {
         id: 'tubs',
         label: 'Tubs',
-        title: `Let's get to know your tubs must-haves`,
+        title: `Let's get to know your tub must-haves`,
         description: <Subtitle maxWidth={480}>{PRODUCT_STEP_SUBTITLE}</Subtitle>,
         schema: tubsStepSchema,
         enabled: true,
@@ -209,7 +225,7 @@ export const MULTI_STEP_FORM_STEPS = {
     toilets: {
         id: 'toilets',
         label: 'Toilets',
-        title: `Let's get to know your toilets must-haves`,
+        title: `Let's get to know your toilet must-haves`,
         description: <Subtitle maxWidth={480}>{PRODUCT_STEP_SUBTITLE}</Subtitle>,
         schema: toiletsStepSchema,
         enabled: true,
@@ -236,7 +252,7 @@ export const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
     products: { products: [] },
     productsFocus: { product: PRODUCTS_TYPES._MIRROR },
     vanities: {
-        width: 24,
+        width: VANITIES_WIDTH_LIMITS.MIN,
         depth: '19-21"',
         color: [],
         mountingType: 'wall',
@@ -246,56 +262,56 @@ export const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
         numberOfBasins: NUMBER_OF_BASINS_VANITITES_TYPES._SINGLE_VANITY,
     },
     storage: {
-        width: 5,
+        width: STORAGE_WIDTH_LIMITS.MIN,
         depth: '5-9.9"',
         conceptStyle: [CONCEPT_STYLE_STORAGE_TYPES._CLOSED_STORAGE_COLUMN],
         color: [],
         look: [],
         storageArrangement: STORAGE_ARRANGEMENT_TYPES._SINGLE_UNIT,
-        height: 0,
+        height: 5,
     },
     countertops: {
         style: STYLE_COUNTERTOPS_TYPES._FLOATING,
         sinkType: SINK_TYPE_TYPES._INTEGRATED,
-        width: 29,
+        width: COUNTERTOPS_WIDTH_LIMITS.MIN,
         depth: null,
-        topThickness: TOP_THICKNESS_COUNTERTOPS_TYPES[0],
+        topThickness: null,
         basinQuantity: '1',
         color: [],
         look: [],
         features: [],
     },
     mirror: {
-        shape: SHAPE_MIRRORS_TYPES._OVAL,
+        shape: SHAPE_MIRRORS_TYPES._RECTANGLE,
         type: ['Lit Mirror'],
-        width: 15,
-        height: 20,
+        width: MIRROR_WIDTH_LIMITS.MIN,
+        height: MIRROR_HEIGHT_LIMITS.MIN,
         conceptStyle: CONCEPT_STYLE_VANITIES_TYPES._MULTI_LEVEL,
         sinkType: SINK_TYPE_TYPES._INTEGRATED,
         color: [],
         look: [],
     },
     pedestalAndConsoles: {
-        width: 24,
-        depth: 24,
+        width: PEDESTAL_AND_CONSOLES_WIDTH_LIMITS.MIN,
+        depth: PEDESTAL_AND_CONSOLES_DEPTH_LIMITS.MIN,
         color: [],
         look: [],
         style: STYLE_TYPES._PEDESTAL,
     },
     basin: {
-        width: 14,
-        depth: 10,
+        width: BASIN_WIDTH_LIMITS.MIN,
+        depth: BASIN_DEPTH_LIMITS.MIN,
         mountingType: BASIN_MOUNTING_TYPES._WALL_MOUNTED,
         color: [],
         look: [],
         height: 4,
     },
     tubs: {
-        width: 24,
+        width: TUBS_WIDTH_LIMITS.MIN,
         color: [],
-        height: 19,
+        height: TUBS_HEIGHT_LIMITS.MIN,
         shape: TUBS_SHAPE_TYPES._RECTANGLE,
-        length: 51,
+        length: TUBS_LENGTH_LIMITS.MIN,
     },
     toilets: {
         color: [],
@@ -403,57 +419,66 @@ export const MultiStepFormProvider: React.FC<React.PropsWithChildren> = ({ child
         try {
             actions.setShowOverlay(true);
 
+            // 1. Збір метаданих файлів
             const selectedProductIds = finalData.products.products.map((p) => p.id);
             const filesMetadata = [
                 ...(finalData.aboutProject?.files || []),
                 ...selectedProductIds.flatMap((id) => {
-                    // Отримуємо дані конкретного кроку
                     const stepData = finalData[id as keyof MultiStepForm];
-
-                    // Використовуємо твій тип StepWithFiles для перевірки
                     const files = (stepData as StepWithFiles)?.files;
-
-                    // Якщо файли є і це масив — повертаємо його, інакше порожній масив
                     return Array.isArray(files) ? files : [];
                 }),
             ].filter((f) => f.idInIndexedDB);
 
-            // Робота з IndexedDB
+            // 2. Отримання файлів з IndexedDB
             const filePromises = filesMetadata.map((f) => actions.get<File>('files', parseInt(f.idInIndexedDB!)));
             const results = await Promise.allSettled(filePromises);
             const successfulFiles = results
                 .filter((r): r is PromiseFulfilledResult<File> => r.status === 'fulfilled')
                 .map((r) => r.value);
 
-            // Мутації
-            await actions.contactMutation.mutateAsync({
-                firstname: finalData.name.name + '_ELEMENTALS_TEST',
-                email: finalData.email.email,
-                questionnaire_app: JSON.stringify(finalData),
-            });
-
             let attachments: FileUploadResult[] = [];
 
+            // 3. Завантаження файлів
             if (successfulFiles.length > 0) {
-                // Вказуємо тип для відповіді мутації
-                const uploadResponse: FileUploadResponse = await actions.uploadFiles.mutateAsync(successfulFiles);
-                attachments = uploadResponse.results;
+                try {
+                    const uploadResponse: FileUploadResponse = await actions.uploadFiles.mutateAsync(successfulFiles);
+                    attachments = uploadResponse.results;
+                } catch (error) {
+                    console.error('File upload failed, but continuing...', error);
+                }
             }
 
-            // 3. Відправляємо імейл
+            // 4. Відправка імейлу (основна дія)
             await actions.sendEmailMutation.mutateAsync({
                 ...finalData,
                 aesthetics: determineDominantStyles(finalData.roomStyle.rooms, SUBSTYLES),
-                attachments: attachments, // Тепер типи збігаються (FileUploadResult[])
+                attachments: attachments,
             });
 
-            setTimeout(() => {
-                actions.navigate({ to: '/result' });
-            }, 5500);
-        } catch (e) {
-            console.error(e);
-        } finally {
+            // 5. Оновлення контакту в HubSpot (ігноруємо помилку, якщо впаде)
+            try {
+                await actions.contactMutation.mutateAsync({
+                    firstname: finalData.name.name + '_ELEMENTALS_TEST',
+                    email: finalData.email.email,
+                    questionnaire_app: JSON.stringify(finalData),
+                });
+            } catch (hubspotError) {
+                console.error(`HubSpot contact update failed, but it's not critical:`, hubspotError);
+            }
+
+            // 6. Очікування та навігація
+            // Використовуємо проміс замість setTimeout всередині try,
+            // щоб finally не спрацював раніше часу
+            await new Promise((resolve) => setTimeout(resolve, 8500));
+
             actions.navigate({ to: '/result' });
+        } catch (e) {
+            console.error('Critical submission error:', e);
+            // Навіть при критичній помилці (наприклад, email впав), ведемо на сторінку результату
+            actions.navigate({ to: '/result' });
+        } finally {
+            // Вимикаємо оверлей ТІЛЬКИ після завершення всіх очікувань або помилок
             actions.setShowOverlay(false);
         }
     };

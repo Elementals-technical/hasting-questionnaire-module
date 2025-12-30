@@ -88,6 +88,18 @@
 .section {
     margin-bottom: 64px;
     padding: 0 25px;
+
+    .featuresWrap {
+        display: flex;
+        justify-content: space-between;
+
+        .features {
+            display: flex;
+            flex-direction: column;
+            max-width: 260px;
+        }
+    }
+
     &:last-child {
         margin-bottom: 90px;
     }

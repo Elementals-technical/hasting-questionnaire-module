@@ -45,9 +45,9 @@ export const ImagePicker: React.FC<ImagesPickerProps> = ({ images, form, isLoadi
                     return (
                         <ImageList variant="masonry" cols={2} gap={16}>
                             {images.map((item) => {
-                                const isSelected = field.value.some((i) => i.img === item.previewImage);
+                                const isSelected = field.value.some((i) => i.img === item.image);
                                 const currentItem = {
-                                    img: item.previewImage,
+                                    img: item.image,
                                     aesthetics: item.categories
                                         .find((i) => i.name === 'Aesthetic')
                                         ?.tags.map((i) => i.name) as string[],
@@ -57,8 +57,7 @@ export const ImagePicker: React.FC<ImagesPickerProps> = ({ images, form, isLoadi
                                     <ImageListItem className={s.image} key={item.id}>
                                         <img
                                             onClick={() => handleToggle(currentItem)}
-                                            srcSet={item.previewImage}
-                                            src={item.previewImage}
+                                            src={item.image}
                                             alt={item.name}
                                             loading="lazy"
                                         />

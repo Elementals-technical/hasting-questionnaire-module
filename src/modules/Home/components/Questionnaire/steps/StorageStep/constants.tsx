@@ -14,6 +14,7 @@ import LightedStorageIcon from '@/assets/icons/storage/LightedIcon';
 import LowerStorageIcon from '@/assets/icons/storage/LowerStorageIcon';
 import MirroredStorageIcon from '@/assets/icons/storage/MirroredStorageIcon';
 import MultiDepthStorageIcon from '@/assets/icons/storage/MultiDepthIcon';
+import MultiLevelStorageIcon from '@/assets/icons/storage/MultiLevelIcon';
 import MultiUnitStorageIcon from '@/assets/icons/storage/MultiUnitIcon';
 import NookStorageIcon from '@/assets/icons/storage/NookIcon';
 import NotSureIcon from '@/assets/icons/storage/NotSureIcon';
@@ -24,7 +25,6 @@ import RotatingStorageIcon from '@/assets/icons/storage/RotatingStorageIcon';
 import SemiCanceledIcon from '@/assets/icons/storage/SemiCanceledStorageIcon';
 import SingleUnitIcon from '@/assets/icons/storage/SingleUnitIcon';
 import StaggeredStorageIcon from '@/assets/icons/storage/StaggeredIcon';
-import MultiLevelIcon from '@/assets/icons/vanities/MultiLevelIcon';
 import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types';
 import { TagOption } from '@/modules/Home/components/shared/TagSelector/types';
 
@@ -219,14 +219,13 @@ export const conceptStyleOptions: CardOption[] = [
     {
         id: CONCEPT_STYLE_STORAGE_TYPES._MULTI_LEVEL,
         label: 'Multi-Level',
-        icon: <MultiLevelIcon />,
+        icon: <MultiLevelStorageIcon />,
     },
     {
         id: CONCEPT_STYLE_STORAGE_TYPES._STAGGERED,
         label: 'Staggered',
         icon: <StaggeredStorageIcon />,
     },
-
     {
         id: CONCEPT_STYLE_STORAGE_TYPES._GEOMETRIC,
         label: 'Geometric',
@@ -260,3 +259,6 @@ export const lookTypesOptions: TagOption[] = [
     { label: 'Stone/Marble-look', id: LOOK_TYPES._STONE_MARBLE_LOOK },
     { label: 'Wood-look', id: LOOK_TYPES._WOODLOOK },
 ];
+
+export const STORAGE_ARRANGEMENT_TOOLTIP_TEXT =
+    'Are you looking for a single storage solution or a multi-unit configuration? ';

@@ -49,39 +49,18 @@ export const useFilterStorageStepOptionsByRules = (
         );
     }, [isSingleUnit, allConceptStyleOptions]);
 
-    // --- AUTO RESET INVALID ITEMS & ENFORCE SINGLE SELECT ---
+    //Clear concept style field when switch to single select
     useEffect(() => {
         const allowedIds = new Set(filteredConceptStyle.map((opt) => opt.id));
         const validSelected = selectedStyles.filter((id) => allowedIds.has(id));
 
-        // Case 1: Single unit mode - enforce only one selection
+        // Switched to Single unit mode - clear all selections
         if (isSingleUnit && validSelected.length > 1) {
-            // Keep only the first valid selection
-            form.setValue('conceptStyle', [validSelected[0]] as CONCEPT_STYLE_STORAGE_TYPES[], {
+            form.setValue('conceptStyle', [] as CONCEPT_STYLE_STORAGE_TYPES[], {
                 shouldValidate: true,
                 shouldDirty: true,
             });
             return;
-        }
-
-        // Case 2: All selected styles were removed → choose fallback
-        if (validSelected.length === 0) {
-            const fallback = filteredConceptStyle[0];
-            if (fallback) {
-                form.setValue('conceptStyle', [fallback.id] as CONCEPT_STYLE_STORAGE_TYPES[], {
-                    shouldValidate: true,
-                    shouldDirty: true,
-                });
-            }
-            return;
-        }
-
-        // Case 3: Some were removed → update list
-        if (validSelected.length !== selectedStyles.length) {
-            form.setValue('conceptStyle', validSelected as CONCEPT_STYLE_STORAGE_TYPES[], {
-                shouldValidate: true,
-                shouldDirty: true,
-            });
         }
     }, [selectedStyles, filteredConceptStyle, form, isSingleUnit]);
 

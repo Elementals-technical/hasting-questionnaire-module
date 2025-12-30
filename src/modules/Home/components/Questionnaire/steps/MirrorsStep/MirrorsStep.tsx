@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react';
 import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
 import CalculatingOverlay from '../../../shared/CalculatingOverlay/CalculatingOverlay';
+import Divider from '../../../shared/Divider/Divider';
 import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
 import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
 import Slider from '../../../shared/Slider/Slider';
@@ -148,8 +149,14 @@ export const MirrorForm = () => {
                                         label={field.name}
                                         attributeValue={field.value}
                                         onValueChange={(value) => {
+                                            if (filteredOptions.shouldSyncDimensions) {
+                                                filteredOptions.handleWidthChange(value);
+                                                return;
+                                            }
+
                                             if (!filteredOptions.isSizeDisabled) {
                                                 field.onChange(value);
+                                                return;
                                             }
                                         }}
                                         disabled={filteredOptions.isSizeDisabled}
@@ -175,8 +182,14 @@ export const MirrorForm = () => {
                                         label={field.name}
                                         attributeValue={field.value}
                                         onValueChange={(value) => {
+                                            if (filteredOptions.shouldSyncDimensions) {
+                                                filteredOptions.handleHeightChange(value);
+                                                return;
+                                            }
+
                                             if (!filteredOptions.isSizeDisabled) {
                                                 field.onChange(value);
+                                                return;
                                             }
                                         }}
                                         disabled={filteredOptions.isSizeDisabled}
@@ -320,9 +333,7 @@ export const MirrorForm = () => {
                                     )}
                                 />
                             </div>
-
-                            <div className={s.divider} />
-
+                            <Divider />
                             <div className={s.features}>
                                 {/* Light Temperature - Optional */}
                                 <Controller

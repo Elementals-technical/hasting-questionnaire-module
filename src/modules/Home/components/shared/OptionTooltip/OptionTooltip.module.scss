@@ -1,0 +1,48 @@
+.infoIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #282828;
+    transition: color 0.3s ease;
+    cursor: pointer;
+
+    // Стан при наведенні
+    &:hover {
+        color: #ac5331;
+    }
+
+    // Стан, коли тултіп/поповер ВІДКРИТИЙ (стандарт Radix)
+    &[data-state='open'] {
+        // color: #fff;
+    }
+}
+
+// Стилі для контенту тултіпа (опціонально)
+.tooltipContent {
+    min-width: 250px;
+    max-width: 340px;
+    display: flex;
+
+    padding: 20px;
+    align-items: flex-start;
+    gap: 8px;
+
+    border-radius: 20px;
+    border: 1px solid #282828;
+    background: #fff;
+
+    color: #282828;
+    font-family: Poppins;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 166.667% */
+
+    p {
+        width: 100%;
+    }
+
+    svg {
+        cursor: pointer;
+    }
+}
