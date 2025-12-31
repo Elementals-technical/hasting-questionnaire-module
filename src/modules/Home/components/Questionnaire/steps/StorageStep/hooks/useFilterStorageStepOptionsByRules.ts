@@ -49,20 +49,22 @@ export const useFilterStorageStepOptionsByRules = (
         );
     }, [isSingleUnit, allConceptStyleOptions]);
 
-    //Clear concept style field when switch to single select
+    //Clear concept style field when switch to single select and keep selected only valid values
     useEffect(() => {
         const allowedIds = new Set(filteredConceptStyle.map((opt) => opt.id));
         const validSelected = selectedStyles.filter((id) => allowedIds.has(id));
 
+        const defaultSelectedValue = validSelected.length ? [validSelected[validSelected.length - 1]] : [];
+
         // Switched to Single unit mode - clear all selections
-        if (isSingleUnit && validSelected.length > 1) {
-            form.setValue('conceptStyle', [] as CONCEPT_STYLE_STORAGE_TYPES[], {
+        if (isSingleUnit) {
+            form.setValue('conceptStyle', defaultSelectedValue as CONCEPT_STYLE_STORAGE_TYPES[], {
                 shouldValidate: true,
                 shouldDirty: true,
             });
             return;
         }
-    }, [selectedStyles, filteredConceptStyle, form, isSingleUnit]);
+    }, [isSingleUnit]);
 
     // Optional fields
     const optionalFields: Array<keyof StorageStepdata> = ['look', 'additionalInfo', 'color'];

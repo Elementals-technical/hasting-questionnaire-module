@@ -2,15 +2,17 @@ import HeaderBG from '../../assets/images/output.jpg';
 import { useGetProductsSuggest } from '@/tanstackQuery/queries/products_suggest';
 import { useLocalStorageValue } from '@react-hookz/web';
 import { WorkflowStep } from '@/modules/Home/components/shared/WorkflowSteps/WorkflowStep';
+import { MULTI_STEP_FORM_INITIAL_STATE } from '../Home/components/shared/MultiStepForm/constants';
 import { STEPS_ITEMS } from './constants';
-import { LS_MULTI_STEP_FORM_KEY, MULTI_STEP_FORM_INITIAL_STATE } from '../Home/components/shared';
+import { LS_MULTI_STEP_FORM_KEY } from '../Home/components/shared';
 import { MultiStepForm } from '../Home/components/shared/MultiStepForm/types';
 import AestheticsDesigner from './components/AestheticsDesigner/AestheticsDesigner';
 import BonusSuggestions from './components/BonusSuggestions/BonusSuggestions';
+import ProductsSuggestions from './components/ProductsSuggestions/ProductsSuggestions';
 import s from './style.module.scss';
 
 export const ResultRoute = () => {
-    const { data } = useGetProductsSuggest({ page: 1, limit: 100 });
+    const { data } = useGetProductsSuggest();
 
     const { value } = useLocalStorageValue<string>(LS_MULTI_STEP_FORM_KEY);
 
@@ -47,25 +49,7 @@ export const ResultRoute = () => {
                 images={formData.roomStyle.rooms.map((i) => i.img).slice(0, 2)}
             />
             <BonusSuggestions images={formData.roomStyle} />
-            <div className={s.suggest}>
-                <span className={s.title}>
-                    Explore recommended products while your designer <span>gets to it.</span>
-                </span>
-                <div className={s.products}>
-                    {data?.rows.map((i) => {
-                        return (
-                            <div className={s.item}>
-                                <img
-                                    className={s.image}
-                                    src={import.meta.env.VITE_THREEKIT_FAST_COMPOSITOR + i.img}
-                                    alt=""
-                                />
-                                <span className={s.itemTitle}>{i.name}</span>
-                            </div>
-                        );
-                    })}
-                </div>
-            </div>
+            <ProductsSuggestions selectedProducts={formData.products.products} products={data?.rows} />
         </>
     );
 };

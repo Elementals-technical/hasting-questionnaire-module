@@ -20,7 +20,7 @@ export const productsQueryKeys = {
 };
 
 // Query options для products
-export const getProductsQueryOptions = (params: ProductsParams = { page: 1, limit: 20 }) => {
+export const getProductsQueryOptions = (params: ProductsParams = { page: 1, pageSize: 20 }) => {
     return queryOptions({
         queryKey: productsQueryKeys.list(params),
         queryFn({ signal }) {
@@ -29,6 +29,6 @@ export const getProductsQueryOptions = (params: ProductsParams = { page: 1, limi
     });
 };
 
-export const useGetProducts = (params: ProductsParams = { page: 1, limit: 20 }) => {
+export const useGetProducts = (params: ProductsParams = { page: 1, pageSize: 20 }) => {
     return useQuery(getProductsQueryOptions(params));
 };

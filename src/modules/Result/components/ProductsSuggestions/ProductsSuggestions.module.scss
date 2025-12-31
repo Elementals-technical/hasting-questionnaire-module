@@ -1,0 +1,136 @@
+/* ProductsSuggestions.module.css */
+
+.suggest {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 50px 80px;
+    align-self: stretch;
+
+    @include md {
+        padding: 20px;
+    }
+
+    .title {
+        width: 690px;
+        color: #ac5331;
+        font-family: 'Proxima Nova';
+        font-size: 40px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 52px; /* 130% */
+        @include md {
+            width: auto;
+            color: #ac5331;
+            text-align: center;
+            font-family: 'Proxima Nova';
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 28px; /* 140% */
+        }
+        span {
+            color: #ac5331;
+            font-family: 'Proxima Nova';
+            font-size: 40px;
+            font-style: italic;
+            font-weight: 500;
+            line-height: 52px;
+
+            @include md {
+                color: #ac5331;
+                font-family: 'Proxima Nova';
+                font-size: 20px;
+                font-style: italic;
+                font-weight: 600;
+                line-height: 28px;
+            }
+        }
+    }
+
+    .products {
+        display: flex;
+        gap: 20px;
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 5px;
+
+        @include md {
+            flex-wrap: wrap;
+        }
+
+        @include xs {
+            flex-direction: column;
+        }
+
+        .item {
+            min-width: 240px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 240px;
+            @include md {
+                width: 100%;
+                flex: 1 0 calc(50% - 20px);
+            }
+
+            .image {
+                display: flex;
+                padding: 20px;
+                height: 240px;
+                justify-content: center;
+                align-items: center;
+                flex-shrink: 0;
+                aspect-ratio: 1/1;
+                border-radius: 5px;
+                background: #f1ebe6;
+            }
+
+            .itemTitle {
+                color: #282828;
+                font-family: Poppins;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 24px; /* 150% */
+            }
+        }
+    }
+}
+
+.filters {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.filterButton {
+    padding: 8px 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
+    transition: all 0.2s ease;
+}
+
+.filterButton:hover {
+    border-color: #333;
+    color: #333;
+}
+
+.filterButton.active {
+    background: #333;
+    color: white;
+    border-color: #333;
+}
+
+.emptyState {
+    text-align: center;
+    padding: 40px 20px;
+    color: #999;
+    font-size: 16px;
+}

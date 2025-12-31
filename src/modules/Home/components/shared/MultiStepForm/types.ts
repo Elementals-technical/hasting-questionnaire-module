@@ -65,6 +65,43 @@ export type MultiStepForm = {
     toilets: toiletsStepdata;
 };
 
+//Тип виключно кроків з продуктами
+export type ProductStepsData = Pick<
+    MultiStepForm,
+    'vanities' | 'storage' | 'countertops' | 'mirror' | 'pedestalAndConsoles' | 'basin' | 'tubs' | 'toilets'
+>;
+
+// Ключі продуктів як окремий тип
+export type ProductStepKey = keyof ProductStepsData;
+
+//Назви продуктів з API Hastings
+export const PRODUCT_DISPLAY_NAMES = [
+    'Countertops',
+    'Vanities',
+    'Bathroom Accessories',
+    'Storage & Shelving',
+    'Mirrors',
+    'Pedestals & Consoles',
+    'Vessels',
+    'Basins',
+    'Tubs',
+    'Toilets',
+] as const;
+
+export type ProductDisplayName = (typeof PRODUCT_DISPLAY_NAMES)[number];
+
+// Маппінг між ключами форми та назвами для відображення
+export const PRODUCT_STEP_TO_DISPLAY_NAME: Record<ProductStepKey, ProductDisplayName> = {
+    countertops: 'Countertops',
+    vanities: 'Vanities',
+    storage: 'Storage & Shelving',
+    mirror: 'Mirrors',
+    pedestalAndConsoles: 'Pedestals & Consoles',
+    basin: 'Basins',
+    tubs: 'Tubs',
+    toilets: 'Toilets',
+};
+
 export type MultiStepFormStep = {
     id: keyof MultiStepForm;
     label: string;

@@ -1,3 +1,5 @@
+import { ProductDisplayName } from '@/modules/Home/components/shared/MultiStepForm/types';
+
 export interface Tag {
     id: number;
     name: string;
@@ -33,7 +35,7 @@ export interface Product {
 export interface ProductsSuggest {
     id: number;
 
-    collection: string;
+    collection: ProductDisplayName;
 
     name: string;
 
@@ -62,6 +64,7 @@ export interface ProductsSuggestResponse {
 
 export interface ProductsParams {
     page?: number;
+    pageSize?: number;
     limit?: number;
     // додайте інші параметри фільтрації за потреби
 }

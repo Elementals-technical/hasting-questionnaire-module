@@ -53,7 +53,7 @@ export const StorageForm = () => {
         formState: { errors },
     } = form;
 
-    const { conceptStyle } = useFilterStorageStepOptionsByRules(form, conceptStyleOptions);
+    const { conceptStyle, isSingleSelectMode } = useFilterStorageStepOptionsByRules(form, conceptStyleOptions);
 
     const { mutate: setFileToIndexedDB } = useSetFileToIndexedDB();
 
@@ -146,10 +146,22 @@ export const StorageForm = () => {
                                     const current: string[] = field.value || [];
                                     const exists = current.includes(value);
 
-                                    if (exists) {
-                                        field.onChange(current.filter((v) => v !== value));
+                                    if (isSingleSelectMode) {
+                                        // Режим одиночного вибору
+                                        if (exists) {
+                                            // Якщо клікнули на вже вибраний - знімаємо виділення
+                                            field.onChange([]);
+                                        } else {
+                                            // Вибираємо тільки новий елемент (замінюємо все)
+                                            field.onChange([value]);
+                                        }
                                     } else {
-                                        field.onChange([...current, value]);
+                                        // Режим мультивибору (стандартний)
+                                        if (exists) {
+                                            field.onChange(current.filter((v) => v !== value));
+                                        } else {
+                                            field.onChange([...current, value]);
+                                        }
                                     }
                                 };
 
