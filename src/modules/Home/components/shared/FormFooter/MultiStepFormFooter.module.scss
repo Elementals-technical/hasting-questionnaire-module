@@ -1,4 +1,4 @@
-@import '../../../../../styles/breakpoints.scss';
+@use '../../../../../styles/breakpoints.scss';
 
 .footer {
     position: fixed;
@@ -11,7 +11,7 @@
     align-self: flex-end;
     padding: 20px 80px;
 
-    @include md {
+    @include breakpoints.md {
         padding: 20px;
     }
 
@@ -19,7 +19,7 @@
         display: flex;
         align-items: center;
         gap: 32px;
-        @include md {
+        @include breakpoints.md {
             gap: 16px;
         }
     }
@@ -43,7 +43,7 @@
         font-weight: 700;
         line-height: 20px; /* 142.857% */
 
-        @include md {
+        @include breakpoints.md {
             padding: 12px 20px;
         }
         &:hover {

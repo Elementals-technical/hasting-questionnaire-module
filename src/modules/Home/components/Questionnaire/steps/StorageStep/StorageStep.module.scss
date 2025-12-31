@@ -1,4 +1,4 @@
-@import '../../../../../../styles/breakpoints.scss';
+@use '../../../../../../styles/breakpoints.scss';
 
 .form {
     height: 100%;
@@ -30,7 +30,7 @@
     margin: 0 auto;
     max-width: 560px;
 
-    @include md {
+    @include breakpoints.md {
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
     }

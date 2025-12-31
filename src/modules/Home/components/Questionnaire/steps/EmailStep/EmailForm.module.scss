@@ -1,4 +1,4 @@
-@import '../../../../../../styles/breakpoints.scss';
+@use '../../../../../../styles/breakpoints.scss';
 
 .inputWrapper {
     display: flex;
@@ -13,7 +13,7 @@
         top: 32px;
     }
 
-    @include md {
+    @include breakpoints.md {
         padding: 0;
     }
 }

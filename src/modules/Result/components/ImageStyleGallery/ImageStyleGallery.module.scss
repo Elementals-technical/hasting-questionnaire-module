@@ -1,4 +1,4 @@
-@import '../../../../styles/breakpoints.scss';
+@use '../../../../styles/breakpoints.scss';
 
 /* 1. Контейнер, який встановлює контекст для абсолютного позиціонування */
 .overlapGalleryContainer {
@@ -45,7 +45,7 @@
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Додаємо тінь для об'єму */
     /* transform: rotate(-3deg); - Можна додати для ефекту "вирізки", як на знімку */
 
-    @include md {
+    @include breakpoints.md {
         top: 15%;
     }
 }

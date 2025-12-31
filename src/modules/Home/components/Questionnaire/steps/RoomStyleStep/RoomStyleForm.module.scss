@@ -1,4 +1,4 @@
-@import '../../../../../../styles/breakpoints.scss';
+@use '../../../../../../styles/breakpoints.scss';
 .content {
     height: 100%;
 }
@@ -13,7 +13,7 @@
     line-height: 52px; /* 130% */
     margin-bottom: 16px;
 
-    @include md {
+    @include breakpoints.md {
         text-align: center;
         font-size: 24px;
         line-height: 32px; /* 133.333% */
@@ -28,6 +28,10 @@
     font-style: normal;
     font-weight: 700;
     line-height: 20px; /* 142.857% */
+
+    @include breakpoints.xs {
+        text-align: right;
+    }
 }
 
 .footer {

@@ -1,4 +1,4 @@
-@import '../../../../../../../../styles/breakpoints.scss';
+@use '../../../../../../../../styles/breakpoints.scss';
 
 .wrap {
     position: relative;
@@ -19,7 +19,7 @@
     }
 }
 
-@include md {
+@include breakpoints.md {
     .grid > * {
         flex: 0 1 calc(50% - 20px); // 50% мінус gap
         gap: 20px;

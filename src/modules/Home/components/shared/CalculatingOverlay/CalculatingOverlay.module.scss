@@ -1,4 +1,4 @@
-@import '../../../../../styles/breakpoints.scss';
+@use '../../../../../styles/breakpoints.scss';
 
 .overlay {
     position: fixed;
@@ -22,7 +22,7 @@
         font-weight: 600;
         line-height: 64px; /* 118.519% */
 
-        @include md {
+        @include breakpoints.md {
             color: #ac5331;
             font-family: 'Proxima Nova';
             font-size: 32px;
@@ -40,7 +40,7 @@
         font-weight: 600;
         line-height: 52px; /* 130% */
 
-        @include md {
+        @include breakpoints.md {
             color: #ac5331;
             text-align: center;
             font-family: 'Proxima Nova';

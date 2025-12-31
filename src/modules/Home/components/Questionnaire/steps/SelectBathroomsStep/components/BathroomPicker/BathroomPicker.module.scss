@@ -1,4 +1,4 @@
-@import '../../../../../../../../styles/breakpoints.scss';
+@use '../../../../../../../../styles/breakpoints.scss';
 
 .wrap {
     position: relative;
@@ -11,7 +11,7 @@
     max-width: 75rem;
     margin: 0 auto;
 
-    @include md {
+    @include breakpoints.md {
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
     }

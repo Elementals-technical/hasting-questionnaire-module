@@ -1,4 +1,4 @@
-@import '../../../../../../styles/breakpoints.scss';
+@use '../../../../../../styles/breakpoints.scss';
 
 .content {
     display: flex;
@@ -16,7 +16,7 @@
     line-height: 52px; /* 130% */
     margin-bottom: 16px;
 
-    @include md {
+    @include breakpoints.md {
         width: 290px;
         color: #ac5331;
         text-align: center;

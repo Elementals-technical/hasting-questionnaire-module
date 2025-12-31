@@ -1,3 +1,5 @@
+@use '../../../../../../../../styles/breakpoints.scss';
+
 .wrap {
     display: flex;
     flex-direction: column;
@@ -6,4 +8,7 @@
     display: flex;
     gap: 40px;
     flex-wrap: wrap;
+    @include breakpoints.md {
+        justify-content: center;
+    }
 }

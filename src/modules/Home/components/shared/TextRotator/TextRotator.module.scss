@@ -1,5 +1,5 @@
 // RotatingText.module.scss
-@import '../../../../../styles/breakpoints.scss';
+@use '../../../../../styles/breakpoints.scss';
 .container {
     display: inline-block;
     position: relative;
@@ -8,7 +8,7 @@
     overflow: hidden;
     vertical-align: bottom;
 
-    @include md {
+    @include breakpoints.md {
         min-width: 85px;
         height: 24px;
     }
@@ -28,7 +28,7 @@
     white-space: nowrap;
     animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 
-    @include md {
+    @include breakpoints.md {
         font-size: 16px;
     }
 }

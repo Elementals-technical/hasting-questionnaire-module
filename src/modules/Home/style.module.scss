@@ -1,4 +1,4 @@
-@import '../../styles/breakpoints.scss';
+@use '../../styles/breakpoints.scss';
 
 .wrap {
     background-color: var(--color-bg-100);
@@ -12,7 +12,7 @@
     height: 100vh;
     overflow: hidden;
 
-    @include md {
+    @include breakpoints.md {
         padding: 20px;
         padding-bottom: 90px;
         height: auto;

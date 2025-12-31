@@ -1,4 +1,4 @@
-@import '../../../../../../styles/breakpoints.scss';
+@use '../../../../../../styles/breakpoints.scss';
 
 .title {
     color: #ac5331;
@@ -10,7 +10,7 @@
     line-height: 52px; /* 130% */
     margin-bottom: 16px;
 
-    @include md {
+    @include breakpoints.md {
         width: 100%;
         color: #ac5331;
         text-align: center;
