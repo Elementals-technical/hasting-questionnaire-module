@@ -29,6 +29,6 @@ export const getProductsQueryOptions = (params: ProductsParams = { page: 1, page
     });
 };
 
-export const useGetProducts = (params: ProductsParams = { page: 1, pageSize: 20 }) => {
+export const useGetProducts = (params: ProductsParams) => {
     return useQuery(getProductsQueryOptions(params));
 };

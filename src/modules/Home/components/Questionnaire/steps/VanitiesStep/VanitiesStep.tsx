@@ -211,11 +211,11 @@ export const VanitiesForm = () => {
                                                 />
                                             );
                                         })}
-                                        {/* {numberOfBasins.length < numberOfBasinsOptions.length && (
+                                        {numberOfBasins.length < numberOfBasinsOptions.length && (
                                             <p className={s.hint}>
                                                 💡 Double basin is only available for widths 48" and above
                                             </p>
-                                        )} */}
+                                        )}
                                     </div>
                                 );
                             }}

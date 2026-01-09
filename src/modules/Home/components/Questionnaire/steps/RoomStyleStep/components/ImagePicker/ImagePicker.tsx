@@ -1,6 +1,6 @@
+import { ImageListItem } from '../ImageListItem/ImageListItem';
 import { Product } from '@/tanstackQuery/types';
-import { ImageList, ImageListItem } from '@mui/material';
-import { CheckIcon } from 'lucide-react';
+import { ImageList } from '@mui/material';
 import { Controller, UseFormReturn } from 'react-hook-form';
 import ErrorMessage from '@/modules/Home/components/shared/ErrorMessage/ErrorMessage';
 import { RoomStyleStepData } from '@/modules/Home/components/shared/MultiStepForm/types';
@@ -54,15 +54,13 @@ export const ImagePicker: React.FC<ImagesPickerProps> = ({ images, form, isLoadi
                                 };
 
                                 return (
-                                    <ImageListItem className={s.image} key={item.id}>
-                                        <img
-                                            onClick={() => handleToggle(currentItem)}
-                                            src={item.image}
-                                            alt={item.name}
-                                            loading="lazy"
-                                        />
-                                        {isSelected && <CheckIcon className={s.imageSelected} />}
-                                    </ImageListItem>
+                                    <ImageListItem
+                                        key={item.id}
+                                        currentItem={currentItem}
+                                        isSelected={isSelected}
+                                        onToggle={handleToggle}
+                                        item={item}
+                                    />
                                 );
                             })}
                         </ImageList>

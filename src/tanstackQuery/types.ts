@@ -66,5 +66,6 @@ export interface ProductsParams {
     page?: number;
     pageSize?: number;
     limit?: number;
+    tagId?: number;
     // додайте інші параметри фільтрації за потреби
 }
