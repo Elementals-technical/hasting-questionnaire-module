@@ -89,6 +89,12 @@ export async function sendEmail(payload: EmailMutationData): Promise<string> {
     }
 }
 
+export interface FileItemIndexedDB {
+    idInIndexedDB: string;
+    name: string;
+    size: number;
+}
+
 export interface FileUploadResult {
     success: boolean;
     id: string;

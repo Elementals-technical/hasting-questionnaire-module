@@ -18,6 +18,7 @@ import {
     useMultiStepFormStepForm,
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
 import TagSelector from '@/modules/Home/components/shared/TagSelector/TagSelector';
+import { ACCEPT_FILES } from '../../../shared/MultiStepForm/constants';
 import { colorTypesOptions } from '../constants';
 import { styleOptions, TOILETS_SOFT_CLOSE_SEAT_TYPES } from './constants';
 import { Button } from '@/components/ui/Button/Button';
@@ -241,7 +242,7 @@ export const ToiletsForm = () => {
                                                 });
                                             }}
                                             className={s.fileInput}
-                                            accept="image/*,.pdf,.doc,.docx"
+                                            accept={ACCEPT_FILES}
                                         />
 
                                         {field.value && field.value.length > 0 && (

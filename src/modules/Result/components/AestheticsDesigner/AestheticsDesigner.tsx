@@ -11,11 +11,11 @@ const AestheticsDesigner: FC<AesheticsDesignerProps> = ({ name, images }) => {
             <div className={s.subtitle}>Our top suggestion for you</div>
             <div className={s.content}>
                 <div className={s.designer}>
-                    <img className={s.img} src={DESIGNERS[0].img} alt="DESIGNER_PHOTO" />
+                    <img className={s.img} src={DESIGNERS[1].img} alt="DESIGNER_PHOTO" />
                     <div className={s.about}>
-                        <div className={s.name}>{DESIGNERS[0].name}</div>
-                        <div className={s.position}>{DESIGNERS[0].position}</div>
-                        <div className={s.description}>{DESIGNERS[0].description}</div>
+                        <div className={s.name}>{DESIGNERS[1].name}</div>
+                        <div className={s.position}>{DESIGNERS[1].position}</div>
+                        <div className={s.description}>{DESIGNERS[1].description}</div>
                     </div>
                 </div>
                 <div className={s.images}>

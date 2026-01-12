@@ -15,9 +15,9 @@ interface ImageOverlapGalleryProps {
  */
 const ImageOverlapGallery: React.FC<ImageOverlapGalleryProps> = ({ images, className }) => {
     const [imgPrimary, imgOverlap] = images;
-    if (images.length !== 2) {
-        throw new Error('ImageOverlapGallery requires exactly two image URLs.');
-    }
+    // if (images.length !== 2) {
+    //     throw new Error('ImageOverlapGallery requires exactly two image URLs.');
+    // }
 
     return (
         <div className={clsx(s.overlapGalleryContainer, className)}>

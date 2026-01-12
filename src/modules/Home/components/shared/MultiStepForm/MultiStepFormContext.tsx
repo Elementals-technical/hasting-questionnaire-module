@@ -1,6 +1,7 @@
 import React from 'react';
 import {
     AnimationDirection,
+    FileMetadata,
     FinalActions,
     MultiStepForm,
     MultiStepFormStep,
@@ -182,36 +183,66 @@ export const MultiStepFormProvider: React.FC<React.PropsWithChildren> = ({ child
                 }
             }
 
-            // 4. Відправка імейлу (основна дія)
+            // 4. Оновлення finalData з URL-ами завантажених файлів
+            const updatedFinalData = { ...finalData };
+
+            // Функція для маппінгу файлів з URL
+            const mapFilesWithUrls = (files: FileMetadata[] | undefined): FileMetadata[] | undefined => {
+                if (!files || files.length === 0) return files;
+
+                return files.map((file) => {
+                    const uploadedFile = attachments.find(
+                        (uploaded) => uploaded.originalName === file.name && uploaded.size === file.size
+                    );
+
+                    return {
+                        ...file,
+                        url: uploadedFile?.url,
+                    };
+                });
+            };
+
+            // Оновлюємо aboutProject files
+            if (updatedFinalData.aboutProject?.files) {
+                updatedFinalData.aboutProject.files = mapFilesWithUrls(updatedFinalData.aboutProject.files);
+            }
+
+            // Оновлюємо files в кожному продукті
+            selectedProductIds.forEach((id) => {
+                const stepData = updatedFinalData[id as keyof MultiStepForm] as StepWithFiles;
+                if (stepData?.files) {
+                    stepData.files = mapFilesWithUrls(stepData.files);
+                }
+            });
+
+            // 5. Відправка імейлу з оновленими даними
             await actions.sendEmailMutation.mutateAsync({
-                ...finalData,
-                aesthetics: determineDominantStyles(finalData.roomStyle.rooms, SUBSTYLES),
+                ...updatedFinalData,
+                aesthetics: determineDominantStyles(updatedFinalData.roomStyle.rooms, SUBSTYLES),
                 attachments: attachments,
             });
 
-            // 5. Оновлення контакту в HubSpot (ігноруємо помилку, якщо впаде)
+            console.log('FINAL_FORM_DATA', updatedFinalData);
+
+            // 6. Оновлення контакту в HubSpot (ігноруємо помилку, якщо впаде)
             try {
                 await actions.contactMutation.mutateAsync({
                     firstname: finalData.name.name + '_ELEMENTALS_TEST',
                     email: finalData.email.email,
-                    questionnaire_app: JSON.stringify(finalData),
+                    questionnaire_app: JSON.stringify(updatedFinalData), // Відправляємо оновлені дані
                 });
             } catch (hubspotError) {
                 console.error(`HubSpot contact update failed, but it's not critical:`, hubspotError);
             }
 
-            // 6. Очікування та навігація
-            // Використовуємо проміс замість setTimeout всередині try,
-            // щоб finally не спрацював раніше часу
+            // 7. Очікування та навігація
             await new Promise((resolve) => setTimeout(resolve, 8500));
 
             actions.navigate({ to: '/result' });
         } catch (e) {
             console.error('Critical submission error:', e);
-            // Навіть при критичній помилці (наприклад, email впав), ведемо на сторінку результату
             actions.navigate({ to: '/result' });
         } finally {
-            // Вимикаємо оверлей ТІЛЬКИ після завершення всіх очікувань або помилок
             actions.setShowOverlay(false);
         }
     };

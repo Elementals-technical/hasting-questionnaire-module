@@ -30,6 +30,9 @@ export interface Product {
     createdAt: string;
     updatedAt: string;
     categories: Category[];
+    width: number;
+    height: number;
+    size: number;
 }
 
 export interface ProductsSuggest {
@@ -62,10 +65,13 @@ export interface ProductsSuggestResponse {
     count: number;
 }
 
+export interface ImageAetheticsParams {
+    page?: number;
+    limit: number;
+    tagId?: number;
+}
+
 export interface ProductsParams {
     page?: number;
-    pageSize?: number;
-    limit?: number;
-    tagId?: number;
-    // додайте інші параметри фільтрації за потреби
+    pageSize: number;
 }

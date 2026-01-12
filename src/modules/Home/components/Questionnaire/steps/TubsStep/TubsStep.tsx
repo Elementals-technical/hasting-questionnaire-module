@@ -19,6 +19,7 @@ import {
     useMultiStepFormStepForm,
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
 import TagSelector from '@/modules/Home/components/shared/TagSelector/TagSelector';
+import { ACCEPT_FILES } from '../../../shared/MultiStepForm/constants';
 import { colorTypesOptions } from '../constants';
 import { styleOptions, TUBS_HEIGHT_LIMITS, TUBS_LENGTH_LIMITS, TUBS_WIDTH_LIMITS } from './constants';
 import { Button } from '@/components/ui/Button/Button';
@@ -284,7 +285,7 @@ export const TubsForm = () => {
                                                 });
                                             }}
                                             className={s.fileInput}
-                                            accept="image/*,.pdf,.doc,.docx"
+                                            accept={ACCEPT_FILES}
                                         />
 
                                         {field.value && field.value.length > 0 && (

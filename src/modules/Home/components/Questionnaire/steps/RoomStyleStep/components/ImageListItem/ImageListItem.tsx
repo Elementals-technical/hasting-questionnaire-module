@@ -8,6 +8,8 @@ export const ImageListItem: FC<ImageListItemProps> = ({ item, isSelected, onTogg
     const [loaded, setLoaded] = useState(false);
     const imgRef = useRef<HTMLImageElement>(null);
 
+    const aspectRatio = item.height / item.width;
+
     // Обработка случая, когда картинка уже есть в кэше
     useEffect(() => {
         if (imgRef.current?.complete) {
@@ -22,7 +24,14 @@ export const ImageListItem: FC<ImageListItemProps> = ({ item, isSelected, onTogg
 
     return (
         <ImageItem className={s.image} sx={{ position: 'relative', minHeight: 100 }}>
-            {!loaded && <Skeleton variant="rectangular" width="100%" height={275} animation="wave" />}
+            {!loaded && (
+                <Skeleton
+                    variant="rectangular"
+                    width="100%"
+                    sx={{ paddingTop: `${aspectRatio * 100}%` }}
+                    animation="wave"
+                />
+            )}
 
             <Box
                 component="img"
@@ -35,6 +44,7 @@ export const ImageListItem: FC<ImageListItemProps> = ({ item, isSelected, onTogg
                 onError={() => console.error('Failed to load:', item.image)}
                 sx={{
                     width: '100%',
+                    height: 'auto',
                     display: 'block',
                     cursor: 'pointer',
                     opacity: loaded ? 1 : 0,

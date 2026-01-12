@@ -277,3 +277,6 @@ export const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
         mountingType: TOILETS_MOUNTING_TYPES._WALL_MOUNTED,
     },
 };
+
+export const ACCEPT_FILES =
+    'image/jpeg,image/png,image/gif,image/webp,image/avif,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document';

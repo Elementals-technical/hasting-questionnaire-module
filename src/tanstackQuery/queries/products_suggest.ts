@@ -8,7 +8,11 @@ export const productsQueryKeys = {
     allLists() {
         return [...productsQueryKeys.all, 'list'] as const;
     },
-    list(params: ProductsParams = {}) {
+    list(
+        params: ProductsParams = {
+            pageSize: 20,
+        }
+    ) {
         return [...productsQueryKeys.allLists(), params] as const;
     },
     allItems() {
@@ -20,7 +24,7 @@ export const productsQueryKeys = {
 };
 
 // Query options для products
-export const getProductsQueryOptions = (params: ProductsParams = { page: 1, pageSize: 100 }) => {
+export const getProductsQueryOptions = (params: ProductsParams = { page: 1, pageSize: 20 }) => {
     return queryOptions({
         queryKey: productsQueryKeys.list(params),
         queryFn({ signal }) {

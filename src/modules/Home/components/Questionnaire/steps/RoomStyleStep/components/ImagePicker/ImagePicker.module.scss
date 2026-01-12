@@ -21,3 +21,13 @@
         background: #ac5331;
     }
 }
+
+.loader {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    padding-bottom: 90px;
+    &Circle {
+        color: #ac5331 !important;
+    }
+}

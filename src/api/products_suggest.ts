@@ -10,7 +10,7 @@ interface GetProductsOptions {
 
 export const getProductsSuggest = async ({
     signal,
-    params = { page: 1, limit: 20 },
+    params = { page: 1, pageSize: 20 },
 }: GetProductsOptions): Promise<ProductsSuggestResponse> => {
     const response = await axios.get<ProductsSuggestResponse>(`${API_BASE_URL}/products`, {
         signal,

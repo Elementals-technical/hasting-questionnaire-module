@@ -21,6 +21,7 @@ import {
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
 import Slider from '@/modules/Home/components/shared/Slider/Slider';
 import TagSelector from '@/modules/Home/components/shared/TagSelector/TagSelector';
+import { ACCEPT_FILES } from '../../../shared/MultiStepForm/constants';
 import { colorTypesOptions, lookTypesOptions } from '../constants';
 import {
     conceptStyleOptions,
@@ -423,7 +424,7 @@ export const VanitiesForm = () => {
                                                 });
                                             }}
                                             className={s.fileInput}
-                                            accept="image/*,.pdf,.doc,.docx"
+                                            accept={ACCEPT_FILES}
                                         />
 
                                         {field.value && field.value.length > 0 && (

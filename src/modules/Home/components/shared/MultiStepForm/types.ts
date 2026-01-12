@@ -113,8 +113,16 @@ export type MultiStepFormStep = {
 
 // Тип для кроків, які можуть містити файли (на основі вашої схеми)
 export type StepWithFiles = {
-    files?: { idInIndexedDB?: string; name: string; size: number }[];
+    files?: FileMetadata[];
 };
+
+// 1. Оновлюємо типи для файлів
+export interface FileMetadata {
+    idInIndexedDB?: string;
+    name: string;
+    size: number;
+    url?: string; // Додаємо опціональне поле url
+}
 
 export type FinalActions = {
     setShowOverlay: (_value: boolean) => void;

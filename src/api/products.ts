@@ -1,11 +1,11 @@
-import { ProductsParams, ProductsResponse } from '@/tanstackQuery/types';
+import { ImageAetheticsParams, ProductsResponse } from '@/tanstackQuery/types';
 import axios from 'axios';
 
 const API_BASE_URL = 'https://hbimagett.vivid3d.tech';
 
 interface GetProductsOptions {
     signal?: AbortSignal;
-    params?: ProductsParams;
+    params?: ImageAetheticsParams;
 }
 
 export const getProducts = async ({

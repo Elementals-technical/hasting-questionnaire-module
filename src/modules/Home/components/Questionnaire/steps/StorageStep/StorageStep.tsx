@@ -24,6 +24,7 @@ import {
     useMultiStepFormContext,
     useMultiStepFormStepForm,
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
+import { ACCEPT_FILES } from '../../../shared/MultiStepForm/constants';
 import {
     colorTypesOptions,
     conceptStyleOptions,
@@ -372,7 +373,7 @@ export const StorageForm = () => {
                                                 });
                                             }}
                                             className={s.fileInput}
-                                            accept="image/*,.pdf,.doc,.docx"
+                                            accept={ACCEPT_FILES}
                                         />
 
                                         {field.value && field.value.length > 0 && (

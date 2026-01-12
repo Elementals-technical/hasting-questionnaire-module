@@ -11,6 +11,7 @@ import {
     useMultiStepFormContext,
     useMultiStepFormStepForm,
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
+import { ACCEPT_FILES } from '../../../shared/MultiStepForm/constants';
 import { challengesOptions, goalsOptions, projectTypeOptions } from './constants';
 import { Button } from '@/components/ui';
 import s from './AboutProjectStep.module.scss';
@@ -242,7 +243,7 @@ export const AboutProjectForm = () => {
                                                 });
                                             }}
                                             className={s.fileInput}
-                                            accept="image/*,.pdf,.doc,.docx"
+                                            accept={ACCEPT_FILES}
                                         />
 
                                         {field.value && field.value.length > 0 && (

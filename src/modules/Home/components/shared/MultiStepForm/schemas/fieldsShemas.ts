@@ -7,6 +7,7 @@ export const FILES_FIELD_SCHEMA = z
             idInIndexedDB: z.string().optional(),
             name: z.string(),
             size: z.number(),
+            url: z.string().optional(), // це поле додасться після аплоаду файлу на сервер.
         })
     )
     .optional();
