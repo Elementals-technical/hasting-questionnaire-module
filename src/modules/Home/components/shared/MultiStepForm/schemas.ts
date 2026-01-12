@@ -270,9 +270,6 @@ export const mirrorsStepSchema = z.object({
         })
         .optional()
         .nullable(),
-    conceptStyle: z.nativeEnum(CONCEPT_STYLE_VANITIES_TYPES, {
-        message: 'Please select a style type',
-    }),
     magnifying: z
         .enum(MIRRORS_MAGNIFYING_TYPES, {
             message: 'Please select a magnifying',
@@ -280,9 +277,6 @@ export const mirrorsStepSchema = z.object({
         .optional()
         .nullable(),
 
-    sinkType: z.nativeEnum(SINK_TYPE_TYPES, {
-        message: 'Please select a sink type',
-    }),
     color: z
         .array(z.nativeEnum(COLOR_TYPES))
         // .min(1, 'Please select at least one color')

@@ -30,7 +30,6 @@ import {
     TUBS_WIDTH_LIMITS,
 } from '../../Questionnaire/steps/TubsStep/constants';
 import {
-    CONCEPT_STYLE_VANITIES_TYPES,
     NUMBER_OF_BASINS_VANITITES_TYPES,
     VANITIES_WIDTH_LIMITS,
 } from '../../Questionnaire/steps/VanitiesStep/constants';
@@ -245,8 +244,6 @@ export const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
         type: ['Lit Mirror'],
         width: MIRROR_WIDTH_LIMITS.MIN,
         height: MIRROR_HEIGHT_LIMITS.MIN,
-        conceptStyle: CONCEPT_STYLE_VANITIES_TYPES._MULTI_LEVEL,
-        sinkType: SINK_TYPE_TYPES._INTEGRATED,
         color: [],
         look: [],
     },
