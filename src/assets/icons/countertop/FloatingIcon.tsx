@@ -3,7 +3,7 @@ import React from 'react';
 const FloatingIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
-            <g clip-path="url(#clip0_1342_678)">
+            <g clipPath="url(#clip0_1342_678)">
                 <path
                     d="M0 71.7289H71.9486V72.4557H0V71.7289ZM0.484505 44.1123H71.4641V48.7151H46.27V55.9826H43.6052V48.7151C15.9886 48.7151 15.5041 48.7151 0.484505 48.7151V44.1123Z"
                     fill="#F1EBE6"

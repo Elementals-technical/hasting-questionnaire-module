@@ -4,8 +4,8 @@ const ChildrensBathIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M25.1879 53.4763H47.6733V64.3233H25.1879V53.4763ZM0 71.0649H71.9597V71.9663H0V71.0649Z"
                 fill="#F1EBE6"
             />

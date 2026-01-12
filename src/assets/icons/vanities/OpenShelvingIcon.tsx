@@ -3,10 +3,10 @@ import React from 'react';
 const OpenShelvingIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
-            <g clip-path="url(#clip0_1547_1352)">
+            <g clipPath="url(#clip0_1547_1352)">
                 <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
                     d="M36.4347 46.3975V56.2886H4.04502V46.3975H36.4347ZM0 71.14H71.9542V72.0258H0V71.14Z"
                     fill="#F1EBE6"
                 />

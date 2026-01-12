@@ -4,8 +4,8 @@ const WallIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M11.2456 32.8379H60.6904V36.4079H58.9054V56.2215H13.0306V36.4079H11.2456V32.8379ZM71.936 71.0371V71.9296H0V71.0371H71.936Z"
                 fill="#F1EBE6"
             />

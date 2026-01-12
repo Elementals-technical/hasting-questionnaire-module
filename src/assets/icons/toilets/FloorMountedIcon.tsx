@@ -4,8 +4,8 @@ const FloorMountedIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M21.9736 42.7266V70.4731H37.0458C37.0458 62.4232 49.7201 57.97 49.7201 42.7266H21.9736Z"
                 fill="white"
             />

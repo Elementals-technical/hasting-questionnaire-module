@@ -4,14 +4,14 @@ const FoldUpDownStorageIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) =
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M16.6846 16.1182L47.2082 12.2422L49.873 14.6647L19.3493 18.2985V33.8025L16.6846 31.6223V16.1182Z"
                 fill="#F1EBE6"
             />
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M16.6846 41.3124L47.2082 37.6787L49.873 39.859L19.3493 43.4927V59.2391L16.6846 57.0588V41.3124Z"
                 fill="#F1EBE6"
             />
@@ -20,8 +20,8 @@ const FoldUpDownStorageIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) =
                 fill="#282828"
             />
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M54.7181 45.6731L25.1635 49.3069L20.0762 58.7547L49.6309 55.1209L54.7181 45.6731ZM47.4506 37.1943L50.3576 39.6168V45.1886L55.4449 44.7041L55.9294 45.4309L50.1154 55.8477L19.1072 59.7237L16.2002 57.3011V41.0704L47.4506 37.1943ZM18.865 58.2702V43.7351L17.1692 42.2816V56.8166L18.865 58.2702ZM17.6537 41.7971L19.3495 43.0083L48.9041 39.6168L46.9661 38.1634L17.6537 41.7971Z"
                 fill="#282828"
             />

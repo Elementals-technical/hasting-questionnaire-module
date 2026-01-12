@@ -8,8 +8,8 @@ const MultiLevelStorageIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) =
                 fill="#282828"
             />
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M22.2483 45.1221H71.1535V45.8811H22.2483V45.1221ZM0.905273 60.9761H49.8104V70.7571H0.905273V60.9761Z"
                 fill="#F1EBE6"
             />

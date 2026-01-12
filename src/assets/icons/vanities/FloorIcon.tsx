@@ -3,10 +3,10 @@ import React from 'react';
 const FloorIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
-            <g clip-path="url(#clip0_1316_3928)">
+            <g clipPath="url(#clip0_1316_3928)">
                 <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
                     d="M15.8864 32.8379H56.2276V36.4079H54.4426V62.4691H17.6714V36.4079H15.8864V32.8379ZM-0.000244141 71.9296V71.0371H72.1142V71.9296H-0.000244141Z"
                     fill="#F1EBE6"
                 />

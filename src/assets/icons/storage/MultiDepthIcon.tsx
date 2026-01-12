@@ -4,8 +4,8 @@ const MultiDepthStorageIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) =
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M15.7847 67.7677V32.1567L49.9421 26.585L52.6069 29.492L35.6493 32.1567L37.345 33.8525L20.1452 36.7596V54.4438L18.4494 52.748V70.4325L15.7847 67.7677ZM52.6069 47.1764L56.2406 50.8102L39.0408 53.475V71.4015L35.6493 67.7677V52.0213L37.345 51.7792V49.5988L52.6069 47.1764Z"
                 fill="#F1EBE6"
             />

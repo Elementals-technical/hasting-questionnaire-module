@@ -3,7 +3,7 @@ import React from 'react';
 const GeometricStorageIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
-            <g clip-path="url(#clip0_1320_6928)">
+            <g clipPath="url(#clip0_1320_6928)">
                 <path
                     d="M18.4844 72.0233V24.2998H29.8702C28.1744 40.0461 26.7209 56.0347 25.2674 72.0233H18.4844Z"
                     fill="#F1EBE6"

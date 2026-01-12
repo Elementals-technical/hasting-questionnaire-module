@@ -3,10 +3,10 @@ import React from 'react';
 const OpenClosedStorageIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
-            <g clip-path="url(#clip0_1320_6762)">
+            <g clipPath="url(#clip0_1320_6762)">
                 <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
                     d="M35.1997 71.606H53.6108V17.584H35.1997V71.606Z"
                     fill="#F1EBE6"
                 />

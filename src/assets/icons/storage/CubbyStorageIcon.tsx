@@ -5,8 +5,8 @@ const CubbyStorageIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
             <path d="M0 71.043H71.9542V71.9583H0V71.043Z" fill="#F1EBE6" />
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M6.73193 17.1885V57.4616H65.6357V17.1885H6.73193Z"
                 fill="#F1EBE6"
             />

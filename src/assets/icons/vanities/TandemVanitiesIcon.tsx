@@ -3,10 +3,10 @@ import React from 'react';
 const TandemVanitiesIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
-            <g clip-path="url(#clip0_1316_4002)">
+            <g clipPath="url(#clip0_1316_4002)">
                 <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
                     d="M1.33447 37.2871H34.65V39.9988H32.8421V58.034H3.14221V39.9988H1.33447V37.2871ZM0 71.0762H72.0116V71.9801H0V71.0762ZM37.3617 37.2871H70.6342V39.9988H68.8264V58.034H39.1265V39.9988H37.3617V37.2871Z"
                     fill="#F1EBE6"
                 />

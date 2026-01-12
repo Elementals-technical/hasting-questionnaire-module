@@ -3,10 +3,10 @@ import React from 'react';
 const SingleVanityIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
-            <g clip-path="url(#clip0_1316_3939)">
+            <g clipPath="url(#clip0_1316_3939)">
                 <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
                     d="M68.8694 36.5291V56.329H4.04608V36.5291L6.75781 29.3408H49.9303V30.2447H53.546V29.3408H66.1577L68.8694 36.5291ZM0 71.179H72.0116V72.0829H0V71.179ZM62.4559 34.7212L61.3368 31.1056H41.9242L42.1825 34.7212H62.4559Z"
                     fill="#F1EBE6"
                 />

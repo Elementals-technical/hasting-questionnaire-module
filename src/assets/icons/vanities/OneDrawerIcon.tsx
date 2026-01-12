@@ -4,8 +4,8 @@ const OneDrawerIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M51.9948 33.0763V38.2138L62.8307 43.2037L36.6709 51.1461V68.5958L22.5872 62.1001L17.1839 63.724L0.442871 56.0178V35.7632L17.6859 30.6257V31.4524L19.0736 32.102L22.3509 31.0981V29.238L35.2832 25.3701L51.9948 33.0763ZM32.0354 29.5037L40.4207 33.3716L20.6385 39.2767L12.2532 35.4384L32.0354 29.5037Z"
                 fill="#F1EBE6"
             />

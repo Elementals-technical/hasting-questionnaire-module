@@ -9,92 +9,92 @@ const RecessedStorageIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => 
                 fill="#282828"
             />
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M19.7975 18.0693H8.16943V23.3989H19.7975V18.0693Z"
                 fill="#F1EBE6"
             />
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M38.693 18.0693H27.0649V23.3989H38.693V18.0693Z"
                 fill="#F1EBE6"
             />
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M57.5885 18.0693H45.9604V23.3989H57.5885V18.0693Z"
                 fill="#F1EBE6"
             />
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M19.7975 28.7275H8.16943V34.0571H19.7975V28.7275Z"
                 fill="#F1EBE6"
             />
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M38.693 28.7275H27.0649V34.0571H38.693V28.7275Z"
                 fill="#F1EBE6"
             />
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M57.5885 28.7275H45.9604V34.0571H57.5885V28.7275Z"
                 fill="#F1EBE6"
             />
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M19.7975 39.6289H8.16943V44.9585H19.7975V39.6289Z"
                 fill="#F1EBE6"
             />
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M38.693 39.6289H27.0649V44.9585H38.693V39.6289Z"
                 fill="#F1EBE6"
             />
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M57.5885 39.6289H45.9604V44.9585H57.5885V39.6289Z"
                 fill="#F1EBE6"
             />
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M19.7975 50.2881H8.16943V55.8599H19.7975V50.2881Z"
                 fill="#F1EBE6"
             />
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M38.693 50.2881H27.0649V55.8599H38.693V50.2881Z"
                 fill="#F1EBE6"
             />
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M57.5885 50.2881H45.9604V55.8599H57.5885V50.2881Z"
                 fill="#F1EBE6"
             />
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M19.7975 61.1895H8.16943V66.519H19.7975V61.1895Z"
                 fill="#F1EBE6"
             />
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M38.693 61.1895H27.0649V66.519H38.693V61.1895Z"
                 fill="#F1EBE6"
             />
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M57.5885 61.1895H45.9604V66.519H57.5885V61.1895Z"
                 fill="#F1EBE6"
             />

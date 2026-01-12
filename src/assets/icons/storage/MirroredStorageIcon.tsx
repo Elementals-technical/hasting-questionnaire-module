@@ -5,8 +5,8 @@ const MirroredStorageIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => 
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
             <rect width="72" height="72" fill="white" />
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M32.2572 17.4445L56.7246 17.2023L51.1529 13.084H15.7842V67.1061L21.356 71.4666H32.2572V17.4445Z"
                 fill="#F1EBE6"
             />

@@ -3,7 +3,7 @@ import React from 'react';
 const FloorToCeilingStorageIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
-            <g clip-path="url(#clip0_1320_6681)">
+            <g clipPath="url(#clip0_1320_6681)">
                 <path d="M0 10.7998H71.9486V11.7688H0V10.7998Z" fill="#F1EBE6" />
                 <path
                     d="M0 71.12H71.9486V72.089H0V71.12ZM42.8785 70.6356H31.9772V12.2529H42.8785V70.6356Z"

@@ -3,7 +3,7 @@ import React from 'react';
 const MasterBathIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
-            <g clip-path="url(#clip0_1316_3716)">
+            <g clipPath="url(#clip0_1316_3716)">
                 <path
                     d="M1.93643 71.2724H72.18V72.1524H1.93643V71.2724ZM53.3021 47.1286V62.9334H2.37469V47.1286H0.618225V44.4956H55.0569V47.1286H53.3021ZM58.5699 6.73999H70.8617V62.9334H58.5699V6.73999Z"
                     fill="#F1EBE6"

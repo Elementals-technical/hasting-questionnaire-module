@@ -4,8 +4,8 @@ const VanityIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M68.7993 41.5338H3.87602L6.78303 27.9678C27.8589 27.9678 46.5122 27.9678 66.1346 27.9678L68.7993 41.5338ZM0 70.8462H71.9486V71.5731H0V70.8462Z"
                 fill="#F1EBE6"
             />
@@ -18,8 +18,8 @@ const VanityIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
                 fill="#F1EBE6"
             />
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M39.0024 31.6016H63.7121L65.1656 38.3846H39.0024V31.6016Z"
                 fill="#F1EBE6"
             />

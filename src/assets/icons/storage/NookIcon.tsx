@@ -4,26 +4,26 @@ const NookStorageIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M14.6421 71.398L58.005 65.8262V13.7422L14.6421 19.0717V71.398Z"
                 fill="white"
             />
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M29.1772 35.3023L43.4701 33.6066V25.6123L29.1772 27.5503V35.3023Z"
                 fill="#F1EBE6"
             />
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M14.6421 54.44L29.1772 52.7443V44.75L14.6421 46.4458V54.44Z"
                 fill="#F1EBE6"
             />
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M43.4702 58.8015L58.0053 57.1057V41.3594L43.4702 43.0552V58.8015Z"
                 fill="#F1EBE6"
             />

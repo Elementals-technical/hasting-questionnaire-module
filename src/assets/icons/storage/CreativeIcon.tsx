@@ -4,8 +4,8 @@ const CreativeStorageIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => 
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M6.78467 71.5055C18.655 71.5055 31.7365 71.5055 43.6068 71.5055V28.3848H28.345V57.2127H6.78467V71.5055Z"
                 fill="#F1EBE6"
             />

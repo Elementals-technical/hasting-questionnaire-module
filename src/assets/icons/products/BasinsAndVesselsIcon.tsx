@@ -4,8 +4,8 @@ const BasinsAndVesselsIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) =>
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M20.6331 43.2002C16.3223 43.2002 17.5329 36.6456 15.2889 34.1949H33.2996V19.8159H28.7822V17.0996H39.5V21.617H46.7634V25.1011H44.9623V26.0164H43.1612V25.1011H39.5L39.5296 34.1949H57.5698C55.2963 36.6456 56.5068 43.2002 52.1961 43.2002H37.8171V47.6882H38.6733V58.4947H34.1559V47.6882H35.0416V43.2002H20.6331Z"
                 fill="#282828"
             />
@@ -14,8 +14,8 @@ const BasinsAndVesselsIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) =>
                 fill="#F1EBE6"
             />
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M16.8834 35.1104C17.2673 35.9961 17.5035 37.0295 17.7397 38.0334C18.2121 40.1592 18.6845 42.2851 20.6332 42.2851C31.1443 42.2851 41.685 42.2851 52.1962 42.2851C54.1449 42.2851 54.6173 40.1592 55.1192 38.0334C55.3554 37.0295 55.5621 35.9961 55.9459 35.1104C42.9251 35.1104 29.9043 35.1104 16.8834 35.1104Z"
                 fill="white"
             />

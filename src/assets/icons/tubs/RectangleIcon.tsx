@@ -4,8 +4,8 @@ const RectangleIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M13.4996 24.75H58.5356C60.2546 24.75 61.4426 26.1 61.6676 27.72L62.5676 34.38C62.7836 36 61.1546 37.35 59.4356 37.35H12.5996C10.8806 37.35 9.25158 36 9.46758 34.38L10.3766 27.72C10.5926 26.1 11.7806 24.75 13.4996 24.75Z"
                 fill="#F1EBE6"
             />

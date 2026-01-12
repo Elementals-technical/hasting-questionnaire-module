@@ -6,8 +6,8 @@ const PlusIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
             <path
                 d="M3.33337 7.99992H12.6667M8.00004 3.33325V12.6666"
                 stroke="#282828"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
             />
         </svg>
     );

@@ -3,11 +3,11 @@ import React from 'react';
 const UndermountVanitiesIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
-            <g clip-path="url(#clip0_1316_4026)">
+            <g clipPath="url(#clip0_1316_4026)">
                 <path d="M0 71.9704V71.124H72.0483V71.9704H0Z" fill="#F1EBE6" />
                 <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
                     d="M57.6598 34.623V44.9912H14.4943V34.623C19.0436 34.623 23.6987 34.623 28.248 34.623C29.8349 37.3738 32.7973 39.1724 36.077 39.1724C39.3568 39.1724 42.2133 37.3738 43.8003 34.623C48.4554 34.623 53.0047 34.623 57.6598 34.623Z"
                     fill="#F1EBE6"
                 />

@@ -3,7 +3,7 @@ import React from 'react';
 const VanitiesIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
-            <g clip-path="url(#clip0_1316_3814)">
+            <g clipPath="url(#clip0_1316_3814)">
                 <path
                     d="M0 71.0972H72.0033V72.0022H0V71.0972ZM1.35749 32.8613H71.5508V36.4813H68.8359V56.278H4.07246V36.4813H1.35749V32.8613Z"
                     fill="#F1EBE6"

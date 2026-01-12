@@ -4,8 +4,8 @@ const OvalIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M36.4502 37.8184C21.5372 37.8184 9.4502 34.7944 9.4502 31.0684C9.4502 27.3424 21.5372 24.3184 36.4502 24.3184C51.3632 24.3184 63.4502 27.3424 63.4502 31.0684C63.4502 34.7944 51.3632 37.8184 36.4502 37.8184Z"
                 fill="#F1EBE6"
             />

@@ -3,7 +3,7 @@ import React from 'react';
 const CurvedVanityIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
-            <g clip-path="url(#clip0_1316_3995)">
+            <g clipPath="url(#clip0_1316_3995)">
                 <path
                     d="M0 71.0614H72.0116V71.9653H0V71.0614ZM39.9442 28.8789C43.3016 28.8789 46.0134 29.4385 46.0134 30.1702C46.0134 30.9019 43.3016 31.5046 39.9442 31.5046C36.6299 31.5046 33.9182 30.9019 33.9182 30.1702C33.9182 29.4385 36.6299 28.8789 39.9442 28.8789Z"
                     fill="#F1EBE6"

@@ -3,11 +3,11 @@ import React from 'react';
 const VesselIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
-            <g clip-path="url(#clip0_1342_706)">
+            <g clipPath="url(#clip0_1342_706)">
                 <path d="M0 71.9685V71.1221H72.0484V71.9685H0Z" fill="#F1EBE6" />
                 <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
                     d="M57.66 37.7959V44.1438H14.3887V37.7959C30.6815 37.7959 41.3671 37.7959 57.66 37.7959Z"
                     fill="#F1EBE6"
                 />

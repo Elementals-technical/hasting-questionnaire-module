@@ -4,8 +4,8 @@ const HexagonalIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M25.1279 16.6846L14.2266 35.5803L25.1279 54.4759H46.9305L57.8318 35.5803L46.9305 16.6846H25.1279Z"
                 fill="#F1EBE6"
             />

@@ -3,10 +3,10 @@ import React from 'react';
 const HorizontalIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" {...props}>
-            <g clip-path="url(#clip0_1320_6583)">
+            <g clipPath="url(#clip0_1320_6583)">
                 <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
                     d="M61.6375 42.3313L64.5445 44.5115L33.7786 48.1453L31.1138 45.965V30.2187L61.6375 26.585V42.3313ZM8.58447 33.1258L25.7843 30.9455L28.4491 33.1258L11.2492 35.306V50.8101L8.58447 48.6298V33.1258ZM8.58447 53.9594L25.7843 52.0213L28.4491 54.2016L11.2492 56.1396V71.886L8.58447 69.7057V53.9594ZM31.1138 51.2946L61.6375 47.6608L64.5445 49.8411L33.7786 53.4749V69.2212L31.1138 67.0409V51.2946Z"
                     fill="#F1EBE6"
                 />
