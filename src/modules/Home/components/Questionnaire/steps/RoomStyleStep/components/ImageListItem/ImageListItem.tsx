@@ -6,24 +6,44 @@ import s from './ImageListItem.module.scss';
 
 export const ImageListItem: FC<ImageListItemProps> = ({ item, isSelected, onToggle, currentItem }) => {
     const [loaded, setLoaded] = useState(false);
+    const [shouldLoad, setShouldLoad] = useState(false);
     const imgRef = useRef<HTMLImageElement>(null);
-
+    const containerRef = useRef<HTMLLIElement>(null);
     const aspectRatio = item.height / item.width;
 
-    // Обработка случая, когда картинка уже есть в кэше
     useEffect(() => {
-        if (imgRef.current?.complete) {
-            setLoaded(true);
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (entries[0].isIntersecting) {
+                    setShouldLoad(true);
+                    observer.disconnect();
+                }
+            },
+            {
+                rootMargin: '200px', // Почати завантаження за 200px до появи
+            }
+        );
+
+        if (containerRef.current) {
+            observer.observe(containerRef.current);
         }
+
+        return () => observer.disconnect();
     }, []);
 
+    // Перевірка чи зображення вже в кеші
+    useEffect(() => {
+        if (shouldLoad && imgRef.current?.complete) {
+            setLoaded(true);
+        }
+    }, [shouldLoad]);
+
     const handleLoad = () => {
-        console.log('IMG_LOADED', item.name);
         setLoaded(true);
     };
 
     return (
-        <ImageItem className={s.image} sx={{ position: 'relative', minHeight: 100 }}>
+        <ImageItem ref={containerRef} className={s.image} sx={{ position: 'relative', minHeight: 100 }}>
             {!loaded && (
                 <Skeleton
                     variant="rectangular"
@@ -38,7 +58,6 @@ export const ImageListItem: FC<ImageListItemProps> = ({ item, isSelected, onTogg
                 ref={imgRef}
                 src={item.image}
                 alt={item.name}
-                loading="lazy"
                 onLoad={handleLoad}
                 onClick={() => onToggle(currentItem)}
                 onError={() => console.error('Failed to load:', item.image)}

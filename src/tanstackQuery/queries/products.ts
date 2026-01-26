@@ -48,6 +48,7 @@ export const useGetProductsInfinite = (params: Omit<ImageAetheticsParams, 'page'
                     ...params,
                     page: pageParam,
                     limit: 20,
+                    sortByTagId: [255, 256],
                 },
             });
         },

@@ -15,6 +15,22 @@ export const getProducts = async ({
     const response = await axios.get<ProductsResponse>(`${API_BASE_URL}/products`, {
         signal,
         params,
+        paramsSerializer: {
+            serialize: (params) => {
+                const searchParams = new URLSearchParams();
+
+                Object.entries(params).forEach(([key, value]) => {
+                    if (Array.isArray(value)) {
+                        // Якщо це масив [90, 38], додаємо кожен елемент з тим самим ключем
+                        value.forEach((v) => searchParams.append(key, v.toString()));
+                    } else if (value !== undefined && value !== null) {
+                        searchParams.append(key, value.toString());
+                    }
+                });
+
+                return searchParams.toString();
+            },
+        },
     });
     return response.data;
 };

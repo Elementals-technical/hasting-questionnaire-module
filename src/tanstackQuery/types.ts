@@ -69,6 +69,7 @@ export interface ImageAetheticsParams {
     page?: number;
     limit: number;
     tagId?: number;
+    sortByTagId?: number | number[];
 }
 
 export interface ProductsParams {

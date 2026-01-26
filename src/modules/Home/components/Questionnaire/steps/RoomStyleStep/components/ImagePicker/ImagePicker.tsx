@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { ImageListItem } from '../ImageListItem/ImageListItem';
 import { Product } from '@/tanstackQuery/types';
 import { Box, CircularProgress, ImageList } from '@mui/material';
@@ -31,29 +31,54 @@ export const ImagePicker: React.FC<ImagesPickerProps> = ({
     } = form;
 
     const observerTarget = useRef<HTMLDivElement>(null);
+    const observerRef = useRef<IntersectionObserver | null>(null);
 
-    // Infinity scroll через IntersectionObserver
+    // Callback для IntersectionObserver
+    const handleObserver = useCallback(
+        (entries: IntersectionObserverEntry[]) => {
+            if (entries[0].isIntersecting && hasMore && !isFetchingMore) {
+                onLoadMore();
+            }
+        },
+        [hasMore, isFetchingMore, onLoadMore]
+    );
+
+    // Створюємо observer один раз
     useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                if (entries[0].isIntersecting && hasMore && !isFetchingMore) {
-                    onLoadMore();
-                }
-            },
-            { threshold: 0.1 }
-        );
+        // Не створюємо observer поки немає зображень або йде початкове завантаження
+        if (isLoading || images.length === 0) {
+            return;
+        }
+
+        // Створюємо observer тільки якщо його ще немає
+        if (!observerRef.current) {
+            observerRef.current = new IntersectionObserver(handleObserver, {
+                threshold: 0.1,
+                rootMargin: '100px',
+            });
+        }
 
         const currentTarget = observerTarget.current;
-        if (currentTarget) {
-            observer.observe(currentTarget);
+        if (currentTarget && observerRef.current) {
+            observerRef.current.observe(currentTarget);
         }
 
         return () => {
-            if (currentTarget) {
-                observer.unobserve(currentTarget);
+            if (currentTarget && observerRef.current) {
+                observerRef.current.unobserve(currentTarget);
             }
         };
-    }, [hasMore, isFetchingMore, onLoadMore]);
+    }, [isLoading, images.length, handleObserver]);
+
+    // Cleanup при unmount
+    useEffect(() => {
+        return () => {
+            if (observerRef.current) {
+                observerRef.current.disconnect();
+                observerRef.current = null;
+            }
+        };
+    }, []);
 
     const onSubmit = (data: RoomStyleStepData) => {
         console.log('Form data:', data);
