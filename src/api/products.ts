@@ -20,14 +20,29 @@ export const getProducts = async ({
                 const searchParams = new URLSearchParams();
 
                 Object.entries(params).forEach(([key, value]) => {
-                    if (Array.isArray(value)) {
-                        // Якщо це масив [90, 38], додаємо кожен елемент з тим самим ключем
-                        value.forEach((v) => searchParams.append(key, v.toString()));
-                    } else if (value !== undefined && value !== null) {
-                        searchParams.append(key, value.toString());
+                    if (value === undefined || value === null) return;
+
+                    // 1. Спеціальна обробка для sortByTagIdsV2 (перетворюємо весь масив на JSON-рядок)
+                    if (key === 'sortByTagIdsV2') {
+                        searchParams.append(key, JSON.stringify(value));
+                        return;
                     }
+
+                    // 2. Обробка звичайних масивів (наприклад, [255, 256] -> key=255&key=256)
+                    if (Array.isArray(value)) {
+                        value.forEach((v) => {
+                            if (v !== undefined && v !== null) {
+                                searchParams.append(key, v.toString());
+                            }
+                        });
+                        return;
+                    }
+
+                    // 3. Обробка простих значень
+                    searchParams.append(key, value.toString());
                 });
 
+                // URLSearchParams автоматично закодує спеціальні символи (лапки, дужки) у %-формат
                 return searchParams.toString();
             },
         },

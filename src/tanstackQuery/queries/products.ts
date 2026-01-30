@@ -48,7 +48,11 @@ export const useGetProductsInfinite = (params: Omit<ImageAetheticsParams, 'page'
                     ...params,
                     page: pageParam,
                     limit: 20,
-                    sortByTagId: [255, 256],
+                    // sortByTagId: [255, 256],
+                    sortByTagIdsV2: [
+                        { tagId: 255, percentage: 70 },
+                        { tagId: 256, percentage: 15 },
+                    ],
                 },
             });
         },

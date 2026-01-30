@@ -68,8 +68,12 @@ export interface ProductsSuggestResponse {
 export interface ImageAetheticsParams {
     page?: number;
     limit: number;
-    tagId?: number;
+    tagId?: number | number[];
     sortByTagId?: number | number[];
+    sortByTagIdsV2?: {
+        tagId: number;
+        percentage: number;
+    }[];
 }
 
 export interface ProductsParams {
