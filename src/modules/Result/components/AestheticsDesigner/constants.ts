@@ -11,7 +11,7 @@ export const DESIGNERS = [
     },
     {
         name: 'Jennifer',
-        position: 'Senior Interior Designer',
+        position: 'Senior Design Strategist',
         img: Jenifer,
         description:
             'Jennifer is a Senior Design Strategist with a luxury-focused eye and 20+ years of experience across furniture, textiles, surfaces, and housewares. She blends creative design thinking with an uncanny eye for design to curate refined solutions and spaces for high-end clients, balancing aesthetic, performance, and lasting value.',

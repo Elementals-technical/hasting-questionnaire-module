@@ -26,7 +26,7 @@ export const ResultRoute = () => {
                     backgroundImage: `url(${HeaderBG})`,
                 }}
             >
-                <h1 className={s.title}>Thank you for completing the questionnaire!</h1>
+                <h1 className={s.title}>Thank you for completing the quiz!</h1>
                 <p className={s.subtitle}>Your designer is excited to get started!</p>
             </div>
             <div className={s.wrap}>
