@@ -7,6 +7,8 @@
     max-width: 800px;
     /* Визначаємо висоту, якщо зображення мають різні пропорції */
     height: 450px;
+    /* Створюємо 3D контекст для transform */
+    transform-style: preserve-3d;
 }
 
 /* 2. Базовий стиль для всіх зображень */
@@ -15,43 +17,52 @@
     height: 420px;
     object-fit: cover; /* Забезпечує заповнення без спотворення */
     display: block;
-    transition: transform 0.3s ease; /* Додаємо плавний перехід (за бажанням) */
 }
 
 /* 3. Стиль для головного зображення (задній план) */
 .primaryImage {
-    position: absolute; /* Позиціонуємо перше зображення */
+    position: absolute;
     top: 0;
     left: 0;
-    /* Забезпечує, щоб перше зображення було на задньому плані */
     z-index: 1;
+    transform: translateZ(0); /* За замовчуванням на нульовій глибині */
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+
+    /* При наведенні на нього - виносимо вперед */
     &:hover {
-        z-index: 3;
+        transform: translateZ(10px) scale(1.02); /* Виносимо на 10px вперед */
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
     }
 }
 
 /* 4. Стиль для накладеного зображення (передній план) */
 .overlapImage {
     position: absolute;
-    /* Зміщуємо зображення: 
-       - top: 20% зміщує вниз
-       - left: 20% зміщує вправо
-       - transform: rotate(-5deg) додає невеликий нахил (як на вашому прикладі) */
     top: -15%;
     left: 15%;
-    width: 85%; /* Зменшуємо ширину, щоб створити видимість накладення */
-    height: 85%; /* Зменшуємо висоту */
-    z-index: 2; /* Забезпечує, що друге зображення буде поверх першого */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Додаємо тінь для об'єму */
-    /* transform: rotate(-3deg); - Можна додати для ефекту "вирізки", як на знімку */
+    width: 85%;
+    height: 85%;
+    z-index: 2;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transform: translateZ(5px); /* За замовчуванням трохи попереду */
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 
     @include breakpoints.md {
         top: 15%;
     }
+
+    /* При наведенні на нього - виносимо ще більше вперед */
+    &:hover {
+        transform: translateZ(15px) scale(1.02); /* Виносимо на 15px вперед */
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
 }
 
-/* Приклад, як можна додати ефект при наведенні курсору */
-.overlapGalleryContainer:hover .overlapImage {
-    transform: translate(0, 0); /* Прибираємо зміщення при наведенні */
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+/* При наведенні на нижнє зображення - воно має бути попереду верхнього */
+.primaryImage:hover ~ .overlapImage {
+    transform: translateZ(0); /* Опускаємо верхнє зображення назад */
 }
