@@ -64,14 +64,14 @@ const ProductsSuggestions: FC<ProductsSuggestionsProps> = ({ products = [], sele
             <div className={s.products}>
                 {filteredProducts.map((i) => {
                     return (
-                        <div className={s.item}>
+                        <a className={s.item} href={i.link} target="_blank">
                             <img
                                 className={s.image}
                                 src={import.meta.env.VITE_THREEKIT_FAST_COMPOSITOR + i.img}
                                 alt=""
                             />
                             <span className={s.itemTitle}>{i.name}</span>
-                        </div>
+                        </a>
                     );
                 })}
             </div>

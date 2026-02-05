@@ -53,6 +53,8 @@ export interface ProductsSuggest {
     createdAt: string;
 
     updatedAt: string;
+
+    link: string;
 }
 
 export interface ProductsResponse {

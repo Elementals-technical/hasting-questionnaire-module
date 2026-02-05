@@ -85,6 +85,10 @@
                 aspect-ratio: 1/1;
                 border-radius: 5px;
                 background: #f1ebe6;
+
+                &:hover {
+                    background: #d7cfc8;
+                }
             }
 
             .itemTitle {
