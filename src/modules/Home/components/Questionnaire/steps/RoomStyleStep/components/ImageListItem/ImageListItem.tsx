@@ -20,7 +20,7 @@ export const ImageListItem: FC<ImageListItemProps> = ({ item, isSelected, onTogg
                 }
             },
             {
-                rootMargin: '200px', // Почати завантаження за 200px до появи
+                rootMargin: '200px',
             }
         );
 
@@ -43,37 +43,47 @@ export const ImageListItem: FC<ImageListItemProps> = ({ item, isSelected, onTogg
     };
 
     return (
-        <ImageItem ref={containerRef} className={s.image} sx={{ position: 'relative', minHeight: 100 }}>
+        <ImageItem ref={containerRef} className={s.image} sx={{ position: 'relative', overflow: 'hidden' }}>
+            {/* Skeleton показується коли зображення не завантажене */}
             {!loaded && (
                 <Skeleton
                     variant="rectangular"
                     width="100%"
-                    sx={{ paddingTop: `${aspectRatio * 100}%` }}
+                    height={0}
+                    sx={{
+                        paddingTop: `${aspectRatio * 100}%`,
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                    }}
                     animation="wave"
                 />
             )}
 
-            <Box
-                component="img"
-                ref={imgRef}
-                src={item.image}
-                alt={item.name}
-                onLoad={handleLoad}
-                onClick={() => onToggle(currentItem)}
-                onError={() => console.error('Failed to load:', item.image)}
-                sx={{
-                    width: '100%',
-                    height: 'auto',
-                    display: 'block',
-                    cursor: 'pointer',
-                    opacity: loaded ? 1 : 0,
-                    position: loaded ? 'static' : 'absolute',
-                    top: 0,
-                    left: 0,
-                    transition: 'opacity 0.3s ease-in-out',
-                }}
-            />
+            {shouldLoad && (
+                <Box
+                    component="img"
+                    ref={imgRef}
+                    src={item.image}
+                    alt={item.name}
+                    onLoad={handleLoad}
+                    onClick={() => onToggle(currentItem)}
+                    onError={(_e) => {
+                        console.error('Failed to load:', item.image);
+                        setLoaded(true); // Приховати skeleton навіть при помилці
+                    }}
+                    sx={{
+                        width: '100%',
+                        height: 'auto',
+                        display: 'block',
+                        cursor: 'pointer',
+                        opacity: loaded ? 1 : 0,
+                        transition: 'opacity 0.3s ease-in-out',
+                    }}
+                />
+            )}
 
+            {/* Іконка вибору */}
             {loaded && isSelected && <CheckIcon className={s.imageSelected} />}
         </ImageItem>
     );

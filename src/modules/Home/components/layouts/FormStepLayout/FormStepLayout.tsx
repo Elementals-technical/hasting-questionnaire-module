@@ -11,7 +11,9 @@ const FormStepLayout: FC<FormStepLayoutProps> = ({ title, description, children 
                     {typeof title === 'string' ? <div className={s.title}>{title}</div> : title}
                     <Subtitle>{description}</Subtitle>
                 </div>
-                <div className={s.right}>{children}</div>
+                <div className={s.right} id="hasting-step-content">
+                    {children}
+                </div>
             </div>
         </div>
     );
