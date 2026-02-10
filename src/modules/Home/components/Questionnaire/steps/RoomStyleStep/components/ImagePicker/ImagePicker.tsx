@@ -1,6 +1,7 @@
 import { ImageListItem } from '../ImageListItem/ImageListItem';
 import { Product } from '@/tanstackQuery/types';
 import { CircularProgress } from '@mui/material';
+import { useMediaQuery } from '@react-hookz/web';
 import { Controller, UseFormReturn } from 'react-hook-form';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
@@ -34,6 +35,8 @@ export const ImagePicker: React.FC<ImagesPickerProps> = ({
     // const observerTarget = useRef<HTMLDivElement>(null);
     // const observerRef = useRef<IntersectionObserver | null>(null);
 
+    const isMobile = useMediaQuery('(max-width: 768px)');
+
     const onSubmit = (data: RoomStyleStepData) => {
         console.log('Form data:', data);
     };
@@ -65,7 +68,7 @@ export const ImagePicker: React.FC<ImagesPickerProps> = ({
                             dataLength={images.length}
                             next={onLoadMore}
                             hasMore={hasMore || false}
-                            scrollableTarget="hasting-step-content"
+                            scrollableTarget={!isMobile ? 'hasting-step-content' : undefined}
                             scrollThreshold={0.4}
                             loader={
                                 <div className={s.loader}>
