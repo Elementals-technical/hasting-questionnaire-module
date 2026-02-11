@@ -13,7 +13,7 @@ import { ImagePicker } from './components/ImagePicker/ImagePicker';
 import s from './RoomStyleForm.module.scss';
 
 export const RoomStyleForm = () => {
-    const productParams = { limit: 20, tagId: [253, 323] };
+    const productParams = { limit: 20, tagId: [253], excludeTagIds: [323] };
     const [shuffledProducts, setShuffledProducts] = useState<Product[]>([]);
 
     const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } =
@@ -43,7 +43,7 @@ export const RoomStyleForm = () => {
     }, [allProducts, shuffledProducts.length]);
 
     const handleShuffle = () => {
-        setShuffledProducts(shuffleArray(allProducts));
+        setShuffledProducts(shuffleArray(shuffledProducts));
     };
 
     const handleBack = () => {
