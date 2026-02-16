@@ -7,6 +7,7 @@ import {
     useMultiStepFormContext,
     useMultiStepFormStepForm,
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
+import { submitHubSpotForm } from '@/api/hubspot/api';
 import s from './EmailForm.module.scss';
 
 export const EmailForm = () => {
@@ -16,6 +17,14 @@ export const EmailForm = () => {
 
     const submitHandler = form.handleSubmit((data) => {
         setFormStepData('email', (data = { ...data }));
+
+        submitHubSpotForm([
+            {
+                name: 'email',
+                value: data.email,
+            },
+        ]);
+
         goToNextStep();
     });
 
