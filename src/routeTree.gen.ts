@@ -20,10 +20,6 @@ import { Route as ResultIndexImport } from './routes/result/index'
 const ErrorLazyImport = createFileRoute('/error')()
 const StartIndexLazyImport = createFileRoute('/start/')()
 const QuestionnaireIndexLazyImport = createFileRoute('/questionnaire/')()
-const QuestionnaireIdIndexLazyImport = createFileRoute('/questionnaire/$id/')()
-const QuestionnaireIdEditIndexLazyImport = createFileRoute(
-  '/questionnaire/$id/edit/',
-)()
 
 // Create/Update Routes
 
@@ -52,23 +48,6 @@ const ResultIndexRoute = ResultIndexImport.update({
   path: '/result/',
   getParentRoute: () => rootRoute,
 } as any)
-
-const QuestionnaireIdIndexLazyRoute = QuestionnaireIdIndexLazyImport.update({
-  id: '/questionnaire/$id/',
-  path: '/questionnaire/$id/',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() =>
-  import('./routes/questionnaire/$id/index.lazy').then((d) => d.Route),
-)
-
-const QuestionnaireIdEditIndexLazyRoute =
-  QuestionnaireIdEditIndexLazyImport.update({
-    id: '/questionnaire/$id/edit/',
-    path: '/questionnaire/$id/edit/',
-    getParentRoute: () => rootRoute,
-  } as any).lazy(() =>
-    import('./routes/questionnaire/$id/edit/index.lazy').then((d) => d.Route),
-  )
 
 // Populate the FileRoutesByPath interface
 
@@ -102,20 +81,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StartIndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/questionnaire/$id/': {
-      id: '/questionnaire/$id/'
-      path: '/questionnaire/$id'
-      fullPath: '/questionnaire/$id'
-      preLoaderRoute: typeof QuestionnaireIdIndexLazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/questionnaire/$id/edit/': {
-      id: '/questionnaire/$id/edit/'
-      path: '/questionnaire/$id/edit'
-      fullPath: '/questionnaire/$id/edit'
-      preLoaderRoute: typeof QuestionnaireIdEditIndexLazyImport
-      parentRoute: typeof rootRoute
-    }
   }
 }
 
@@ -126,8 +91,6 @@ export interface FileRoutesByFullPath {
   '/result': typeof ResultIndexRoute
   '/questionnaire': typeof QuestionnaireIndexLazyRoute
   '/start': typeof StartIndexLazyRoute
-  '/questionnaire/$id': typeof QuestionnaireIdIndexLazyRoute
-  '/questionnaire/$id/edit': typeof QuestionnaireIdEditIndexLazyRoute
 }
 
 export interface FileRoutesByTo {
@@ -135,8 +98,6 @@ export interface FileRoutesByTo {
   '/result': typeof ResultIndexRoute
   '/questionnaire': typeof QuestionnaireIndexLazyRoute
   '/start': typeof StartIndexLazyRoute
-  '/questionnaire/$id': typeof QuestionnaireIdIndexLazyRoute
-  '/questionnaire/$id/edit': typeof QuestionnaireIdEditIndexLazyRoute
 }
 
 export interface FileRoutesById {
@@ -145,35 +106,14 @@ export interface FileRoutesById {
   '/result/': typeof ResultIndexRoute
   '/questionnaire/': typeof QuestionnaireIndexLazyRoute
   '/start/': typeof StartIndexLazyRoute
-  '/questionnaire/$id/': typeof QuestionnaireIdIndexLazyRoute
-  '/questionnaire/$id/edit/': typeof QuestionnaireIdEditIndexLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/error'
-    | '/result'
-    | '/questionnaire'
-    | '/start'
-    | '/questionnaire/$id'
-    | '/questionnaire/$id/edit'
+  fullPaths: '/error' | '/result' | '/questionnaire' | '/start'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/error'
-    | '/result'
-    | '/questionnaire'
-    | '/start'
-    | '/questionnaire/$id'
-    | '/questionnaire/$id/edit'
-  id:
-    | '__root__'
-    | '/error'
-    | '/result/'
-    | '/questionnaire/'
-    | '/start/'
-    | '/questionnaire/$id/'
-    | '/questionnaire/$id/edit/'
+  to: '/error' | '/result' | '/questionnaire' | '/start'
+  id: '__root__' | '/error' | '/result/' | '/questionnaire/' | '/start/'
   fileRoutesById: FileRoutesById
 }
 
@@ -182,8 +122,6 @@ export interface RootRouteChildren {
   ResultIndexRoute: typeof ResultIndexRoute
   QuestionnaireIndexLazyRoute: typeof QuestionnaireIndexLazyRoute
   StartIndexLazyRoute: typeof StartIndexLazyRoute
-  QuestionnaireIdIndexLazyRoute: typeof QuestionnaireIdIndexLazyRoute
-  QuestionnaireIdEditIndexLazyRoute: typeof QuestionnaireIdEditIndexLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -191,8 +129,6 @@ const rootRouteChildren: RootRouteChildren = {
   ResultIndexRoute: ResultIndexRoute,
   QuestionnaireIndexLazyRoute: QuestionnaireIndexLazyRoute,
   StartIndexLazyRoute: StartIndexLazyRoute,
-  QuestionnaireIdIndexLazyRoute: QuestionnaireIdIndexLazyRoute,
-  QuestionnaireIdEditIndexLazyRoute: QuestionnaireIdEditIndexLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -208,9 +144,7 @@ export const routeTree = rootRoute
         "/error",
         "/result/",
         "/questionnaire/",
-        "/start/",
-        "/questionnaire/$id/",
-        "/questionnaire/$id/edit/"
+        "/start/"
       ]
     },
     "/error": {
@@ -224,12 +158,6 @@ export const routeTree = rootRoute
     },
     "/start/": {
       "filePath": "start/index.lazy.tsx"
-    },
-    "/questionnaire/$id/": {
-      "filePath": "questionnaire/$id/index.lazy.tsx"
-    },
-    "/questionnaire/$id/edit/": {
-      "filePath": "questionnaire/$id/edit/index.lazy.tsx"
     }
   }
 }
