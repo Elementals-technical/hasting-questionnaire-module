@@ -1,20 +1,26 @@
 import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
 import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
+import { MultiStepForm } from '../../../shared/MultiStepForm/types';
 import { useMultiStepFormContext, useMultiStepFormStepForm } from '@/modules/Home/components/shared';
 import { BathroomsPicker } from './components/BathroomPicker/BathroomPicker';
 import s from './BathroomsForm.module.scss';
 
 export const BathroomsForm = () => {
-    const { currentStep, setFormStepData, goToNextStep, goToStep } = useMultiStepFormContext();
+    const { currentStep, setFormStepDataBatch, goToNextStep, goToStep } = useMultiStepFormContext();
 
     const { form } = useMultiStepFormStepForm('bathrooms');
 
     const submitHandler = form.handleSubmit((data) => {
-        setFormStepData('bathrooms', (data = { ...data }));
+        const updates: Partial<MultiStepForm> = { bathrooms: data };
+
         if (data.rooms.length === 1) {
-            setFormStepData('bathroomFocus', { rooms: data.rooms[0].id });
+            const productId = data.rooms[0].id;
+            updates.bathroomFocus = { rooms: productId };
+
+            setFormStepDataBatch(updates);
             goToStep('name');
         } else {
+            setFormStepDataBatch(updates);
             goToNextStep();
         }
     });

@@ -52,7 +52,6 @@ export const VanitiesForm = () => {
     );
 
     const { mutate: setFileToIndexedDB } = useSetFileToIndexedDB();
-    // const { mutate: getFileFromIndexedDB } = useGetFileFromIndexedDB();
 
     const {
         formState: { errors },

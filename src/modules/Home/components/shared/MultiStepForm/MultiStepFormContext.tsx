@@ -39,6 +39,7 @@ type MultiStepFormContextType = {
         // eslint-disable-next-line no-unused-vars
         data: MultiStepForm[TField]
     ) => void;
+    setFormStepDataBatch: (_updates: Partial<MultiStepForm>) => void;
     cleanUp: () => void;
     handleProductStepSubmit: <T extends keyof ProductStepsData>(
         _stepId: T,
@@ -129,6 +130,18 @@ export const MultiStepFormProvider: React.FC<React.PropsWithChildren> = ({ child
                 return JSON.stringify({
                     ...JSON.parse(prev),
                     [key]: data,
+                });
+            });
+        },
+        [setFormData]
+    );
+
+    const setFormStepDataBatch = React.useCallback(
+        (updates: Partial<MultiStepForm>) => {
+            setFormData((prev) => {
+                return JSON.stringify({
+                    ...JSON.parse(prev ?? JSON.stringify(MULTI_STEP_FORM_INITIAL_STATE)),
+                    ...updates,
                 });
             });
         },
@@ -285,6 +298,7 @@ export const MultiStepFormProvider: React.FC<React.PropsWithChildren> = ({ child
             goToStep,
             goToPreviousStep,
             setFormStepData,
+            setFormStepDataBatch,
             cleanUp,
             getOrderedProductSteps,
             handleProductStepSubmit,
@@ -302,6 +316,7 @@ export const MultiStepFormProvider: React.FC<React.PropsWithChildren> = ({ child
         goToStep,
         goToPreviousStep,
         setFormStepData,
+        setFormStepDataBatch,
         cleanUp,
         getOrderedProductSteps,
         handleProductStepSubmit,
