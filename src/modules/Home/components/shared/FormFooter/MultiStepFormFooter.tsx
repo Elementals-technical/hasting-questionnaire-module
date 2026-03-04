@@ -1,5 +1,6 @@
 import React from 'react';
 import { useMultiStepFormContext } from '../MultiStepForm/MultiStepFormContext';
+import { useHotkey } from '@tanstack/react-hotkeys';
 import clsx from 'clsx';
 import { Button } from '@/components/ui';
 import s from './MultiStepFormFooter.module.scss';
@@ -33,6 +34,8 @@ export const MultiStepFormFooter = ({
 
     const handleBack = onBack || goToPreviousStep;
     const handleNext = onNext || goToNextStep;
+
+    useHotkey('Enter', () => handleNext(), { enabled: !isNextDisabled && !hideNext && !isDisabled });
 
     return (
         <div className={clsx(s.footer, className)}>
