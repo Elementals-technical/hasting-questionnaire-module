@@ -15,9 +15,9 @@
         "preview": "vite preview --open --host",
         "lint:eslint": "eslint --cache --max-warnings 10000 --report-unused-disable-directives \"**/*.{js,ts,tsx,cjs,mjs}\"",
         "lint:stylelint": "stylelint --cache -q \"**/*.css\"",
-        "lint:prettier": "prettier --check \"**/*.{js,ts,tsx,json,html,css,cjs,mjs}\"",
+        "lint:prettier": "prettier --check \"**/*.{js,ts,tsx,json,html,scss,cjs,mjs}\"",
         "lint": "run-s lint:*",
-        "fix:prettier": "prettier --write \"**/*.{js,ts,tsx,json,html,css,cjs,mjs}\"",
+        "fix:prettier": "prettier --write \"**/*.{js,ts,tsx,json,html,scss,cjs,mjs}\"",
         "prepare": "husky"
     },
     "dependencies": {
