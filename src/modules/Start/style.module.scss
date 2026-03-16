@@ -1,10 +1,9 @@
-@use '../../styles/breakpoints.scss';
-
 .wrap {
     display: flex;
     flex-direction: column;
     padding: 80px;
     height: 100vh;
+
     @include breakpoints.md {
         height: auto;
         padding: 20px;
@@ -13,7 +12,7 @@
 
 .title {
     color: #ac5331;
-    font-family: 'Proxima Nova';
+    font-family: 'Proxima Nova', sans-serif;
     font-size: 54px;
     font-style: normal;
     font-weight: 600;
@@ -23,7 +22,6 @@
     @include breakpoints.md {
         color: #ac5331;
         text-align: center;
-        font-family: 'Proxima Nova';
         font-size: 32px;
         font-style: normal;
         font-weight: 600;
@@ -34,7 +32,7 @@
 .subtitle {
     color: #282828;
     max-width: 668px;
-    font-family: Poppins;
+    font-family: 'Poppins', sans-serif;
     font-size: 24px;
     font-style: normal;
     font-weight: 400;
@@ -44,7 +42,6 @@
     @include breakpoints.md {
         color: #282828;
         text-align: center;
-        font-family: Poppins;
         font-size: 16px;
         font-style: normal;
         font-weight: 400;
@@ -54,14 +51,14 @@
 
     span {
         color: #ac5331;
-        font-family: 'Proxima Nova';
+        font-family: 'Proxima Nova', sans-serif;
         font-size: 28px;
         font-style: normal;
         font-weight: 500;
         line-height: 32px; /* 114.286% */
+
         @include breakpoints.md {
             color: #ac5331;
-            font-family: 'Proxima Nova';
             font-size: 16px;
             font-style: normal;
             font-weight: 500;
@@ -74,6 +71,7 @@
     display: flex;
     gap: 40px;
     margin-bottom: auto;
+
     @include breakpoints.md {
         flex-direction: column;
         gap: 20px;
@@ -91,22 +89,21 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
-    color: #fff;
-    font-family: Poppins;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 700;
     line-height: 20px; /* 142.857% */
 
     &:hover {
-        color: #fff;
+        color: #ffffff;
         background: #94482a;
     }
 
     @include breakpoints.md {
         margin-top: 32px;
-        color: #fff;
-        font-family: Poppins;
+        color: #ffffff;
         font-size: 12px;
         font-style: normal;
         font-weight: 700;

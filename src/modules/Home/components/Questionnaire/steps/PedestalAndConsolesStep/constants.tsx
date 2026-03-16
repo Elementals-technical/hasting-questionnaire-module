@@ -1,6 +1,6 @@
 import ConsoleIcon from '@/assets/icons/pedestalAndConsoles/ConsoleIcon';
 import PedestalIcon from '@/assets/icons/pedestalAndConsoles/PedestalIcon';
-import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types';
+import { CardOption } from '@/components/BathroomCard/types';
 
 export const PEDESTAL_AND_CONSOLES_WIDTH_LIMITS = {
     MIN: 10,

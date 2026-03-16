@@ -1,6 +1,6 @@
 import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
-import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
 import { useMultiStepFormContext, useMultiStepFormStepForm } from '@/modules/Home/components/shared';
+import { MultiStepFormFooter } from '../../../../../../components/FormFooter/MultiStepFormFooter';
 import BathroomFocusPicker from './components/BathroomFocusPicker/BathroomFocusPicker';
 import s from './BathroomFocusForm.module.scss';
 

@@ -2,11 +2,6 @@
 
 import { useRef, useState } from 'react';
 import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
-// Импорты компонентов
-import CalculatingOverlay from '../../../shared/CalculatingOverlay/CalculatingOverlay';
-import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
-import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
-import Slider from '../../../shared/Slider/Slider';
 import { useFilterPedestalOptionsByRules } from './hook/useFilterPedestalOptionsByRules';
 // ИМПОРТ НАШЕГО ХУКА
 
@@ -19,15 +14,11 @@ import { Controller } from 'react-hook-form';
 import { useCreateHubspotContact } from '@/hooks/useCreateHubspotContact';
 import { useSendEmail } from '@/hooks/useSendEmail';
 import { useUploadFiles } from '@/hooks/useUploadFiles';
-import BathroomCard from '@/modules/Home/components/shared/BathroomCard/BathroomCard';
-// Импорты хуков
 import {
     useMultiStepFormContext,
     useMultiStepFormStepForm,
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
-import TagSelector from '@/modules/Home/components/shared/TagSelector/TagSelector';
 import { ACCEPT_FILES } from '../../../shared/MultiStepForm/constants';
-// Импорты констант
 import { colorTypesOptions, lookTypesOptions } from '../constants';
 import {
     INTEGRATED_STORAGE_TYPES,
@@ -35,7 +26,16 @@ import {
     PEDESTAL_AND_CONSOLES_SHAPE_TYPES,
     styleOptions,
 } from './constants';
-import { Button } from '@/components/ui/Button/Button';
+// Импорты хуков
+import BathroomCard from '@/components/BathroomCard/BathroomCard';
+// Импорты констант
+import { Button } from '@/components/Button/Button';
+import TagSelector from '@/components/TagSelector/TagSelector';
+// Импорты компонентов
+import CalculatingOverlay from '../../../../../../components/CalculatingOverlay/CalculatingOverlay';
+import ErrorMessage from '../../../../../../components/ErrorMessage/ErrorMessage';
+import { MultiStepFormFooter } from '../../../../../../components/FormFooter/MultiStepFormFooter';
+import Slider from '../../../../../../components/Slider/Slider';
 import s from './PedestalAndConsolesStep.module.scss';
 
 export const PedestalAndConsolesForm = () => {

@@ -5,8 +5,8 @@ import { useMediaQuery } from '@react-hookz/web';
 import { Controller, UseFormReturn } from 'react-hook-form';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
-import ErrorMessage from '@/modules/Home/components/shared/ErrorMessage/ErrorMessage';
 import { RoomStyleStepData } from '@/modules/Home/components/shared/MultiStepForm/types';
+import ErrorMessage from '@/components/ErrorMessage/ErrorMessage';
 import s from './ImagePicker.module.scss';
 
 interface ImagesPickerProps {

@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
+import { Button } from '@/components';
 import { useLocalStorageValue } from '@react-hookz/web';
 import { useNavigate } from '@tanstack/react-router';
-import { WorkflowStep } from '@/modules/Home/components/shared/WorkflowSteps/WorkflowStep';
 import { STEPS_ITEMS, words } from './components/constants';
-import { Button } from '@/components/ui';
+import { WorkflowStep } from '@/components/WorkflowSteps/WorkflowStep';
+import { RotatingText } from '../../components/TextRotator/TextRotator';
 import { LS_MULTI_STEP_FORM_KEY } from '../Home/components/shared';
-import { RotatingText } from '../Home/components/shared/TextRotator/TextRotator';
 import s from './style.module.scss';
 
 export const StartRoute = () => {

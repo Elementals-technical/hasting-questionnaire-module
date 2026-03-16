@@ -1,6 +1,6 @@
-import { QuoteRotator } from '../QuoteRotator/QuoteRotator';
 import SmileIcon from '@/assets/icons/common/SmileIcon';
-import { quotes } from '../../Questionnaire/steps/ProductsStep/constants';
+import { quotes } from '../../modules/Home/components/Questionnaire/steps/ProductsStep/constants';
+import { QuoteRotator } from '../QuoteRotator/QuoteRotator';
 import s from './CalculatingOverlay.module.scss';
 
 const CalculatingOverlay = () => {

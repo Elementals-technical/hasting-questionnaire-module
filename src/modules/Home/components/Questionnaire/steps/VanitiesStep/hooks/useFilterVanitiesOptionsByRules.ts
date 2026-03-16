@@ -1,8 +1,8 @@
 import { useEffect, useMemo } from 'react';
 import { UseFormReturn } from 'react-hook-form';
-import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types';
 import { VanitiesStepData } from '@/modules/Home/components/shared/MultiStepForm/types';
 import { CONCEPT_STYLE_VANITIES_TYPES, NUMBER_OF_BASINS_VANITITES_TYPES } from '../constants';
+import { CardOption } from '@/components/BathroomCard/types';
 
 interface FilteredOptions {
     numberOfBasins: CardOption[];

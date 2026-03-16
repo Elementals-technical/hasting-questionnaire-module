@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
-import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
-import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
 import CloseIcon from '@/assets/icons/common/CloseIcon';
 import InfoIcon from '@/assets/icons/common/InfoIcon';
 import clsx from 'clsx';
@@ -10,9 +8,11 @@ import {
     useMultiStepFormContext,
     useMultiStepFormStepForm,
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
-import { Popoup } from '@/modules/Home/components/shared/Popover/Popover';
+import { Popoup } from '@/components/Popover/Popover';
 import { stageOptions } from './constants';
 import { Button } from '@/components/ui';
+import ErrorMessage from '../../../../../../components/ErrorMessage/ErrorMessage';
+import { MultiStepFormFooter } from '../../../../../../components/FormFooter/MultiStepFormFooter';
 import s from './StageStep.module.scss';
 
 export const StageForm = () => {

@@ -1,4 +1,4 @@
-import { TagOption } from '../../shared/TagSelector/types';
+import { TagOption } from '../../../../../components/TagSelector/types';
 
 export enum COLOR_TYPES {
     _BEIGE = 'beige',

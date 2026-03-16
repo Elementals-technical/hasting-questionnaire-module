@@ -1,6 +1,6 @@
 import FloorMountedIcon from '@/assets/icons/toilets/FloorMountedIcon';
 import WallMountedIcon from '@/assets/icons/toilets/WallMountedIcon';
-import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types';
+import { CardOption } from '@/components/BathroomCard/types';
 
 export const TOILETS_SOFT_CLOSE_SEAT_TYPES = ['Yes'] as const;
 

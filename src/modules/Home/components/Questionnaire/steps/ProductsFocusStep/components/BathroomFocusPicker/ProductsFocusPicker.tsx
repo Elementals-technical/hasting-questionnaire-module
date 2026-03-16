@@ -1,11 +1,11 @@
 import React from 'react';
-import BathroomCard from '../../../../../shared/BathroomCard/BathroomCard';
 import { ProductsFocusPickerPropsT } from './types';
 import { Controller } from 'react-hook-form';
 import { useMultiStepFormStepForm } from '@/modules/Home/components/shared';
-import ErrorMessage from '@/modules/Home/components/shared/ErrorMessage/ErrorMessage';
 import { ProductsFocusStepData } from '@/modules/Home/components/shared/MultiStepForm/types';
 import { productsOptions } from '../../../ProductsStep/components/BathroomPicker/constants';
+import ErrorMessage from '@/components/ErrorMessage/ErrorMessage';
+import BathroomCard from '../../../../../../../../components/BathroomCard/BathroomCard';
 import s from './ProductsFocusPicker.module.scss';
 
 const ProductsFocusPicker: React.FC<ProductsFocusPickerPropsT> = ({ form }) => {

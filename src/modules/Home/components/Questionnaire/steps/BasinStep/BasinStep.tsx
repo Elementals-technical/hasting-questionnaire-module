@@ -1,9 +1,5 @@
 import { useRef, useState } from 'react';
 import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
-import CalculatingOverlay from '../../../shared/CalculatingOverlay/CalculatingOverlay';
-import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
-import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
-import Slider from '../../../shared/Slider/Slider';
 import AttachIcon from '@/assets/icons/common/AttachIcon';
 import { useFileIndexedDBValue, useSetFileToIndexedDB } from '@/lib/indexedDB/utils';
 import { useNavigate } from '@tanstack/react-router';
@@ -13,12 +9,10 @@ import { Controller } from 'react-hook-form';
 import { useCreateHubspotContact } from '@/hooks/useCreateHubspotContact';
 import { useSendEmail } from '@/hooks/useSendEmail';
 import { useUploadFiles } from '@/hooks/useUploadFiles';
-import BathroomCard from '@/modules/Home/components/shared/BathroomCard/BathroomCard';
 import {
     useMultiStepFormContext,
     useMultiStepFormStepForm,
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
-import TagSelector from '@/modules/Home/components/shared/TagSelector/TagSelector';
 import { ACCEPT_FILES } from '../../../shared/MultiStepForm/constants';
 import { colorTypesOptions, lookTypesOptions } from '../constants';
 import {
@@ -28,7 +22,13 @@ import {
     BASIN_WIDTH_LIMITS,
     styleOptions,
 } from './constants';
-import { Button } from '@/components/ui/Button/Button';
+import BathroomCard from '@/components/BathroomCard/BathroomCard';
+import { Button } from '@/components/Button/Button';
+import TagSelector from '@/components/TagSelector/TagSelector';
+import CalculatingOverlay from '../../../../../../components/CalculatingOverlay/CalculatingOverlay';
+import ErrorMessage from '../../../../../../components/ErrorMessage/ErrorMessage';
+import { MultiStepFormFooter } from '../../../../../../components/FormFooter/MultiStepFormFooter';
+import Slider from '../../../../../../components/Slider/Slider';
 import s from './BasinStep.module.scss';
 
 export const BasinForm = () => {

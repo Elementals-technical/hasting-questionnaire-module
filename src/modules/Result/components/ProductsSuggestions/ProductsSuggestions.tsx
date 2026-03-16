@@ -1,7 +1,7 @@
 import { FC, useMemo, useState } from 'react';
 import { ProductsSuggestionsProps } from './types';
+import { Button } from '@/components';
 import { PRODUCT_STEP_TO_DISPLAY_NAME, ProductDisplayName } from '@/modules/Home/components/shared/MultiStepForm/types';
-import { Button } from '@/components/ui';
 import s from './ProductsSuggestions.module.scss';
 
 const ProductsSuggestions: FC<ProductsSuggestionsProps> = ({ products = [], selectedProducts }) => {

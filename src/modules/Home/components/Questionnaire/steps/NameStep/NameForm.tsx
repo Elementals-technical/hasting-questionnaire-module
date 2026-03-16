@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
-import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
-import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
 import { GreetingsIcon } from '@/assets/icons/steps/GreetingsIcon';
 import clsx from 'clsx';
 import { Controller } from 'react-hook-form';
@@ -9,6 +7,8 @@ import {
     useMultiStepFormContext,
     useMultiStepFormStepForm,
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
+import ErrorMessage from '../../../../../../components/ErrorMessage/ErrorMessage';
+import { MultiStepFormFooter } from '../../../../../../components/FormFooter/MultiStepFormFooter';
 import s from './NameForm.module.scss';
 
 export const NameForm = () => {

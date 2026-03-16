@@ -1,6 +1,6 @@
 import DeckMountedIcon from '@/assets/icons/basin/DeckMountedIcon';
 import WallMountedIcon from '@/assets/icons/basin/WallMountedIcon';
-import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types';
+import { CardOption } from '@/components/BathroomCard/types';
 
 export const BASIN_WIDTH_LIMITS = {
     MIN: 14,

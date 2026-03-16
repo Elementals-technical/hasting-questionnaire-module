@@ -1,8 +1,8 @@
 import React from 'react';
-import { useMultiStepFormContext } from '../MultiStepForm/MultiStepFormContext';
+import { Button } from '../Button/Button';
 import { useHotkey } from '@tanstack/react-hotkeys';
 import clsx from 'clsx';
-import { Button } from '@/components/ui';
+import { useMultiStepFormContext } from '../../modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
 import s from './MultiStepFormFooter.module.scss';
 
 interface MultiStepFormFooterProps {

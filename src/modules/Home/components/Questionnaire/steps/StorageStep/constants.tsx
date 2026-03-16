@@ -25,8 +25,8 @@ import RotatingStorageIcon from '@/assets/icons/storage/RotatingStorageIcon';
 import SemiCanceledIcon from '@/assets/icons/storage/SemiCanceledStorageIcon';
 import SingleUnitIcon from '@/assets/icons/storage/SingleUnitIcon';
 import StaggeredStorageIcon from '@/assets/icons/storage/StaggeredIcon';
-import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types';
-import { TagOption } from '@/modules/Home/components/shared/TagSelector/types';
+import { CardOption } from '@/components/BathroomCard/types';
+import { TagOption } from '@/components/TagSelector/types';
 
 export const STORAGE_HEIGHT_LIMITS = {
     MIN: 5,

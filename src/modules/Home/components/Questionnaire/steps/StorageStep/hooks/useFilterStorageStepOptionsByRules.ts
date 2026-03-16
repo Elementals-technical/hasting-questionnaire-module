@@ -1,8 +1,8 @@
 import { useEffect, useMemo } from 'react';
 import { UseFormReturn } from 'react-hook-form';
-import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types';
 import { StorageStepdata } from '@/modules/Home/components/shared/MultiStepForm/types';
 import { CONCEPT_STYLE_STORAGE_TYPES, STORAGE_ARRANGEMENT_TYPES } from '../constants';
+import { CardOption } from '@/components/BathroomCard/types';
 
 interface FilteredStorageOptions {
     conceptStyle: CardOption[];

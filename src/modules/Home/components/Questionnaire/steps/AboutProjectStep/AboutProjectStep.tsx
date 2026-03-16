@@ -1,7 +1,5 @@
 import { useRef, useState } from 'react';
 import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
-import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
-import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
 import AttachIcon from '@/assets/icons/common/AttachIcon';
 import FileIcon from '@/assets/icons/common/FileIcon';
 import XIcon from '@/assets/icons/common/XIcon';
@@ -14,6 +12,8 @@ import {
 import { ACCEPT_FILES } from '../../../shared/MultiStepForm/constants';
 import { challengesOptions, goalsOptions, projectTypeOptions } from './constants';
 import { Button } from '@/components/ui';
+import ErrorMessage from '../../../../../../components/ErrorMessage/ErrorMessage';
+import { MultiStepFormFooter } from '../../../../../../components/FormFooter/MultiStepFormFooter';
 import s from './AboutProjectStep.module.scss';
 
 export const AboutProjectForm = () => {

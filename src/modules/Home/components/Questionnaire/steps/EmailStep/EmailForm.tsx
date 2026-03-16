@@ -1,6 +1,4 @@
 import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
-import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
-import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
 import clsx from 'clsx';
 import { Controller } from 'react-hook-form';
 import {
@@ -8,6 +6,8 @@ import {
     useMultiStepFormStepForm,
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
 import { submitHubSpotForm } from '@/api/hubspot/api';
+import ErrorMessage from '../../../../../../components/ErrorMessage/ErrorMessage';
+import { MultiStepFormFooter } from '../../../../../../components/FormFooter/MultiStepFormFooter';
 import s from './EmailForm.module.scss';
 
 export const EmailForm = () => {

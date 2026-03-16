@@ -10,9 +10,9 @@ import OpenShelvingIcon from '@/assets/icons/vanities/OpenShelvingIcon';
 import SlimProfileIcon from '@/assets/icons/vanities/SlimProfileIcon';
 import TandemVanitiesIcon from '@/assets/icons/vanities/TandemVanitiesIcon';
 import TwoDrawerIcon from '@/assets/icons/vanities/TwoDrawerIcon';
-import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types';
 import { SINK_TYPE_TYPES } from '../constants';
 import { CONCEPT_STYLE_VANITIES_TYPES } from '../VanitiesStep/constants';
+import { CardOption } from '@/components/BathroomCard/types';
 
 export const COUNTERTOPS_WIDTH_LIMITS = {
     MIN: 24,

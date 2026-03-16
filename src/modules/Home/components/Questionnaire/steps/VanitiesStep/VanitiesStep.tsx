@@ -1,8 +1,5 @@
 import { useRef, useState } from 'react';
 import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
-import CalculatingOverlay from '../../../shared/CalculatingOverlay/CalculatingOverlay';
-import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
-import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
 import { VanitiesStepData } from '../../../shared/MultiStepForm/types';
 import AttachIcon from '@/assets/icons/common/AttachIcon';
 import { useFileIndexedDBValue, useSetFileToIndexedDB } from '@/lib/indexedDB/utils';
@@ -14,13 +11,10 @@ import { useCreateHubspotContact } from '@/hooks/useCreateHubspotContact';
 import { useSendEmail } from '@/hooks/useSendEmail';
 import { useUploadFiles } from '@/hooks/useUploadFiles';
 import { useFilterVanitiesOptionsByRules } from './hooks/useFilterVanitiesOptionsByRules';
-import BathroomCard from '@/modules/Home/components/shared/BathroomCard/BathroomCard';
 import {
     useMultiStepFormContext,
     useMultiStepFormStepForm,
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
-import Slider from '@/modules/Home/components/shared/Slider/Slider';
-import TagSelector from '@/modules/Home/components/shared/TagSelector/TagSelector';
 import { ACCEPT_FILES } from '../../../shared/MultiStepForm/constants';
 import { colorTypesOptions, lookTypesOptions } from '../constants';
 import {
@@ -31,7 +25,13 @@ import {
     VANITIES_DEPTH_TYPES,
     VANITIES_WIDTH_LIMITS,
 } from './constants';
-import { Button } from '@/components/ui/Button/Button';
+import BathroomCard from '@/components/BathroomCard/BathroomCard';
+import { Button } from '@/components/Button/Button';
+import Slider from '@/components/Slider/Slider';
+import TagSelector from '@/components/TagSelector/TagSelector';
+import CalculatingOverlay from '../../../../../../components/CalculatingOverlay/CalculatingOverlay';
+import ErrorMessage from '../../../../../../components/ErrorMessage/ErrorMessage';
+import { MultiStepFormFooter } from '../../../../../../components/FormFooter/MultiStepFormFooter';
 import s from './VanitiesStep.module.scss';
 
 export const VanitiesForm = () => {

@@ -1,9 +1,9 @@
-@use '../../../../../../../../styles/breakpoints.scss';
 .wrap {
     display: flex;
     justify-content: center;
     flex-direction: column;
 }
+
 .list {
     display: flex;
     gap: 40px;

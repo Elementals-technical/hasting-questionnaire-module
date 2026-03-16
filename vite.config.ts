@@ -30,6 +30,13 @@ export default defineConfig(() => {
                 return !filePath.endsWith('.svg');
             },
         },
+        css: {
+            preprocessorOptions: {
+                scss: {
+                    additionalData: `@use '@/styles/breakpoints.scss' as *;`,
+                },
+            },
+        },
         resolve: {
             alias: [
                 {

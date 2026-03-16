@@ -3,7 +3,7 @@ import OvalIcon from '@/assets/icons/mirrors/OvalIcon';
 import RectangleIcon from '@/assets/icons/mirrors/RectangleIcon';
 import RoundIcon from '@/assets/icons/mirrors/RoundIcon';
 import SquareIcon from '@/assets/icons/mirrors/SquareIcon';
-import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types';
+import { CardOption } from '@/components/BathroomCard/types';
 
 export const MIRROR_WIDTH_LIMITS = {
     MIN: 15,

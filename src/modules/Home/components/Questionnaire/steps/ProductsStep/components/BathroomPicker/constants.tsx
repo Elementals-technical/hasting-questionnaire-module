@@ -6,7 +6,7 @@ import StorageIcon from '@/assets/icons/products/StorageIcon';
 import ToiletsIcon from '@/assets/icons/products/ToiletsIcon';
 import TubsIcon from '@/assets/icons/products/TubsIcon';
 import VanitiesIcon from '@/assets/icons/products/VanitiesIcon';
-import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types';
+import { CardOption } from '@/components/BathroomCard/types';
 
 export enum PRODUCTS_TYPES {
     _VANITIES = 'vanities',

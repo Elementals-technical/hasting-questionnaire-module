@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
-import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
 import { shuffleArray } from './utils';
 import { useGetProductsInfinite } from '@/tanstackQuery/queries/products';
 import { Product } from '@/tanstackQuery/types';
@@ -9,6 +8,7 @@ import {
     useMultiStepFormContext,
     useMultiStepFormStepForm,
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
+import { MultiStepFormFooter } from '../../../../../../components/FormFooter/MultiStepFormFooter';
 import { ImagePicker } from './components/ImagePicker/ImagePicker';
 import s from './RoomStyleForm.module.scss';
 

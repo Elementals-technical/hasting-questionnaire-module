@@ -1,9 +1,9 @@
 import HeaderBG from '../../assets/images/output.jpg';
 import { useGetProductsSuggest } from '@/tanstackQuery/queries/products_suggest';
 import { useLocalStorageValue } from '@react-hookz/web';
-import { WorkflowStep } from '@/modules/Home/components/shared/WorkflowSteps/WorkflowStep';
 import { MULTI_STEP_FORM_INITIAL_STATE } from '../Home/components/shared/MultiStepForm/constants';
 import { STEPS_ITEMS } from './constants';
+import { WorkflowStep } from '@/components/WorkflowSteps/WorkflowStep';
 import { LS_MULTI_STEP_FORM_KEY } from '../Home/components/shared';
 import { MultiStepForm } from '../Home/components/shared/MultiStepForm/types';
 import AestheticsDesigner from './components/AestheticsDesigner/AestheticsDesigner';

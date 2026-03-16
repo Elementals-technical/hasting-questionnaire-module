@@ -13,8 +13,8 @@ import TwoDrawerIcon from '@/assets/icons/vanities/TwoDrawerIcon';
 import UndermountVanitiesIcon from '@/assets/icons/vanities/UndermountVanitiesIcon';
 import VesselVanitiesIcon from '@/assets/icons/vanities/VesselVanitiesIcon';
 import WallIcon from '@/assets/icons/vanities/WallIcon';
-import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types';
 import { SINK_TYPE_TYPES } from '../constants';
+import { CardOption } from '@/components/BathroomCard/types';
 
 export const VANITIES_WIDTH_LIMITS = {
     MIN: 24,

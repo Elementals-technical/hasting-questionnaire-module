@@ -1,13 +1,6 @@
 import { useRef, useState } from 'react';
 import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
-import BathroomCard from '../../../shared/BathroomCard/BathroomCard';
-import CalculatingOverlay from '../../../shared/CalculatingOverlay/CalculatingOverlay';
-import ErrorMessage from '../../../shared/ErrorMessage/ErrorMessage';
-import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
 import { StorageStepdata } from '../../../shared/MultiStepForm/types';
-import { OptionTooltip } from '../../../shared/OptionTooltip/OptionTooltip';
-import Slider from '../../../shared/Slider/Slider';
-import TagSelector from '../../../shared/TagSelector/TagSelector';
 import AttachIcon from '@/assets/icons/common/AttachIcon';
 import FileIcon from '@/assets/icons/common/FileIcon';
 import InfoIcon from '@/assets/icons/common/InfoIcon';
@@ -36,6 +29,13 @@ import {
     storageArrangementOptions,
 } from './constants';
 import { Button } from '@/components/ui';
+import BathroomCard from '../../../../../../components/BathroomCard/BathroomCard';
+import CalculatingOverlay from '../../../../../../components/CalculatingOverlay/CalculatingOverlay';
+import ErrorMessage from '../../../../../../components/ErrorMessage/ErrorMessage';
+import { MultiStepFormFooter } from '../../../../../../components/FormFooter/MultiStepFormFooter';
+import { OptionTooltip } from '../../../../../../components/OptionTooltip/OptionTooltip';
+import Slider from '../../../../../../components/Slider/Slider';
+import TagSelector from '../../../../../../components/TagSelector/TagSelector';
 import s from './StorageStep.module.scss';
 
 export const StorageForm = () => {

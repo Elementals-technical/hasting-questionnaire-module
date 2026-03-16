@@ -1,6 +1,6 @@
 import OvalIcon from '@/assets/icons/tubs/OvalIcon';
 import RectangleIcon from '@/assets/icons/tubs/RectangleIcon';
-import { CardOption } from '@/modules/Home/components/shared/BathroomCard/types';
+import { CardOption } from '@/components/BathroomCard/types';
 
 export const TUBS_LENGTH_LIMITS = {
     MIN: 51,

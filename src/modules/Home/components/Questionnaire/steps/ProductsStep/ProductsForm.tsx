@@ -1,7 +1,7 @@
 import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
-import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
 import { MultiStepForm } from '../../../shared/MultiStepForm/types';
 import { useMultiStepFormContext, useMultiStepFormStepForm } from '@/modules/Home/components/shared';
+import { MultiStepFormFooter } from '../../../../../../components/FormFooter/MultiStepFormFooter';
 import { ProductsPicker } from './components/BathroomPicker/ProductsPicker';
 import s from './ProductsForm.module.scss';
 
