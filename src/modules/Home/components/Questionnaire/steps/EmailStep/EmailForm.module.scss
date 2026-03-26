@@ -4,8 +4,6 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    padding: 0 210px;
-
     position: relative;
 
     span {
@@ -28,7 +26,7 @@
 
     &:focus {
         outline: none;
-        border-color: none;
+        border-color: unset;
     }
 
     &::placeholder {

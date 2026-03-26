@@ -143,6 +143,19 @@ export const productsFocusStepSchema = z.object({
     }),
 });
 
+export const needOtherSolutionsStepSchema = z
+    .object({
+        /**
+         * If `no` is true, the user wants no additional solutions.
+         * Otherwise they can select product types for additional solution steps.
+         */
+        no: z.boolean(),
+        products: z.array(z.nativeEnum(PRODUCTS_TYPES)),
+    })
+    .refine((data) => data.no || data.products.length > 0, {
+        message: 'Select at least one other solution or choose No',
+    });
+
 export const vanitiesStepSchema = z.object({
     width: z
         .number()

@@ -41,6 +41,7 @@ import {
     emailStepSchema,
     mirrorsStepSchema,
     nameStepSchema,
+    needOtherSolutionsStepSchema,
     pedestalAndConsolesStepSchema,
     productsFocusStepSchema,
     productsStepSchema,
@@ -135,6 +136,14 @@ export const MULTI_STEP_FORM_STEPS = {
         schema: vanitiesStepSchema,
         enabled: true,
     },
+    needOtherSolutions: {
+        id: 'needOtherSolutions',
+        label: 'Need other solutions',
+        title: 'Need any other solutions for your project?',
+        description: 'Select as many as you need, or choose No.',
+        schema: needOtherSolutionsStepSchema,
+        enabled: false,
+    },
     storage: {
         id: 'storage',
         label: 'Storage',
@@ -218,6 +227,10 @@ export const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
         conceptStyle: [],
         look: [],
         numberOfBasins: NUMBER_OF_BASINS_VANITITES_TYPES._SINGLE_VANITY,
+    },
+    needOtherSolutions: {
+        no: true,
+        products: [],
     },
     storage: {
         width: STORAGE_WIDTH_LIMITS.MIN,

@@ -10,5 +10,5 @@ export type BathroomCardProps = {
 export type CardOption = {
     id: string;
     label: string;
-    icon: React.ReactNode;
+    icon?: React.ReactNode;
 };

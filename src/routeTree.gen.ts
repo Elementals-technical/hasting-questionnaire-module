@@ -14,12 +14,17 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as ResultIndexImport } from './routes/result/index'
+import { Route as QuizVanitiesResultIndexImport } from './routes/quiz-vanities/result/index'
 
 // Create Virtual Routes
 
 const ErrorLazyImport = createFileRoute('/error')()
 const StartIndexLazyImport = createFileRoute('/start/')()
+const QuizVanitiesIndexLazyImport = createFileRoute('/quiz-vanities/')()
 const QuestionnaireIndexLazyImport = createFileRoute('/questionnaire/')()
+const QuizVanitiesQuestionnaireIndexLazyImport = createFileRoute(
+  '/quiz-vanities/questionnaire/',
+)()
 
 // Create/Update Routes
 
@@ -35,6 +40,14 @@ const StartIndexLazyRoute = StartIndexLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/start/index.lazy').then((d) => d.Route))
 
+const QuizVanitiesIndexLazyRoute = QuizVanitiesIndexLazyImport.update({
+  id: '/quiz-vanities/',
+  path: '/quiz-vanities/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/quiz-vanities/index.lazy').then((d) => d.Route),
+)
+
 const QuestionnaireIndexLazyRoute = QuestionnaireIndexLazyImport.update({
   id: '/questionnaire/',
   path: '/questionnaire/',
@@ -46,6 +59,23 @@ const QuestionnaireIndexLazyRoute = QuestionnaireIndexLazyImport.update({
 const ResultIndexRoute = ResultIndexImport.update({
   id: '/result/',
   path: '/result/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const QuizVanitiesQuestionnaireIndexLazyRoute =
+  QuizVanitiesQuestionnaireIndexLazyImport.update({
+    id: '/quiz-vanities/questionnaire/',
+    path: '/quiz-vanities/questionnaire/',
+    getParentRoute: () => rootRoute,
+  } as any).lazy(() =>
+    import('./routes/quiz-vanities/questionnaire/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const QuizVanitiesResultIndexRoute = QuizVanitiesResultIndexImport.update({
+  id: '/quiz-vanities/result/',
+  path: '/quiz-vanities/result/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -74,11 +104,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuestionnaireIndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/quiz-vanities/': {
+      id: '/quiz-vanities/'
+      path: '/quiz-vanities'
+      fullPath: '/quiz-vanities'
+      preLoaderRoute: typeof QuizVanitiesIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/start/': {
       id: '/start/'
       path: '/start'
       fullPath: '/start'
       preLoaderRoute: typeof StartIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/quiz-vanities/result/': {
+      id: '/quiz-vanities/result/'
+      path: '/quiz-vanities/result'
+      fullPath: '/quiz-vanities/result'
+      preLoaderRoute: typeof QuizVanitiesResultIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/quiz-vanities/questionnaire/': {
+      id: '/quiz-vanities/questionnaire/'
+      path: '/quiz-vanities/questionnaire'
+      fullPath: '/quiz-vanities/questionnaire'
+      preLoaderRoute: typeof QuizVanitiesQuestionnaireIndexLazyImport
       parentRoute: typeof rootRoute
     }
   }
@@ -90,14 +141,20 @@ export interface FileRoutesByFullPath {
   '/error': typeof ErrorLazyRoute
   '/result': typeof ResultIndexRoute
   '/questionnaire': typeof QuestionnaireIndexLazyRoute
+  '/quiz-vanities': typeof QuizVanitiesIndexLazyRoute
   '/start': typeof StartIndexLazyRoute
+  '/quiz-vanities/result': typeof QuizVanitiesResultIndexRoute
+  '/quiz-vanities/questionnaire': typeof QuizVanitiesQuestionnaireIndexLazyRoute
 }
 
 export interface FileRoutesByTo {
   '/error': typeof ErrorLazyRoute
   '/result': typeof ResultIndexRoute
   '/questionnaire': typeof QuestionnaireIndexLazyRoute
+  '/quiz-vanities': typeof QuizVanitiesIndexLazyRoute
   '/start': typeof StartIndexLazyRoute
+  '/quiz-vanities/result': typeof QuizVanitiesResultIndexRoute
+  '/quiz-vanities/questionnaire': typeof QuizVanitiesQuestionnaireIndexLazyRoute
 }
 
 export interface FileRoutesById {
@@ -105,15 +162,40 @@ export interface FileRoutesById {
   '/error': typeof ErrorLazyRoute
   '/result/': typeof ResultIndexRoute
   '/questionnaire/': typeof QuestionnaireIndexLazyRoute
+  '/quiz-vanities/': typeof QuizVanitiesIndexLazyRoute
   '/start/': typeof StartIndexLazyRoute
+  '/quiz-vanities/result/': typeof QuizVanitiesResultIndexRoute
+  '/quiz-vanities/questionnaire/': typeof QuizVanitiesQuestionnaireIndexLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/error' | '/result' | '/questionnaire' | '/start'
+  fullPaths:
+    | '/error'
+    | '/result'
+    | '/questionnaire'
+    | '/quiz-vanities'
+    | '/start'
+    | '/quiz-vanities/result'
+    | '/quiz-vanities/questionnaire'
   fileRoutesByTo: FileRoutesByTo
-  to: '/error' | '/result' | '/questionnaire' | '/start'
-  id: '__root__' | '/error' | '/result/' | '/questionnaire/' | '/start/'
+  to:
+    | '/error'
+    | '/result'
+    | '/questionnaire'
+    | '/quiz-vanities'
+    | '/start'
+    | '/quiz-vanities/result'
+    | '/quiz-vanities/questionnaire'
+  id:
+    | '__root__'
+    | '/error'
+    | '/result/'
+    | '/questionnaire/'
+    | '/quiz-vanities/'
+    | '/start/'
+    | '/quiz-vanities/result/'
+    | '/quiz-vanities/questionnaire/'
   fileRoutesById: FileRoutesById
 }
 
@@ -121,14 +203,21 @@ export interface RootRouteChildren {
   ErrorLazyRoute: typeof ErrorLazyRoute
   ResultIndexRoute: typeof ResultIndexRoute
   QuestionnaireIndexLazyRoute: typeof QuestionnaireIndexLazyRoute
+  QuizVanitiesIndexLazyRoute: typeof QuizVanitiesIndexLazyRoute
   StartIndexLazyRoute: typeof StartIndexLazyRoute
+  QuizVanitiesResultIndexRoute: typeof QuizVanitiesResultIndexRoute
+  QuizVanitiesQuestionnaireIndexLazyRoute: typeof QuizVanitiesQuestionnaireIndexLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   ErrorLazyRoute: ErrorLazyRoute,
   ResultIndexRoute: ResultIndexRoute,
   QuestionnaireIndexLazyRoute: QuestionnaireIndexLazyRoute,
+  QuizVanitiesIndexLazyRoute: QuizVanitiesIndexLazyRoute,
   StartIndexLazyRoute: StartIndexLazyRoute,
+  QuizVanitiesResultIndexRoute: QuizVanitiesResultIndexRoute,
+  QuizVanitiesQuestionnaireIndexLazyRoute:
+    QuizVanitiesQuestionnaireIndexLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -144,7 +233,10 @@ export const routeTree = rootRoute
         "/error",
         "/result/",
         "/questionnaire/",
-        "/start/"
+        "/quiz-vanities/",
+        "/start/",
+        "/quiz-vanities/result/",
+        "/quiz-vanities/questionnaire/"
       ]
     },
     "/error": {
@@ -156,8 +248,17 @@ export const routeTree = rootRoute
     "/questionnaire/": {
       "filePath": "questionnaire/index.lazy.tsx"
     },
+    "/quiz-vanities/": {
+      "filePath": "quiz-vanities/index.lazy.tsx"
+    },
     "/start/": {
       "filePath": "start/index.lazy.tsx"
+    },
+    "/quiz-vanities/result/": {
+      "filePath": "quiz-vanities/result/index.tsx"
+    },
+    "/quiz-vanities/questionnaire/": {
+      "filePath": "quiz-vanities/questionnaire/index.lazy.tsx"
     }
   }
 }

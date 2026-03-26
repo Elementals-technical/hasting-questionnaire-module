@@ -13,6 +13,7 @@ import {
     emailStepSchema,
     mirrorsStepSchema,
     nameStepSchema,
+    needOtherSolutionsStepSchema,
     pedestalAndConsolesStepSchema,
     productsFocusStepSchema,
     productsStepSchema,
@@ -37,6 +38,7 @@ export type ProjectGoalsStepData = z.infer<typeof projectGoalsStepSchema>;
 export type ProductsStepData = z.infer<typeof productsStepSchema>;
 export type ProductsFocusStepData = z.infer<typeof productsFocusStepSchema>;
 export type VanitiesStepData = z.infer<typeof vanitiesStepSchema>;
+export type NeedOtherSolutionsStepData = z.infer<typeof needOtherSolutionsStepSchema>;
 export type StorageStepdata = z.infer<typeof storageStepSchema>;
 export type countertopsStepdata = z.infer<typeof countertopsStepSchema>;
 export type mirrorsStepdata = z.infer<typeof mirrorsStepSchema>;
@@ -56,6 +58,12 @@ export type MultiStepForm = {
     productsFocus: ProductsFocusStepData;
     //НИЖЧЕ ФОРМИ ЯКІ ЗАЛЕЖАТЬ ВІД ТОГО, ЩО БУЛО ОБРАНО НА productsFocus кроці
     vanities: VanitiesStepData;
+    /**
+     * Vanity quiz repeats "Vanity Details" N times.
+     * Main quiz keeps `vanities` only, vanity flow fills `vanitiesEntries`.
+     */
+    vanitiesEntries?: VanitiesStepData[];
+    needOtherSolutions: NeedOtherSolutionsStepData;
     storage: StorageStepdata;
     countertops: countertopsStepdata;
     mirror: mirrorsStepdata;
@@ -131,5 +139,4 @@ export type FinalActions = {
     uploadFiles: ReturnType<typeof useUploadFiles>;
     sendEmailMutation: ReturnType<typeof useSendEmail>;
     navigate: ReturnType<typeof useNavigate>;
-    cleanUp: () => void;
 };
