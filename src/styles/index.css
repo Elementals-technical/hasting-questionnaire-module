@@ -3,6 +3,7 @@
 @import url("tailwindcss");
 @import url("tw-animate-css");
 
+/* stylelint-disable-next-line at-rule-no-unknown */
 @custom-variant dark (&:is(.dark *));
 
 :root {
@@ -16,10 +17,10 @@
 
     /* Common Variables */
     --color-bg-100: #f1ebe6;
-    --color-primary: hsla(25deg, 88%, 52%, 1);
-    --color-dark-900: hsla(180deg, 4%, 9%, 1);
-    --color-dark-700: hsla(226.7deg, 10.6%, 16.7%, 1);
-    --color-dark-600: hsla(225deg, 15%, 21%, 1);
+    --color-primary: hsl(25deg, 88%, 52%, 1);
+    --color-dark-900: hsl(180deg, 4%, 9%, 1);
+    --color-dark-700: hsl(226.7deg, 10.6%, 16.7%, 1);
+    --color-dark-600: hsl(225deg, 15%, 21%, 1);
 
     /* Focus Ring */
     --ring-width: 2px;
@@ -32,16 +33,16 @@
     --scrollbar-track-color: transparent;
     --scrollbar-thumb-color: #ac5331;
     --scrollbar-border-radius: 100px;
-    --scrollbar-thumb-color-hover: hsla(210deg, 11.2%, 51%, 1);
+    --scrollbar-thumb-color-hover: hsl(210deg, 11.2%, 51%, 1);
 
     /* Companies colors */
-    --color-react: hsla(192.5deg, 95.1%, 68.2%, 1);
-    --color-typescript: hsla(211.4deg, 60.3%, 48.4%, 1);
-    --gradient-vite: linear-gradient(-45deg, hsla(280.7deg, 99%, 60%, 1) 0%, hsla(197.3deg, 100%, 63.9%, 1) 100%);
+    --color-react: hsl(192.5deg, 95.1%, 68.2%, 1);
+    --color-typescript: hsl(211.4deg, 60.3%, 48.4%, 1);
+    --gradient-vite: linear-gradient(-45deg, hsl(280.7deg, 99%, 60%, 1) 0%, hsl(197.3deg, 100%, 63.9%, 1) 100%);
     --gradient-tanstack-router: linear-gradient(
         -45deg,
-        hsla(83.7deg, 80.5%, 44.3%, 1) 0%,
-        hsla(160.1deg, 84.1%, 39.4%, 1) 100%
+        hsl(83.7deg, 80.5%, 44.3%, 1) 0%,
+        hsl(160.1deg, 84.1%, 39.4%, 1) 100%
     );
 
     /* Tailwind CSS Vars */
@@ -88,7 +89,6 @@ body {
     display: inline-block;
     position: absolute;
     overflow: hidden;
-    clip: rect(0 0 0 0);
     height: 1px;
     width: 1px;
     margin: -1px;
@@ -115,7 +115,7 @@ body {
     box-shadow:
         var(--ring-offset-shadow),
         var(--ring-shadow),
-        0 0 rgba(0, 0, 0, 0);
+        0 0 rgb(0, 0, 0, 0);
 }
 
 .focus-primary:focus {
@@ -124,7 +124,7 @@ body {
     box-shadow:
         var(--ring-offset-shadow),
         var(--ring-shadow),
-        0 0 rgba(0, 0, 0, 0);
+        0 0 rgb(0, 0, 0, 0);
 }
 
 .focus-within-primary:focus-within {
@@ -133,7 +133,7 @@ body {
     box-shadow:
         var(--ring-offset-shadow),
         var(--ring-shadow),
-        0 0 rgba(0, 0, 0, 0);
+        0 0 rgb(0, 0, 0, 0);
 }
 
 .focus-primary:focus:not(.focus-primary:focus-visible) {
@@ -149,7 +149,7 @@ body {
     box-shadow:
         var(--ring-offset-shadow),
         var(--ring-shadow),
-        0 0 rgba(0, 0, 0, 0);
+        0 0 rgb(0, 0, 0, 0);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -175,6 +175,7 @@ body {
     }
 }
 
+/* stylelint-disable-next-line at-rule-no-unknown */
 @theme inline {
     --radius-sm: calc(var(--radius) - 4px);
     --radius-md: calc(var(--radius) - 2px);
