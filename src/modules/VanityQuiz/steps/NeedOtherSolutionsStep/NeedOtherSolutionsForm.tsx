@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useFileIndexedDBValue } from '@/lib/indexedDB/utils';
 import { useNavigate } from '@tanstack/react-router';
+import { Controller } from 'react-hook-form';
 import type { MultiStepForm } from '@/modules/Home/components/shared/MultiStepForm/types';
 import { useCreateHubspotContact } from '@/hooks/useCreateHubspotContact';
 import { useSendEmail } from '@/hooks/useSendEmail';
@@ -39,26 +40,11 @@ export const NeedOtherSolutionsForm = () => {
     }, []);
 
     const isNoSelected = form.watch('no');
-    const selectedProducts = form.watch('products');
-
-    const handleSelectNo = () => {
-        form.setValue('no', true, { shouldValidate: true });
-        form.setValue('products', [], { shouldValidate: true });
-    };
-
-    const handleToggleProduct = (id: PRODUCTS_TYPES) => {
-        const current = (form.getValues('products') ?? []) as PRODUCTS_TYPES[];
-        const exists = current.includes(id);
-        const next = exists ? current.filter((x) => x !== id) : [...current, id];
-
-        form.setValue('products', next, { shouldValidate: true });
-        form.setValue('no', next.length === 0, { shouldValidate: true });
-    };
 
     const submitHandler = form.handleSubmit(async (data) => {
-        if (data.no) {
-            const vanityCount = formData.products.products.find((p) => p.id === PRODUCTS_TYPES._VANITIES)?.count ?? 1;
+        const vanityCount = formData.products.products.find((p) => p.id === PRODUCTS_TYPES._VANITIES)?.count ?? 1;
 
+        if (data.no) {
             const finalProducts = [{ id: PRODUCTS_TYPES._VANITIES, count: vanityCount }];
             const finalDataOverride: MultiStepForm = {
                 ...formData,
@@ -74,25 +60,15 @@ export const NeedOtherSolutionsForm = () => {
             });
 
             await submitFinal(
-                {
-                    setShowOverlay,
-                    get,
-                    contactMutation,
-                    uploadFiles,
-                    sendEmailMutation,
-                    navigate,
-                },
+                { setShowOverlay, get, contactMutation, uploadFiles, sendEmailMutation, navigate },
                 finalDataOverride
             );
             return;
         }
 
-        const vanityCount = formData.products.products.find((p) => p.id === PRODUCTS_TYPES._VANITIES)?.count ?? 1;
-        const otherSelectedProducts = (data.products ?? []).filter((id) => id !== PRODUCTS_TYPES._VANITIES);
-
         const updatedProducts = [
             { id: PRODUCTS_TYPES._VANITIES, count: vanityCount },
-            ...otherSelectedProducts.map((id) => ({ id, count: 1 })),
+            ...data.products.filter((p) => p.id !== PRODUCTS_TYPES._VANITIES),
         ];
 
         const updatedFormData = {
@@ -123,16 +99,69 @@ export const NeedOtherSolutionsForm = () => {
         <FormStepLayout title={currentStep.title} description={currentStep.description}>
             <div className={s.form}>
                 <div className={s.grid}>
-                    <BathroomCard option={NO_OPTION} isSelected={isNoSelected} onToggle={handleSelectNo} />
+                    <Controller
+                        name="no"
+                        control={form.control}
+                        render={({ field }) => (
+                            <BathroomCard
+                                option={NO_OPTION}
+                                isSelected={field.value}
+                                onToggle={() => {
+                                    field.onChange(true);
+                                    form.setValue('products', [], { shouldValidate: true });
+                                }}
+                            />
+                        )}
+                    />
 
-                    {otherOptions.map((option) => (
-                        <BathroomCard
-                            key={option.id}
-                            option={option}
-                            isSelected={!isNoSelected && selectedProducts.includes(option.id)}
-                            onToggle={() => handleToggleProduct(option.id)}
-                        />
-                    ))}
+                    <Controller
+                        name="products"
+                        control={form.control}
+                        render={({ field }) => (
+                            <>
+                                {otherOptions.map((option) => {
+                                    const selected = field.value.find((p) => p.id === option.id);
+
+                                    const handleToggle = () => {
+                                        const exists = !!selected;
+                                        const next = exists
+                                            ? field.value.filter((p) => p.id !== option.id)
+                                            : [...field.value, { id: option.id, count: 1 }];
+                                        field.onChange(next);
+                                        form.setValue('no', next.length === 0, { shouldValidate: true });
+                                    };
+
+                                    const handleIncrement = () => {
+                                        field.onChange(
+                                            field.value.map((p) =>
+                                                p.id === option.id ? { ...p, count: p.count + 1 } : p
+                                            )
+                                        );
+                                    };
+
+                                    const handleDecrement = () => {
+                                        field.onChange(
+                                            field.value.map((p) =>
+                                                p.id === option.id && p.count > 1 ? { ...p, count: p.count - 1 } : p
+                                            )
+                                        );
+                                    };
+
+                                    return (
+                                        <BathroomCard
+                                            key={option.id}
+                                            option={option}
+                                            isSelected={!isNoSelected && !!selected}
+                                            count={selected?.count ?? 1}
+                                            onToggle={handleToggle}
+                                            onIncrement={handleIncrement}
+                                            onDecrement={handleDecrement}
+                                        />
+                                    );
+                                })}
+                            </>
+                        )}
+                    />
                 </div>
             </div>
 

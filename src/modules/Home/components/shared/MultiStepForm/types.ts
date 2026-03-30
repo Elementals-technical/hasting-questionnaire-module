@@ -59,6 +59,7 @@ export type MultiStepForm = {
     //НИЖЧЕ ФОРМИ ЯКІ ЗАЛЕЖАТЬ ВІД ТОГО, ЩО БУЛО ОБРАНО НА productsFocus кроці
     vanities: VanitiesStepData;
     /**
+     * це вже інше флоу (треба б якось його винести в окрему форму)
      * Vanity quiz repeats "Vanity Details" N times.
      * Main quiz keeps `vanities` only, vanity flow fills `vanitiesEntries`.
      */

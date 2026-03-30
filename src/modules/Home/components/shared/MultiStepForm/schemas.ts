@@ -144,13 +144,18 @@ export const productsFocusStepSchema = z.object({
 });
 
 export const needOtherSolutionsStepSchema = z
+    /**
+     * If `no` is true, the user wants no additional solutions.
+     * Otherwise they can select product types for additional solution steps.
+     */
     .object({
-        /**
-         * If `no` is true, the user wants no additional solutions.
-         * Otherwise they can select product types for additional solution steps.
-         */
         no: z.boolean(),
-        products: z.array(z.nativeEnum(PRODUCTS_TYPES)),
+        products: z.array(
+            z.object({
+                id: z.nativeEnum(PRODUCTS_TYPES),
+                count: z.number().int().min(1, 'Count must be at least 1'),
+            })
+        ),
     })
     .refine((data) => data.no || data.products.length > 0, {
         message: 'Select at least one other solution or choose No',
