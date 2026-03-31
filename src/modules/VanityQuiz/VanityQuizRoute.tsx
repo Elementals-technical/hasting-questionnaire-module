@@ -15,20 +15,14 @@ import { StageForm } from '@/modules/Home/components/Questionnaire/steps/StageSt
 import { StorageForm } from '@/modules/Home/components/Questionnaire/steps/StorageStep/StorageStep';
 import { ToiletsForm } from '@/modules/Home/components/Questionnaire/steps/ToiletsStep/ToiletsStep';
 import { TubsForm } from '@/modules/Home/components/Questionnaire/steps/TubsStep/TubsStep';
-import { MultiStepFormProvider } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
 import { MultiStepFormStep } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormStep';
 import { MultiStepFormWrapper } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormWrapper/MultiStepFormWrapper';
-import { LS_VANITY_QUIZ_KEY, VANITY_QUIZ_INITIAL_STATE, VANITY_QUIZ_STEPS } from '@/modules/VanityQuiz/vanityQuizSteps';
+import { VanitiesFormProvider } from '@/modules/VanityQuiz/vanityQuizSteps';
 import s from './style.module.scss';
 
 export const VanityQuizRoute: React.FC = () => {
     return (
-        <MultiStepFormProvider
-            localStorageKey={LS_VANITY_QUIZ_KEY}
-            stepsConfig={VANITY_QUIZ_STEPS}
-            resultPath={'/quiz-vanities/result'}
-            initialState={VANITY_QUIZ_INITIAL_STATE}
-        >
+        <VanitiesFormProvider>
             <div className={clsx(s.wrap, 'full-height')}>
                 <MultiStepFormWrapper>
                     <MultiStepFormStep id="roomStyle">
@@ -82,6 +76,6 @@ export const VanityQuizRoute: React.FC = () => {
                     </MultiStepFormStep>
                 </MultiStepFormWrapper>
             </div>
-        </MultiStepFormProvider>
+        </VanitiesFormProvider>
     );
 };

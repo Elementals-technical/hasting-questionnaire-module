@@ -1,13 +1,15 @@
-@use '../../../../../../../../styles/breakpoints.scss';
+@use '../../../../../../../../styles/breakpoints';
 
 .wrap {
     display: flex;
     flex-direction: column;
 }
+
 .list {
     display: flex;
     gap: 40px;
     flex-wrap: wrap;
+
     @include breakpoints.md {
         justify-content: center;
     }

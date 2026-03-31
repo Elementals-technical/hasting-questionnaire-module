@@ -1,8 +1,7 @@
-@use '../../../../../styles/breakpoints.scss';
+@use '../../../../../styles/breakpoints';
 
 .overlay {
     position: fixed;
-    display: flex;
     flex-direction: column;
     gap: 24px;
     top: 0;
@@ -14,6 +13,7 @@
     justify-content: center;
     z-index: 9999;
     animation: fadeIn 0.3s ease-in;
+
     &Title {
         color: #ac5331;
         font-family: 'Proxima Nova';
@@ -31,6 +31,7 @@
             line-height: 40px; /* 125% */
         }
     }
+
     &Subtitle {
         color: #ac5331;
         text-align: center;

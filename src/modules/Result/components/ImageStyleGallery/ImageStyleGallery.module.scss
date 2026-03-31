@@ -1,12 +1,15 @@
-@use '../../../../styles/breakpoints.scss';
+@use '../../../../styles/breakpoints';
 
 /* 1. Контейнер, який встановлює контекст для абсолютного позиціонування */
 .overlapGalleryContainer {
     position: relative;
+
     /* Встановлюємо максимальну ширину, щоб контейнер не був надто великим */
     max-width: 800px;
+
     /* Визначаємо висоту, якщо зображення мають різні пропорції */
     height: 450px;
+
     /* Створюємо 3D контекст для transform */
     transform-style: preserve-3d;
 }
@@ -33,7 +36,7 @@
     /* При наведенні на нього - виносимо вперед */
     &:hover {
         transform: translateZ(10px) scale(1.02); /* Виносимо на 10px вперед */
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 15px 30px rgb(0, 0, 0, 0.3);
     }
 }
 
@@ -45,7 +48,7 @@
     width: 85%;
     height: 85%;
     z-index: 2;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 20px rgb(0, 0, 0, 0.2);
     transform: translateZ(5px); /* За замовчуванням трохи попереду */
     transition:
         transform 0.3s ease,
@@ -58,7 +61,7 @@
     /* При наведенні на нього - виносимо ще більше вперед */
     &:hover {
         transform: translateZ(15px) scale(1.02); /* Виносимо на 15px вперед */
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 15px 30px rgb(0, 0, 0, 0.3);
     }
 }
 

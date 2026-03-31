@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { useFileIndexedDBValue } from '@/lib/indexedDB/utils';
 import { useNavigate } from '@tanstack/react-router';
 import { Controller } from 'react-hook-form';
-import type { MultiStepForm } from '@/modules/Home/components/shared/MultiStepForm/types';
+import type { MultiStepForm, MultiStepFormStepId } from '@/modules/Home/components/shared/MultiStepForm/types';
 import { useCreateHubspotContact } from '@/hooks/useCreateHubspotContact';
 import { useSendEmail } from '@/hooks/useSendEmail';
 import { useUploadFiles } from '@/hooks/useUploadFiles';
@@ -18,6 +18,7 @@ import {
     useMultiStepFormContext,
     useMultiStepFormStepForm,
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
+import { buildVanityDualShapePayload } from '@/modules/VanityQuiz/model/vanityFormModel';
 import s from './NeedOtherSolutionsForm.module.scss';
 
 const NO_OPTION = { id: 'no', label: 'No' };
@@ -46,12 +47,12 @@ export const NeedOtherSolutionsForm = () => {
 
         if (data.no) {
             const finalProducts = [{ id: PRODUCTS_TYPES._VANITIES, count: vanityCount }];
-            const finalDataOverride: MultiStepForm = {
+            const finalDataOverride = buildVanityDualShapePayload({
                 ...formData,
                 products: { products: finalProducts },
                 productsFocus: { product: PRODUCTS_TYPES._VANITIES },
                 needOtherSolutions: data,
-            };
+            });
 
             setFormStepDataBatch({
                 products: { products: finalProducts },
@@ -87,7 +88,7 @@ export const NeedOtherSolutionsForm = () => {
         const ordered = getOrderedProductSteps(updatedFormData as MultiStepForm);
         const nextOtherProductId = ordered[1];
         if (nextOtherProductId) {
-            goToStep(nextOtherProductId as keyof MultiStepForm);
+            goToStep(nextOtherProductId as MultiStepFormStepId);
         }
     });
 

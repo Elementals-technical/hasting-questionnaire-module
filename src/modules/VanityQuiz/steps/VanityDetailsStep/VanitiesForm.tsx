@@ -1,5 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import AttachIcon from '@/assets/icons/common/AttachIcon';
+import CircleIcon from '@/assets/icons/common/CircleIcon';
+import CheckIcon from '@/assets/icons/common/DoneIcon';
 import { useFileIndexedDBValue, useSetFileToIndexedDB } from '@/lib/indexedDB/utils';
 import clsx from 'clsx';
 import { FileIcon, XIcon } from 'lucide-react';
@@ -20,7 +22,7 @@ import s from '@/modules/Home/components/Questionnaire/steps/VanitiesStep/Vaniti
 import BathroomCard from '@/modules/Home/components/shared/BathroomCard/BathroomCard';
 import ErrorMessage from '@/modules/Home/components/shared/ErrorMessage/ErrorMessage';
 import { MultiStepFormFooter } from '@/modules/Home/components/shared/FormFooter/MultiStepFormFooter';
-import { ACCEPT_FILES } from '@/modules/Home/components/shared/MultiStepForm/constants';
+import { ACCEPT_FILES, MULTI_STEP_FORM_INITIAL_STATE } from '@/modules/Home/components/shared/MultiStepForm/constants';
 import {
     useMultiStepFormContext,
     useMultiStepFormStepForm,
@@ -28,14 +30,21 @@ import {
 import { VanitiesStepData } from '@/modules/Home/components/shared/MultiStepForm/types';
 import Slider from '@/modules/Home/components/shared/Slider/Slider';
 import TagSelector from '@/modules/Home/components/shared/TagSelector/TagSelector';
-import VanitiesTransitionOverlay from '@/modules/Home/components/shared/VanitiesTransitionOverlay/VanitiesTransitionOverlay';
 import { Button } from '@/components/ui/Button/Button';
 
-export const VanitiesForm = () => {
-    const [showTransition, setShowTransition] = useState(false);
-    const [currentEntryIndex, setCurrentEntryIndex] = useState(0);
+const cloneVanityDefaults = (value: VanitiesStepData): VanitiesStepData => {
+    return structuredClone(value);
+};
 
-    const { currentStep, goToNextStep, setFormStepDataBatch, formData } = useMultiStepFormContext();
+export const VanitiesForm = () => {
+    const {
+        currentStep,
+        goToNextStep,
+        setFormStepDataBatch,
+        formData,
+        currentProductInstanceIndex,
+        goToProductInstance,
+    } = useMultiStepFormContext();
     const { form } = useMultiStepFormStepForm('vanities');
     const { conceptStyle, numberOfBasins } = useFilterVanitiesOptionsByRules(
         form,
@@ -56,6 +65,23 @@ export const VanitiesForm = () => {
     } = form;
 
     const vanityCount = formData.products.products.find((p) => p.id === PRODUCTS_TYPES._VANITIES)?.count ?? 1;
+    const visitedUntilIndex = useMemo(() => {
+        const entries = formData.vanitiesEntries ?? [];
+        let lastSavedIndex = -1;
+        entries.forEach((entry, idx) => {
+            const hasFiles = Array.isArray(entry.files) && entry.files.length > 0;
+            const hasText = Boolean(entry.additionalInfo?.trim());
+            const hasSelections =
+                (Array.isArray(entry.conceptStyle) && entry.conceptStyle.length > 0) ||
+                (Array.isArray(entry.look) && entry.look.length > 0) ||
+                (Array.isArray(entry.color) && entry.color.length > 0);
+            if (hasFiles || hasText || hasSelections) {
+                lastSavedIndex = idx;
+            }
+        });
+
+        return Math.max(currentProductInstanceIndex, lastSavedIndex, 0);
+    }, [currentProductInstanceIndex, formData.vanitiesEntries]);
 
     useEffect(() => {
         const existing = formData.vanitiesEntries ?? [];
@@ -63,59 +89,93 @@ export const VanitiesForm = () => {
             return;
         }
 
-        const template = formData.vanities;
+        const template = MULTI_STEP_FORM_INITIAL_STATE.vanities;
         const resized: VanitiesStepData[] = Array.from({ length: vanityCount }, (_, idx) => {
-            return existing[idx] ?? template;
+            return existing[idx] ?? cloneVanityDefaults(template);
         });
 
-        setCurrentEntryIndex(0);
         setFormStepDataBatch({
             vanitiesEntries: resized,
-            vanities: resized[0]!,
+            vanities: resized[currentProductInstanceIndex] ?? resized[0]!,
         });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [vanityCount]);
+    }, [currentProductInstanceIndex, formData.vanitiesEntries, setFormStepDataBatch, vanityCount]);
 
     const submitHandler = form.handleSubmit((data) => {
         const existingEntries = formData.vanitiesEntries ?? [];
-        const template = formData.vanities;
+        const template = MULTI_STEP_FORM_INITIAL_STATE.vanities;
         const currentEntriesLength = Math.max(existingEntries.length, vanityCount);
 
         const resized: VanitiesStepData[] = Array.from({ length: currentEntriesLength }, (_, idx) => {
-            return existingEntries[idx] ?? template;
+            return existingEntries[idx] ?? cloneVanityDefaults(template);
         });
 
-        resized[currentEntryIndex] = data;
+        resized[currentProductInstanceIndex] = data;
 
-        const isLast = currentEntryIndex >= vanityCount - 1;
-        const nextEntryIndex = currentEntryIndex + 1;
+        const isLast = currentProductInstanceIndex >= vanityCount - 1;
+        const nextEntryIndex = currentProductInstanceIndex + 1;
 
         setFormStepDataBatch({
             vanitiesEntries: resized,
-            vanities: isLast ? data : (resized[nextEntryIndex] ?? data),
+            vanities: isLast ? data : (resized[nextEntryIndex] ?? cloneVanityDefaults(template)),
         });
 
-        if (isLast) {
-            goToNextStep();
-        } else {
-            setShowTransition(true);
-            setTimeout(() => {
-                setShowTransition(false);
-                setCurrentEntryIndex((prev) => prev + 1);
-            }, 4000);
-        }
+        goToNextStep();
     });
-
-    if (showTransition) {
-        return <VanitiesTransitionOverlay nextIndex={currentEntryIndex + 1} total={vanityCount} />;
-    }
 
     return (
         <>
-            <FormStepLayout
-                title={currentStep.title + ` (#${currentEntryIndex + 1} / ${vanityCount})`}
-                description={currentStep.description}
-            >
+            <div className={s.vanityStepperWrap}>
+                <div className={s.vanityStepper} role="tablist" aria-label="Vanity steps">
+                    {Array.from({ length: vanityCount }, (_, idx) => {
+                        const isCurrent = idx === currentProductInstanceIndex;
+                        const isVisited = idx <= visitedUntilIndex;
+                        const isCompleted = idx < currentProductInstanceIndex || (isVisited && !isCurrent);
+                        const isLast = idx === vanityCount - 1;
+
+                        return (
+                            <React.Fragment key={idx}>
+                                <button
+                                    type="button"
+                                    role="tab"
+                                    aria-selected={isCurrent}
+                                    aria-disabled={!isVisited}
+                                    className={clsx(s.vanityStepItem, {
+                                        [s.vanityStepCurrent]: isCurrent,
+                                        [s.vanityStepCompleted]: isCompleted,
+                                        [s.vanityStepUnvisited]: !isVisited && !isCurrent,
+                                    })}
+                                    onClick={() => {
+                                        if (!isVisited || isCurrent) return;
+                                        goToProductInstance('vanities', idx);
+                                    }}
+                                    disabled={!isVisited && !isCurrent}
+                                >
+                                    <span className={s.vanityStepDot}>
+                                        {isCompleted && <CheckIcon />}
+                                        {isCurrent && (
+                                            <>
+                                                <CircleIcon />
+                                                <span className={s.vanityStepDotInner} />
+                                            </>
+                                        )}
+                                        {!isCompleted && !isCurrent && <span className={s.vanityStepDotInner} />}
+                                    </span>
+                                    <span className={s.vanityStepLabel}>{`Vanity ${idx + 1}`}</span>
+                                </button>
+                                {!isLast && (
+                                    <span
+                                        className={clsx(s.vanityStepConnector, {
+                                            [s.vanityStepConnectorActive]: idx < currentProductInstanceIndex,
+                                        })}
+                                        aria-hidden="true"
+                                    />
+                                )}
+                            </React.Fragment>
+                        );
+                    })}
+                </div>
+            </div>
+            <FormStepLayout title={currentStep.title} description={currentStep.description}>
                 <div className={s.form}>
                     <div className={s.section}>
                         <h2 className={s.sectionTitle}>Size</h2>

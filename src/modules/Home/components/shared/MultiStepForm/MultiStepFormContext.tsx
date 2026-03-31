@@ -5,13 +5,14 @@ import {
     FinalActions,
     MultiStepForm,
     MultiStepFormStep,
+    MultiStepFormStepId,
     ProductStepsData,
     StepWithFiles,
 } from './types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useCounter, useLocalStorageValue, useToggle } from '@react-hookz/web';
 import { flushSync } from 'react-dom';
-import { DefaultValues, Path, PathValue, useForm } from 'react-hook-form';
+import { DefaultValues, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useSafeContext } from '@/hooks/useSafeContext';
 import { SUBSTYLES } from '@/modules/Result/components/BonusSuggestions/constants';
@@ -31,7 +32,7 @@ type MultiStepFormContextType = {
     isLastStep: boolean;
     isFirstStep: boolean;
     goToNextStep: () => void;
-    goToStep: (_stepName: keyof MultiStepForm) => void;
+    goToStep: (_stepName: MultiStepFormStepId) => void;
     goToPreviousStep: () => void;
     setFormStepData: <TField extends keyof MultiStepForm>(
         // eslint-disable-next-line no-unused-vars
@@ -52,9 +53,33 @@ type MultiStepFormContextType = {
         _data: MultiStepForm[T],
         _actions: FinalActions
     ) => Promise<void>;
+    currentProductInstanceIndex: number;
+    goToProductInstance: <T extends keyof ProductStepsData>(_stepId: T, _index: number) => void;
 };
 
 export const LS_MULTI_STEP_FORM_KEY = 'HASTINGS_multi-step-form';
+
+const PRODUCT_ENTRY_FIELD_MAP: Partial<Record<keyof ProductStepsData, keyof MultiStepForm>> = {
+    vanities: 'vanitiesEntries',
+    storage: 'storageEntries',
+    countertops: 'countertopsEntries',
+    mirror: 'mirrorEntries',
+    pedestalAndConsoles: 'pedestalAndConsolesEntries',
+    basin: 'basinEntries',
+    tubs: 'tubsEntries',
+    toilets: 'toiletsEntries',
+};
+
+const PRODUCT_STEP_IDS = new Set<keyof ProductStepsData>([
+    'vanities',
+    'storage',
+    'countertops',
+    'mirror',
+    'pedestalAndConsoles',
+    'basin',
+    'tubs',
+    'toilets',
+]);
 
 const MultiStepFormContext = React.createContext<MultiStepFormContextType>({} as MultiStepFormContextType);
 MultiStepFormContext.displayName = 'MultiStepFormContext';
@@ -96,6 +121,9 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
     const [isLoading, toggleIsLoading] = useToggle(true);
     const [isInitialStepSet, toggleIsInitialStepSet] = useToggle();
     const [animationDirection, setAnimationDirection] = React.useState<AnimationDirection>('next');
+    const [productStepInstanceIndex, setProductStepInstanceIndex] = React.useState<
+        Partial<Record<keyof ProductStepsData, number>>
+    >({});
 
     const stepsArray = React.useMemo(() => {
         return Object.values(stepsConfig).filter((step) => step.enabled);
@@ -111,11 +139,6 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
         },
     ] = useCounter(0, stepsArray.length - 1, 0);
 
-    const currentStep = stepsArray[currentStepIndex];
-    const isLastStep = currentStep.id === stepsArray[stepsArray.length - 1].id;
-    const isFirstStep = currentStep.id === stepsArray[0].id;
-    const canGoBack = currentStepIndex > 0;
-
     const parsedFormData = React.useMemo(() => {
         if (!formData) {
             return initialState;
@@ -124,8 +147,26 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
         return JSON.parse(formData) as MultiStepForm;
     }, [formData, initialState]);
 
+    const currentStep = stepsArray[currentStepIndex];
+    const getProductCountForStep = React.useCallback((stepId: MultiStepFormStepId, data: MultiStepForm) => {
+        if (!PRODUCT_STEP_IDS.has(stepId as keyof ProductStepsData)) {
+            return 1;
+        }
+
+        const productId = stepId as unknown as PRODUCTS_TYPES;
+        return data.products.products.find((p) => p.id === productId)?.count ?? 1;
+    }, []);
+    const currentProductIndex = PRODUCT_STEP_IDS.has(currentStep.id as keyof ProductStepsData)
+        ? (productStepInstanceIndex[currentStep.id as keyof ProductStepsData] ?? 0)
+        : 0;
+    const currentProductCount = getProductCountForStep(currentStep.id, parsedFormData);
+    const isLastStep =
+        currentStep.id === stepsArray[stepsArray.length - 1].id && currentProductIndex >= currentProductCount - 1;
+    const isFirstStep = currentStep.id === stepsArray[0].id;
+    const canGoBack = currentStepIndex > 0 || currentProductIndex > 0;
+
     const goToStep = React.useCallback(
-        (stepName: keyof MultiStepForm) => {
+        (stepName: MultiStepFormStepId) => {
             const targetStepIndex = stepsArray.findIndex((i) => i.id === stepName);
             if (targetStepIndex === -1) return;
             flushSync(() => {
@@ -133,6 +174,12 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
             });
 
             setCurrentStepIndex(targetStepIndex);
+            if (PRODUCT_STEP_IDS.has(stepName as keyof ProductStepsData)) {
+                setProductStepInstanceIndex((prev) => ({
+                    ...prev,
+                    [stepName as keyof ProductStepsData]: 0,
+                }));
+            }
         },
         [currentStepIndex, stepsArray, setCurrentStepIndex]
     );
@@ -142,16 +189,78 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
             setAnimationDirection('next');
         });
 
+        if (PRODUCT_STEP_IDS.has(currentStep.id as keyof ProductStepsData)) {
+            const stepId = currentStep.id as keyof ProductStepsData;
+            const currentIndex = productStepInstanceIndex[stepId] ?? 0;
+            const count = getProductCountForStep(currentStep.id, parsedFormData);
+            if (currentIndex < count - 1) {
+                setProductStepInstanceIndex((prev) => ({
+                    ...prev,
+                    [stepId]: currentIndex + 1,
+                }));
+                return;
+            }
+        }
+
         incrementCurrentStepIndex();
-    }, [incrementCurrentStepIndex]);
+    }, [currentStep.id, getProductCountForStep, incrementCurrentStepIndex, parsedFormData, productStepInstanceIndex]);
 
     const goToPreviousStep = React.useCallback(() => {
         flushSync(() => {
             setAnimationDirection('prev');
         });
 
+        if (PRODUCT_STEP_IDS.has(currentStep.id as keyof ProductStepsData)) {
+            const stepId = currentStep.id as keyof ProductStepsData;
+            const currentIndex = productStepInstanceIndex[stepId] ?? 0;
+            if (currentIndex > 0) {
+                setProductStepInstanceIndex((prev) => ({
+                    ...prev,
+                    [stepId]: currentIndex - 1,
+                }));
+                return;
+            }
+        }
+
         decrementCurrentStepIndex();
-    }, [decrementCurrentStepIndex]);
+    }, [currentStep.id, decrementCurrentStepIndex, productStepInstanceIndex]);
+
+    const setFormStepDataBatch = React.useCallback(
+        (updates: Partial<MultiStepForm>) => {
+            setFormData((prev) => {
+                return JSON.stringify({
+                    ...JSON.parse(prev ?? JSON.stringify(initialState)),
+                    ...updates,
+                });
+            });
+        },
+        [setFormData, initialState]
+    );
+    const goToProductInstance = React.useCallback(
+        <T extends keyof ProductStepsData>(stepId: T, index: number) => {
+            const safeIndex = Math.max(0, index);
+            const entryKey = PRODUCT_ENTRY_FIELD_MAP[stepId];
+            const entries = entryKey ? parsedFormData[entryKey] : undefined;
+            const defaultValue = initialState[stepId] as MultiStepForm[T];
+            const nextValue =
+                Array.isArray(entries) && entries[safeIndex]
+                    ? (entries[safeIndex] as MultiStepForm[T])
+                    : (defaultValue as MultiStepForm[T]);
+
+            flushSync(() => {
+                setAnimationDirection('next');
+            });
+
+            setFormStepDataBatch({
+                [stepId]: nextValue,
+            } as Partial<MultiStepForm>);
+            setProductStepInstanceIndex((prev) => ({
+                ...prev,
+                [stepId]: safeIndex,
+            }));
+        },
+        [initialState, parsedFormData, setFormStepDataBatch]
+    );
 
     const setFormStepData = React.useCallback(
         <TField extends keyof MultiStepForm>(key: TField, data: MultiStepForm[TField]) => {
@@ -167,18 +276,6 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
             });
         },
         [setFormData]
-    );
-
-    const setFormStepDataBatch = React.useCallback(
-        (updates: Partial<MultiStepForm>) => {
-            setFormData((prev) => {
-                return JSON.stringify({
-                    ...JSON.parse(prev ?? JSON.stringify(initialState)),
-                    ...updates,
-                });
-            });
-        },
-        [setFormData, initialState]
     );
 
     const cleanUp = React.useCallback(() => {
@@ -204,9 +301,12 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
             const filesMetadata = [
                 ...(finalData.aboutProject?.files || []),
                 ...selectedProductIds.flatMap((id) => {
-                    if (id === PRODUCTS_TYPES._VANITIES && Array.isArray(finalData.vanitiesEntries)) {
-                        return finalData.vanitiesEntries.flatMap((entry) => {
-                            return Array.isArray(entry.files) ? entry.files : [];
+                    const entryKey = `${id}Entries` as keyof MultiStepForm;
+                    const entries = finalData[entryKey];
+                    if (Array.isArray(entries)) {
+                        return entries.flatMap((entry) => {
+                            const files = (entry as StepWithFiles)?.files;
+                            return Array.isArray(files) ? files : [];
                         });
                     }
 
@@ -261,19 +361,28 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
 
             // Оновлюємо files в кожному продукті
             selectedProductIds.forEach((id) => {
-                if (id === PRODUCTS_TYPES._VANITIES && Array.isArray(updatedFinalData.vanitiesEntries)) {
-                    updatedFinalData.vanitiesEntries = updatedFinalData.vanitiesEntries.map((entry) => {
-                        return {
-                            ...entry,
-                            files: mapFilesWithUrls(entry.files),
-                        };
-                    });
-                    return;
+                const entryKey = `${id}Entries` as keyof MultiStepForm;
+                const entries = updatedFinalData[entryKey];
+                if (Array.isArray(entries)) {
+                    (updatedFinalData as Record<string, unknown>)[entryKey] = entries.map((entry) => ({
+                        ...(entry as object),
+                        files: mapFilesWithUrls((entry as StepWithFiles).files),
+                    }));
+                } else {
+                    const stepData = updatedFinalData[id as keyof MultiStepForm] as StepWithFiles;
+                    if (stepData?.files) {
+                        stepData.files = mapFilesWithUrls(stepData.files);
+                    }
                 }
+            });
 
-                const stepData = updatedFinalData[id as keyof MultiStepForm] as StepWithFiles;
-                if (stepData?.files) {
-                    stepData.files = mapFilesWithUrls(stepData.files);
+            // dual-shape v1: keep legacy singular fields from repeatable entries
+            selectedProductIds.forEach((id) => {
+                const entryKey = `${id}Entries` as keyof MultiStepForm;
+                const entries = updatedFinalData[entryKey];
+                if (Array.isArray(entries) && entries.length > 0) {
+                    const legacyKey = id as unknown as keyof MultiStepForm;
+                    (updatedFinalData as Record<string, unknown>)[legacyKey] = entries[0];
                 }
             });
 
@@ -313,7 +422,7 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
         async (finalActions: FinalActions, finalDataOverride?: MultiStepForm) => {
             await runFinalSubmission(finalDataOverride ?? parsedFormData, finalActions);
         },
-        [parsedFormData]
+        [parsedFormData, runFinalSubmission]
     );
 
     const handleProductStepSubmit = React.useCallback(
@@ -322,8 +431,41 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
             data: MultiStepForm[T],
             finalActions: FinalActions // Передаємо інструменти сюди
         ) => {
-            setFormStepData(stepId, data);
             const updatedFormData = { ...parsedFormData, [stepId]: data };
+            const currentInstanceIndex = productStepInstanceIndex[stepId] ?? 0;
+            const count = getProductCountForStep(stepId, updatedFormData);
+            const entryKey = PRODUCT_ENTRY_FIELD_MAP[stepId];
+            const entryUpdates = { [stepId]: data } as Partial<MultiStepForm>;
+
+            if (entryKey) {
+                const currentEntries = Array.isArray(updatedFormData[entryKey])
+                    ? ([...updatedFormData[entryKey]] as MultiStepForm[T][])
+                    : [];
+                currentEntries[currentInstanceIndex] = data;
+                (entryUpdates as Record<string, unknown>)[entryKey] = currentEntries;
+
+                if (currentInstanceIndex < count - 1) {
+                    const nextInstanceIndex = currentInstanceIndex + 1;
+                    const nextValue = (currentEntries[nextInstanceIndex] ?? initialState[stepId]) as MultiStepForm[T];
+                    setFormStepDataBatch({
+                        ...entryUpdates,
+                        [stepId]: nextValue,
+                    });
+                    setProductStepInstanceIndex((prev) => ({
+                        ...prev,
+                        [stepId]: nextInstanceIndex,
+                    }));
+                    return;
+                }
+            } else {
+                setFormStepData(stepId, data);
+            }
+
+            setFormStepDataBatch(entryUpdates);
+            setProductStepInstanceIndex((prev) => ({
+                ...prev,
+                [stepId]: 0,
+            }));
 
             const productQueue = getOrderedProductSteps(updatedFormData);
             const currentIndex = productQueue.indexOf(stepId as unknown as PRODUCTS_TYPES);
@@ -336,7 +478,16 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
                 await runFinalSubmission(updatedFormData, finalActions);
             }
         },
-        [parsedFormData, setFormStepData, goToStep]
+        [
+            getOrderedProductSteps,
+            getProductCountForStep,
+            goToStep,
+            initialState,
+            parsedFormData,
+            productStepInstanceIndex,
+            setFormStepData,
+            setFormStepDataBatch,
+        ]
     );
 
     const memoizedValue = React.useMemo(() => {
@@ -359,6 +510,8 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
             getOrderedProductSteps,
             submitFinal,
             handleProductStepSubmit,
+            currentProductInstanceIndex: currentProductIndex,
+            goToProductInstance,
         };
     }, [
         parsedFormData,
@@ -378,6 +531,8 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
         getOrderedProductSteps,
         submitFinal,
         handleProductStepSubmit,
+        currentProductIndex,
+        goToProductInstance,
         stepsArray,
     ]);
 
@@ -400,7 +555,15 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
             toggleIsInitialStepSet(true);
             toggleIsLoading(false);
         }
-    }, [formData, isInitialStepSet, parsedFormData, setCurrentStepIndex, toggleIsInitialStepSet, toggleIsLoading]);
+    }, [
+        formData,
+        isInitialStepSet,
+        parsedFormData,
+        setCurrentStepIndex,
+        stepsArray,
+        toggleIsInitialStepSet,
+        toggleIsLoading,
+    ]);
 
     // useEffect(() => {
     //     cleanUp();
@@ -419,12 +582,17 @@ export const useMultiStepFormContext = () => {
     return context;
 };
 
-export const useMultiStepFormStepForm = <TStepId extends keyof MultiStepForm>(stepId: TStepId) => {
-    const { formData } = useMultiStepFormContext();
+export const useMultiStepFormStepForm = <TStepId extends MultiStepFormStepId>(stepId: TStepId) => {
+    const { formData, currentProductInstanceIndex } = useMultiStepFormContext();
 
     const [isLoading, toggleIsLoading] = useToggle(true);
 
-    const formDataValue = formData[stepId];
+    const entryKey = `${String(stepId)}Entries` as keyof MultiStepForm;
+    const entriesValue = formData[entryKey];
+    const formDataValue =
+        Array.isArray(entriesValue) && entriesValue.length > 0
+            ? (entriesValue[currentProductInstanceIndex] ?? formData[stepId])
+            : formData[stepId];
 
     const defaultValues = formDataValue;
 
@@ -439,18 +607,10 @@ export const useMultiStepFormStepForm = <TStepId extends keyof MultiStepForm>(st
     React.useEffect(() => {
         toggleIsLoading(true);
 
-        Object.keys(defaultValues).forEach((key) => {
-            form.setValue(
-                key as Path<MultiStepForm[TStepId]>,
-                defaultValues[key as keyof MultiStepForm[TStepId]] as PathValue<
-                    MultiStepForm[TStepId],
-                    Path<MultiStepForm[TStepId]>
-                >
-            );
-        });
+        form.reset(defaultValues as DefaultValues<MultiStepForm[TStepId]>);
 
         toggleIsLoading(false);
-    }, [form, formData, defaultValues, stepId, toggleIsLoading]);
+    }, [form, formData, defaultValues, stepId, toggleIsLoading, currentProductInstanceIndex]);
 
     return { form, isLoading };
 };

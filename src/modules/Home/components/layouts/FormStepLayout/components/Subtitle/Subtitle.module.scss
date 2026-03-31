@@ -1,8 +1,8 @@
-@use '../../../../../../../styles/breakpoints.scss';
+@use '../../../../../../../styles/breakpoints';
 
 .subtitle {
     color: #282828;
-    font-family: Poppins;
+    font-family: "Poppins";
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
@@ -11,7 +11,7 @@
     @include breakpoints.md {
         color: #282828;
         text-align: center;
-        font-family: Poppins;
+        font-family: "Poppins";
         font-size: 14px;
         font-style: normal;
         font-weight: 400;

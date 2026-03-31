@@ -1,5 +1,5 @@
 // SubstylesSlider.module.scss
-@use '../../../../styles/breakpoints.scss';
+@use '../../../../styles/breakpoints';
 
 .container {
     width: 100%;
@@ -51,7 +51,7 @@
 
 .slideTitle {
     color: #282828;
-    font-family: Poppins;
+    font-family: "Poppins";
     font-size: 20px;
     font-style: normal;
     font-weight: 500;
@@ -60,7 +60,7 @@
 
     @include breakpoints.md {
         color: #282828;
-        font-family: Poppins;
+        font-family: "Poppins";
         font-size: 16px;
         font-style: normal;
         font-weight: 500;
@@ -70,7 +70,7 @@
 
 .slideDescription {
     color: #282828;
-    font-family: Poppins;
+    font-family: "Poppins";
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -78,7 +78,7 @@
 
     @include breakpoints.md {
         color: #282828;
-        font-family: Poppins;
+        font-family: "Poppins";
         font-size: 12px;
         font-style: normal;
         font-weight: 400;

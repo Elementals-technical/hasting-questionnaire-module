@@ -64,6 +64,13 @@ export type MultiStepForm = {
      * Main quiz keeps `vanities` only, vanity flow fills `vanitiesEntries`.
      */
     vanitiesEntries?: VanitiesStepData[];
+    storageEntries?: StorageStepdata[];
+    countertopsEntries?: countertopsStepdata[];
+    mirrorEntries?: mirrorsStepdata[];
+    pedestalAndConsolesEntries?: pedestalAndConsolesStepdata[];
+    basinEntries?: basinStepdata[];
+    tubsEntries?: tubsStepdata[];
+    toiletsEntries?: toiletsStepdata[];
     needOtherSolutions: NeedOtherSolutionsStepData;
     storage: StorageStepdata;
     countertops: countertopsStepdata;
@@ -73,6 +80,18 @@ export type MultiStepForm = {
     tubs: tubsStepdata;
     toilets: toiletsStepdata;
 };
+
+export type RepeatableEntryField =
+    | 'vanitiesEntries'
+    | 'storageEntries'
+    | 'countertopsEntries'
+    | 'mirrorEntries'
+    | 'pedestalAndConsolesEntries'
+    | 'basinEntries'
+    | 'tubsEntries'
+    | 'toiletsEntries';
+
+export type MultiStepFormStepId = Exclude<keyof MultiStepForm, RepeatableEntryField>;
 
 //Тип виключно кроків з продуктами
 export type ProductStepsData = Pick<
@@ -112,7 +131,7 @@ export const PRODUCT_STEP_TO_DISPLAY_NAME: Record<ProductStepKey, ProductDisplay
 };
 
 export type MultiStepFormStep = {
-    id: keyof MultiStepForm;
+    id: MultiStepFormStepId;
     label: string;
     title: string;
     description?: ReactNode;

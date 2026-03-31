@@ -1,13 +1,14 @@
 /* ProductsSuggestions.module.css */
-@use '../../../../styles/breakpoints.scss';
+@use '../../../../styles/breakpoints';
 
 .suggest {
-    background: #fff;
+    background: #ffffff;
     display: flex;
     flex-direction: column;
     padding: 50px 80px;
     align-self: stretch;
     gap: 32px;
+
     @include breakpoints.md {
         padding: 20px;
     }
@@ -20,6 +21,7 @@
         font-style: normal;
         font-weight: 500;
         line-height: 52px; /* 130% */
+
         @include breakpoints.md {
             width: auto;
             color: #ac5331;
@@ -30,6 +32,7 @@
             font-weight: 600;
             line-height: 28px; /* 140% */
         }
+
         span {
             color: #ac5331;
             font-family: 'Proxima Nova';
@@ -70,6 +73,7 @@
             flex-direction: column;
             gap: 12px;
             width: 240px;
+
             @include breakpoints.md {
                 width: 100%;
                 flex: 1 0 calc(50% - 20px);
@@ -93,7 +97,7 @@
 
             .itemTitle {
                 color: #282828;
-                font-family: Poppins;
+                font-family: "Poppins";
                 font-size: 16px;
                 font-style: normal;
                 font-weight: 500;
@@ -115,13 +119,11 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
-
     border-radius: 100px;
     border: 1px solid #ac5331;
-    background: #fff;
-
+    background: #ffffff;
     color: #ac5331;
-    font-family: Poppins;
+    font-family: "Poppins";
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -133,18 +135,18 @@
 
 .filterButton:hover {
     // color: #fff;
-    background: rgba(172, 83, 49, 0.05);
+    background: rgb(172, 83, 49, 0.05);
 }
 
 .filterButton.active {
     border-radius: 100px;
     background: #ac5331;
-    color: #fff;
+    color: #ffffff;
 }
 
 .emptyState {
     text-align: center;
     padding: 40px 20px;
-    color: #999;
+    color: #999999;
     font-size: 16px;
 }

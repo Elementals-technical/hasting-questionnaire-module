@@ -1,4 +1,4 @@
-@use '../../../../../../styles/breakpoints.scss';
+@use '../../../../../../styles/breakpoints';
 
 .form {
     height: 100%;
@@ -26,7 +26,6 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 40px;
-    max-width: 75rem;
     margin: 0 auto;
     max-width: 560px;
 
@@ -60,6 +59,7 @@
     .sectionTooltip {
         height: 32px;
     }
+
     &:last-child {
         margin-bottom: 90px;
     }
@@ -82,26 +82,26 @@
     padding: 8px 20px;
     border-radius: 100px;
     border: 1px solid #282828;
-    background: #fff;
+    background: #ffffff;
     cursor: pointer;
     transition: all 0.3s ease;
 
     &:hover {
         border-color: #ac5331;
-        background: rgba(172, 83, 49, 0.05);
+        background: rgb(172, 83, 49, 0.05);
     }
 
     &Selected {
         background: #282828;
         border-color: #282828;
-        color: #fff;
+        color: #ffffff;
 
         .optionLabel {
-            color: #fff;
+            color: #ffffff;
         }
 
         .infoIcon {
-            color: #fff;
+            color: #ffffff;
         }
 
         &:hover {
@@ -113,7 +113,7 @@
 
 .optionLabel {
     color: #282828;
-    font-family: Poppins;
+    font-family: "Poppins";
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -125,7 +125,7 @@
     margin-top: 16px;
     margin-bottom: 16px;
     color: #282828;
-    font-family: Poppins;
+    font-family: "Poppins";
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
@@ -136,17 +136,14 @@
 .tooltipText {
     width: 490px;
     display: flex;
-    gap: 8px;
     padding: 20px;
     align-items: flex-start;
     gap: 8px;
-
     border-radius: 20px;
     border: 1px solid #282828;
-    background: #fff;
-
+    background: #ffffff;
     color: #282828;
-    font-family: Poppins;
+    font-family: "Poppins";
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
@@ -162,7 +159,7 @@
 
 .footer {
     position: fixed;
-    background: rgba(241, 235, 230, 0.8);
+    background: rgb(241, 235, 230, 0.8);
     bottom: 0;
     left: 0;
     width: 100%;
@@ -182,7 +179,7 @@
         align-items: center;
         gap: 10px;
         color: #ac5331;
-        font-family: Poppins;
+        font-family: "Poppins";
         font-size: 14px;
         font-style: normal;
         font-weight: 700;
@@ -217,7 +214,9 @@
 .loader {
     width: 60px;
     aspect-ratio: 2;
-    --_g: no-repeat radial-gradient(circle closest-side, #000 90%, #0000);
+
+    --_g: no-repeat radial-gradient(circle closest-side, #000000 90%, #00000000);
+
     background:
         var(--_g) 0% 50%,
         var(--_g) 50% 50%,
@@ -225,6 +224,7 @@
     background-size: calc(100% / 5) 50%;
     animation: l3 1s infinite linear;
 }
+
 @keyframes l3 {
     20% {
         background-position:
@@ -232,18 +232,21 @@
             50% 50%,
             100% 50%;
     }
+
     40% {
         background-position:
             0% 100%,
             50% 0%,
             100% 50%;
     }
+
     60% {
         background-position:
             0% 50%,
             50% 100%,
             100% 0%;
     }
+
     80% {
         background-position:
             0% 50%,
@@ -266,15 +269,15 @@
     background: #f9f7f5;
     resize: vertical;
     min-height: 200px;
+
     // resize: none;
 
     color: #282828;
-    font-family: Poppins;
+    font-family: "Poppins";
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: 24px;
-
     transition: border-color 0.2s ease;
 
     &:focus {
@@ -332,11 +335,10 @@
     align-self: stretch;
     border-radius: 10px;
     border: 1px solid #ac5331;
-    background: #fff;
+    background: #ffffff;
     transition: background-color 0.2s ease;
-
     color: #282828;
-    font-family: Poppins;
+    font-family: "Poppins";
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -362,7 +364,7 @@
 
 .fileName {
     color: #282828;
-    font-family: Poppins;
+    font-family: "Poppins";
     font-size: 16px;
     font-style: normal;
     font-weight: 400;

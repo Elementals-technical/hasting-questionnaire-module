@@ -1,5 +1,6 @@
 // RotatingText.module.scss
-@use '../../../../../styles/breakpoints.scss';
+@use '../../../../../styles/breakpoints';
+
 .container {
     display: inline-block;
     position: relative;
@@ -38,6 +39,7 @@
         opacity: 0;
         transform: translate(-50%, calc(-50% + 20px)); // Adjusted for centering
     }
+
     100% {
         opacity: 1;
         transform: translate(-50%, -50%);

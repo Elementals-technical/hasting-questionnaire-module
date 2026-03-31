@@ -227,6 +227,8 @@ export const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
         conceptStyle: [],
         look: [],
         numberOfBasins: NUMBER_OF_BASINS_VANITITES_TYPES._SINGLE_VANITY,
+        additionalInfo: '',
+        files: [],
     },
     needOtherSolutions: {
         no: true,

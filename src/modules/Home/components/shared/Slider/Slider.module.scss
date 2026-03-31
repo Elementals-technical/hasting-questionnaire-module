@@ -6,6 +6,7 @@
     flex: 1 0 0;
     width: 100%;
     margin-bottom: 16px;
+
     &.disabled {
         opacity: 0.5;
         pointer-events: none; // Запобігає всім взаємодіям на рівні контейнера
@@ -24,7 +25,7 @@
             &:focus {
                 width: 20px; // Скасовуємо ефект збільшення при наведенні
                 height: 20px;
-                background: #fff;
+                background: #ffffff;
             }
         }
 
@@ -47,7 +48,7 @@
 
 .label {
     color: #282828;
-    font-family: Poppins;
+    font-family: "Poppins";
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
@@ -73,7 +74,7 @@
 .minValue,
 .maxValue {
     color: #282828;
-    font-family: Poppins;
+    font-family: "Poppins";
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
@@ -100,8 +101,8 @@
 
 .Track {
     border-radius: 100px;
-    border: 1px solid #000;
-    background: #fff;
+    border: 1px solid #000000;
+    background: #ffffff;
     position: relative;
     flex-grow: 1;
     height: 6px;
@@ -118,14 +119,12 @@
     cursor: pointer;
     display: block;
     position: relative;
-
     border-radius: 100px;
     border: 1px solid #282828;
-    background: #fff;
-
+    background: #ffffff;
     width: 20px;
     height: 20px;
-    box-shadow: 0px 0px 4px 0px rgba(62, 62, 63, 0.2) inset;
+    box-shadow: 0 0 4px 0 rgb(62, 62, 63, 0.2) inset;
     transition: all 0.2s ease;
 
     &:hover {
@@ -150,16 +149,12 @@
     top: -45px;
     left: 50%;
     transform: translateX(-50%);
-
     border-radius: 100px;
     border: 1px solid #282828;
-
     background: #282828;
-
-    color: white;
     padding: 6px 12px;
-    color: #fff;
-    font-family: Poppins;
+    color: #ffffff;
+    font-family: "Poppins";
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -167,7 +162,7 @@
     text-transform: capitalize;
     white-space: nowrap;
     pointer-events: none;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 8px rgb(0, 0, 0, 0.15);
     z-index: 10;
 
     // // Стрілка вниз

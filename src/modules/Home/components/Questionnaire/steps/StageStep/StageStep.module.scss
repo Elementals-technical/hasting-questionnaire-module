@@ -1,4 +1,4 @@
-@use '../../../../../../styles/breakpoints.scss';
+@use '../../../../../../styles/breakpoints';
 
 .content {
     display: flex;
@@ -25,13 +25,13 @@
     padding: 8px 20px;
     border-radius: 100px;
     border: 1px solid #282828;
-    background: #fff;
+    background: #ffffff;
     cursor: pointer;
     transition: all 0.3s ease;
 
     &:hover {
         border-color: #ac5331;
-        background: rgba(172, 83, 49, 0.05);
+        background: rgb(172, 83, 49, 0.05);
     }
 
     &Selected {
@@ -39,14 +39,15 @@
         border-color: #282828;
 
         .optionLabel {
-            color: #fff;
+            color: #ffffff;
         }
 
         .infoIcon {
-            color: #fff;
+            color: #ffffff;
+
             &Selected {
-                color: #fff;
-                fill: #fff;
+                color: #ffffff;
+                fill: #ffffff;
             }
         }
 
@@ -59,7 +60,7 @@
 
 .optionLabel {
     color: #282828;
-    font-family: Poppins;
+    font-family: "Poppins";
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -79,17 +80,14 @@
 .tooltipText {
     width: 490px;
     display: flex;
-    gap: 8px;
     padding: 20px;
     align-items: flex-start;
     gap: 8px;
-
     border-radius: 20px;
     border: 1px solid #282828;
-    background: #fff;
-
+    background: #ffffff;
     color: #282828;
-    font-family: Poppins;
+    font-family: "Poppins";
     font-size: 12px;
     font-style: normal;
     font-weight: 400;

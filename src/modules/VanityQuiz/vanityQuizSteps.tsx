@@ -3,6 +3,8 @@ import {
     MULTI_STEP_FORM_INITIAL_STATE,
     MULTI_STEP_FORM_STEPS,
 } from '@/modules/Home/components/shared/MultiStepForm/constants';
+import { createMultiStepForm } from '@/modules/Home/components/shared/MultiStepForm/createMultiStepForm';
+import { MultiStepForm } from '@/modules/Home/components/shared/MultiStepForm/types';
 
 export const LS_VANITY_QUIZ_KEY = 'HASTINGS_vanity-quiz';
 
@@ -63,3 +65,14 @@ export const VANITY_QUIZ_STEPS = {
     tubs: { ...MULTI_STEP_FORM_STEPS.tubs, enabled: true },
     toilets: { ...MULTI_STEP_FORM_STEPS.toilets, enabled: true },
 } as const;
+
+export const {
+    Provider: VanitiesFormProvider,
+    useFormContext: useVanitiesFormContext,
+    useStepForm: useVanitiesStepForm,
+} = createMultiStepForm<MultiStepForm>({
+    storageKey: LS_VANITY_QUIZ_KEY,
+    initialState: VANITY_QUIZ_INITIAL_STATE,
+    resultPath: '/quiz-vanities/result',
+    stepsConfig: VANITY_QUIZ_STEPS,
+});

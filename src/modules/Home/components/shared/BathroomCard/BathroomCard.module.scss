@@ -13,15 +13,13 @@
     justify-content: center;
     align-items: center;
     aspect-ratio: 1/1;
-
     border-radius: 100px;
     border: 2px solid #e5e6ea;
-    background: #fff;
-
+    background: #ffffff;
     transition: all 0.3s ease;
     cursor: pointer;
 
-    //Повернути якщо буде потрібно
+    // Повернути якщо буде потрібно
     // &:hover {
     //     transform: scale(1.02);
     // }
@@ -38,7 +36,7 @@
 .cardLabel {
     max-width: 70px;
     color: #282828;
-    font-family: Poppins;
+    font-family: "Poppins";
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
@@ -84,7 +82,7 @@
 .counterValue {
     color: #282828;
     text-align: center;
-    font-family: Poppins;
+    font-family: "Poppins";
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
