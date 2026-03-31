@@ -30,7 +30,7 @@
 .subtitle {
     width: 450px;
     color: #282828;
-    font-family: "Poppins";
+    font-family: 'Poppins';
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
@@ -39,7 +39,7 @@
     @include breakpoints.md {
         color: #282828;
         text-align: center;
-        font-family: "Poppins";
+        font-family: 'Poppins';
         font-size: 14px;
         font-style: normal;
         font-weight: 400;
@@ -63,11 +63,6 @@
     font-style: normal;
     font-weight: 600;
     line-height: 32px; /* 133.333% */
-}
-
-.content {
-    display: flex;
-    flex-direction: column;
 }
 
 .section {
@@ -122,7 +117,7 @@
 
 .optionLabel {
     color: #282828;
-    font-family: "Poppins";
+    font-family: 'Poppins';
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -134,7 +129,7 @@
     margin-top: 16px;
     margin-bottom: 16px;
     color: #282828;
-    font-family: "Poppins";
+    font-family: 'Poppins';
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
@@ -152,7 +147,7 @@
     border: 1px solid #282828;
     background: #ffffff;
     color: #282828;
-    font-family: "Poppins";
+    font-family: 'Poppins';
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
@@ -188,7 +183,7 @@
         align-items: center;
         gap: 10px;
         color: #ac5331;
-        font-family: "Poppins";
+        font-family: 'Poppins';
         font-size: 14px;
         font-style: normal;
         font-weight: 700;
@@ -322,7 +317,7 @@
     // resize: none;
 
     color: #282828;
-    font-family: "Poppins";
+    font-family: 'Poppins';
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -387,7 +382,7 @@
     background: #ffffff;
     transition: background-color 0.2s ease;
     color: #282828;
-    font-family: "Poppins";
+    font-family: 'Poppins';
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -413,7 +408,7 @@
 
 .fileName {
     color: #282828;
-    font-family: "Poppins";
+    font-family: 'Poppins';
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -448,7 +443,7 @@
 
 .error {
     color: #ef4444;
-    font-family: "Poppins";
+    font-family: 'Poppins';
     font-size: 14px;
     font-style: normal;
     font-weight: 400;

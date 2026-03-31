@@ -49,7 +49,7 @@
     align-items: center;
     gap: 10px;
     color: #ac5331;
-    font-family: "Poppins";
+    font-family: 'Poppins';
     font-size: 14px;
     font-style: normal;
     font-weight: 700;
@@ -108,6 +108,7 @@
     }
 }
 
+/* stylelint-disable-next-line keyframes-name-pattern */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -118,6 +119,7 @@
     }
 }
 
+/* stylelint-disable-next-line keyframes-name-pattern */
 @keyframes scaleIn {
     from {
         transform: scale(0.8);

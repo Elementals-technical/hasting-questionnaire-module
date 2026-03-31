@@ -29,7 +29,7 @@
     border: 1px solid #282828;
     background: #ffffff;
     color: #282828;
-    font-family: "Poppins";
+    font-family: 'Poppins';
     font-size: 14px;
     font-style: normal;
     font-weight: 400; /* 142.857% */
@@ -176,6 +176,7 @@
     text-align: center;
 }
 
+/* stylelint-disable-next-line keyframes-name-pattern */
 @keyframes slideDown {
     from {
         opacity: 0;

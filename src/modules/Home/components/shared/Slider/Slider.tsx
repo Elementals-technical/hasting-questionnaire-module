@@ -28,16 +28,16 @@ const Slider: FC<SliderPropsT> = ({
                     onValueChange={([value]) => onValueChange(value)}
                     value={[attributeValue]}
                     onDoubleClick={() => onValueChange(29)}
-                    className={s.Root}
+                    className={s.root}
                     defaultValue={[29]}
                     max={max}
                     min={min}
                     step={step}
                 >
-                    <S.Track className={s.Track}>
-                        <S.Range className={s.Range} />
+                    <S.Track className={s.track}>
+                        <S.Range className={s.range} />
                     </S.Track>
-                    <S.Thumb className={s.Thumb} aria-label="slider">
+                    <S.Thumb className={s.thumb} aria-label="slider">
                         <div className={s.valueDisplay}>
                             {attributeValue.toFixed(1)}
                             {unit}

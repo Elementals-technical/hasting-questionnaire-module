@@ -17,7 +17,7 @@
             color: #8e8e8e; // Робимо текст сірим
         }
 
-        .Thumb {
+        .thumb {
             cursor: not-allowed;
             border-color: #8e8e8e;
 
@@ -29,7 +29,7 @@
             }
         }
 
-        .Track {
+        .track {
             border-color: #8e8e8e;
         }
 
@@ -90,7 +90,7 @@
     text-align: left;
 }
 
-.Root {
+.root {
     position: relative;
     display: flex;
     align-items: center;
@@ -99,7 +99,7 @@
     flex: 1;
 }
 
-.Track {
+.track {
     border-radius: 100px;
     border: 1px solid #000000;
     background: #ffffff;
@@ -108,14 +108,14 @@
     height: 6px;
 }
 
-.Range {
+.range {
     border-radius: 50px;
     background: transparent;
     position: absolute;
     height: 100%;
 }
 
-.Thumb {
+.thumb {
     cursor: pointer;
     display: block;
     position: relative;

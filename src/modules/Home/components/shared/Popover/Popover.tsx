@@ -36,16 +36,16 @@ export const Popoup: React.FC<PopoupProps> = ({
             <Popover.Trigger asChild>{trigger}</Popover.Trigger>
 
             <Popover.Portal>
-                <Popover.Content className={`${s.Content} ${contentClassName}`} side={side} sideOffset={sideOffset}>
+                <Popover.Content className={`${s.content} ${contentClassName}`} side={side} sideOffset={sideOffset}>
                     {content}
 
                     {showCloseButton && (
-                        <Popover.Close className={s.Close} aria-label="Close">
+                        <Popover.Close className={s.close} aria-label="Close">
                             <CloseIcon />
                         </Popover.Close>
                     )}
 
-                    {showArrow && <Popover.Arrow className={s.Arrow} />}
+                    {showArrow && <Popover.Arrow className={s.arrow} />}
                 </Popover.Content>
             </Popover.Portal>
         </Popover.Root>

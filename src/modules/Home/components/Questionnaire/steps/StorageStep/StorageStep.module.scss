@@ -8,10 +8,12 @@
 }
 
 .content {
+    display: flex;
+    flex-direction: column;
     height: 100%;
     overflow-y: auto;
-    padding-right: 5px;
     padding: 0 25px;
+    padding-right: 5px;
 }
 
 .optionsContainer {
@@ -33,11 +35,6 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
     }
-}
-
-.content {
-    display: flex;
-    flex-direction: column;
 }
 
 .section {
@@ -113,7 +110,7 @@
 
 .optionLabel {
     color: #282828;
-    font-family: "Poppins";
+    font-family: 'Poppins';
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -125,7 +122,7 @@
     margin-top: 16px;
     margin-bottom: 16px;
     color: #282828;
-    font-family: "Poppins";
+    font-family: 'Poppins';
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
@@ -143,7 +140,7 @@
     border: 1px solid #282828;
     background: #ffffff;
     color: #282828;
-    font-family: "Poppins";
+    font-family: 'Poppins';
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
@@ -179,7 +176,7 @@
         align-items: center;
         gap: 10px;
         color: #ac5331;
-        font-family: "Poppins";
+        font-family: 'Poppins';
         font-size: 14px;
         font-style: normal;
         font-weight: 700;
@@ -273,7 +270,7 @@
     // resize: none;
 
     color: #282828;
-    font-family: "Poppins";
+    font-family: 'Poppins';
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -338,7 +335,7 @@
     background: #ffffff;
     transition: background-color 0.2s ease;
     color: #282828;
-    font-family: "Poppins";
+    font-family: 'Poppins';
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -364,7 +361,7 @@
 
 .fileName {
     color: #282828;
-    font-family: "Poppins";
+    font-family: 'Poppins';
     font-size: 16px;
     font-style: normal;
     font-weight: 400;

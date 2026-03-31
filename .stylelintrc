@@ -57,6 +57,7 @@
                 "ignore": ["stylelint-commands"]
             }
         ],
+        "custom-property-pattern": null,
         "comment-whitespace-inside": "always",
         "custom-property-empty-line-before": [
             "always",
