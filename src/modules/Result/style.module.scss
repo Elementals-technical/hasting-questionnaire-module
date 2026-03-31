@@ -43,7 +43,7 @@
 
 .subtitle {
     color: #ffffff;
-    font-family: "Poppins";
+    font-family: 'Poppins';
     font-size: 24px;
     font-style: normal;
     font-weight: 400;
@@ -52,7 +52,7 @@
     @include breakpoints.md {
         color: #ffffff;
         text-align: center;
-        font-family: "Poppins";
+        font-family: 'Poppins';
         font-size: 16px;
         font-style: normal;
         font-weight: 400;
