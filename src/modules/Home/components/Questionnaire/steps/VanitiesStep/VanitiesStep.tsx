@@ -36,7 +36,7 @@ import s from './VanitiesStep.module.scss';
 
 export const VanitiesForm = () => {
     const [showOverlay, setShowOverlay] = useState(false);
-    const { currentStep, handleProductStepSubmit, cleanUp, goToStep } = useMultiStepFormContext();
+    const { currentStep, handleProductStepSubmit, goToStep } = useMultiStepFormContext();
     const contactMutation = useCreateHubspotContact();
     const sendEmailMutation = useSendEmail();
     const uploadFiles = useUploadFiles();
@@ -59,7 +59,6 @@ export const VanitiesForm = () => {
 
     const submitHandler = form.handleSubmit(
         async (data) => {
-            // Ми просто викликаємо функцію з контексту
             await handleProductStepSubmit('vanities', data, {
                 setShowOverlay,
                 get,
@@ -67,7 +66,6 @@ export const VanitiesForm = () => {
                 uploadFiles,
                 sendEmailMutation,
                 navigate,
-                cleanUp,
             });
         },
         (errors) => {

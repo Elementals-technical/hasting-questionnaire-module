@@ -33,7 +33,7 @@ export const getProductsQueryOptions = (params: ImageAetheticsParams = { page: 1
     });
 };
 
-export const useGetProducts = (params: ImageAetheticsParams) => {
+export const useGetProducts = (params?: ImageAetheticsParams) => {
     return useQuery(getProductsQueryOptions(params));
 };
 

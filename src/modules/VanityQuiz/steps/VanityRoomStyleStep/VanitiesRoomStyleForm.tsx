@@ -11,6 +11,7 @@ import {
     useMultiStepFormContext,
     useMultiStepFormStepForm,
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
+import { StyleHint } from '@/modules/Home/components/shared/StyleHint/StyleHint';
 
 export const VanitiesRoomStyleForm = () => {
     const productParams = { limit: 20, tagId: [253, 61], excludeTagIds: [323] };
@@ -56,7 +57,12 @@ export const VanitiesRoomStyleForm = () => {
         <>
             <FormStepLayout
                 title={<span className={s.title}>{currentStep.title}</span>}
-                description={currentStep.description}
+                description={
+                    <div className={s.description}>
+                        <p>{currentStep.description}</p>
+                        <StyleHint />
+                    </div>
+                }
             >
                 <div className={s.content}>
                     <ImagePicker

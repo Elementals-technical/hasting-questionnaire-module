@@ -6,7 +6,7 @@ const ENTRY_FIELD_BY_PRODUCT: Partial<Record<PRODUCTS_TYPES, keyof MultiStepForm
     [PRODUCTS_TYPES._STORAGE]: 'storageEntries',
     [PRODUCTS_TYPES._COUNTERTOPS]: 'countertopsEntries',
     [PRODUCTS_TYPES._MIRROR]: 'mirrorEntries',
-    [PRODUCTS_TYPES._PEDESTAL_AND_CONSOLES]: 'pedestalAndConsolesEntries',
+    [PRODUCTS_TYPES._PEDESTALS_AND_CONSOLES]: 'pedestalAndConsolesEntries',
     [PRODUCTS_TYPES._BASIN]: 'basinEntries',
     [PRODUCTS_TYPES._TUBS]: 'tubsEntries',
     [PRODUCTS_TYPES._TOILETS]: 'toiletsEntries',

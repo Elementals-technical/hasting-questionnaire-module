@@ -4,6 +4,7 @@ import FormStepLayout from '@/modules/Home/components/layouts/FormStepLayout/For
 import s from '@/modules/Home/components/Questionnaire/steps/SelectBathroomsStep/components/BathroomPicker/BathroomPicker.module.scss';
 import { bathroomOptions } from '@/modules/Home/components/Questionnaire/steps/SelectBathroomsStep/components/BathroomPicker/constants';
 import BathroomCard from '@/modules/Home/components/shared/BathroomCard/BathroomCard';
+import ErrorMessage from '@/modules/Home/components/shared/ErrorMessage/ErrorMessage';
 import { MultiStepFormFooter } from '@/modules/Home/components/shared/FormFooter/MultiStepFormFooter';
 import {
     useMultiStepFormContext,
@@ -13,6 +14,11 @@ import {
 export const VanitiesRoomTypeForm = () => {
     const { currentStep, goToNextStep, setFormStepDataBatch } = useMultiStepFormContext();
     const { form } = useMultiStepFormStepForm('bathrooms');
+
+    const {
+        control,
+        formState: { errors },
+    } = form;
 
     const submitHandler = form.handleSubmit((data: BathroomsStepData) => {
         setFormStepDataBatch({
@@ -24,41 +30,76 @@ export const VanitiesRoomTypeForm = () => {
     return (
         <>
             <FormStepLayout title={currentStep.title} description={currentStep.description}>
-                <Controller
-                    name="rooms"
-                    control={form.control}
-                    render={({ field }) => {
-                        const handleToggle = (roomId: string) => {
-                            const existingIndex = field.value?.findIndex((r) => r.id === roomId);
-                            if (existingIndex !== undefined && existingIndex >= 0) {
-                                field.onChange(field.value.filter((r) => r.id !== roomId));
-                            } else {
-                                field.onChange([
-                                    ...(field.value || []),
-                                    { id: roomId as BathroomsStepData['rooms'][number]['id'], count: 1 },
-                                ]);
-                            }
-                        };
+                <div className={s.wrap}>
+                    <Controller
+                        name="rooms"
+                        control={control}
+                        render={({ field }) => {
+                            const handleToggle = (optionId: string) => {
+                                const existingIndex = field.value.findIndex((room) => {
+                                    return room.id === optionId;
+                                });
 
-                        return (
-                            <div className={s.grid}>
-                                {bathroomOptions.map((option) => {
-                                    const isSelected = field.value?.some((r) => r.id === option.id) ?? false;
-
-                                    return (
-                                        <BathroomCard
-                                            key={option.id}
-                                            option={option}
-                                            count={undefined}
-                                            isSelected={isSelected}
-                                            onToggle={() => handleToggle(option.id)}
-                                        />
+                                if (existingIndex >= 0) {
+                                    field.onChange(
+                                        field.value.filter((_, i) => {
+                                            return i !== existingIndex;
+                                        })
                                     );
-                                })}
-                            </div>
-                        );
-                    }}
-                />
+                                } else {
+                                    field.onChange([...field.value, { id: optionId, count: 1 }]);
+                                }
+                            };
+
+                            const handleIncrement = (optionId: string) => {
+                                const updatedRooms = field.value.map((room) => {
+                                    return room.id === optionId ? { ...room, count: room.count + 1 } : room;
+                                });
+                                field.onChange(updatedRooms);
+                            };
+
+                            const handleDecrement = (optionId: string) => {
+                                const updatedRooms = field.value.map((room) => {
+                                    return room.id === optionId && room.count > 1
+                                        ? { ...room, count: room.count - 1 }
+                                        : room;
+                                });
+                                field.onChange(updatedRooms);
+                            };
+
+                            return (
+                                <div className={s.grid}>
+                                    {bathroomOptions.map((option) => {
+                                        const room = field.value.find((r) => {
+                                            return r.id === option.id;
+                                        });
+                                        const isSelected = !!room;
+                                        const count = room?.count || 1;
+
+                                        return (
+                                            <BathroomCard
+                                                key={option.id}
+                                                option={option}
+                                                count={count}
+                                                isSelected={isSelected}
+                                                onToggle={() => {
+                                                    return handleToggle(option.id);
+                                                }}
+                                                onIncrement={() => {
+                                                    return handleIncrement(option.id);
+                                                }}
+                                                onDecrement={() => {
+                                                    return handleDecrement(option.id);
+                                                }}
+                                            />
+                                        );
+                                    })}
+                                </div>
+                            );
+                        }}
+                    />
+                    {errors.rooms && <ErrorMessage>{errors.rooms.message}</ErrorMessage>}
+                </div>
             </FormStepLayout>
 
             <MultiStepFormFooter onNext={submitHandler} isDisabled={!form.formState.isValid} />

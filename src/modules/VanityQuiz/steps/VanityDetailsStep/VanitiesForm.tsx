@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import AttachIcon from '@/assets/icons/common/AttachIcon';
 import CircleIcon from '@/assets/icons/common/CircleIcon';
 import CheckIcon from '@/assets/icons/common/DoneIcon';
@@ -30,6 +30,7 @@ import {
 import { VanitiesStepData } from '@/modules/Home/components/shared/MultiStepForm/types';
 import Slider from '@/modules/Home/components/shared/Slider/Slider';
 import TagSelector from '@/modules/Home/components/shared/TagSelector/TagSelector';
+import VanitiesTransitionOverlay from '@/modules/Home/components/shared/VanitiesTransitionOverlay/VanitiesTransitionOverlay';
 import { Button } from '@/components/ui/Button/Button';
 
 const cloneVanityDefaults = (value: VanitiesStepData): VanitiesStepData => {
@@ -51,6 +52,7 @@ export const VanitiesForm = () => {
         numberOfBasinsOptions,
         conceptStyleOptions
     );
+    const [showTransition, setShowTransition] = useState(false);
 
     const { remove } = useFileIndexedDBValue();
     const { mutate: setFileToIndexedDB } = useSetFileToIndexedDB();
@@ -119,61 +121,75 @@ export const VanitiesForm = () => {
             vanities: isLast ? data : (resized[nextEntryIndex] ?? cloneVanityDefaults(template)),
         });
 
-        goToNextStep();
+        if (isLast) {
+            goToNextStep();
+        } else {
+            setShowTransition(true);
+            setTimeout(() => {
+                setShowTransition(false);
+                goToProductInstance('vanities', nextEntryIndex);
+            }, 4000);
+        }
     });
+
+    if (showTransition) {
+        return <VanitiesTransitionOverlay nextIndex={currentProductInstanceIndex} total={vanityCount} />;
+    }
 
     return (
         <>
             <div className={s.vanityStepperWrap}>
-                <div className={s.vanityStepper} role="tablist" aria-label="Vanity steps">
-                    {Array.from({ length: vanityCount }, (_, idx) => {
-                        const isCurrent = idx === currentProductInstanceIndex;
-                        const isVisited = idx <= visitedUntilIndex;
-                        const isCompleted = idx < currentProductInstanceIndex || (isVisited && !isCurrent);
-                        const isLast = idx === vanityCount - 1;
+                {vanityCount > 1 && (
+                    <div className={s.vanityStepper} role="tablist" aria-label="Vanity steps">
+                        {Array.from({ length: vanityCount }, (_, idx) => {
+                            const isCurrent = idx === currentProductInstanceIndex;
+                            const isVisited = idx <= visitedUntilIndex;
+                            const isCompleted = idx < currentProductInstanceIndex || (isVisited && !isCurrent);
+                            const isLast = idx === vanityCount - 1;
 
-                        return (
-                            <React.Fragment key={idx}>
-                                <button
-                                    type="button"
-                                    role="tab"
-                                    aria-selected={isCurrent}
-                                    aria-disabled={!isVisited}
-                                    className={clsx(s.vanityStepItem, {
-                                        [s.vanityStepCurrent]: isCurrent,
-                                        [s.vanityStepCompleted]: isCompleted,
-                                        [s.vanityStepUnvisited]: !isVisited && !isCurrent,
-                                    })}
-                                    onClick={() => {
-                                        if (!isVisited || isCurrent) return;
-                                        goToProductInstance('vanities', idx);
-                                    }}
-                                    disabled={!isVisited && !isCurrent}
-                                >
-                                    <span className={s.vanityStepDot}>
-                                        {isCompleted && <CheckIcon />}
-                                        {isCurrent && (
-                                            <>
-                                                <CircleIcon />
-                                                <span className={s.vanityStepDotInner} />
-                                            </>
-                                        )}
-                                        {!isCompleted && !isCurrent && <span className={s.vanityStepDotInner} />}
-                                    </span>
-                                    <span className={s.vanityStepLabel}>{`Vanity ${idx + 1}`}</span>
-                                </button>
-                                {!isLast && (
-                                    <span
-                                        className={clsx(s.vanityStepConnector, {
-                                            [s.vanityStepConnectorActive]: idx < currentProductInstanceIndex,
+                            return (
+                                <React.Fragment key={idx}>
+                                    <Button
+                                        type="button"
+                                        role="tab"
+                                        aria-selected={isCurrent}
+                                        aria-disabled={!isVisited}
+                                        className={clsx(s.vanityStepItem, {
+                                            [s.vanityStepCurrent]: isCurrent,
+                                            [s.vanityStepCompleted]: isCompleted,
+                                            [s.vanityStepUnvisited]: !isVisited && !isCurrent,
                                         })}
-                                        aria-hidden="true"
-                                    />
-                                )}
-                            </React.Fragment>
-                        );
-                    })}
-                </div>
+                                        onClick={() => {
+                                            if (!isVisited || isCurrent) return;
+                                            goToProductInstance('vanities', idx);
+                                        }}
+                                        disabled={!isVisited && !isCurrent}
+                                    >
+                                        <span className={s.vanityStepDot}>
+                                            {isCompleted && <CheckIcon />}
+                                            {isCurrent && (
+                                                <>
+                                                    <CircleIcon />
+                                                    <span className={s.vanityStepDotInner} />
+                                                </>
+                                            )}
+                                            {!isCompleted && !isCurrent && <span className={s.vanityStepDotInner} />}
+                                        </span>
+                                        <span className={s.vanityStepLabel}>{`Vanity ${idx + 1}`}</span>
+                                    </Button>
+                                    {!isLast && (
+                                        <span
+                                            className={clsx(s.vanityStepConnector, {
+                                                [s.vanityStepConnectorActive]: idx < currentProductInstanceIndex,
+                                            })}
+                                            aria-hidden="true"
+                                        />
+                                    )}
+                                </React.Fragment>
+                            );
+                        })}
+                    </div>
+                )}
             </div>
             <FormStepLayout title={currentStep.title} description={currentStep.description}>
                 <div className={s.form}>

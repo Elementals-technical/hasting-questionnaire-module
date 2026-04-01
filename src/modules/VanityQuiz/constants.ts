@@ -1,1 +1,1 @@
-export const words = ['tailored', 'exclusive', 'personalized'];
+export const words = ['tailored', 'exclusive', 'custom'];

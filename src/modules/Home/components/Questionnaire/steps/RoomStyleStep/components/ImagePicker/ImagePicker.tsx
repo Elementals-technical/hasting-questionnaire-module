@@ -28,25 +28,15 @@ export const ImagePicker: React.FC<ImagesPickerProps> = ({
 }) => {
     const {
         control,
-        handleSubmit,
         formState: { errors },
     } = form;
 
-    // const observerTarget = useRef<HTMLDivElement>(null);
-    // const observerRef = useRef<IntersectionObserver | null>(null);
-
     const isMobile = useMediaQuery('(max-width: 768px)');
-
-    const onSubmit = (data: RoomStyleStepData) => {
-        console.log('Form data:', data);
-    };
-
-    console.log('IMAGES', images);
 
     if (isLoading) return <span>Loading...</span>;
 
     return (
-        <form className={s.wrap} onSubmit={handleSubmit(onSubmit)}>
+        <div className={s.wrap}>
             <Controller
                 name="rooms"
                 control={control}
@@ -103,6 +93,6 @@ export const ImagePicker: React.FC<ImagesPickerProps> = ({
                 }}
             />
             {errors.rooms && <ErrorMessage>{errors.rooms.message}</ErrorMessage>}
-        </form>
+        </div>
     );
 };

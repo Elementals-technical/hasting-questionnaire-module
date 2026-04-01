@@ -24,9 +24,8 @@ export const VanityStartRoute = () => {
 
     return (
         <div className={s.wrap}>
-            <h1 className={s.title}>Vanity Solutioning - done for you.</h1>
+            <h1 className={s.title}>Vanity Solutioning — done for you</h1>
             <p className={s.subtitle}>
-                Tired of endlessly scrolling for the perfect vanity? We fixed that. <br />
                 Take out 4 minute refreshingly simple interactive quiz and get <RotatingText words={words} /> vanity
                 solutions in your inbox fast
             </p>

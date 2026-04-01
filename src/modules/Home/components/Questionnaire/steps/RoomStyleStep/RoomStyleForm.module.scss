@@ -23,6 +23,12 @@
     }
 }
 
+.description {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
 .showMore {
     color: #ac5331;
     cursor: pointer;
