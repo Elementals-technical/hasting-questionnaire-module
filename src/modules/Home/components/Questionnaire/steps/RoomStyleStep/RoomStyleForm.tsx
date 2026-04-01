@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import FormStepLayout from '../../../layouts/FormStepLayout/FormStepLayout';
 import { MultiStepFormFooter } from '../../../shared/FormFooter/MultiStepFormFooter';
-import { StyleHint } from '../../../shared/StyleHint/StyleHint';
 import { shuffleArray } from './utils';
 import { useGetProductsInfinite } from '@/tanstackQuery/queries/products';
 import { Product } from '@/tanstackQuery/types';
@@ -66,12 +65,7 @@ export const RoomStyleForm = () => {
         <>
             <FormStepLayout
                 title={<span className={s.title}>{currentStep.title}</span>}
-                description={
-                    <div className={s.description}>
-                        <p>{currentStep.description}</p>
-                        <StyleHint />
-                    </div>
-                }
+                description={currentStep.description}
             >
                 <div className={s.content}>
                     <ImagePicker
