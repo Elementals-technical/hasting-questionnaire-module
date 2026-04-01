@@ -1,7 +1,8 @@
+import { FC } from 'react';
 import { motion } from 'framer-motion';
 import s from './StyleHint.module.scss';
 
-export const StyleHint = () => {
+export const StyleHint: FC<{ text: string }> = ({ text }) => {
     return (
         <motion.p
             className={s.hint}
@@ -18,7 +19,7 @@ export const StyleHint = () => {
                 P.S.{' '}
             </motion.span>
             <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2, duration: 0.6 }}>
-                This helps our team get a feel for your overall aesthetic and style preferences
+                {text}
             </motion.span>
         </motion.p>
     );

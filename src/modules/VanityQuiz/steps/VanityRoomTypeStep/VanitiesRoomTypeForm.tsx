@@ -11,6 +11,7 @@ import {
     useMultiStepFormContext,
     useMultiStepFormStepForm,
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
+import { StyleHint } from '@/modules/Home/components/shared/StyleHint/StyleHint';
 
 export const VanitiesRoomTypeForm = () => {
     const { currentStep, goToNextStep, setFormStepDataBatch, formData } = useMultiStepFormContext();
@@ -32,7 +33,15 @@ export const VanitiesRoomTypeForm = () => {
 
     return (
         <>
-            <FormStepLayout title={currentStep.title} description={currentStep.description}>
+            <FormStepLayout
+                title={currentStep.title}
+                description={
+                    <div className={s.description}>
+                        <p>{currentStep.description}</p>
+                        <StyleHint text="The value is limited by the number of items selected in the previous step." />
+                    </div>
+                }
+            >
                 <div className={s.wrap}>
                     <Controller
                         name="rooms"

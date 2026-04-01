@@ -60,7 +60,7 @@ export const VanitiesRoomStyleForm = () => {
                 description={
                     <div className={s.description}>
                         <p>{currentStep.description}</p>
-                        <StyleHint />
+                        <StyleHint text="This helps our team get a feel for your overall aesthetic and style preferences" />
                     </div>
                 }
             >
