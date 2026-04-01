@@ -22,7 +22,7 @@ const ImageOverlapGallery: React.FC<ImageOverlapGalleryProps> = ({ images, class
     return (
         <div className={clsx(s.overlapGalleryContainer, className)}>
             {/* Перше (головне) зображення - на задньому плані */}
-            {imgOverlap && <img className={clsx(s.galleryImage, s.primaryImage)} src={imgPrimary} alt="Primary view" />}
+            {imgPrimary && <img className={clsx(s.galleryImage, s.primaryImage)} src={imgPrimary} alt="Primary view" />}
 
             {/* Друге (накладене) зображення - зміщене */}
             {imgOverlap && (
