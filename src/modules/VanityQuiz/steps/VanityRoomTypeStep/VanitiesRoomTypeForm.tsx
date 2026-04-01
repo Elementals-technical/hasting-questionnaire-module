@@ -1,6 +1,7 @@
 import { Controller } from 'react-hook-form';
 import type { BathroomsStepData } from '@/modules/Home/components/shared/MultiStepForm/types';
 import FormStepLayout from '@/modules/Home/components/layouts/FormStepLayout/FormStepLayout';
+import { PRODUCTS_TYPES } from '@/modules/Home/components/Questionnaire/steps/ProductsStep/components/BathroomPicker/constants';
 import s from '@/modules/Home/components/Questionnaire/steps/SelectBathroomsStep/components/BathroomPicker/BathroomPicker.module.scss';
 import { bathroomOptions } from '@/modules/Home/components/Questionnaire/steps/SelectBathroomsStep/components/BathroomPicker/constants';
 import BathroomCard from '@/modules/Home/components/shared/BathroomCard/BathroomCard';
@@ -12,8 +13,10 @@ import {
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
 
 export const VanitiesRoomTypeForm = () => {
-    const { currentStep, goToNextStep, setFormStepDataBatch } = useMultiStepFormContext();
+    const { currentStep, goToNextStep, setFormStepDataBatch, formData } = useMultiStepFormContext();
     const { form } = useMultiStepFormStepForm('bathrooms');
+
+    const vanityCount = formData.products.products.find((p) => p.id === PRODUCTS_TYPES._VANITIES)?.count ?? 1;
 
     const {
         control,
@@ -35,23 +38,21 @@ export const VanitiesRoomTypeForm = () => {
                         name="rooms"
                         control={control}
                         render={({ field }) => {
+                            const totalCount = field.value.reduce((sum, room) => sum + room.count, 0);
+
                             const handleToggle = (optionId: string) => {
-                                const existingIndex = field.value.findIndex((room) => {
-                                    return room.id === optionId;
-                                });
+                                const existingIndex = field.value.findIndex((room) => room.id === optionId);
 
                                 if (existingIndex >= 0) {
-                                    field.onChange(
-                                        field.value.filter((_, i) => {
-                                            return i !== existingIndex;
-                                        })
-                                    );
+                                    field.onChange(field.value.filter((_, i) => i !== existingIndex));
                                 } else {
+                                    if (totalCount >= vanityCount) return; // ← не додаємо якщо ліміт вичерпано
                                     field.onChange([...field.value, { id: optionId, count: 1 }]);
                                 }
                             };
 
                             const handleIncrement = (optionId: string) => {
+                                if (totalCount >= vanityCount) return;
                                 const updatedRooms = field.value.map((room) => {
                                     return room.id === optionId ? { ...room, count: room.count + 1 } : room;
                                 });
