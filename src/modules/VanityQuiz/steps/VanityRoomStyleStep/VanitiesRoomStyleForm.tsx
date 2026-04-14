@@ -47,7 +47,20 @@ export const VanitiesRoomStyleForm = () => {
     };
 
     const submitHandler = form.handleSubmit((dataValue) => {
-        setFormStepData('roomStyle', dataValue);
+        const filtered = shuffledProducts.filter((product) =>
+            dataValue.rooms.some((room) => room.img !== product.image)
+        );
+
+        const formData = dataValue;
+
+        if (dataValue.rooms.length === 1) {
+            formData.rooms = [
+                ...formData.rooms,
+                { img: filtered[0].previewImage, aesthetics: formData.rooms[0].aesthetics },
+            ];
+        }
+
+        setFormStepData('roomStyle', formData);
         goToNextStep();
     });
 

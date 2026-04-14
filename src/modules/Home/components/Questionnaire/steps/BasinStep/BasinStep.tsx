@@ -19,6 +19,7 @@ import {
     useMultiStepFormStepForm,
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
 import TagSelector from '@/modules/Home/components/shared/TagSelector/TagSelector';
+import { LS_VANITY_QUIZ_KEY } from '@/modules/VanityQuiz/vanityQuizSteps';
 import { ACCEPT_FILES } from '../../../shared/MultiStepForm/constants';
 import { colorTypesOptions, lookTypesOptions } from '../constants';
 import {
@@ -33,7 +34,7 @@ import s from './BasinStep.module.scss';
 
 export const BasinForm = () => {
     const [showOverlay, setShowOverlay] = useState(false);
-    const { currentStep, handleProductStepSubmit, cleanUp, goToStep } = useMultiStepFormContext();
+    const { currentStep, handleProductStepSubmit, cleanUp, goToStep, localStorageKey } = useMultiStepFormContext();
     const contactMutation = useCreateHubspotContact();
     const sendEmailMutation = useSendEmail();
     const uploadFiles = useUploadFiles();
@@ -353,7 +354,9 @@ export const BasinForm = () => {
                 </div>
             </FormStepLayout>
             <MultiStepFormFooter
-                onBack={() => goToStep('products')}
+                onBack={() =>
+                    localStorageKey === LS_VANITY_QUIZ_KEY ? goToStep('needOtherSolutions') : goToStep('products')
+                }
                 onNext={submitHandler}
                 isDisabled={!form.formState.isValid}
             />

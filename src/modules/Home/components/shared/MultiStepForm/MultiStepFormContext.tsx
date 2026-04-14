@@ -32,6 +32,7 @@ type MultiStepFormContextType = {
     isLastStep: boolean;
     isFirstStep: boolean;
     goToNextStep: () => void;
+    localStorageKey: string;
     goToStep: (_stepName: MultiStepFormStepId) => void;
     goToPreviousStep: () => void;
     setFormStepData: <TField extends keyof MultiStepForm>(
@@ -510,6 +511,7 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
             getOrderedProductSteps,
             submitFinal,
             handleProductStepSubmit,
+            localStorageKey,
             currentProductInstanceIndex: currentProductIndex,
             goToProductInstance,
         };
@@ -530,6 +532,7 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
         cleanUp,
         getOrderedProductSteps,
         submitFinal,
+        localStorageKey,
         handleProductStepSubmit,
         currentProductIndex,
         goToProductInstance,

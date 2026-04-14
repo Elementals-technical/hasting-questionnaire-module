@@ -24,6 +24,7 @@ import {
     useMultiStepFormContext,
     useMultiStepFormStepForm,
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
+import { LS_VANITY_QUIZ_KEY } from '@/modules/VanityQuiz/vanityQuizSteps';
 import { ACCEPT_FILES } from '../../../shared/MultiStepForm/constants';
 import {
     colorTypesOptions,
@@ -41,7 +42,7 @@ import s from './StorageStep.module.scss';
 export const StorageForm = () => {
     const [showOverlay, setShowOverlay] = useState(false);
 
-    const { currentStep, handleProductStepSubmit, cleanUp, goToStep } = useMultiStepFormContext();
+    const { currentStep, handleProductStepSubmit, cleanUp, goToStep, localStorageKey } = useMultiStepFormContext();
     const contactMutation = useCreateHubspotContact();
     const sendEmailMutation = useSendEmail();
     const uploadFiles = useUploadFiles();
@@ -403,7 +404,9 @@ export const StorageForm = () => {
                 </div>
             </FormStepLayout>
             <MultiStepFormFooter
-                onBack={() => goToStep('products')}
+                onBack={() =>
+                    localStorageKey === LS_VANITY_QUIZ_KEY ? goToStep('needOtherSolutions') : goToStep('products')
+                }
                 onNext={submitHandler}
                 isDisabled={!form.formState.isValid}
             />

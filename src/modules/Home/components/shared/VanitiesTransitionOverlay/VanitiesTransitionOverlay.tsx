@@ -87,7 +87,7 @@ const VanitiesTransitionOverlay = ({ nextIndex, total }: Props) => {
                 })}
             </div>
 
-            <p className={s.title}>Which vanity should we work on next?</p>
+            <p className={s.title}>Let's work on your next vanity</p>
 
             <div className={s.badge}>
                 Vanity {nextIndex + 1}

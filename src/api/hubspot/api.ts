@@ -143,28 +143,37 @@ export async function uploadFiles(files: File[]): Promise<FileUploadResponse> {
     }
 }
 
-// Константи
-const HUBSPOT_FORM_URL =
-    'https://api.hsforms.com/submissions/v3/integration/submit/21569224/6859c46c-7a65-424f-86a2-c7397ca61c27';
-
 // Типи даних (опціонально для TypeScript)
 interface FormField {
     name: string;
     value: string;
 }
 
+interface FormField {
+    name: string;
+    value: string;
+}
+
+interface SubmitHubSpotFormParams {
+    fields: FormField[];
+    portalId: string;
+    formId: string;
+}
+
 // 1. Функція для відправки через axios
-export const submitHubSpotForm = async (fields: FormField[]) => {
-    const data = {
-        fields: fields,
-    };
+export const submitHubSpotForm = async ({ fields, portalId, formId }: SubmitHubSpotFormParams) => {
+    const url = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`;
 
     try {
-        const response = await axios.post(HUBSPOT_FORM_URL, data, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+        const response = await axios.post(
+            url,
+            { fields },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
         return response.data;
     } catch (error) {
         if (axios.isAxiosError(error)) {
