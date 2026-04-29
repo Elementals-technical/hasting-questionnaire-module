@@ -60,6 +60,10 @@ export interface ProductsSuggest {
 export interface ProductsResponse {
     rows: Product[];
     count: number;
+    nextCursor?: {
+        slotLastIds: number[];
+        othersLastId: number;
+    } | null;
 }
 
 export interface ProductsSuggestResponse {
@@ -76,6 +80,10 @@ export interface ImageAetheticsParams {
         tagId: number;
         percentage: number;
     }[];
+    cursor?: {
+        slotLastIds: number[];
+        othersLastId: number;
+    } | null;
 }
 
 export interface ProductsParams {

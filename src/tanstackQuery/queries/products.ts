@@ -46,7 +46,7 @@ export const useGetProductsInfinite = (params: Omit<ImageAetheticsParams, 'page'
                 signal,
                 params: {
                     ...params,
-                    page: pageParam,
+                    cursor: pageParam,
                     limit: 20,
                     // sortByTagId: [255, 256],
                     sortByTagIdsV2: [
@@ -56,16 +56,15 @@ export const useGetProductsInfinite = (params: Omit<ImageAetheticsParams, 'page'
                 },
             });
         },
-        initialPageParam: 1,
-        getNextPageParam: (lastPage, _allPages, lastPageParam) => {
-            // Варіант 1: Якщо бекенд повертає total
-            if (lastPage.count) {
-                const totalPages = Math.ceil(lastPage.count / params.limit);
-                return lastPageParam < totalPages ? lastPageParam + 1 : undefined;
+        initialPageParam: null as ImageAetheticsParams['cursor'],
+        getNextPageParam: (lastPage) => {
+            // Зупиняємося, якщо даних немає
+            if (!lastPage.rows || lastPage.rows.length === 0) {
+                return undefined;
             }
-        },
-        getPreviousPageParam: (_firstPage, _allPages, firstPageParam) => {
-            return firstPageParam > 1 ? firstPageParam - 1 : undefined;
+
+            // Повертаємо nextCursor з бекенду (якщо він є)
+            return lastPage.nextCursor ?? undefined;
         },
     });
 };

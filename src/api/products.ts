@@ -28,6 +28,11 @@ export const getProducts = async ({
                         return;
                     }
 
+                    if (key === 'cursor') {
+                        searchParams.append(key, JSON.stringify(value));
+                        return;
+                    }
+
                     // 2. Обробка звичайних масивів (наприклад, [255, 256] -> key=255&key=256)
                     if (Array.isArray(value)) {
                         value.forEach((v) => {
