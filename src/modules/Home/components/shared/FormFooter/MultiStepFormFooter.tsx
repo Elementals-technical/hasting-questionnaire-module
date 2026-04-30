@@ -2,6 +2,7 @@ import React from 'react';
 import { useMultiStepFormContext } from '../MultiStepForm/MultiStepFormContext';
 import { useHotkey } from '@tanstack/react-hotkeys';
 import clsx from 'clsx';
+import { trackQuizStep } from '@/utils/ga4/analytics-utils';
 import { Button } from '@/components/ui';
 import s from './MultiStepFormFooter.module.scss';
 
@@ -30,7 +31,7 @@ export const MultiStepFormFooter = ({
     className,
     isDisabled = false,
 }: MultiStepFormFooterProps) => {
-    const { goToPreviousStep, goToNextStep, isLastStep } = useMultiStepFormContext();
+    const { goToPreviousStep, goToNextStep, isLastStep, currentStep } = useMultiStepFormContext();
 
     const handleBack = onBack || goToPreviousStep;
     const handleNext = onNext || goToNextStep;
@@ -49,7 +50,10 @@ export const MultiStepFormFooter = ({
                     {componentBeforeNext && componentBeforeNext}
                     <Button
                         className={clsx(s.btnNext, { [s.disabled]: isDisabled })}
-                        onClick={handleNext}
+                        onClick={() => {
+                            trackQuizStep(currentStep.label);
+                            return handleNext();
+                        }}
                         disabled={isNextDisabled}
                         type="submit"
                     >
