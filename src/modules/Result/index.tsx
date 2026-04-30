@@ -1,7 +1,9 @@
+import { useEffect } from 'react';
 import HeaderBG from '../../assets/images/output.jpg';
 import { useGetProductsSuggest } from '@/tanstackQuery/queries/products_suggest';
 import { useLocalStorageValue } from '@react-hookz/web';
 import { WorkflowStep } from '@/modules/Home/components/shared/WorkflowSteps/WorkflowStep';
+import { trackQuizComplete } from '@/utils/ga4/analytics-utils';
 import { MULTI_STEP_FORM_INITIAL_STATE } from '../Home/components/shared/MultiStepForm/constants';
 import { STEPS_ITEMS } from './constants';
 import { LS_MULTI_STEP_FORM_KEY } from '../Home/components/shared';
@@ -18,6 +20,9 @@ export const ResultRoute = () => {
 
     const formData = value ? (JSON.parse(value) as MultiStepForm) : (MULTI_STEP_FORM_INITIAL_STATE as MultiStepForm);
 
+    useEffect(() => {
+        trackQuizComplete('Main Quiz');
+    }, []);
     return (
         <>
             <div
