@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import HeaderBG from '../../assets/images/output.jpg';
 import { useGetProductsSuggest } from '@/tanstackQuery/queries/products_suggest';
 import { useLocalStorageValue } from '@react-hookz/web';
@@ -10,12 +11,17 @@ import ProductsSuggestions from '@/modules/Result/components/ProductsSuggestions
 import { STEPS_ITEMS } from '@/modules/Result/constants';
 import s from '@/modules/Result/style.module.scss';
 import { LS_VANITY_QUIZ_KEY } from '@/modules/VanityQuiz/vanityQuizSteps';
+import { trackQuizComplete } from '@/utils/ga4/analytics-utils';
 
 export const VanityResultRoute = () => {
     const { data } = useGetProductsSuggest();
 
     const { value } = useLocalStorageValue<string>(LS_VANITY_QUIZ_KEY);
     const formData = value ? (JSON.parse(value) as MultiStepForm) : (MULTI_STEP_FORM_INITIAL_STATE as MultiStepForm);
+
+    useEffect(() => {
+        trackQuizComplete('Vanity Quiz');
+    }, []);
 
     return (
         <>

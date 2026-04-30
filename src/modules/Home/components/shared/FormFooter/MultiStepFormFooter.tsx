@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useMultiStepFormContext } from '../MultiStepForm/MultiStepFormContext';
 import { useHotkey } from '@tanstack/react-hotkeys';
 import clsx from 'clsx';
+import ReactGA from 'react-ga4';
 import { trackQuizStep } from '@/utils/ga4/analytics-utils';
 import { Button } from '@/components/ui';
 import s from './MultiStepFormFooter.module.scss';
@@ -31,10 +32,20 @@ export const MultiStepFormFooter = ({
     className,
     isDisabled = false,
 }: MultiStepFormFooterProps) => {
-    const { goToPreviousStep, goToNextStep, isLastStep, currentStep } = useMultiStepFormContext();
+    const { goToPreviousStep, goToNextStep, isLastStep, currentStep, steps, currentStepIndex } =
+        useMultiStepFormContext();
 
     const handleBack = onBack || goToPreviousStep;
     const handleNext = onNext || goToNextStep;
+
+    useEffect(() => {
+        // 1. Отправляем как просмотр виртуальной страницы
+        ReactGA.send({
+            hitType: 'pageview',
+            page: `/quiz/step-${steps[currentStepIndex].id}`,
+            title: `Quiz Step ${steps[currentStepIndex].label}`,
+        });
+    }, [currentStepIndex, steps]);
 
     useHotkey('Enter', () => handleNext(), { enabled: !isNextDisabled && !hideNext && !isDisabled });
 
