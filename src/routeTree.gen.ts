@@ -14,7 +14,6 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as ResultIndexImport } from './routes/result/index'
-import { Route as QuizVanitiesResultIndexImport } from './routes/quiz-vanities/result/index'
 
 // Create Virtual Routes
 
@@ -73,12 +72,6 @@ const QuizVanitiesQuestionnaireIndexLazyRoute =
     ),
   )
 
-const QuizVanitiesResultIndexRoute = QuizVanitiesResultIndexImport.update({
-  id: '/quiz-vanities/result/',
-  path: '/quiz-vanities/result/',
-  getParentRoute: () => rootRoute,
-} as any)
-
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -118,13 +111,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StartIndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/quiz-vanities/result/': {
-      id: '/quiz-vanities/result/'
-      path: '/quiz-vanities/result'
-      fullPath: '/quiz-vanities/result'
-      preLoaderRoute: typeof QuizVanitiesResultIndexImport
-      parentRoute: typeof rootRoute
-    }
     '/quiz-vanities/questionnaire/': {
       id: '/quiz-vanities/questionnaire/'
       path: '/quiz-vanities/questionnaire'
@@ -143,7 +129,6 @@ export interface FileRoutesByFullPath {
   '/questionnaire': typeof QuestionnaireIndexLazyRoute
   '/quiz-vanities': typeof QuizVanitiesIndexLazyRoute
   '/start': typeof StartIndexLazyRoute
-  '/quiz-vanities/result': typeof QuizVanitiesResultIndexRoute
   '/quiz-vanities/questionnaire': typeof QuizVanitiesQuestionnaireIndexLazyRoute
 }
 
@@ -153,7 +138,6 @@ export interface FileRoutesByTo {
   '/questionnaire': typeof QuestionnaireIndexLazyRoute
   '/quiz-vanities': typeof QuizVanitiesIndexLazyRoute
   '/start': typeof StartIndexLazyRoute
-  '/quiz-vanities/result': typeof QuizVanitiesResultIndexRoute
   '/quiz-vanities/questionnaire': typeof QuizVanitiesQuestionnaireIndexLazyRoute
 }
 
@@ -164,7 +148,6 @@ export interface FileRoutesById {
   '/questionnaire/': typeof QuestionnaireIndexLazyRoute
   '/quiz-vanities/': typeof QuizVanitiesIndexLazyRoute
   '/start/': typeof StartIndexLazyRoute
-  '/quiz-vanities/result/': typeof QuizVanitiesResultIndexRoute
   '/quiz-vanities/questionnaire/': typeof QuizVanitiesQuestionnaireIndexLazyRoute
 }
 
@@ -176,7 +159,6 @@ export interface FileRouteTypes {
     | '/questionnaire'
     | '/quiz-vanities'
     | '/start'
-    | '/quiz-vanities/result'
     | '/quiz-vanities/questionnaire'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -185,7 +167,6 @@ export interface FileRouteTypes {
     | '/questionnaire'
     | '/quiz-vanities'
     | '/start'
-    | '/quiz-vanities/result'
     | '/quiz-vanities/questionnaire'
   id:
     | '__root__'
@@ -194,7 +175,6 @@ export interface FileRouteTypes {
     | '/questionnaire/'
     | '/quiz-vanities/'
     | '/start/'
-    | '/quiz-vanities/result/'
     | '/quiz-vanities/questionnaire/'
   fileRoutesById: FileRoutesById
 }
@@ -205,7 +185,6 @@ export interface RootRouteChildren {
   QuestionnaireIndexLazyRoute: typeof QuestionnaireIndexLazyRoute
   QuizVanitiesIndexLazyRoute: typeof QuizVanitiesIndexLazyRoute
   StartIndexLazyRoute: typeof StartIndexLazyRoute
-  QuizVanitiesResultIndexRoute: typeof QuizVanitiesResultIndexRoute
   QuizVanitiesQuestionnaireIndexLazyRoute: typeof QuizVanitiesQuestionnaireIndexLazyRoute
 }
 
@@ -215,7 +194,6 @@ const rootRouteChildren: RootRouteChildren = {
   QuestionnaireIndexLazyRoute: QuestionnaireIndexLazyRoute,
   QuizVanitiesIndexLazyRoute: QuizVanitiesIndexLazyRoute,
   StartIndexLazyRoute: StartIndexLazyRoute,
-  QuizVanitiesResultIndexRoute: QuizVanitiesResultIndexRoute,
   QuizVanitiesQuestionnaireIndexLazyRoute:
     QuizVanitiesQuestionnaireIndexLazyRoute,
 }
@@ -235,7 +213,6 @@ export const routeTree = rootRoute
         "/questionnaire/",
         "/quiz-vanities/",
         "/start/",
-        "/quiz-vanities/result/",
         "/quiz-vanities/questionnaire/"
       ]
     },
@@ -253,9 +230,6 @@ export const routeTree = rootRoute
     },
     "/start/": {
       "filePath": "start/index.lazy.tsx"
-    },
-    "/quiz-vanities/result/": {
-      "filePath": "quiz-vanities/result/index.tsx"
     },
     "/quiz-vanities/questionnaire/": {
       "filePath": "quiz-vanities/questionnaire/index.lazy.tsx"
