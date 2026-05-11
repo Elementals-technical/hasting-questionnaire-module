@@ -38,8 +38,7 @@ export const buildVanityDualShapePayload = (formData: MultiStepForm): MultiStepF
             return;
         }
 
-        const legacyField = product.id as unknown as keyof MultiStepForm;
-        payload[legacyField] = firstEntry as MultiStepForm[keyof MultiStepForm];
+        (payload as Record<string, unknown>)[product.id] = firstEntry;
     });
 
     return payload;

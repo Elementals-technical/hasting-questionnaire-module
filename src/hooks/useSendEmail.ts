@@ -8,6 +8,7 @@ type HubspotMutationOptions = UseMutationOptions<string, Error, MultiStepForm>;
 
 export type EmailMutationData = MultiStepForm & {
     aesthetics: AestheticResult | null;
+    source?: string;
     attachments: FileUploadResult[]; // Додаємо поле для результатів завантаження
 };
 

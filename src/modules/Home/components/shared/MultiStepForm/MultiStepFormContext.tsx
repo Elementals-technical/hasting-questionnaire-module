@@ -154,6 +154,10 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
             return 1;
         }
 
+        if (stepId !== 'vanities') {
+            return 1;
+        }
+
         const productId = stepId as unknown as PRODUCTS_TYPES;
         return data.products.products.find((p) => p.id === productId)?.count ?? 1;
     }, []);
@@ -282,7 +286,7 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
     const cleanUp = React.useCallback(() => {
         resetCurrentStepIndex();
         setFormData(JSON.stringify(initialState));
-    }, [resetCurrentStepIndex, setFormData]);
+    }, [initialState, resetCurrentStepIndex, setFormData]);
 
     const getOrderedProductSteps = React.useCallback((formData: MultiStepForm) => {
         const allSelected = formData.products.products.map((p) => p.id); // наприклад: ['vanities', 'mirror', 'toilets']
@@ -295,17 +299,23 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
 
     const runFinalSubmission = useCallback(
         async (finalData: MultiStepForm, actions: FinalActions) => {
-            console.log('RKR_FINAL_DATA', finalData);
+            const submissionData = { ...finalData };
+
+            if (!stepsConfig.bathroomFocus.enabled) {
+                delete (submissionData as Partial<MultiStepForm>).bathroomFocus;
+            }
+
+            console.log('RKR_FINAL_DATA', submissionData);
             try {
                 actions.setShowOverlay(true);
 
                 // 1. Збір метаданих файлів
-                const selectedProductIds = finalData.products.products.map((p) => p.id);
+                const selectedProductIds = submissionData.products.products.map((p) => p.id);
                 const filesMetadata = [
-                    ...(finalData.aboutProject?.files || []),
+                    ...(submissionData.aboutProject?.files || []),
                     ...selectedProductIds.flatMap((id) => {
                         const entryKey = `${id}Entries` as keyof MultiStepForm;
-                        const entries = finalData[entryKey];
+                        const entries = submissionData[entryKey];
                         if (Array.isArray(entries)) {
                             return entries.flatMap((entry) => {
                                 const files = (entry as StepWithFiles)?.files;
@@ -313,7 +323,7 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
                             });
                         }
 
-                        const stepData = finalData[id as keyof MultiStepForm];
+                        const stepData = submissionData[id as keyof MultiStepForm];
                         const files = (stepData as StepWithFiles)?.files;
                         return Array.isArray(files) ? files : [];
                     }),
@@ -340,7 +350,7 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
                 }
 
                 // 4. Оновлення finalData з URL-ами завантажених файлів
-                const updatedFinalData = { ...finalData };
+                const updatedFinalData = { ...submissionData };
 
                 // Функція для маппінгу файлів з URL
                 const mapFilesWithUrls = (files: FileMetadata[] | undefined): FileMetadata[] | undefined => {
@@ -391,24 +401,26 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
                 });
 
                 // 5. Відправка імейлу з оновленими даними
-                // await actions.sendEmailMutation.mutateAsync({
-                //     ...updatedFinalData,
-                //     aesthetics: determineDominantStyles(updatedFinalData.roomStyle.rooms, SUBSTYLES),
-                //     attachments: attachments,
-                // });
+                await actions.sendEmailMutation.mutateAsync({
+                    ...updatedFinalData,
+                    aesthetics: determineDominantStyles(updatedFinalData.roomStyle.rooms, SUBSTYLES),
+                    attachments: attachments,
+                    // Якщо bathroomFocus вимкнений ми розуміємо що це Vanity Quiz
+                    ...(stepsConfig.bathroomFocus.enabled ? {} : { source: localStorageKey }),
+                });
 
                 console.log('FINAL_FORM_DATA', updatedFinalData);
 
                 // 6. Оновлення контакту в HubSpot (ігноруємо помилку, якщо впаде)
-                // try {
-                //     await actions.contactMutation.mutateAsync({
-                //         firstname: finalData.name.name + '_ELEMENTALS_TEST',
-                //         email: finalData.email.email,
-                //         questionnaire_app: JSON.stringify(updatedFinalData), // Відправляємо оновлені дані
-                //     });
-                // } catch (hubspotError) {
-                //     console.error(`HubSpot contact update failed, but it's not critical:`, hubspotError);
-                // }
+                try {
+                    await actions.contactMutation.mutateAsync({
+                        firstname: submissionData.name.name + '_ELEMENTALS_TEST',
+                        email: submissionData.email.email,
+                        questionnaire_app: JSON.stringify(updatedFinalData), // Відправляємо оновлені дані
+                    });
+                } catch (hubspotError) {
+                    console.error(`HubSpot contact update failed, but it's not critical:`, hubspotError);
+                }
 
                 // 7. Очікування та навігація
                 await new Promise((resolve) => setTimeout(resolve, 8500));
@@ -421,7 +433,7 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
                 actions.setShowOverlay(false);
             }
         },
-        [resultPath]
+        [localStorageKey, resultPath, stepsConfig.bathroomFocus.enabled]
     );
 
     const submitFinal = React.useCallback(
@@ -467,13 +479,18 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
                 setFormStepData(stepId, data);
             }
 
+            const finalUpdatedFormData = {
+                ...updatedFormData,
+                ...entryUpdates,
+            };
+
             setFormStepDataBatch(entryUpdates);
             setProductStepInstanceIndex((prev) => ({
                 ...prev,
                 [stepId]: 0,
             }));
 
-            const productQueue = getOrderedProductSteps(updatedFormData);
+            const productQueue = getOrderedProductSteps(finalUpdatedFormData);
             const currentIndex = productQueue.indexOf(stepId as unknown as PRODUCTS_TYPES);
             const nextProductId = productQueue[currentIndex + 1];
 
@@ -481,7 +498,7 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
                 goToStep(nextProductId);
             } else {
                 // Якщо це останній крок — запускаємо фінальну логіку
-                await runFinalSubmission(updatedFormData, finalActions);
+                await runFinalSubmission(finalUpdatedFormData, finalActions);
             }
         },
         [

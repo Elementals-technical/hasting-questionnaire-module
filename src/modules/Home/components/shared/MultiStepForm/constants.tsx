@@ -200,7 +200,7 @@ export const MULTI_STEP_FORM_STEPS = {
         schema: toiletsStepSchema,
         enabled: true,
     },
-} as const satisfies Record<keyof MultiStepForm, MultiStepFormStep>;
+} as const satisfies Record<MultiStepFormStep['id'], MultiStepFormStep>;
 
 export const MULTI_STEP_FORM_INITIAL_STATE: MultiStepForm = {
     roomStyle: {
