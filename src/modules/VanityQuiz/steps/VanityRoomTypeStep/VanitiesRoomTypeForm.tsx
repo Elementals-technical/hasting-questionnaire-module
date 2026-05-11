@@ -2,7 +2,6 @@ import { Controller } from 'react-hook-form';
 import type { BathroomsStepData } from '@/modules/Home/components/shared/MultiStepForm/types';
 import FormStepLayout from '@/modules/Home/components/layouts/FormStepLayout/FormStepLayout';
 import { PRODUCTS_TYPES } from '@/modules/Home/components/Questionnaire/steps/ProductsStep/components/BathroomPicker/constants';
-import s from '@/modules/Home/components/Questionnaire/steps/SelectBathroomsStep/components/BathroomPicker/BathroomPicker.module.scss';
 import { bathroomOptions } from '@/modules/Home/components/Questionnaire/steps/SelectBathroomsStep/components/BathroomPicker/constants';
 import BathroomCard from '@/modules/Home/components/shared/BathroomCard/BathroomCard';
 import ErrorMessage from '@/modules/Home/components/shared/ErrorMessage/ErrorMessage';
@@ -12,6 +11,7 @@ import {
     useMultiStepFormStepForm,
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
 import { StyleHint } from '@/modules/Home/components/shared/StyleHint/StyleHint';
+import s from './VanitiesRoomTypeForm.module.scss';
 
 export const VanitiesRoomTypeForm = () => {
     const { currentStep, goToNextStep, setFormStepDataBatch, formData } = useMultiStepFormContext();
@@ -108,7 +108,7 @@ export const VanitiesRoomTypeForm = () => {
                             );
                         }}
                     />
-                    {errors.rooms && <ErrorMessage>{errors.rooms.message}</ErrorMessage>}
+                    {errors.rooms && <ErrorMessage className={s.error}>{errors.rooms.message}</ErrorMessage>}
                 </div>
             </FormStepLayout>
 

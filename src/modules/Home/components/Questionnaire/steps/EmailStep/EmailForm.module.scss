@@ -5,12 +5,10 @@
     flex-direction: column;
     gap: 8px;
     position: relative;
-    align-items: center;
     justify-content: center;
 
     span {
-        position: absolute;
-        top: 32px;
+        min-height: 26px;
     }
 
     @include breakpoints.md {
