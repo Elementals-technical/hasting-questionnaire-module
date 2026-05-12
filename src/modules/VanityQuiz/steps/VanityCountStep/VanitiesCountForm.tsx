@@ -10,6 +10,7 @@ import {
     useMultiStepFormContext,
     useMultiStepFormStepForm,
 } from '@/modules/Home/components/shared/MultiStepForm/MultiStepFormContext';
+import s from './VanitiesCountForm.module.scss';
 
 export const VanitiesCountForm = () => {
     const { currentStep, goToNextStep, setFormStepDataBatch } = useMultiStepFormContext();
@@ -42,7 +43,7 @@ export const VanitiesCountForm = () => {
                     };
 
                     return (
-                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <div className={s.wrap}>
                             <BathroomCard
                                 option={vanitiesOption}
                                 count={count}

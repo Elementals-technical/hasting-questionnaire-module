@@ -6,7 +6,7 @@ export const STEPS_ITEMS = [
     {
         title: 'Take your style quiz',
         description:
-            'Tell us about your likes/dislikes, goals, rooms you’re working on, and your solution needs. The more we know, the better your Designer can tailor the ideal solutions to fit your needs. ',
+            'Tell us about your likes/dislikes, goals, rooms you’re working on, and your solution needs. The more we know, the better your designer can tailor the ideal solutions to fit your needs. ',
         icon: <BadgeQuestionIcon />,
     },
     {
