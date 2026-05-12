@@ -9,6 +9,7 @@ import s from './BathroomCard.module.scss';
 const BathroomCard: React.FC<BathroomCardProps> = ({
     option,
     count,
+    max,
     isSelected,
     onToggle,
     onIncrement,
@@ -26,7 +27,7 @@ const BathroomCard: React.FC<BathroomCardProps> = ({
                         <MinIcon />
                     </Button>
                     <span className={s.counterValue}>{count}</span>
-                    <Button className={s.counterButton} onClick={onIncrement}>
+                    <Button className={s.counterButton} onClick={onIncrement} disabled={max ? count >= max : false}>
                         <PlusIcon />
                     </Button>
                 </div>

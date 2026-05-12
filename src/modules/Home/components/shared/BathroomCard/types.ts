@@ -1,6 +1,7 @@
 export type BathroomCardProps = {
     option: CardOption;
     count?: number;
+    max?: number;
     isSelected: boolean;
     onToggle: () => void;
     onIncrement?: () => void;
