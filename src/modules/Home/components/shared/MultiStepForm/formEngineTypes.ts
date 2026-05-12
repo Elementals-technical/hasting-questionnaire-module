@@ -29,7 +29,7 @@ export type SubmitStrategy<TForm extends Record<string, unknown>, TFinalActions>
 export type MultiStepFormConfig<TForm extends Record<string, unknown>, TFinalActions> = {
     storageKey: string;
     initialState: TForm;
-    stepsConfig: Record<keyof TForm, StepDefinition<TForm>>;
+    stepsConfig: Partial<Record<keyof TForm, StepDefinition<TForm>>>;
     resultPath: string;
     submitStrategy: SubmitStrategy<TForm, TFinalActions>;
 };

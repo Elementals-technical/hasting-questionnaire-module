@@ -3,6 +3,8 @@
     flex-direction: column;
     gap: 24px;
     width: 100%;
+    align-items: center;
+    justify-content: center;
 }
 
 .grid {
@@ -17,7 +19,7 @@
     overflow: hidden auto; // Запобігаємо горизонтальному скролу всієї сітки
 
     & > * {
-        /* 
+        /*
            flex-grow: 1   -> розтягується, щоб заповнити пустий простір
            flex-shrink: 1 -> стискається, щоб не вилазити за межі
            flex-basis: auto -> бере розмір контенту або задану ширину

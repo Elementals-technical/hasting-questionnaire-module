@@ -159,4 +159,5 @@ export type FinalActions = {
     uploadFiles: ReturnType<typeof useUploadFiles>;
     sendEmailMutation: ReturnType<typeof useSendEmail>;
     navigate: ReturnType<typeof useNavigate>;
+    cleanUp?: () => void;
 };

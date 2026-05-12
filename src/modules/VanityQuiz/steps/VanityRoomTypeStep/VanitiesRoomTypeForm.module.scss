@@ -1,0 +1,40 @@
+@use '../../../../styles/breakpoints';
+
+.wrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    // Додаємо overflow-x: auto, якщо ви хочете, щоб примусовий скрол
+    // з'являвся лише на самому контейнері за потреби.
+    overflow-x: auto;
+}
+
+.grid {
+    display: flex;
+    flex-wrap: wrap; // Дозволяє елементам переноситись на наступний рядок
+    gap: 40px;
+    max-width: 75rem;
+    margin: 0 auto;
+
+    & > * {
+        // Розрахунок для 3 колонок: (100% - сумарний gap між ними) / 3
+        flex: 0 1 calc((100% - (40px * 2)) / 3);
+        box-sizing: border-box;
+    }
+
+    @include breakpoints.md {
+        gap: 20px;
+
+        & > * {
+            // Розрахунок для 2 колонок: (100% - gap) / 2
+            flex: 0 1 calc((100% - 20px) / 2);
+        }
+    }
+}
+
+.error {
+    position: absolute;
+}

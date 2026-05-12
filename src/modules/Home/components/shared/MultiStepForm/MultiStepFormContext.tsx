@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
     AnimationDirection,
     FileMetadata,
@@ -154,6 +154,10 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
             return 1;
         }
 
+        if (stepId !== 'vanities') {
+            return 1;
+        }
+
         const productId = stepId as unknown as PRODUCTS_TYPES;
         return data.products.products.find((p) => p.id === productId)?.count ?? 1;
     }, []);
@@ -282,7 +286,7 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
     const cleanUp = React.useCallback(() => {
         resetCurrentStepIndex();
         setFormData(JSON.stringify(initialState));
-    }, [resetCurrentStepIndex, setFormData]);
+    }, [initialState, resetCurrentStepIndex, setFormData]);
 
     const getOrderedProductSteps = React.useCallback((formData: MultiStepForm) => {
         const allSelected = formData.products.products.map((p) => p.id); // наприклад: ['vanities', 'mirror', 'toilets']
@@ -293,131 +297,144 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
         return [focusProduct, ...otherProducts];
     }, []);
 
-    const runFinalSubmission = async (finalData: MultiStepForm, actions: FinalActions) => {
-        try {
-            actions.setShowOverlay(true);
+    const runFinalSubmission = useCallback(
+        async (finalData: MultiStepForm, actions: FinalActions) => {
+            const submissionData = { ...finalData };
 
-            // 1. Збір метаданих файлів
-            const selectedProductIds = finalData.products.products.map((p) => p.id);
-            const filesMetadata = [
-                ...(finalData.aboutProject?.files || []),
-                ...selectedProductIds.flatMap((id) => {
-                    const entryKey = `${id}Entries` as keyof MultiStepForm;
-                    const entries = finalData[entryKey];
-                    if (Array.isArray(entries)) {
-                        return entries.flatMap((entry) => {
-                            const files = (entry as StepWithFiles)?.files;
-                            return Array.isArray(files) ? files : [];
-                        });
-                    }
-
-                    const stepData = finalData[id as keyof MultiStepForm];
-                    const files = (stepData as StepWithFiles)?.files;
-                    return Array.isArray(files) ? files : [];
-                }),
-            ].filter((f) => f.idInIndexedDB);
-
-            // 2. Отримання файлів з IndexedDB
-            const filePromises = filesMetadata.map((f) => actions.get<File>('files', parseInt(f.idInIndexedDB!)));
-            const results = await Promise.allSettled(filePromises);
-            const successfulFiles = results
-                .filter((r): r is PromiseFulfilledResult<File> => r.status === 'fulfilled')
-                .map((r) => r.value);
-
-            let attachments: FileUploadResult[] = [];
-
-            // 3. Завантаження файлів
-            if (successfulFiles.length > 0) {
-                try {
-                    const uploadResponse: FileUploadResponse = await actions.uploadFiles.mutateAsync(successfulFiles);
-                    attachments = uploadResponse.results;
-                } catch (error) {
-                    console.error('File upload failed, but continuing...', error);
-                }
+            if (!stepsConfig.bathroomFocus.enabled) {
+                delete (submissionData as Partial<MultiStepForm>).bathroomFocus;
             }
 
-            // 4. Оновлення finalData з URL-ами завантажених файлів
-            const updatedFinalData = { ...finalData };
-
-            // Функція для маппінгу файлів з URL
-            const mapFilesWithUrls = (files: FileMetadata[] | undefined): FileMetadata[] | undefined => {
-                if (!files || files.length === 0) return files;
-
-                return files.map((file) => {
-                    const uploadedFile = attachments.find(
-                        (uploaded) => uploaded.originalName === file.name && uploaded.size === file.size
-                    );
-
-                    return {
-                        ...file,
-                        url: uploadedFile?.url,
-                    };
-                });
-            };
-
-            // Оновлюємо aboutProject files
-            if (updatedFinalData.aboutProject?.files) {
-                updatedFinalData.aboutProject.files = mapFilesWithUrls(updatedFinalData.aboutProject.files);
-            }
-
-            // Оновлюємо files в кожному продукті
-            selectedProductIds.forEach((id) => {
-                const entryKey = `${id}Entries` as keyof MultiStepForm;
-                const entries = updatedFinalData[entryKey];
-                if (Array.isArray(entries)) {
-                    (updatedFinalData as Record<string, unknown>)[entryKey] = entries.map((entry) => ({
-                        ...(entry as object),
-                        files: mapFilesWithUrls((entry as StepWithFiles).files),
-                    }));
-                } else {
-                    const stepData = updatedFinalData[id as keyof MultiStepForm] as StepWithFiles;
-                    if (stepData?.files) {
-                        stepData.files = mapFilesWithUrls(stepData.files);
-                    }
-                }
-            });
-
-            // dual-shape v1: keep legacy singular fields from repeatable entries
-            selectedProductIds.forEach((id) => {
-                const entryKey = `${id}Entries` as keyof MultiStepForm;
-                const entries = updatedFinalData[entryKey];
-                if (Array.isArray(entries) && entries.length > 0) {
-                    const legacyKey = id as unknown as keyof MultiStepForm;
-                    (updatedFinalData as Record<string, unknown>)[legacyKey] = entries[0];
-                }
-            });
-
-            // 5. Відправка імейлу з оновленими даними
-            await actions.sendEmailMutation.mutateAsync({
-                ...updatedFinalData,
-                aesthetics: determineDominantStyles(updatedFinalData.roomStyle.rooms, SUBSTYLES),
-                attachments: attachments,
-            });
-
-            console.log('FINAL_FORM_DATA', updatedFinalData);
-
-            // 6. Оновлення контакту в HubSpot (ігноруємо помилку, якщо впаде)
+            console.log('RKR_FINAL_DATA', submissionData);
             try {
-                await actions.contactMutation.mutateAsync({
-                    firstname: finalData.name.name + '_ELEMENTALS_TEST',
-                    email: finalData.email.email,
-                    questionnaire_app: JSON.stringify(updatedFinalData), // Відправляємо оновлені дані
+                actions.setShowOverlay(true);
+
+                // 1. Збір метаданих файлів
+                const selectedProductIds = submissionData.products.products.map((p) => p.id);
+                const filesMetadata = [
+                    ...(submissionData.aboutProject?.files || []),
+                    ...selectedProductIds.flatMap((id) => {
+                        const entryKey = `${id}Entries` as keyof MultiStepForm;
+                        const entries = submissionData[entryKey];
+                        if (Array.isArray(entries)) {
+                            return entries.flatMap((entry) => {
+                                const files = (entry as StepWithFiles)?.files;
+                                return Array.isArray(files) ? files : [];
+                            });
+                        }
+
+                        const stepData = submissionData[id as keyof MultiStepForm];
+                        const files = (stepData as StepWithFiles)?.files;
+                        return Array.isArray(files) ? files : [];
+                    }),
+                ].filter((f) => f.idInIndexedDB);
+
+                // 2. Отримання файлів з IndexedDB
+                const filePromises = filesMetadata.map((f) => actions.get<File>('files', parseInt(f.idInIndexedDB!)));
+                const results = await Promise.allSettled(filePromises);
+                const successfulFiles = results
+                    .filter((r): r is PromiseFulfilledResult<File> => r.status === 'fulfilled')
+                    .map((r) => r.value);
+
+                let attachments: FileUploadResult[] = [];
+
+                // 3. Завантаження файлів
+                if (successfulFiles.length > 0) {
+                    try {
+                        const uploadResponse: FileUploadResponse =
+                            await actions.uploadFiles.mutateAsync(successfulFiles);
+                        attachments = uploadResponse.results;
+                    } catch (error) {
+                        console.error('File upload failed, but continuing...', error);
+                    }
+                }
+
+                // 4. Оновлення finalData з URL-ами завантажених файлів
+                const updatedFinalData = { ...submissionData };
+
+                // Функція для маппінгу файлів з URL
+                const mapFilesWithUrls = (files: FileMetadata[] | undefined): FileMetadata[] | undefined => {
+                    if (!files || files.length === 0) return files;
+
+                    return files.map((file) => {
+                        const uploadedFile = attachments.find(
+                            (uploaded) => uploaded.originalName === file.name && uploaded.size === file.size
+                        );
+
+                        return {
+                            ...file,
+                            url: uploadedFile?.url,
+                        };
+                    });
+                };
+
+                // Оновлюємо aboutProject files
+                if (updatedFinalData.aboutProject?.files) {
+                    updatedFinalData.aboutProject.files = mapFilesWithUrls(updatedFinalData.aboutProject.files);
+                }
+
+                // Оновлюємо files в кожному продукті
+                selectedProductIds.forEach((id) => {
+                    const entryKey = `${id}Entries` as keyof MultiStepForm;
+                    const entries = updatedFinalData[entryKey];
+                    if (Array.isArray(entries)) {
+                        (updatedFinalData as Record<string, unknown>)[entryKey] = entries.map((entry) => ({
+                            ...(entry as object),
+                            files: mapFilesWithUrls((entry as StepWithFiles).files),
+                        }));
+                    } else {
+                        const stepData = updatedFinalData[id as keyof MultiStepForm] as StepWithFiles;
+                        if (stepData?.files) {
+                            stepData.files = mapFilesWithUrls(stepData.files);
+                        }
+                    }
                 });
-            } catch (hubspotError) {
-                console.error(`HubSpot contact update failed, but it's not critical:`, hubspotError);
+
+                // dual-shape v1: keep legacy singular fields from repeatable entries
+                selectedProductIds.forEach((id) => {
+                    const entryKey = `${id}Entries` as keyof MultiStepForm;
+                    const entries = updatedFinalData[entryKey];
+                    if (Array.isArray(entries) && entries.length > 0) {
+                        const legacyKey = id as unknown as keyof MultiStepForm;
+                        (updatedFinalData as Record<string, unknown>)[legacyKey] = entries[0];
+                    }
+                });
+
+                // 5. Відправка імейлу з оновленими даними
+                await actions.sendEmailMutation.mutateAsync({
+                    ...updatedFinalData,
+                    aesthetics: determineDominantStyles(updatedFinalData.roomStyle.rooms, SUBSTYLES),
+                    attachments: attachments,
+                    // Якщо bathroomFocus вимкнений ми розуміємо що це Vanity Quiz
+                    ...(stepsConfig.bathroomFocus.enabled ? {} : { source: localStorageKey }),
+                });
+
+                console.log('FINAL_FORM_DATA', updatedFinalData);
+
+                // 6. Оновлення контакту в HubSpot (ігноруємо помилку, якщо впаде)
+                try {
+                    await actions.contactMutation.mutateAsync({
+                        firstname: submissionData.name.name + '_ELEMENTALS_TEST',
+                        email: submissionData.email.email,
+                        questionnaire_app: JSON.stringify(updatedFinalData), // Відправляємо оновлені дані
+                    });
+                } catch (hubspotError) {
+                    console.error(`HubSpot contact update failed, but it's not critical:`, hubspotError);
+                }
+
+                // 7. Очікування та навігація
+                await new Promise((resolve) => setTimeout(resolve, 8500));
+
+                actions.navigate({ to: resultPath as never });
+            } catch (e) {
+                console.error('Critical submission error:', e);
+                actions.navigate({ to: resultPath as never });
+            } finally {
+                actions.setShowOverlay(false);
             }
-
-            // 7. Очікування та навігація
-            await new Promise((resolve) => setTimeout(resolve, 8500));
-
-            actions.navigate({ to: resultPath as never });
-        } catch (e) {
-            console.error('Critical submission error:', e);
-            actions.navigate({ to: resultPath as never });
-        } finally {
-            actions.setShowOverlay(false);
-        }
-    };
+        },
+        [localStorageKey, resultPath, stepsConfig.bathroomFocus.enabled]
+    );
 
     const submitFinal = React.useCallback(
         async (finalActions: FinalActions, finalDataOverride?: MultiStepForm) => {
@@ -462,13 +479,18 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
                 setFormStepData(stepId, data);
             }
 
+            const finalUpdatedFormData = {
+                ...updatedFormData,
+                ...entryUpdates,
+            };
+
             setFormStepDataBatch(entryUpdates);
             setProductStepInstanceIndex((prev) => ({
                 ...prev,
                 [stepId]: 0,
             }));
 
-            const productQueue = getOrderedProductSteps(updatedFormData);
+            const productQueue = getOrderedProductSteps(finalUpdatedFormData);
             const currentIndex = productQueue.indexOf(stepId as unknown as PRODUCTS_TYPES);
             const nextProductId = productQueue[currentIndex + 1];
 
@@ -476,7 +498,7 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
                 goToStep(nextProductId);
             } else {
                 // Якщо це останній крок — запускаємо фінальну логіку
-                await runFinalSubmission(updatedFormData, finalActions);
+                await runFinalSubmission(finalUpdatedFormData, finalActions);
             }
         },
         [
@@ -486,6 +508,7 @@ export const MultiStepFormProvider: React.FC<MultiStepFormProviderProps> = ({
             initialState,
             parsedFormData,
             productStepInstanceIndex,
+            runFinalSubmission,
             setFormStepData,
             setFormStepDataBatch,
         ]
