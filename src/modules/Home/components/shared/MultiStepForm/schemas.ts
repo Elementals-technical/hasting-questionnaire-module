@@ -157,7 +157,7 @@ export const needOtherSolutionsStepSchema = z
                     .number()
                     .int()
                     .min(1, 'Count must be at least 1')
-                    .max(1, 'At this time, you can select a maximum of 1 unit of each product in quiz'),
+                    .max(1, 'Currently, you can select a maximum of 1 unit of each item in the quiz'),
             })
         ),
     })
