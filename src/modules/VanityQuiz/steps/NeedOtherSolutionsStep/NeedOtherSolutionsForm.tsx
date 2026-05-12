@@ -158,7 +158,6 @@ export const NeedOtherSolutionsForm = () => {
                                             key={option.id}
                                             option={option}
                                             isSelected={!isNoSelected && !!selected}
-                                            count={selected?.count ?? 1}
                                             onToggle={handleToggle}
                                             onIncrement={handleIncrement}
                                             onDecrement={handleDecrement}
