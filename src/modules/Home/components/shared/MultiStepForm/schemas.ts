@@ -153,7 +153,11 @@ export const needOtherSolutionsStepSchema = z
         products: z.array(
             z.object({
                 id: z.nativeEnum(PRODUCTS_TYPES),
-                count: z.number().int().min(1, 'Count must be at least 1'),
+                count: z
+                    .number()
+                    .int()
+                    .min(1, 'Count must be at least 1')
+                    .max(1, 'At this time, you can select a maximum of 1 unit of each product'),
             })
         ),
     })

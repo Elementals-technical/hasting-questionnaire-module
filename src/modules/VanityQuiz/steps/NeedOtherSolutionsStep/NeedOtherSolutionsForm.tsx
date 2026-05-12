@@ -13,6 +13,7 @@ import {
 } from '@/modules/Home/components/Questionnaire/steps/ProductsStep/components/BathroomPicker/constants';
 import BathroomCard from '@/modules/Home/components/shared/BathroomCard/BathroomCard';
 import CalculatingOverlay from '@/modules/Home/components/shared/CalculatingOverlay/CalculatingOverlay';
+import ErrorMessage from '@/modules/Home/components/shared/ErrorMessage/ErrorMessage';
 import { MultiStepFormFooter } from '@/modules/Home/components/shared/FormFooter/MultiStepFormFooter';
 import {
     useMultiStepFormContext,
@@ -30,6 +31,10 @@ export const NeedOtherSolutionsForm = () => {
     const { currentStep, formData, goToStep, getOrderedProductSteps, setFormStepDataBatch, submitFinal } =
         useMultiStepFormContext();
     const { form } = useMultiStepFormStepForm('needOtherSolutions');
+
+    const {
+        formState: { errors },
+    } = form;
 
     const contactMutation = useCreateHubspotContact();
     const sendEmailMutation = useSendEmail();
@@ -164,6 +169,11 @@ export const NeedOtherSolutionsForm = () => {
                         )}
                     />
                 </div>
+                <ErrorMessage className={s.error}>
+                    {Array.isArray(errors.products)
+                        ? errors.products.find((item) => item?.count)?.count?.message
+                        : errors.products?.message}
+                </ErrorMessage>
             </div>
 
             <MultiStepFormFooter onNext={submitHandler} isDisabled={!form.formState.isValid} />
