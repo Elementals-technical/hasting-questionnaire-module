@@ -39,11 +39,27 @@ export const MultiStepFormFooter = ({
     const handleNext = onNext || goToNextStep;
 
     useEffect(() => {
+        const step = steps[currentStepIndex];
+
+        if (!step) return;
+
         // 1. Отправляем как просмотр виртуальной страницы
         ReactGA.send({
             hitType: 'pageview',
-            page: `/quiz/step-${steps[currentStepIndex].id}`,
-            title: `Quiz Step ${steps[currentStepIndex].label}`,
+            page: `/quiz/step-${step.id}`,
+            title: `Quiz Step ${step.label}`,
+        });
+
+        // GTM
+        window.dataLayer = window.dataLayer || [];
+
+        // 1. Отправляем как просмотр виртуальной страницы
+        window.dataLayer.push({
+            event: 'quiz_page_view',
+            page_type: 'quiz',
+            quiz_step: step.id,
+            quiz_step_label: step.label,
+            quiz_url: window.location.href,
         });
     }, [currentStepIndex, steps]);
 

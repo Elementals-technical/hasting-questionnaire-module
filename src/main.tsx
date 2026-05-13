@@ -5,6 +5,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
 import ReactDOM from 'react-dom/client';
 import ReactGA from 'react-ga4';
+import TagManager from 'react-gtm-module';
 import type { Config } from '@svg-use/react';
 
 import { routeTree } from './routeTree.gen';
@@ -14,6 +15,10 @@ import '@/styles/index.css';
 const router = createRouter({ routeTree });
 
 ReactGA.initialize(import.meta.env.VITE_GA_ID);
+
+TagManager.initialize({
+    gtmId: import.meta.env.VITE_GTM_ID,
+});
 
 declare module '@tanstack/react-router' {
     interface Register {
